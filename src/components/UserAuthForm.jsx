@@ -22,8 +22,8 @@ function UserAuthForm({ className, ...props }) {
     <div className={`grid gap-6  ${className}`} {...props}>
       <form onSubmit={onSubmit}>
         <div className="grid gap-2">
-          <div className="grid gap-1 mb-2">
-            <Label className="text-sm text-black/50" htmlFor="email">
+          <div className="grid gap-1">
+            <Label className="text-sm font-light text-black/50" htmlFor="email">
               Email
             </Label>
             <Input
@@ -37,7 +37,7 @@ function UserAuthForm({ className, ...props }) {
             />
           </div>
           <div className="grid gap-1">
-            <Label className="text-sm text-black/50" htmlFor="email">
+            <Label className="text-sm font-light text-black/50" htmlFor="email">
               Password
             </Label>
             <Input
