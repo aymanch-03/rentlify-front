@@ -23,7 +23,7 @@ function UserAuthForm({ className, ...props }) {
       <form onSubmit={onSubmit}>
         <div className="grid gap-2">
           <div className="grid gap-1">
-            <Label className="text-sm font-light text-black/50" htmlFor="email">
+            <Label className="text-sm font-light " htmlFor="email">
               Email
             </Label>
             <Input
@@ -37,11 +37,12 @@ function UserAuthForm({ className, ...props }) {
             />
           </div>
           <div className="grid gap-1">
-            <Label className="text-sm font-light text-black/50" htmlFor="email">
+            <Label className="text-sm font-light" htmlFor="email">
               Password
             </Label>
             <Input
               id="password"
+              className=""
               // placeholder="enter your password"
               type="password"
               autoCapitalize="none"

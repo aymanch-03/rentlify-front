@@ -3,7 +3,7 @@ import AuthenticationPage from "./pages/page";
 
 function App() {
   return (
-    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <AuthenticationPage />
     </ThemeProvider>
   );
