@@ -1,5 +1,5 @@
 import { ThemeProvider } from "./components/theme-provider";
-import AuthenticationPage from "./pages/page";
+import AuthenticationPage from "./pages/Login";
 
 function App() {
   return (

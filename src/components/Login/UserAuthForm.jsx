@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import { Button } from "./ui/button";
-import { Icons } from "./ui/icons";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { Button } from "../ui/button";
+import { Icons } from "../ui/icons";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 function UserAuthForm({ className, ...props }) {
   const [isLoading, setIsLoading] = useState(false);
