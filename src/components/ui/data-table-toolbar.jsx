@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React from "react";
 import { Cross2Icon } from "@radix-ui/react-icons";
+import React from "react";
 // import { Table } from "@tanstack/react-table";
-import { Button } from "./button";
-import { Input } from "./input";
-import DataTableViewOptions from "./data-table-view-options";
 import { priorities, statuses } from "../../data/data";
+import { Button } from "./button";
 import DataTableFacetedFilter from "./data-table-faceted-filter";
+import DataTableViewOptions from "./data-table-view-options";
+import { Input } from "./input";
 
 function DataTableToolbar({ table }) {
   const isFiltered = table.getState().columnFilters.length > 0;
@@ -17,11 +17,9 @@ function DataTableToolbar({ table }) {
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="Filter tasks..."
-          value={
-            (table.getColumn("title")?.getFilterValue()) ?? ""
-          }
+          value={table.getColumn("valid")?.getFilterValue() ?? ""}
           onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
+            table.getColumn("valid")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
@@ -32,10 +30,10 @@ function DataTableToolbar({ table }) {
             options={statuses}
           />
         )}
-        {table.getColumn("priority") && (
+        {table.getColumn("identifier") && (
           <DataTableFacetedFilter
-            column={table.getColumn("priority")}
-            title="Priority"
+            column={table.getColumn("identifier")}
+            title="Id"
             options={priorities}
           />
         )}

@@ -8,7 +8,7 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  useReactTable
+  useReactTable,
 } from "@tanstack/react-table";
 import React, { useState } from "react";
 import DataTablePagination from "./data-table-pagination";

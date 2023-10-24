@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import * as React from "react";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import * as React from "react";
 // import { Row } from "@tanstack/react-table";
+import { labels } from "../../data/data";
 import { Button } from "./button";
 import {
   DropdownMenu,
@@ -17,11 +18,10 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./dropdown-menu";
-import { labels } from "../../data/data";
-import { taskSchema } from "../../data/schema";
+// import { taskSchema } from "../../data/schema";
 
 function DataTableRowActions({ row }) {
-  const task = taskSchema.parse(row.original);
+  // const task = taskSchema.parse(row.original);
 
   return (
     <DropdownMenu>
@@ -42,7 +42,7 @@ function DataTableRowActions({ row }) {
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={task.label}>
+            <DropdownMenuRadioGroup value={row.label}>
               {labels.map((label) => (
                 <DropdownMenuRadioItem key={label.value} value={label.value}>
                   {label.label}

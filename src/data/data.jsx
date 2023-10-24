@@ -1,6 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
-import React from 'react';
 import {
   ArrowDownIcon,
   ArrowRightIcon,
@@ -10,75 +9,72 @@ import {
   CrossCircledIcon,
   QuestionMarkCircledIcon,
   StopwatchIcon,
-} from '@radix-ui/react-icons';
+} from "@radix-ui/react-icons";
+import React from "react";
 
 const labels = [
   {
-    value: 'bug',
-    label: 'Bug',
+    value: "bug",
+    label: "Bug",
   },
   {
-    value: 'feature',
-    label: 'Feature',
+    value: "feature",
+    label: "Feature",
   },
   {
-    value: 'documentation',
-    label: 'Documentation',
+    value: "documentation",
+    label: "Documentation",
   },
 ];
 
 const statuses = [
+  // {
+  //   value: "backlog",
+  //   label: "Backlog",
+  //   icon: QuestionMarkCircledIcon,
+  // },
   {
-    value: 'backlog',
-    label: 'Backlog',
-    icon: QuestionMarkCircledIcon,
-  },
-  {
-    value: 'todo',
-    label: 'Todo',
+    value: "active",
+    label: "Active",
     icon: CircleIcon,
   },
+  // {
+  //   value: "in progress",
+  //   label: "In Progress",
+  //   icon: StopwatchIcon,
+  // },
+  // {
+  //   value: "done",
+  //   label: "Done",
+  //   icon: CheckCircledIcon,
+  // },
   {
-    value: 'in progress',
-    label: 'In Progress',
-    icon: StopwatchIcon,
-  },
-  {
-    value: 'done',
-    label: 'Done',
-    icon: CheckCircledIcon,
-  },
-  {
-    value: 'canceled',
-    label: 'Canceled',
+    value: "inactive",
+    label: "Inactive",
     icon: CrossCircledIcon,
   },
 ];
 
 const priorities = [
   {
-    label: 'Low',
-    value: 'low',
+    label: "Low",
+    value: "low",
     icon: ArrowDownIcon,
   },
   {
-    label: 'Medium',
-    value: 'medium',
+    label: "Medium",
+    value: "medium",
     icon: ArrowRightIcon,
   },
   {
-    label: 'High',
-    value: 'high',
+    label: "High",
+    value: "high",
     icon: ArrowUpIcon,
   },
 ];
 
 export default function TaskData() {
-  return (
-    <div>
-      {/* You can use the data definitions here */}
-    </div>
-  );
+  return <div>{/* You can use the data definitions here */}</div>;
 }
 
-export { labels, statuses, priorities };
+export { labels, priorities, statuses };

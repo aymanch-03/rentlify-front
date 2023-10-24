@@ -2,11 +2,10 @@
 /* eslint-disable no-undef */
 import { z } from "zod";
 
-// Define taskSchema and Task type as in your code
-export const taskSchema = z.object({
+// // Define taskSchema and Task type as in your code
+export const customerSchema = z.object({
   id: z.string(),
-  title: z.string(),
+  last_name: z.string(),
   status: z.string(),
-  label: z.string(),
-  priority: z.string(),
+  valid: z.string(),
 });
