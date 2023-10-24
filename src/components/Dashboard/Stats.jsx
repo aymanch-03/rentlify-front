@@ -2,7 +2,7 @@
 
 const Stats = ({ classNames, stats }) => {
   return (
-    <div className="relative isolate overflow-hidden pt-16">
+    <div className="relative isolate overflow-hidden pt-16 flex-1">
       {/* Stats */}
       <div className="border-b border-b-gray-900/10 lg:border-t lg:border-t-gray-900/5">
         <dl className="mx-auto grid max-w-7xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 lg:px-2 xl:px-0">

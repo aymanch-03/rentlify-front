@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "./components/theme-provider";
-// import Dashboard from "./pages/Dashboard";
 import AuthenticationPage from "./pages/Login";
 import DashboardRoutes from "./routes/DashboardRoutes";
 

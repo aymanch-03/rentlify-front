@@ -1,4 +1,5 @@
-// import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/toaster";
+
 import Logo from "../assets/Logo/singLogoWhite.svg";
 import { UserAuthForm } from "../components/Login/UserAuthForm";
 // import { Button, buttonVariants } from "../components/ui/button";
@@ -32,6 +33,7 @@ const AuthenticationPage = () => {
           </div>
         </div>
       </div>
+      <Toaster />
     </>
   );
 };

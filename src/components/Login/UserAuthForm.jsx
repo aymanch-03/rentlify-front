@@ -6,8 +6,10 @@ import { Button } from "../ui/button";
 import { Icons } from "../ui/icons";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { useToast } from "../ui/use-toast";
 
 function UserAuthForm({ className, ...props }) {
+  const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState({ user_name: "", password: "" });
 
@@ -25,6 +27,10 @@ function UserAuthForm({ className, ...props }) {
       );
       setTimeout(() => {
         console.log(result.data.message);
+        toast({
+          title: "Scheduled: Catch up",
+          description: "Friday, February 10, 2023 at 5:57 PM",
+        });
       }, 3000);
     } catch (error) {
       if (error?.response?.status === 401) {
