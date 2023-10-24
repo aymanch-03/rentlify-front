@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-const { z } = require('zod');
+import { z } from "zod";
 
 // Define taskSchema and Task type as in your code
 export const taskSchema = z.object({
@@ -10,18 +10,3 @@ export const taskSchema = z.object({
   label: z.string(),
   priority: z.string(),
 });
-
-// Define Task type using taskSchema
-// eslint-disable-next-line react-refresh/only-export-components
-const Task = taskSchema.infer();
-
-// Example usage:
-const task = {
-  id: '1',
-  title: 'Sample Task',
-  status: 'todo',
-  label: 'feature',
-  priority: 'medium',
-};
-
-console.log(task); // Task object

@@ -1,16 +1,20 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-undef */
-import React from "react";
 import { MixerHorizontalIcon } from "@radix-ui/react-icons";
+import React from "react";
 // import { Table } from "@tanstack/react-table";
 import { Button } from "./button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
 } from "./dropdown-menu";
 
 function DataTableViewOptions({ table }) {
