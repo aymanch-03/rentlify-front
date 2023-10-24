@@ -25,7 +25,7 @@ const AuthenticationPage = () => {
           <div className="absolute inset-0 bg-zinc-900" />
           <div className="relative z-20 flex items-center text-lg uppercase font-medium text-right">
             <img src={Logo} className="mr-1.5" />
-            <span className="uppercase font-bold">Rentlify</span>
+            <span className="uppercase font-bold logo">Rentlify</span>
           </div>
           <div className="relative z-20 mt-auto text-sm text-white/40 text-right">
             Rentlify - 2023
