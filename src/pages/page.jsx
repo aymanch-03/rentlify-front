@@ -23,19 +23,21 @@ const TaskPage = () => {
   }, []);
   console.log(customers);
   return (
-    <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
+    <div className="container h-full flex-1 flex-col space-y-8 p-8 flex">
       <div className="flex items-center justify-between space-y-2">
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Welcome back!</h2>
           <p className="text-muted-foreground">
-            Here s a list of your tasks for this month!
+            {"Here's"} a list of your customers!
           </p>
         </div>
         <div className="flex items-center space-x-2">
           <UserNav />
         </div>
       </div>
-      <DataTable data={customers} columns={columns} />
+      <div className="">
+        <DataTable data={customers} columns={columns} />
+      </div>
     </div>
   );
 };

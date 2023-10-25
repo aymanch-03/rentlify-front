@@ -51,9 +51,9 @@ function DataTable({ columns, data }) {
   });
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4  ">
       <DataTableToolbar table={table} />
-      <div className="rounded-md border">
+      <div className="rounded-md border min-w-[1100px] overflow-scroll">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

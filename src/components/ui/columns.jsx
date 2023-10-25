@@ -38,7 +38,7 @@ export const columns = [
     enableHiding: false,
   },
   {
-    accessorKey: "Valid / Invalid",
+    accessorKey: "valid_account",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Valid / Invalid" />
     ),
@@ -46,6 +46,7 @@ export const columns = [
       const label = labels.find(
         (label) => label.value === row.original.valid_account
       );
+      console.log(row.getValue("valid_account"));
       return (
         <div className="flex space-x-2">
           {label && <Badge variant="outline">{label.label}</Badge>}
@@ -75,7 +76,7 @@ export const columns = [
           {status.icon && (
             <status.icon className={`mr-2 h-4 w-4 ${status.color}`} />
           )}
-          <span>{status.label}</span>
+          <Badge variant="outline">{status.label}</Badge>
         </div>
       );
     },
@@ -83,15 +84,15 @@ export const columns = [
       return value.includes(row.getValue(id));
     },
   },
-  {
-    accessorKey: "createdAt",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Created at" />
-    ),
-    cell: ({ row }) => <span>{row.getValue("createdAt")}</span>,
-    enableSorting: false,
-    enableHiding: false,
-  },
+  // {
+  //   accessorKey: "createdAt",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="Created at" />
+  //   ),
+  //   cell: ({ row }) => <span>{row.getValue("createdAt")}</span>,
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
   {
     accessorKey: "_id",
     header: ({ column }) => (
