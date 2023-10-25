@@ -23,6 +23,7 @@ function DataTableToolbar({ table }) {
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
+
         {table.getColumn("active") && (
           <DataTableFacetedFilter
             column={table.getColumn("active")}
@@ -30,13 +31,13 @@ function DataTableToolbar({ table }) {
             options={statuses}
           />
         )}
-        {table.getColumn("valid_account") && (
+        {/* {table.getColumn("valid_account") && (
           <DataTableFacetedFilter
             column={table.getColumn("valid_account")}
             title="Valid / Invalid"
             options={labels}
           />
-        )}
+        )} */}
         {isFiltered && (
           <Button
             variant="ghost"

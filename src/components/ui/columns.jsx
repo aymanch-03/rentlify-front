@@ -33,7 +33,11 @@ export const columns = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Customer email" />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("email")}</div>,
+    cell: ({ row }) => (
+      <Badge className="font-medium" variant={"outline"}>
+        {row.getValue("email")}
+      </Badge>
+    ),
     enableSorting: false,
     enableHiding: false,
   },
@@ -46,10 +50,13 @@ export const columns = [
       const label = labels.find(
         (label) => label.value === row.original.valid_account
       );
-      console.log(row.getValue("valid_account"));
       return (
         <div className="flex space-x-2">
-          {label && <Badge variant="outline">{label.label}</Badge>}
+          {label && (
+            <Badge variant="outline" className={"font-medium"}>
+              {label.label}
+            </Badge>
+          )}
           <span className="max-w-[500px] truncate font-medium">
             {row.getValue("valid_account")}
           </span>
@@ -76,7 +83,9 @@ export const columns = [
           {status.icon && (
             <status.icon className={`mr-2 h-4 w-4 ${status.color}`} />
           )}
-          <Badge variant="outline">{status.label}</Badge>
+          <Badge variant="outline" className={"font-medium"}>
+            {status.label}
+          </Badge>
         </div>
       );
     },
@@ -84,51 +93,36 @@ export const columns = [
       return value.includes(row.getValue(id));
     },
   },
-  // {
-  //   accessorKey: "createdAt",
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title="Created at" />
-  //   ),
-  //   cell: ({ row }) => <span>{row.getValue("createdAt")}</span>,
-  //   enableSorting: false,
-  //   enableHiding: false,
-  // },
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Created at" />
+    ),
+    cell: ({ row }) => {
+      const dateValue = row.getValue("createdAt");
+      const formattedValue = new Date(dateValue).toLocaleDateString();
+      return (
+        <Badge variant={"outline"} className={"font-medium"}>
+          {formattedValue}
+        </Badge>
+      );
+    },
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "_id",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Customer ID" />
     ),
-    cell: ({ row }) => <Badge variant="outline">{row.getValue("_id")}</Badge>,
+    cell: ({ row }) => (
+      <Badge variant="outline" className={"font-medium"}>
+        {row.getValue("_id")}
+      </Badge>
+    ),
     enableSorting: false,
     enableHiding: false,
   },
-  // {
-  //   accessorKey: "createdAt",
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title="Created at" />
-  //   ),
-  //   cell: ({ row }) => {
-  //     const identifier = priorities.find(
-  //       (identifier) => identifier.value === row.getValue("createdAt")
-  //     );
-
-  //     if (!identifier) {
-  //       return "nothing found";
-  //     }
-
-  //     return (
-  //       <div className="flex items-center">
-  //         {identifier.icon && (
-  //           <identifier.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-  //         )}
-  //         <span>{identifier.getValue("createdAt")}</span>
-  //       </div>
-  //     );
-  //   },
-  //   filterFn: (row, id, value) => {
-  //     return value.includes(row.getValue(id));
-  //   },
-  // },
   {
     id: "actions",
     cell: ({ row }) => <DataTableRowActions row={row} />,
