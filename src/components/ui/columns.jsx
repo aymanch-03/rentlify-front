@@ -38,7 +38,7 @@ export const columns = [
     enableHiding: false,
   },
   {
-    accessorKey: "valid_account",
+    accessorKey: "Valid / Invalid",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Valid / Invalid" />
     ),
@@ -46,7 +46,6 @@ export const columns = [
       const label = labels.find(
         (label) => label.value === row.original.valid_account
       );
-      console.log(label);
       return (
         <div className="flex space-x-2">
           {label && <Badge variant="outline">{label.label}</Badge>}
@@ -90,6 +89,15 @@ export const columns = [
       <DataTableColumnHeader column={column} title="Created at" />
     ),
     cell: ({ row }) => <span>{row.getValue("createdAt")}</span>,
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: "_id",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Customer ID" />
+    ),
+    cell: ({ row }) => <Badge variant="outline">{row.getValue("_id")}</Badge>,
     enableSorting: false,
     enableHiding: false,
   },
