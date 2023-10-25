@@ -29,40 +29,42 @@ export const columns = [
     enableHiding: false,
   },
   {
-    accessorKey: "id",
+    accessorKey: "email",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Customer" />
+      <DataTableColumnHeader column={column} title="Customer email" />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
+    cell: ({ row }) => <div className="w-[80px]">{row.getValue("email")}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: "valid",
+    accessorKey: "valid_account",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Valid" />
+      <DataTableColumnHeader column={column} title="Valid / Invalid" />
     ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label);
-
+      const label = labels.find(
+        (label) => label.value === row.original.valid_account
+      );
+      console.log(label);
       return (
         <div className="flex space-x-2">
           {label && <Badge variant="outline">{label.label}</Badge>}
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("valid")}
+            {row.getValue("valid_account")}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "status",
+    accessorKey: "active",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
       const status = statuses.find(
-        (status) => status.value === row.getValue("status")
+        (status) => status.value === row.getValue("active")
       );
 
       if (!status) {
@@ -72,7 +74,7 @@ export const columns = [
       return (
         <div className="flex w-[100px] items-center">
           {status.icon && (
-            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+            <status.icon className={`mr-2 h-4 w-4 ${status.color}`} />
           )}
           <span>{status.label}</span>
         </div>
@@ -83,32 +85,41 @@ export const columns = [
     },
   },
   {
-    accessorKey: "identifier",
+    accessorKey: "createdAt",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Id" />
+      <DataTableColumnHeader column={column} title="Created at" />
     ),
-    cell: ({ row }) => {
-      const identifier = priorities.find(
-        (identifier) => identifier.value === row.getValue("identifier")
-      );
-
-      if (!identifier) {
-        return null;
-      }
-
-      return (
-        <div className="flex items-center">
-          {identifier.icon && (
-            <identifier.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{identifier.label}</span>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
+    cell: ({ row }) => <span>{row.getValue("createdAt")}</span>,
+    enableSorting: false,
+    enableHiding: false,
   },
+  // {
+  //   accessorKey: "createdAt",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="Created at" />
+  //   ),
+  //   cell: ({ row }) => {
+  //     const identifier = priorities.find(
+  //       (identifier) => identifier.value === row.getValue("createdAt")
+  //     );
+
+  //     if (!identifier) {
+  //       return "nothing found";
+  //     }
+
+  //     return (
+  //       <div className="flex items-center">
+  //         {identifier.icon && (
+  //           <identifier.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+  //         )}
+  //         <span>{identifier.getValue("createdAt")}</span>
+  //       </div>
+  //     );
+  //   },
+  //   filterFn: (row, id, value) => {
+  //     return value.includes(row.getValue(id));
+  //   },
+  // },
   {
     id: "actions",
     cell: ({ row }) => <DataTableRowActions row={row} />,

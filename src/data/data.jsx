@@ -4,54 +4,34 @@ import {
   ArrowDownIcon,
   ArrowRightIcon,
   ArrowUpIcon,
-  CheckCircledIcon,
-  CircleIcon,
-  CrossCircledIcon,
-  QuestionMarkCircledIcon,
-  StopwatchIcon,
+  CheckIcon,
+  Cross2Icon,
 } from "@radix-ui/react-icons";
 import React from "react";
 
 const labels = [
   {
-    value: "bug",
-    label: "Bug",
+    value: true,
+    label: "Valid",
   },
   {
-    value: "feature",
-    label: "Feature",
-  },
-  {
-    value: "documentation",
-    label: "Documentation",
+    value: false,
+    label: "Invalid",
   },
 ];
 
 const statuses = [
-  // {
-  //   value: "backlog",
-  //   label: "Backlog",
-  //   icon: QuestionMarkCircledIcon,
-  // },
   {
-    value: "active",
+    value: true,
     label: "Active",
-    icon: CircleIcon,
+    icon: CheckIcon,
+    color: "text-green-500",
   },
-  // {
-  //   value: "in progress",
-  //   label: "In Progress",
-  //   icon: StopwatchIcon,
-  // },
-  // {
-  //   value: "done",
-  //   label: "Done",
-  //   icon: CheckCircledIcon,
-  // },
   {
-    value: "inactive",
+    value: false,
     label: "Inactive",
-    icon: CrossCircledIcon,
+    icon: Cross2Icon,
+    color: "text-red-500",
   },
 ];
 

@@ -3,7 +3,7 @@
 import { Cross2Icon } from "@radix-ui/react-icons";
 import React from "react";
 // import { Table } from "@tanstack/react-table";
-import { priorities, statuses } from "../../data/data";
+import { labels, priorities, statuses } from "../../data/data";
 import { Button } from "./button";
 import DataTableFacetedFilter from "./data-table-faceted-filter";
 import DataTableViewOptions from "./data-table-view-options";
@@ -16,25 +16,25 @@ function DataTableToolbar({ table }) {
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Filter tasks..."
-          value={table.getColumn("valid")?.getFilterValue() ?? ""}
+          placeholder="Filter by emails..."
+          value={table.getColumn("email")?.getFilterValue() ?? ""}
           onChange={(event) =>
-            table.getColumn("valid")?.setFilterValue(event.target.value)
+            table.getColumn("email")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
-        {table.getColumn("status") && (
+        {table.getColumn("active") && (
           <DataTableFacetedFilter
-            column={table.getColumn("status")}
+            column={table.getColumn("active")}
             title="Status"
             options={statuses}
           />
         )}
-        {table.getColumn("identifier") && (
+        {table.getColumn("valid_account") && (
           <DataTableFacetedFilter
-            column={table.getColumn("identifier")}
-            title="Id"
-            options={priorities}
+            column={table.getColumn("valid_account")}
+            title="Valid / Invalid"
+            options={labels}
           />
         )}
         {isFiltered && (
