@@ -19,7 +19,7 @@ import {
 
 function DataTableColumnHeader({ column, title, className }) {
   if (!column.getCanSort()) {
-    return <span className={cn(className)}>{title}</span>;
+    return <span className={`text-xs ${cn(className)}`}>{title}</span>;
   }
 
   return (

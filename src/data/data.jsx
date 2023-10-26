@@ -1,12 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
-import {
-  ArrowDownIcon,
-  ArrowRightIcon,
-  ArrowUpIcon,
-  CheckIcon,
-  Cross2Icon,
-} from "@radix-ui/react-icons";
+import { CheckIcon, Cross1Icon, Cross2Icon } from "@radix-ui/react-icons";
+import { CircleIcon } from "lucide-react";
 import React from "react";
 
 const labels = [
@@ -20,7 +15,7 @@ const labels = [
   },
 ];
 
-const statuses = [
+const customerStatuses = [
   {
     value: true,
     label: "Active",
@@ -34,27 +29,42 @@ const statuses = [
     color: "text-red-500",
   },
 ];
-
-const priorities = [
+const orderStatuses = [
   {
-    label: "Low",
-    value: "low",
-    icon: ArrowDownIcon,
+    value: "Shipped",
+    label: "Shipped",
+    icon: CheckIcon,
+    color: "text-blue-500",
+    badgeStyles: "bg-blue-200 border-blue-200",
   },
   {
-    label: "Medium",
-    value: "medium",
-    icon: ArrowRightIcon,
+    value: "Open",
+    label: "Open",
+    icon: CircleIcon,
+    color: "text-yellow-500",
+    badgeStyles: "bg-yellow-200 border-yellow-200",
   },
   {
-    label: "High",
-    value: "high",
-    icon: ArrowUpIcon,
+    value: "Closed",
+    label: "Closed",
+    icon: CheckIcon,
+    color: "text-slate-500",
+    badgeStyles: "bg-slate-200 border-slate-200",
+  },
+  {
+    value: "Paid",
+    label: "Paid",
+    icon: CheckIcon,
+    color: "text-green-500",
+    badgeStyles: "bg-green-200 border-green-200",
+  },
+  {
+    value: "Canceled",
+    label: "Canceled",
+    icon: Cross1Icon,
+    color: "text-red-500",
+    badgeStyles: "bg-red-200 border-red-200",
   },
 ];
 
-export default function TaskData() {
-  return <div>{/* You can use the data definitions here */}</div>;
-}
-
-export { labels, priorities, statuses };
+export { customerStatuses, labels, orderStatuses };

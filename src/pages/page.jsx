@@ -23,6 +23,7 @@ const CustomerPage = () => {
     keyThree: "active",
     keyFour: "createdAt",
     keyFive: "_id",
+    option: "customers",
   });
   return (
     <div className="container h-full flex-1 flex-col space-y-8 p-8 flex">

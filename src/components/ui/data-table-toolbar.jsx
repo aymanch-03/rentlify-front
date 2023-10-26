@@ -3,7 +3,7 @@
 import { Cross2Icon } from "@radix-ui/react-icons";
 import React from "react";
 // import { Table } from "@tanstack/react-table";
-import { labels, priorities, statuses } from "../../data/data";
+import { customerStatuses } from "../../data/data";
 import { Button } from "./button";
 import DataTableFacetedFilter from "./data-table-faceted-filter";
 import DataTableViewOptions from "./data-table-view-options";
@@ -28,7 +28,7 @@ function DataTableToolbar({ table }) {
           <DataTableFacetedFilter
             column={table.getColumn("active")}
             title="Status"
-            options={statuses}
+            options={customerStatuses}
           />
         )}
         {/* {table.getColumn("valid_account") && (

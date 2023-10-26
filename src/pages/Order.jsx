@@ -17,12 +17,18 @@ const OrderPage = () => {
         console.error("Error fetching data:", error);
       });
   }, []);
+  console.log(orders);
   const columns = getColumns({
-    keyOne: "email",
+    keyOne: "_id",
+    keyOneTitle: "Order ID",
     keyTwo: "customer_id",
-    keyThree: "cart_total_price",
-    keyFour: "order_date",
-    keyFive: "status",
+    keyTwoTitle: "Customer ID",
+    keyThree: "status",
+    keyThreeTitle: "Order status",
+    keyFour: "createdAt",
+    keyFive: "cart_total_price",
+    keyFiveTitle: "Total price",
+    option: "orders",
   });
   return (
     <div className="container h-full flex-1 flex-col space-y-8 p-8 flex">
