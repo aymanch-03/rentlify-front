@@ -5,7 +5,15 @@ import { Checkbox } from "./checkbox";
 import DataTableColumnHeader from "./data-table-column-header";
 import DataTableRowActions from "./data-table-row-actions";
 
-export const getColumns = ({ keyOne, keyTwo, keyThree, keyFour, keyFive }) => {
+function getColumns({
+  keyOne,
+  keyTwo,
+  keyThree,
+  keyFour,
+  keyFive,
+  optionOne,
+  optionTwo,
+}) {
   return [
     {
       id: "select",
@@ -128,4 +136,6 @@ export const getColumns = ({ keyOne, keyTwo, keyThree, keyFour, keyFive }) => {
       cell: ({ row }) => <DataTableRowActions row={row} />,
     },
   ];
-};
+}
+
+export default getColumns;
