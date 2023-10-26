@@ -10,6 +10,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { ProfileForm } from "./AddUser"
+import InputForm from "./test"
 
 export default function UserDialog() {
     return (
@@ -22,14 +23,8 @@ export default function UserDialog() {
                     <DialogTitle>Add User</DialogTitle>
                 </DialogHeader>
                 {/***********/}
-                <ProfileForm />
+                <InputForm />
                 {/***********/}
-                <DialogFooter className="!justify-between flex mt-6">
-                    <DialogClose asChild>
-                        <Button type="button" variant="secondary">Close</Button>
-                    </DialogClose>
-                    <Button type="submit">Add User</Button>
-                </DialogFooter>
             </DialogContent>
         </Dialog>
     )

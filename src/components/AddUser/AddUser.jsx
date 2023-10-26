@@ -33,28 +33,14 @@ export function ProfileForm() {
                         <FormItem >
                             <FormLabel>Name</FormLabel>
                             <div className="user-name">
-                                <FormControl>
-                                    <Input className="input" placeholder="Fisrt Name" />
-                                </FormControl>
-                                <FormControl>
-                                    <Input className="input" placeholder="Last Name" />
-                                </FormControl>
-                            </div>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <br />
-                <FormField
-                    control={form.control}
-                    name="username"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>username</FormLabel>
                             <FormControl>
-                                <Input />
+                                <Input className="input" placeholder="Fisrt Name" />
                             </FormControl>
-                            <FormMessage />
+                            <FormControl>
+                                <Input className="input" placeholder="Last Name" />
+                            </FormControl>
+                            </div>
+                            <FormMessage className="text-red-600" />
                         </FormItem>
                     )}
                 />
@@ -68,7 +54,7 @@ export function ProfileForm() {
                             <FormControl>
                                 <Input type="email" />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className="text-red-600" />
                         </FormItem>
                     )}
                 />
@@ -82,7 +68,7 @@ export function ProfileForm() {
                             <FormControl>
                                 <Input type="password" />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className="text-red-600" />
                         </FormItem>
                     )}
                 />
@@ -96,7 +82,7 @@ export function ProfileForm() {
                             <FormControl>
                                 <Input type="password" />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className="text-red-600" />
                         </FormItem>
                     )}
                 />
