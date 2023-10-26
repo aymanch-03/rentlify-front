@@ -11,6 +11,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import React, { useState } from "react";
+
 import DataTablePagination from "./data-table-pagination";
 import DataTableToolbar from "./data-table-toolbar";
 import {
@@ -52,6 +53,7 @@ function DataTable({ columns, data }) {
 
   return (
     <div className="space-y-4  ">
+      {console.log(table)}
       <DataTableToolbar table={table} />
       <div className="rounded-md border min-w-[1100px] overflow-scroll">
         <Table>

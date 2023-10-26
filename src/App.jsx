@@ -1,10 +1,10 @@
 import { ThemeProvider } from "./components/theme-provider";
-import TaskPage from "./pages/page";
+import CustomerPage from "./pages/page";
 
 function App() {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <TaskPage />
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+      <CustomerPage />
     </ThemeProvider>
   );
 }

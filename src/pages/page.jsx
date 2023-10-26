@@ -1,15 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-// import { z } from "zod";
-import { columns } from "../components/ui/columns";
+import { getColumns } from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
 import UserNav from "../components/ui/user-nav";
-// import { taskSchema } from "../data/schema";
-// import texts from "../data/tasks.json";
 
-const TaskPage = () => {
+const CustomerPage = () => {
   const [customers, setCustomers] = useState([]);
-
   useEffect(() => {
     axios
       .get("http://localhost:5000/v1/customers")
@@ -21,7 +17,7 @@ const TaskPage = () => {
         console.error("Error fetching data:", error);
       });
   }, []);
-  console.log(customers);
+  const columns = getColumns();
   return (
     <div className="container h-full flex-1 flex-col space-y-8 p-8 flex">
       <div className="flex items-center justify-between space-y-2">
@@ -36,10 +32,18 @@ const TaskPage = () => {
         </div>
       </div>
       <div className="">
-        <DataTable data={customers} columns={columns} />
+        <DataTable
+          data={customers}
+          columns={columns}
+          keyOne={"email"}
+          keyTwo={"valid_account"}
+          keyThree={"active"}
+          keyFour={"createdAt"}
+          keyFive={"_id"}
+        />
       </div>
     </div>
   );
 };
 
-export default TaskPage;
+export default CustomerPage;
