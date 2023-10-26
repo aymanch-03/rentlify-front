@@ -1,10 +1,10 @@
+import { ProfileForm } from "./components/AddUser/AddUser";
 import { ThemeProvider } from "./components/theme-provider";
-import AuthenticationPage from "./pages/Login";
 
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <AuthenticationPage />
+      <ProfileForm />
     </ThemeProvider>
   );
 }
