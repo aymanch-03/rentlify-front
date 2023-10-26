@@ -1,10 +1,10 @@
-import { ProfileForm } from "./components/AddUser/AddUser";
+import UserDialog from "./components/AddUser/addUserDialog";
 import { ThemeProvider } from "./components/theme-provider";
 
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <ProfileForm />
+      <UserDialog />
     </ThemeProvider>
   );
 }

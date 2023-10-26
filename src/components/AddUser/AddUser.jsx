@@ -33,12 +33,12 @@ export function ProfileForm() {
                         <FormItem >
                             <FormLabel>Name</FormLabel>
                             <div className="user-name">
-                            <FormControl>
-                                <Input className="input" placeholder="Fisrtname" />
-                            </FormControl>
-                            <FormControl>
-                                <Input className="input" placeholder="Lastname" />
-                            </FormControl>
+                                <FormControl>
+                                    <Input className="input" placeholder="Fisrt Name" />
+                                </FormControl>
+                                <FormControl>
+                                    <Input className="input" placeholder="Last Name" />
+                                </FormControl>
                             </div>
                             <FormMessage />
                         </FormItem>
@@ -80,7 +80,7 @@ export function ProfileForm() {
                         <FormItem>
                             <FormLabel>Password</FormLabel>
                             <FormControl>
-                                <Input type="password"/>
+                                <Input type="password" />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -100,8 +100,6 @@ export function ProfileForm() {
                         </FormItem>
                     )}
                 />
-                <br />
-                <Button className="button" type="submit">Button</Button>
             </Form>
         </div>
     )
