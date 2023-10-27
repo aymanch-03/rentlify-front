@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   flexRender,
   getCoreRowModel,
@@ -11,9 +12,9 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import React, { useState } from "react";
-
 import DataTablePagination from "./data-table-pagination";
 import DataTableToolbar from "./data-table-toolbar";
+import { Icons } from "./icons";
 import {
   Table,
   TableBody,
@@ -23,7 +24,7 @@ import {
   TableRow,
 } from "./table";
 
-function DataTable({ columns, data }) {
+function DataTable({ columns, data, option, isLoading }) {
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState({});
   const [columnFilters, setColumnFilters] = useState([]);
@@ -52,8 +53,8 @@ function DataTable({ columns, data }) {
   });
 
   return (
-    <div className="space-y-4  ">
-      {/* <DataTableToolbar table={table} /> */}
+    <div className="space-y-4">
+      <DataTableToolbar table={table} option={option} />
       <div className="rounded-md border min-w-[1100px] overflow-scroll">
         <Table>
           <TableHeader>
@@ -75,7 +76,30 @@ function DataTable({ columns, data }) {
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {isLoading ? (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="text-center">
+                  {/* <Icons.spinner className="mr-2 h-7 w-7 animate-spin text-center" /> */}
+                  <div className="">
+                    <div className="p-3 border-b flex gap-3">
+                      <Skeleton className="h-7 w-full" />
+                    </div>
+                    <div className="p-3  border-b flex gap-3">
+                      <Skeleton className="h-7 w-full" />
+                    </div>
+                    <div className="p-3 flex gap-3">
+                      <Skeleton className="h-7 w-full" />
+                    </div>
+                    <div className="p-3 flex gap-3">
+                      <Skeleton className="h-7 w-full" />
+                    </div>
+                    <div className="p-3 flex gap-3">
+                      <Skeleton className="h-7 w-full" />
+                    </div>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ) : table.getRowModel().rows?.length > 0 ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -92,11 +116,9 @@ function DataTable({ columns, data }) {
                 </TableRow>
               ))
             ) : (
+              // Display "No results" message
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={columns.length} className="text-center">
                   No results.
                 </TableCell>
               </TableRow>

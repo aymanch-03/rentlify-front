@@ -17,12 +17,18 @@ const CustomerPage = () => {
         console.error("Error fetching data:", error);
       });
   }, []);
+  console.log(customers);
   const columns = getColumns({
     keyOne: "email",
+    keyOneTitle: "Customer email",
     keyTwo: "valid_account",
+    keyTwoTitle: "Valid / Invalid",
     keyThree: "active",
+    keyThreeTitle: "Status",
     keyFour: "createdAt",
+    keyFourTitle: "Created At",
     keyFive: "_id",
+    keyFiveTitle: "Customer ID",
     option: "customers",
   });
   return (
@@ -39,7 +45,7 @@ const CustomerPage = () => {
         </div>
       </div>
       <div className="">
-        <DataTable data={customers} columns={columns} />
+        <DataTable data={customers} columns={columns} option={"customers"} />
       </div>
     </div>
   );

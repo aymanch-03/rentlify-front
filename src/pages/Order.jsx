@@ -6,15 +6,18 @@ import UserNav from "../components/ui/user-nav";
 
 const OrderPage = () => {
   const [orders, setOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     axios
       .get("http://localhost:5000/v1/orders")
       .then((response) => {
         const { data } = response.data;
         setOrders(data);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
+        setIsLoading(false);
       });
   }, []);
   console.log(orders);
@@ -30,6 +33,7 @@ const OrderPage = () => {
     keyFiveTitle: "Total price",
     option: "orders",
   });
+
   return (
     <div className="container h-full flex-1 flex-col space-y-8 p-8 flex">
       <div className="flex items-center justify-between space-y-2">
@@ -44,7 +48,7 @@ const OrderPage = () => {
         </div>
       </div>
       <div className="">
-        <DataTable data={orders} columns={columns} />
+        <DataTable data={orders} columns={columns} isLoading={isLoading} />
       </div>
     </div>
   );
