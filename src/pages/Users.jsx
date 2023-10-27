@@ -4,16 +4,15 @@ import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
 import UserNav from "../components/ui/user-nav";
 
-const CustomerPage = () => {
-  const [customers, setCustomers] = useState([]);
+const OrderPage = () => {
+  const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     axios
-      .get("http://localhost:5000/v1/customers")
+      .get("http://localhost:5000/v1/users")
       .then((response) => {
         const { data } = response.data;
-        setCustomers(data);
+        setUsers(data);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -21,27 +20,27 @@ const CustomerPage = () => {
         setIsLoading(false);
       });
   }, []);
-  console.log(customers);
+  console.log(users);
   const columns = getColumns({
     keyOne: "email",
-    keyOneTitle: "Customer email",
-    keyTwo: "valid_account",
-    keyTwoTitle: "Valid / Invalid",
+    keyOneTitle: "User email",
+    keyTwo: "role",
+    keyTwoTitle: "User Role",
     keyThree: "active",
     keyThreeTitle: "Status",
     keyFour: "createdAt",
-    keyFourTitle: "Created At",
     keyFive: "_id",
-    keyFiveTitle: "Customer ID",
-    option: "customers",
+    keyFiveTitle: "User ID",
+    option: "users",
   });
+
   return (
     <div className="container h-full flex-1 flex-col space-y-8 p-8 flex">
       <div className="flex items-center justify-between space-y-2">
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Welcome back!</h2>
           <p className="text-muted-foreground">
-            {"Here's"} a list of your customers!
+            {"Here's"} a list of your orders!
           </p>
         </div>
         <div className="flex items-center space-x-2">
@@ -50,14 +49,14 @@ const CustomerPage = () => {
       </div>
       <div className="">
         <DataTable
-          data={customers}
+          data={users}
           columns={columns}
-          option={"customers"}
           isLoading={isLoading}
+          option={"customers"}
         />
       </div>
     </div>
   );
 };
 
-export default CustomerPage;
+export default OrderPage;

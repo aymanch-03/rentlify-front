@@ -8,10 +8,22 @@ const labels = [
   {
     value: true,
     label: "Valid",
+    badgeStyles: "bg-green-200 border-green-200",
   },
   {
     value: false,
     label: "Invalid",
+    badgeStyles: "bg-red-200 border-red-200",
+  },
+];
+const userLabels = [
+  {
+    value: "admin",
+    label: "Admin",
+  },
+  {
+    value: "manager",
+    label: "Manager",
   },
 ];
 
@@ -67,4 +79,4 @@ const orderStatuses = [
   },
 ];
 
-export { customerStatuses, labels, orderStatuses };
+export { customerStatuses, labels, orderStatuses, userLabels };

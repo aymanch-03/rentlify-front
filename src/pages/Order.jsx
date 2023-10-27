@@ -25,7 +25,7 @@ const OrderPage = () => {
     keyOne: "_id",
     keyOneTitle: "Order ID",
     keyTwo: "customer_id",
-    keyTwoTitle: "Customer ID",
+    keyTwoTitle: "Customer email",
     keyThree: "status",
     keyThreeTitle: "Order status",
     keyFour: "createdAt",

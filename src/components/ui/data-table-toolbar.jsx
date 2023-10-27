@@ -41,7 +41,11 @@ function DataTableToolbar({ table, option }) {
               `${option === "customers" ? "active" : "status"}`
             )}
             title="Status"
-            options={option === "customers" ? customerStatuses : orderStatuses}
+            options={
+              option === ("customers" || "users")
+                ? customerStatuses
+                : orderStatuses
+            }
           />
         )}
         {/* {table.getColumn("valid_account") && (
