@@ -5,6 +5,7 @@ import { Checkbox } from "./checkbox";
 // import { taskSchema } from "../../data/schema";
 import DataTableColumnHeader from "./data-table-column-header";
 import DataTableRowActions from "./data-table-row-actions";
+import { Link } from 'react-router-dom';
 
 export const columns = [
   {
@@ -34,9 +35,11 @@ export const columns = [
       <DataTableColumnHeader column={column} title="Customer email" />
     ),
     cell: ({ row }) => (
+      <Link to="/page-content">
       <Badge className="font-medium" variant={"outline"}>
         {row.getValue("email")}
       </Badge>
+      </Link>
     ),
     enableSorting: false,
     enableHiding: false,
