@@ -15,11 +15,11 @@ export default function UserDialog() {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline">Add User</Button>
+                <Button className='m-2 p-4' variant="outline">Add User</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[600px]">
                 <DialogHeader>
-                    <DialogTitle>Add User</DialogTitle>
+                    <DialogTitle>ADD USER</DialogTitle>
                 </DialogHeader>
                 {/***********/}
                 <InputForm />

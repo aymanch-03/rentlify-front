@@ -1,7 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-
+import { Input } from "@/components/ui/input"
+import { toast } from "@/components/ui/use-toast"
 import { Button } from "@/components/ui/button"
 import {
     Form,
@@ -17,47 +18,70 @@ import {
     DialogDescription,
     DialogFooter,
 } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { toast } from "@/components/ui/use-toast"
-
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 const FormSchema = z.object({
-    firstName: z.string({
-        required_error: "First name is required",
-    })
+    firstName: z
+        .string({
+            required_error: "First name is required",
+        })
         .min(2)
         .max(18),
-    lastName: z.string({
-        required_error: "Last name is required",
-    })
+    lastName: z
+        .string({
+            required_error: "Last name is required",
+        })
         .min(2)
         .max(18),
-    username: z.string({
-        required_error: "Username is required",
-    })
+    role: z
+        .string()
+        .min(1, { message: "Please select a role to display." }),
+    username: z
+        .string({
+            required_error: "Username is required",
+        })
         .min(2),
-    email: z.string({
-        required_error: "Email is required",
-    })
+    email: z
+        .string({
+            required_error: "Email is required",
+        })
         .min(2)
         .email(),
-    password: z.string({
-        required_error: "Password is required",
-    })
-        .min(6),
-    confirmPassword: z.string({
-        required_error: "Confirm password is required",
-    })
-        .min(1)
-        .refine(data => data.password === data.confirmPassword, {
-            message: "Oops! Passwords don't match.",
+    password: z
+        .string({
+            required_error: "Password is required",
         })
-})
-
+        .nonempty('This is required').min(8, { message: 'Too short' }),
+    confirmPassword: z
+        .string({
+            required_error: "Confirm password is required",
+        })
+        .min(1)
+    }).refine(
+        (values) => {
+          return values.password === values.confirmPassword;
+        },
+        {
+          message: "Passwords must match!",
+          path: ["confirmPassword"],
+        }
+      );
 export default function InputForm() {
     const form = useForm({
         resolver: zodResolver(FormSchema),
         defaultValues: {
+            firstName: "",
+            lastName: "",
+            role: "",
             username: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
         },
     })
 
@@ -75,13 +99,14 @@ export default function InputForm() {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6">
-                <div className="user-name">
+                <div className="grid grid-cols-2 gap-x-5">
+
                     <FormField
                         control={form.control}
                         name="firstName"
                         render={({ field }) => (
                             <FormItem >
-                                <FormLabel>Fisrt Name</FormLabel>
+                                <FormLabel>FIRST NAME</FormLabel>
                                 <FormControl>
                                     <Input className="input" {...field} />
                                 </FormControl>
@@ -94,7 +119,7 @@ export default function InputForm() {
                         name="lastName"
                         render={({ field }) => (
                             <FormItem >
-                                <FormLabel>Last Name</FormLabel>
+                                <FormLabel>LAST NAME</FormLabel>
                                 <FormControl>
                                     <Input className="input" {...field} />
                                 </FormControl>
@@ -105,10 +130,32 @@ export default function InputForm() {
                 </div>
                 <FormField
                     control={form.control}
+                    name="role"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>PLATFORM ROLE</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <FormControl>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select a role to display" />
+                                    </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                    <SelectItem value="admin">Admin User</SelectItem>
+                                    <SelectItem value="manager">Manager User</SelectItem>
+                                </SelectContent>
+                            </Select>
+
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
                     name="email"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>email</FormLabel>
+                            <FormLabel>EMAIL</FormLabel>
                             <FormControl>
                                 <Input type="email" {...field} />
                             </FormControl>
@@ -121,7 +168,7 @@ export default function InputForm() {
                     name="password"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Password</FormLabel>
+                            <FormLabel>PASSWORD</FormLabel>
                             <FormControl>
                                 <Input type="password"  {...field} />
                             </FormControl>
@@ -134,7 +181,7 @@ export default function InputForm() {
                     name="confirmPassword"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Confirm Password</FormLabel>
+                            <FormLabel>CONFIRM PASSWORD</FormLabel>
                             <FormControl>
                                 <Input type="password" {...field} />
                             </FormControl>
@@ -145,9 +192,9 @@ export default function InputForm() {
                 <br />
                 <DialogFooter className="!justify-between flex -mt-8">
                     <DialogClose asChild>
-                        <Button type="button" variant="secondary">Close</Button>
+                        <Button className='p-4' type="button" variant="secondary">Close</Button>
                     </DialogClose>
-                    <Button type="submit">Submit</Button>
+                    <Button className='p-4' type="submit">Add User</Button>
                 </DialogFooter>
             </form>
         </Form>
