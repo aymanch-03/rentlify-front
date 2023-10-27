@@ -9,8 +9,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { ProfileForm } from "./AddUser"
-import InputForm from "./test"
+import InputForm from "./AddUserForm"
 
 export default function UserDialog() {
     return (
