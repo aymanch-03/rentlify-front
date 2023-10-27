@@ -13,17 +13,19 @@ const labels = [
   {
     value: false,
     label: "Invalid",
-    badgeStyles: "bg-red-200 border-red-200",
+    badgeStyles: "bg-slate-200 border-slate-200",
   },
 ];
 const userLabels = [
   {
     value: "admin",
     label: "Admin",
+    badgeStyles: "bg-green-300 border-green-300",
   },
   {
     value: "manager",
     label: "Manager",
+    badgeStyles: "bg-green-100 border-green-100",
   },
 ];
 

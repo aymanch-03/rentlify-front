@@ -68,7 +68,7 @@ function getColumns({
             <DataTableColumnHeader column={column} title={keyTwoTitle} />
           ),
           cell: ({ row }) => (
-            <Badge className="font-medium" variant={"outline"}>
+            <Badge className={`font-medium`} variant={"outline"}>
               {row.getValue(keyTwo).email}
             </Badge>
           ),
@@ -115,7 +115,10 @@ function getColumns({
             return (
               <div className="flex space-x-2">
                 {label && (
-                  <Badge variant="outline" className={"font-medium"}>
+                  <Badge
+                    variant="outline"
+                    className={`font-medium ${label.badgeStyles}`}
+                  >
                     {label.label}
                   </Badge>
                 )}
