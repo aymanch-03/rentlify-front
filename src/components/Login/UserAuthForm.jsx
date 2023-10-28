@@ -27,18 +27,15 @@ function UserAuthForm({ className, ...props }) {
         "http://localhost:5000/v1/users/login",
         user
       );
-      setTimeout(() => {
-        console.log(result.data);
-        navigate("/dashboard");
-      }, 1500);
+
+      console.log(result.data);
+      navigate("/dashboard");
     } catch (error) {
       if (error?.response?.status === 401) {
         console.log(error.response.data.message);
       }
     } finally {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1500);
+      setIsLoading(false);
     }
   };
 

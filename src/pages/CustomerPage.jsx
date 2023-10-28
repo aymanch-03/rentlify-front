@@ -1,8 +1,10 @@
 import { PaperClipIcon } from "@heroicons/react/20/solid";
+import Header from "../layouts/Header";
 
 export default function Content() {
   return (
     <>
+      <Header />
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* <main className=''> */}
         <div className="sm:px-0">

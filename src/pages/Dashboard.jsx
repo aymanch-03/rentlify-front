@@ -7,6 +7,7 @@ import {
 } from "@heroicons/react/20/solid";
 
 import Stats from "../components/Dashboard/Stats";
+import Header from "../layouts/Header";
 // import Sidebar from "../components/ui/Sidebar";
 
 const stats = [
@@ -43,7 +44,7 @@ function classNames(...classes) {
 export default function Dashboard() {
   return (
     <main className="">
-      {/* <Sidebar /> */}
+      <Header />
       <Stats stats={stats} classNames={classNames} />
     </main>
   );
