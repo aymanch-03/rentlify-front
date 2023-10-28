@@ -7,8 +7,7 @@ import {
 } from "@heroicons/react/20/solid";
 
 import Stats from "../components/Dashboard/Stats";
-import Header from "../components/ui/header";
-import Sidebar from "../components/ui/Sidebar";
+// import Sidebar from "../components/ui/Sidebar";
 
 const stats = [
   {
@@ -36,11 +35,6 @@ const stats = [
     changeType: "negative",
   },
 ];
-const statuses = {
-  Paid: "text-green-700 bg-green-50 ring-green-600/20",
-  Withdraw: "text-gray-600 bg-gray-50 ring-gray-500/10",
-  Overdue: "text-red-700 bg-red-50 ring-red-600/10",
-};
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -48,12 +42,9 @@ function classNames(...classes) {
 
 export default function Dashboard() {
   return (
-    <div className="">
-      <Header />
-      <main className="">
-        {/* <Sidebar /> */}
-        <Stats stats={stats} classNames={classNames} />
-      </main>
-    </div>
+    <main className="">
+      {/* <Sidebar /> */}
+      <Stats stats={stats} classNames={classNames} />
+    </main>
   );
 }
