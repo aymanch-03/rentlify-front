@@ -23,7 +23,6 @@ import {
   TableHeader,
   TableRow,
 } from "./table";
-
 function DataTable({ columns, data, option, isLoading }) {
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState({});
@@ -55,8 +54,8 @@ function DataTable({ columns, data, option, isLoading }) {
   return (
     <div className="space-y-4">
       <DataTableToolbar table={table} option={option} />
-      <div className="rounded-md border min-w-[1100px] overflow-scroll">
-        <Table>
+      <main className="whitespace-nowrap w-full rounded-md border">
+        <Table className=" min-w-[800px]">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup?.id}>
@@ -125,7 +124,7 @@ function DataTable({ columns, data, option, isLoading }) {
             )}
           </TableBody>
         </Table>
-      </div>
+      </main>
       <DataTablePagination table={table} />
     </div>
   );
