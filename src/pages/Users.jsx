@@ -4,7 +4,7 @@ import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
 import UserNav from "../components/ui/user-nav";
 
-const OrderPage = () => {
+const Users = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -59,4 +59,4 @@ const OrderPage = () => {
   );
 };
 
-export default OrderPage;
+export default Users;

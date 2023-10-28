@@ -1,15 +1,11 @@
 import Layout from "./layouts/Layout";
-import OrderPage from "./pages/Order";
-import UsersPage from "./pages/Users";
-import CustomerPage from "./pages/page";
+import Routers from "./routes/routesConfig";
 
 function App() {
   return (
     <>
       <Layout>
-        <OrderPage />
-        <UsersPage />
-        <CustomerPage />
+        <Routers />
       </Layout>
     </>
   );
