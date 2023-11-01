@@ -8,12 +8,15 @@ import { Icons } from "../ui/icons";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { useToast } from "../ui/use-toast";
+import useAuth from '../../hooks/useAuth';
 
 function UserAuthForm({ className, ...props }) {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState({ user_name: "", password: "" });
   const navigate = useNavigate();
+
+  const { setAuth } = useAuth();
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -24,12 +27,15 @@ function UserAuthForm({ className, ...props }) {
     setIsLoading(true);
     try {
       const result = await axios.post(
-        "http://localhost:5000/v1/users/login",
-        user
+        "http://localhost:5000/v1/users/login",user,
+        {withCredentials: true}
       );
+      const accessToken = result.data.accessToken;
+      const role = result.data.user.role;
+      const Id = result.data.user._id;
+      setAuth ({ user, role, accessToken, Id});
       setTimeout(() => {
-        console.log(result.data);
-        navigate("/dashboard");
+        navigate("/customer");
       }, 1500);
     } catch (error) {
       if (error?.response?.status === 401) {

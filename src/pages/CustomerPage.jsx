@@ -1,10 +1,44 @@
-import { PaperClipIcon } from "@heroicons/react/20/solid";
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-refresh/only-export-components */
+// import { PaperClipIcon } from "@heroicons/react/20/solid";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import useAuth from "../hooks/useAuth";
 
-export default function Content() {
+export default function CustomerPage() {
+  const [customers, setCustomers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { auth } = useAuth();
+  const id = auth.Id;
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/v1/customers/${id}`)
+      .then((response) => {
+        const { data } = response.data;
+        setCustomers(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      });
+  }, [id]);
+  console.log(customers);
+
+  return (
+    <>
+      <Content customers={customers} />
+    </>
+  );
+}
+
+export function Content({ customers }) {
   return (
     <>
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* <main className=''> */}
         <div className="sm:px-0">
           <h3 className="text-base font-semibold leading-7 text-gray-900">
             Applicant Information
@@ -20,109 +54,80 @@ export default function Content() {
                 Full name
               </dt>
               <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                Margot Foster
+              <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+              {customers.active? "ur account is active" : "activate ur account"}
+          </p>
               </dd>
             </div>
-            <div className="py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt className="text-sm font-medium leading-6 text-gray-900">
-                Application for
-              </dt>
-              <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                Backend Developer
-              </dd>
-            </div>
-            <div className="py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt className="text-sm font-medium leading-6 text-gray-900">
-                Email address
-              </dt>
-              <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                margotfoster@example.com
-              </dd>
-            </div>
-            <div className="py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt className="text-sm font-medium leading-6 text-gray-900">
-                Salary expectation
-              </dt>
-              <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                $120,000
-              </dd>
-            </div>
-            <div className="py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt className="text-sm font-medium leading-6 text-gray-900">
-                About
-              </dt>
-              <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim
-                incididunt cillum culpa consequat. Excepteur qui ipsum aliquip
-                consequat sint. Sit id mollit nulla mollit nostrud in ea officia
-                proident. Irure nostrud pariatur mollit ad adipisicing
-                reprehenderit deserunt qui eu.
-              </dd>
-            </div>
-            <div className="py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt className="text-sm font-medium leading-6 text-gray-900">
-                Attachments
-              </dt>
-              <dd className="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                <ul
-                  role="list"
-                  className="divide-y divide-gray-100 rounded-md border border-gray-200"
-                >
-                  <li className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
-                    <div className="flex w-0 flex-1 items-center">
-                      <PaperClipIcon
-                        className="h-5 w-5 flex-shrink-0 text-gray-400"
-                        aria-hidden="true"
-                      />
-                      <div className="ml-4 flex min-w-0 flex-1 gap-2">
-                        <span className="truncate font-medium">
-                          resume_back_end_developer.pdf
-                        </span>
-                        <span className="flex-shrink-0 text-gray-400">
-                          2.4mb
-                        </span>
-                      </div>
-                    </div>
-                    <div className="ml-4 flex-shrink-0">
-                      <a
-                        href="#"
-                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                      >
-                        Download
-                      </a>
-                    </div>
-                  </li>
-                  <li className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
-                    <div className="flex w-0 flex-1 items-center">
-                      <PaperClipIcon
-                        className="h-5 w-5 flex-shrink-0 text-gray-400"
-                        aria-hidden="true"
-                      />
-                      <div className="ml-4 flex min-w-0 flex-1 gap-2">
-                        <span className="truncate font-medium">
-                          coverletter_back_end_developer.pdf
-                        </span>
-                        <span className="flex-shrink-0 text-gray-400">
-                          4.5mb
-                        </span>
-                      </div>
-                    </div>
-                    <div className="ml-4 flex-shrink-0">
-                      <a
-                        href="#"
-                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                      >
-                        Download
-                      </a>
-                    </div>
-                  </li>
-                </ul>
-              </dd>
-            </div>
+            {/* Add similar code for other customer data fields */}
           </dl>
         </div>
-        {/* </main> */}
+        <div className="mt-6 border-t border-gray-100">
+          <dl className="divide-y divide-gray-100">
+            <div className="py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm font-medium leading-6 text-gray-900">
+                Full name
+              </dt>
+              <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+              <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+              {customers.active? "ur account is active" : "activate ur account"}
+          </p>
+              </dd>
+            </div>
+            
+            {/* Add similar code for other customer data fields */}
+          </dl>
+        </div>
+        <div className="mt-6 border-t border-gray-100">
+          <dl className="divide-y divide-gray-100">
+            <div className="py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm font-medium leading-6 text-gray-900">
+                Full name
+              </dt>
+              <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+              <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+              {customers.active? "ur account is active" : "activate ur account"}
+          </p>
+              </dd>
+            </div>
+            
+            {/* Add similar code for other customer data fields */}
+          </dl>
+        </div>
+        <div className="mt-6 border-t border-gray-100">
+          <dl className="divide-y divide-gray-100">
+            <div className="py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm font-medium leading-6 text-gray-900">
+                Full name
+              </dt>
+              <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+              <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+              {customers.active? "ur account is active" : "activate ur account"}
+          </p>
+              </dd>
+            </div>
+            
+            {/* Add similar code for other customer data fields */}
+          </dl>
+        </div>
+        <div className="mt-6 border-t border-gray-100">
+          <dl className="divide-y divide-gray-100">
+            <div className="py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm font-medium leading-6 text-gray-900">
+                Full name
+              </dt>
+              <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+              <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+              {customers.active? "ur account is active" : "activate ur account"}
+          </p>
+              </dd>
+            </div>
+            
+            {/* Add similar code for other customer data fields */}
+          </dl>
+        </div>
       </div>
     </>
   );
 }
+

@@ -1,6 +1,7 @@
 // import { cn } from "@/lib/utils";
 import Logo from "../assets/Logo/singLogoWhite.svg";
 import { UserAuthForm } from "../components/Login/UserAuthForm";
+// import { Button, buttonVariants } from "../components/ui/button";
 
 const AuthenticationPage = () => {
   return (
@@ -21,7 +22,7 @@ const AuthenticationPage = () => {
           </div>
         </div>
         <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
-          <div className="absolute inset-0 bg-primary" />
+          <div className="absolute inset-0 bg-zinc-900" />
           <div className="relative z-20 flex items-center text-lg uppercase font-medium text-right">
             <img src={Logo} className="mr-4" />
             <span className="uppercase font-bold">Rentlify</span>
