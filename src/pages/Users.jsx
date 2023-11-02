@@ -2,9 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
-import UserNav from "../components/ui/user-nav";
+import UserDialog from "../components/Users/addUserDialog";
 
-const OrderPage = () => {
+const UserPage = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -38,13 +38,13 @@ const OrderPage = () => {
     <div className="container h-full flex-1 flex-col space-y-8 p-8 flex">
       <div className="flex items-center justify-between space-y-2">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight">Welcome back!</h2>
+          <h2 className="text-2xl font-bold tracking-tight">USERS</h2>
           <p className="text-muted-foreground">
-            {"Here's"} a list of your orders!
+            {"Here's"} a list of all users!
           </p>
         </div>
         <div className="flex items-center space-x-2">
-          <UserNav />
+          <UserDialog/>
         </div>
       </div>
       <div className="">
@@ -59,4 +59,4 @@ const OrderPage = () => {
   );
 };
 
-export default OrderPage;
+export default UserPage;

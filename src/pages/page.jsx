@@ -4,7 +4,7 @@ import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
 import UserNav from "../components/ui/user-nav";
 
-const CustomerPage = () => {
+const UserPage = () => {
   const [customers, setCustomers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -60,4 +60,4 @@ const CustomerPage = () => {
   );
 };
 
-export default CustomerPage;
+export default UserPage;

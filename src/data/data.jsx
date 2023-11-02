@@ -26,7 +26,6 @@ const userLabels = [
     label: "Manager",
   },
 ];
-
 const customerStatuses = [
   {
     value: true,
