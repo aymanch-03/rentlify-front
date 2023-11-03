@@ -7,16 +7,21 @@ import { Button } from "../ui/button";
 import { Icons } from "../ui/icons";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { useToast } from "../ui/use-toast";
+// import { useToast } from "../ui/use-toast";
+import { useSelector, useDispatch } from 'react-redux'
 import useAuth from '../../hooks/useAuth';
 
 function UserAuthForm({ className, ...props }) {
-  const { toast } = useToast();
+  // const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const [user, setUser] = useState({ user_name: "", password: "" });
+  const [user, setUser] = useState({
+    user_name: "",
+    password: "" ,
+    });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const { setAuth } = useAuth();
+  const { user_name, password } = user
 
   const handleChange = (e) => {
     const { value, name } = e.target;
