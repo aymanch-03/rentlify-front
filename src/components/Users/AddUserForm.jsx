@@ -1,9 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import axios, { Axios } from "axios"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { useDispatch, useSelector } from 'react-redux'
 import {
     Form,
     FormControl,
@@ -26,7 +26,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { useState } from "react"
-
+import {addUser} from "../../redux/reducers/userReducers";
 const FormSchema = z.object({
     first_name: z
         .string({
@@ -71,10 +71,22 @@ export default function InputForm() {
         email: "",
         password: "",
     });
+    const [selectedValue, setSelectedValue] = useState('');
+
+
     const form = useForm({
         resolver: zodResolver(FormSchema),
     })
-    const [selectedValue, setSelectedValue] = useState('');
+    
+    
+    
+    
+    
+    const users = useSelector((state) => state.user.users)
+    const dispatch = useDispatch()
+
+
+
 
     const handleChange = (e) => {
         setFormData({
@@ -85,15 +97,23 @@ export default function InputForm() {
         console.log(formData)
     };
 
-    const submitData = async () => {
+
+
+
+
+    const submitData = async (event) => {
         try {
-            axios.post('http://localhost:5000/v1/users', formData);
-            console.log('Data submitted successfully',formData);
+            dispatch(addUser(formData))
+
         } catch (error) {
             console.error('Error submitting data', error);
         }
     };
-    
+
+
+
+
+
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(submitData)} className=" space-y-6">
@@ -140,11 +160,11 @@ export default function InputForm() {
                 <FormField
                     control={form.control}
                     name="role"
-                    
+
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>PLATFORM ROLE</FormLabel>
-                            <Select onValueChange={(value) => { setSelectedValue(value); field.onChange(value)}} value={field.value} >
+                            <Select onValueChange={(value) => { setSelectedValue(value); field.onChange(value) }} value={field.value} >
 
                                 <FormControl >
                                     <SelectTrigger>
