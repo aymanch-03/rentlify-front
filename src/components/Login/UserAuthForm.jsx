@@ -8,7 +8,6 @@ import { Icons } from "../ui/icons";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 // import { useToast } from "../ui/use-toast";
-import { useSelector, useDispatch } from 'react-redux'
 import useAuth from '../../hooks/useAuth';
 
 function UserAuthForm({ className, ...props }) {
@@ -19,9 +18,9 @@ function UserAuthForm({ className, ...props }) {
     password: "" ,
     });
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const { user_name, password } = user
+
+  const { setAuth } = useAuth();
 
   const handleChange = (e) => {
     const { value, name } = e.target;
