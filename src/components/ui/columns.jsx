@@ -119,9 +119,6 @@ function getColumns({
                     {label.label}
                   </Badge>
                 )}
-                {/* <span className="max-w-[500px] truncate font-medium">
-                  {row.getValue(keyFive)}
-                </span> */}
               </div>
             );
           },

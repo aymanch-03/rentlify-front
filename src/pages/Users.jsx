@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import UserDialog from "../components/Users/addUserDialog";
+import UpdateUserDialog from "../components/Users/updateUserDialog";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
-import UserDialog from "../components/Users/addUserDialog";
-import UpdateUserDialog from"../components/Users/updateUserDialog";
 
 const UserPage = () => {
   const [users, setUsers] = useState([]);
@@ -34,6 +34,9 @@ const UserPage = () => {
     option: "users",
   });
 
+  const getUserId = (row) => {
+    console.log(row.original._id);
+  };
   return (
     <div className="container h-full flex-1 flex-col space-y-8 p-8 flex">
       <div className="flex items-center justify-between space-y-2">
@@ -44,8 +47,8 @@ const UserPage = () => {
           </p>
         </div>
         <div className="flex items-center space-x-2">
-          <UserDialog/>
-          <UpdateUserDialog/>
+          <UserDialog />
+          <UpdateUserDialog />
         </div>
       </div>
       <div className="">
@@ -54,6 +57,7 @@ const UserPage = () => {
           columns={columns}
           isLoading={isLoading}
           option={"customers"}
+          onUserClick={getUserId}
         />
       </div>
     </div>
