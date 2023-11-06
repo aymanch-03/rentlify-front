@@ -1,27 +1,27 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+// import axios from "axios";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
 import UserNav from "../components/ui/user-nav";
+import { listCustomers } from '../redux/reducers/listcustomersReducer';
 
 const CustomerPage = () => {
-  const [customers, setCustomers] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch(); // Initialize the dispatch function
+  const customers = useSelector((state) => state.customers.data); // Access customer data from Redux store
+  const isLoading = useSelector((state) => state.customers.loading); // Access loading state from Redux store
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/v1/customers")
-      .then((response) => {
-        const { data } = response.data;
-        setCustomers(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setIsLoading(false);
-      });
-  }, []);
+     dispatch(listCustomers(customers));
+    // .then((result)=>{
+    //   if(result.payload){
+    //     console.log("Customer Page: ", result.payload);
+    //   }
+    // });
+  });
+
   console.log(customers);
+
   const columns = getColumns({
     keyOne: "email",
     keyOneTitle: "Customer email",

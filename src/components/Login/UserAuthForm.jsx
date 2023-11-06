@@ -7,8 +7,6 @@ import { Icons } from "../ui/icons";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { useDispatch } from "react-redux";
-// import { useToast } from "../ui/use-toast";
-
 import {LoginUser} from "../../redux/reducers/userReducers";
 
 function UserAuthForm({ className, ...props }) {
@@ -30,7 +28,7 @@ function UserAuthForm({ className, ...props }) {
     dispatch(LoginUser(user)).then((result)=>{
       if(result.payload){
         setUser('');
-        navigate("/Dashboard");
+        navigate("/customers");
       }
     })
   };
