@@ -12,22 +12,18 @@ const CustomerPage = () => {
   const isLoading = useSelector((state) => state.customers.loading); // Access loading state from Redux store
 
   useEffect(() => {
-     dispatch(listCustomers(customers));
-    // .then((result)=>{
-    //   if(result.payload){
-    //     console.log("Customer Page: ", result.payload);
-    //   }
-    // });
-  });
-
-  console.log(customers);
-
-  const columns = getColumns({
-    keyOne: "email",
-    keyOneTitle: "Customer email",
-    keyTwo: "valid_account",
-    keyTwoTitle: "Valid / Invalid",
-    keyThree: "active",
+    // Fetch customer data when the component mounts
+    dispatch(listCustomers());
+  }, [dispatch]);
+    
+    // console.log(customers);
+    
+    const columns = getColumns({
+      keyOne: "email",
+      keyOneTitle: "Customer email",
+      keyTwo: "valid_account",
+      keyTwoTitle: "Valid / Invalid",
+      keyThree: "active",
     keyThreeTitle: "Status",
     keyFour: "createdAt",
     keyFourTitle: "Created At",
@@ -54,10 +50,10 @@ const CustomerPage = () => {
           columns={columns}
           option={"customers"}
           isLoading={isLoading}
-        />
+          />
       </div>
     </div>
   );
-};
+}
 
 export default CustomerPage;
