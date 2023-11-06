@@ -7,8 +7,8 @@ export const listCustomers = createAsyncThunk("customers/listCustomers", async (
     });
     const response = await request.data.data;
     localStorage.setItem("customers", JSON.stringify(response));
-    // return customers;
     console.log(response);
+    return response;
 });
 
 const customerSlice = createSlice({
@@ -21,7 +21,7 @@ const customerSlice = createSlice({
     builder
       .addCase(listCustomers.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.customers = action.payload;
+        state.data = action.payload;
         console.log(action.payload);
       })
       .addCase(listCustomers.rejected, (state, action) => {
