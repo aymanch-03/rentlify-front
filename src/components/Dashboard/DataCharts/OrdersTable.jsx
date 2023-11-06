@@ -1,0 +1,97 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { orderStatuses } from "../../../data/data";
+import { Badge } from "../../ui/badge";
+
+const OrdersTable = () => {
+  const [orders, setOrders] = useState([]);
+  //   const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/v1/orders")
+      .then((response) => {
+        const { data } = response.data;
+        setOrders(data.slice(0, 4));
+        // setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        // setIsLoading(false);
+      });
+  }, []);
+  const getStatus = (order) => {
+    const status = orderStatuses.find(
+      (status) => status.value === order.status
+    );
+    if (!status) {
+      return null;
+    }
+    return (
+      <div className="flex w-[100px] items-center">
+        {status.icon && (
+          <status.icon className={`mr-2 h-4 w-4 ${status.color}`} />
+        )}
+        <Badge
+          variant="outline"
+          className={`font-medium ${status.badgeStyles}`}
+        >
+          {status.label}
+        </Badge>
+      </div>
+    );
+  };
+  return (
+    <div className="relative overflow-x-auto rounded-sm border">
+      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+        <thead className="text-xs text-gray-700 uppercase border-b border-gray-900/10">
+          <tr className="">
+            <th scope="col" className="font-semibold px-6 py-3">
+              Order ID
+            </th>
+            <th scope="col" className="font-semibold px-6 py-3">
+              Customer
+            </th>
+            <th scope="col" className="font-semibold px-6 py-3">
+              Status
+            </th>
+            <th scope="col" className="font-semibold px-6 py-3">
+              Total
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((order, index) => {
+            return (
+              <tr
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                key={index}
+              >
+                <td className="px-6 py-4">
+                  <Badge variant={"outline"} className={"font-medium"}>
+                    {order._id}
+                  </Badge>
+                </td>
+                <td className="px-6 py-4">
+                  <Badge variant={"outline"} className={"font-medium"}>
+                    {order.customer_id._id}
+                  </Badge>
+                </td>
+                <td className="px-6 py-4">
+                  {getStatus(order)}
+                  {/* <Badge variant={"outline"}>{order.status}</Badge> */}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <Badge variant={"outline"} className={"font-medium"}>
+                    {`${order.cart_total_price} MAD`}
+                  </Badge>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default OrdersTable;

@@ -2,8 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
-import UserNav from "../components/ui/user-nav";
-import Header from "../layouts/Header";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -21,7 +19,6 @@ const Users = () => {
         setIsLoading(false);
       });
   }, []);
-  console.log(users);
   const columns = getColumns({
     keyOne: "email",
     keyOneTitle: "User email",
@@ -37,7 +34,6 @@ const Users = () => {
 
   return (
     <>
-      <Header />
       <div className="container h-full flex-1 flex-col space-y-8 sm:p-8 p-4 flex">
         <div className="flex items-center justify-between space-y-2">
           <div>
@@ -45,9 +41,6 @@ const Users = () => {
             <p className="text-muted-foreground">
               {"Here's"} a list of your orders!
             </p>
-          </div>
-          <div className="flex items-center space-x-2">
-            <UserNav />
           </div>
         </div>
         <div className="">

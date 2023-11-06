@@ -2,8 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
-import UserNav from "../components/ui/user-nav";
-import Header from "../layouts/Header";
+// import UserNav from "../components/ui/user-nav";
 
 const CustomerPage = () => {
   const [customers, setCustomers] = useState([]);
@@ -22,7 +21,6 @@ const CustomerPage = () => {
         setIsLoading(false);
       });
   }, []);
-  console.log(customers);
   const columns = getColumns({
     keyOne: "email",
     keyOneTitle: "Customer email",
@@ -38,30 +36,42 @@ const CustomerPage = () => {
   });
   return (
     <>
-      <Header />
-      <div className="container h-full flex-1 flex-col space-y-8 sm:p-8 p-4 flex">
-        <div className="flex items-center justify-between space-y-2">
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight">Welcome back!</h2>
-            <p className="text-muted-foreground">
-              {"Here's"} a list of your customers!
-            </p>
+      <div className="flex">
+        <main className="flex-1 h-screen overflow-scroll">
+          <div className="container flex-1 flex-col space-y-8 sm:p-8 p-4 flex">
+            <div className="flex items-center justify-start space-y-2">
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight">
+                  Welcome back!
+                </h2>
+                <p className="text-muted-foreground">
+                  {"Here's"} a list of your customers!
+                </p>
+              </div>
+            </div>
+            <div className="">
+              <DataTable
+                data={customers}
+                columns={columns}
+                option={"customers"}
+                isLoading={isLoading}
+              />
+            </div>
           </div>
-          <div className="flex items-center space-x-2">
-            <UserNav />
-          </div>
-        </div>
-        <div className="">
-          <DataTable
-            data={customers}
-            columns={columns}
-            option={"customers"}
-            isLoading={isLoading}
-          />
-        </div>
+        </main>
       </div>
     </>
   );
 };
 
 export default CustomerPage;
+
+{
+  /* <div className="flex">
+      <Sidebar />
+      <main className="flex-1">
+        <Header />
+        <Stats stats={stats} classNames={classNames} />
+      </main>
+    </div> */
+}

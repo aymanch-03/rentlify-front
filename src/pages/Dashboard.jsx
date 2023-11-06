@@ -1,14 +1,8 @@
 /* eslint-disable no-unused-vars */
-// import { Dialog, Menu, Transition } from "@headlessui/react";
-import {
-  ArrowDownCircleIcon,
-  ArrowPathIcon,
-  ArrowUpCircleIcon,
-} from "@heroicons/react/20/solid";
-
+import ExpandedStats from "../components/Dashboard/ExpandedStats";
 import Stats from "../components/Dashboard/Stats";
-import Header from "../layouts/Header";
-// import Sidebar from "../components/ui/Sidebar";
+import { useSidebar } from "../context/SidebarProvider";
+import Layout from "../layouts/Layout";
 
 const stats = [
   {
@@ -18,9 +12,9 @@ const stats = [
     changeType: "positive",
   },
   {
-    name: "Number of Sales",
-    value: "8",
-    change: "+12.02%",
+    name: "Total Profit",
+    value: "$32,654.00",
+    change: "+2.02%",
     changeType: "positive",
   },
   {
@@ -42,10 +36,12 @@ function classNames(...classes) {
 }
 
 export default function Dashboard() {
+  const { sidebar } = useSidebar();
+
   return (
-    <main className="">
-      <Header />
+    <>
       <Stats stats={stats} classNames={classNames} />
-    </main>
+      <ExpandedStats />
+    </>
   );
 }

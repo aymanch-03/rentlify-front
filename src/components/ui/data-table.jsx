@@ -54,9 +54,9 @@ function DataTable({ columns, data, option, isLoading }) {
   return (
     <div className="space-y-4">
       <DataTableToolbar table={table} option={option} />
-      <main className="whitespace-nowrap w-full rounded-md border">
+      <main className="whitespace-nowrap w-full rounded-md border ">
         <Table className=" min-w-[800px]">
-          <TableHeader>
+          <TableHeader className="bg-[#fafafa]">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup?.id}>
                 {headerGroup.headers.map((header) => {
@@ -83,7 +83,7 @@ function DataTable({ columns, data, option, isLoading }) {
                     <div className="p-3 border-b flex gap-3">
                       <Skeleton className="h-7 w-full" />
                     </div>
-                    <div className="p-3  border-b flex gap-3">
+                    <div className="p-3 border-b flex gap-3">
                       <Skeleton className="h-7 w-full" />
                     </div>
                     <div className="p-3 flex gap-3">

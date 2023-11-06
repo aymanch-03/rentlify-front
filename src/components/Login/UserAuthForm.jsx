@@ -28,7 +28,6 @@ function UserAuthForm({ className, ...props }) {
         user
       );
 
-      console.log(result.data);
       navigate("/dashboard");
     } catch (error) {
       if (error?.response?.status === 401) {
