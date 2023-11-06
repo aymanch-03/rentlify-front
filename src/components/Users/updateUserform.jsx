@@ -26,7 +26,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { useState } from "react"
-import {addUser, updateUser} from "../../redux/reducers/userReducers";
+import { updateUser} from "../../redux/reducers/userReducers";
 const FormSchema = z.object({
     first_name: z
         .string({
@@ -115,7 +115,7 @@ export default function InputForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(submitData)} className=" space-y-6">
+            <form onSubmit={form.handleSubmit()} className="space-y-6">
                 <div className="grid grid-cols-2 gap-x-5">
                     <FormField
                         control={form.control}

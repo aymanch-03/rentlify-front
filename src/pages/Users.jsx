@@ -45,6 +45,7 @@ const UserPage = () => {
         </div>
         <div className="flex items-center space-x-2">
           <UserDialog/>
+          <UpdateUserDialog/>
         </div>
       </div>
       <div className="">
