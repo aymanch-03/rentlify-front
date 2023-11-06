@@ -26,7 +26,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { useState } from "react"
-import {addUser} from "../../reduxx/reducers/userReducers";
+import {addUser, updateUser} from "../../reduxx/reducers/userReducers";
 const FormSchema = z.object({
     first_name: z
         .string({
@@ -79,13 +79,17 @@ export default function InputForm() {
     })
     
     
-    
-    
-    
+
     const users = useSelector((state) => state.user.users)
     const dispatch = useDispatch()
 
-
+    const datahhh = {
+        first_name: "zakaria",
+        last_name: "achkar",
+        email: "zakariaechekar@gmail.com",
+        role: "manager",
+        user_name: "zakaziko",
+    }
 
 
     const handleChange = (e) => {
@@ -103,16 +107,11 @@ export default function InputForm() {
 
     const submitData = async (event) => {
         try {
-            dispatch(addUser(formData))
-
+            dispatch(updateUser(formData))
         } catch (error) {
             console.error('Error submitting data', error);
         }
     };
-
-
-
-
 
     return (
         <Form {...form}>
@@ -206,7 +205,7 @@ export default function InputForm() {
                         <FormItem>
                             <FormLabel>EMAIL</FormLabel>
                             <FormControl>
-                                <Input name="email" type="email" onChange={(e) => {
+                                <Input name="email" disabled type="email" onChange={(e) => {
                                     handleChange(e);
                                     field.onChange(e);
                                 }} />
@@ -222,7 +221,7 @@ export default function InputForm() {
                         <FormItem>
                             <FormLabel>PASSWORD</FormLabel>
                             <FormControl>
-                                <Input name="password" type="password" onChange={(e) => {
+                                <Input name="password" type="password" disabled onChange={(e) => {
                                     handleChange(e);
                                     field.onChange(e);
                                 }} />

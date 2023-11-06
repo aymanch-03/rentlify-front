@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
 import UserDialog from "../components/Users/addUserDialog";
+import UpdateUserDialog from"../components/Users/updateUserDialog";
 
 const UserPage = () => {
   const [users, setUsers] = useState([]);
@@ -20,7 +21,6 @@ const UserPage = () => {
         setIsLoading(false);
       });
   }, []);
-  console.log(users);
   const columns = getColumns({
     keyOne: "email",
     keyOneTitle: "User email",

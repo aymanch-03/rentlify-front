@@ -37,8 +37,7 @@ const DropdownMenuSubTrigger = React.forwardRef(
     </DropdownMenuPrimitive.SubTrigger>
   )
 );
-DropdownMenuSubTrigger.displayName =
-  DropdownMenuPrimitive.SubTrigger.displayName;
+DropdownMenuSubTrigger.displayName = DropdownMenuPrimitive.SubTrigger.displayName;
 
 const DropdownMenuSubContent = React.forwardRef(
   ({ className, ...props }, ref) => (
@@ -52,8 +51,7 @@ const DropdownMenuSubContent = React.forwardRef(
     />
   )
 );
-DropdownMenuSubContent.displayName =
-  DropdownMenuPrimitive.SubContent.displayName;
+DropdownMenuSubContent.displayName =DropdownMenuPrimitive.SubContent.displayName;
 
 const DropdownMenuContent = React.forwardRef(
   ({ className, sideOffset = 4, ...props }, ref) => (

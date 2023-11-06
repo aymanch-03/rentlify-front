@@ -8,6 +8,13 @@ export const addUser = createAsyncThunk('user/addUser', async (user) => {
         .catch((err) => err);
 })
 
+export const updateUser = createAsyncThunk('user/updateUser',async(id,user) => {
+    return axios
+    .put(`http://localhost:5000/v1/users/${id}`, user)
+        .then(res => res.data)
+        .catch((err) => err);
+})
+
 const userSlice = createSlice({
     name: 'users',
     initialState: {
