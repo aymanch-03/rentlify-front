@@ -26,7 +26,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { useState } from "react"
-import {addUser, updateUser} from "../../reduxx/reducers/userReducers";
+import {addUser, updateUser} from "../../redux/reducers/userReducers";
 const FormSchema = z.object({
     first_name: z
         .string({
