@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import UserDialog from "../components/Users/addUserDialog";
-import UpdateUserDialog from "../components/Users/updateUserDialog";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
 
@@ -48,7 +47,6 @@ const UserPage = () => {
         </div>
         <div className="flex items-center space-x-2">
           <UserDialog />
-          <UpdateUserDialog />
         </div>
       </div>
       <div className="">
