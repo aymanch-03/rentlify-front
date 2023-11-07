@@ -1,5 +1,6 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { Icon } from "@iconify/react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import blackLogo from "../assets/Logo/singLogoBlack.svg";
 import { useSidebar } from "../context/SidebarProvider";
@@ -36,6 +37,12 @@ const adminLinks = [
 ];
 const Sidebar = () => {
   const { sidebar, handelSidebar } = useSidebar();
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  console;
+
+  const handleLinkClick = (path) => {
+    setCurrentPath(path);
+  };
 
   return (
     <div
@@ -77,7 +84,8 @@ const Sidebar = () => {
                 key={index}
                 className={`flex justify-between items-center gap-3 py-1 px-1 rounded-md group cursor-pointer transition-all ${
                   !sidebar && "w-fit hover:bg-primary/10"
-                }`}
+                } ${item.path === currentPath ? "bg-primary/10" : ""}`}
+                onClick={() => handleLinkClick(item.path)}
               >
                 <div className="flex items-center gap-3 group">
                   <Icon
@@ -112,13 +120,14 @@ const Sidebar = () => {
                 key={index}
                 className={`flex justify-between items-center gap-3 py-1 px-1 rounded-md group cursor-pointer transition-all ${
                   !sidebar && "w-fit hover:bg-primary/10"
-                }`}
+                } ${item.path === currentPath ? "bg-primary/10" : ""}`}
+                onClick={() => handleLinkClick(item.path)}
               >
                 <div className="flex items-center gap-3 group">
                   <Icon
                     icon={item.icon}
                     width={23}
-                    className={!sidebar && "group-hover:text-primary"}
+                    className={`${!sidebar && "group-hover:text-primary "}`}
                   />
                   <p
                     className={`text-sm transition-all ${
@@ -133,29 +142,6 @@ const Sidebar = () => {
           })}
         </ul>
       </div>
-      {/* <Link
-        to="/customer"
-        className="w-full border-t p-3 flex items-center gap-3 cursor-pointer hover:bg-black/10 transition-all"
-      >
-        <Avatar className="w-9 aspect-square h-auto">
-          <AvatarImage
-            src="https://github.com/aymanch-03.png"
-            alt="@aymanch-03"
-          />
-          <AvatarFallback>AE</AvatarFallback>
-        </Avatar>
-        <p
-          className={`text-sm group-hover:pl-2 whitespace-nowrap text-gray-500/80 transition-all flex-1 ${
-            !sidebar && "opacity-0"
-          }`}
-        >
-          Ayman ECHAKAR
-        </p>
-        <ChevronRightIcon
-          width={22}
-          className={`rounded-full p-1 border ${!sidebar && "hidden"}`}
-        />
-      </Link> */}
     </div>
   );
 };
