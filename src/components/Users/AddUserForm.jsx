@@ -26,7 +26,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { useState } from "react"
-import {addUser} from "../../redux/reducers/userReducers";
+import {addUser} from "../../redux/features/userSlice";
 const FormSchema = z.object({
     first_name: z
         .string({
@@ -63,56 +63,27 @@ const FormSchema = z.object({
 })
 
 export default function InputForm() {
-    const [formData, setFormData] = useState({
-        first_name: "",
-        last_name: "",
-        role: "",
-        user_name: "",
-        email: "",
-        password: "",
-    });
-    const [selectedValue, setSelectedValue] = useState('');
-
-
     const form = useForm({
         resolver: zodResolver(FormSchema),
+        defaultValues: {
+            first_name: "",
+            last_name: "",
+            role: "",
+            user_name: "",
+            email: "",
+            password: "",
+        }
     })
     
-    
-    
-    
-    
-    const users = useSelector((state) => state.user.users)
     const dispatch = useDispatch()
 
-
-
-
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            role: selectedValue,
-            [e.target.name]: e.target.value,
-        });
-        console.log(formData)
-    };
-
-
-
-
-
-    const submitData = async (event) => {
+    const submitData = async (values) => {
         try {
-            dispatch(addUser(formData))
-
+            dispatch(addUser(values))
         } catch (error) {
             console.error('Error submitting data', error);
         }
     };
-
-
-
-
 
     return (
         <Form {...form}>
@@ -127,12 +98,7 @@ export default function InputForm() {
                                 <FormControl>
                                     <Input
                                         className="input"
-                                        value={field.value}
-                                        name={field.name}
-                                        onChange={(e) => {
-                                            handleChange(e);
-                                            field.onChange(e);
-                                        }}
+                                        {...field}
                                     />
                                 </FormControl>
                                 <FormMessage className="text-red-600 h-0" />
@@ -149,7 +115,7 @@ export default function InputForm() {
                                     <Input
                                         name={field.name}
                                         className="input"
-                                        onChange={(e) => { handleChange(e); field.onChange(e); }}
+                                        {...field}
                                     />
                                 </FormControl>
                                 <FormMessage className="text-red-600" />
@@ -164,7 +130,7 @@ export default function InputForm() {
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>PLATFORM ROLE</FormLabel>
-                            <Select onValueChange={(value) => { setSelectedValue(value); field.onChange(value) }} value={field.value} >
+                            <Select onValueChange={field.onChange} defaultValue={field.value} >
 
                                 <FormControl >
                                     <SelectTrigger>
@@ -190,10 +156,8 @@ export default function InputForm() {
                                 <Input
                                     name="user_name"
                                     type="text"
-                                    onChange={(e) => {
-                                        handleChange(e);
-                                        field.onChange(e);
-                                    }} />
+                                    {...field}
+                                     />
                             </FormControl>
                             <FormMessage className="text-red-600" />
                         </FormItem>
@@ -206,10 +170,7 @@ export default function InputForm() {
                         <FormItem>
                             <FormLabel>EMAIL</FormLabel>
                             <FormControl>
-                                <Input name="email" type="email" onChange={(e) => {
-                                    handleChange(e);
-                                    field.onChange(e);
-                                }} />
+                                <Input name="email" type="email" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -222,10 +183,7 @@ export default function InputForm() {
                         <FormItem>
                             <FormLabel>PASSWORD</FormLabel>
                             <FormControl>
-                                <Input name="password" type="password" onChange={(e) => {
-                                    handleChange(e);
-                                    field.onChange(e);
-                                }} />
+                                <Input name="password" type="password" {...field} />
                             </FormControl>
                             <FormMessage className="text-red-600" />
                         </FormItem>

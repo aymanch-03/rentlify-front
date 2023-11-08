@@ -28,8 +28,9 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { useEffect, useState } from "react"
-import { updateUser } from "../../redux/reducers/userReducers";
+import { getUser, updateUser } from "../../redux/features/userSlice";
 import image from "../../assets/1946429.png"
+
 const FormSchema = z.object({
     first_name: z
         .string({
@@ -51,91 +52,60 @@ const FormSchema = z.object({
             required_error: "Username is required",
         })
         .min(2),
-    email: z
-        .string({
-            required_error: "Email is required",
-        })
-        .min(2)
-        .email(),
-    password: z
-        .string({
-            required_error: "Password is required",
-        })
-        .nonempty('This is required').min(8, { message: 'Too short' }),
-
 })
 export default function UserProfile(props) {
     const [userData, setUserData] = useState('')
-    const [formData, setFormData] = useState({
-        first_name: "",
-        last_name: "",
-        role: "",
-        user_name: "",
-        email: "",
-        password: "",
-    });
-    const [selectedValue, setSelectedValue] = useState('');
     const [isDisabled, setIsDisabled] = useState(true)
     const [isDisplayed, setIsDisplayed] = useState('hidden');
+    
+    const dispatch = useDispatch();
+    const { data, isLoading, error } = useSelector((state) => state.user.users);
+  
+    useEffect(() => {
+      dispatch(getUser(props.id))
+    }, [dispatch])
+
+    useEffect(()=>{
+        console.log(data.last_name)
+    })
+    // useEffect(() => {
+    //     axios
+    //         .get(`http://localhost:5000/v1/users/${props.id}`)
+    //         .then((response) => {
+    //             const { data } = response.data;
+    //             setUserData(data);
+    //             // console.log(data);
+    //         })
+    //         .catch((error) => {
+    //             console.error("Error fetching data:", error);
+    //         });
+    // }, []);
+    
     const form = useForm({
         resolver: zodResolver(FormSchema),
+        defaultValues: {
+            first_name: userData.first_name|| 'Still Empty',
+            last_name: userData.last_name || 'Still Empty',
+            role: userData.role || '',
+            user_name: userData.user_name || 'Still Empty',
+            email: userData.email || 'Still Empty'
+        }
     })
-    const users = useSelector((state) => state.user.users);
-
-    const dispatch = useDispatch()
-
-
-
-    useEffect(() => {
-        axios
-            .get(`http://localhost:5000/v1/users/${props.id}`)
-            .then((response) => {
-                const { data } = response.data;
-                setUserData(data);
-                setFormData({
-                    first_name: data.first_name,
-                    last_name: data.last_name,
-                    role: data.role,
-                    user_name: data.user_name,
-                    email: data.email,
-                    password: data.password,
-                
-            });                // console.log(data);
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-            });
-    }, []);
-
-
-
-    console.log(formData)
-
-
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            role: selectedValue,
-            [e.target.name]: e.target.value,
-        });
-        console.log(formData)
-    };
 
     function editData() {
         setIsDisplayed('flex');
         setIsDisabled(false)
     }
-
     function cancelEdit() {
         setIsDisplayed('hidden');
         setIsDisabled(true)
-
     }
 
-
-    const submitData = async (id) => {
+    const submitData = async (id, values) => {
         try {
-            dispatch(updateUser(formData))
+            // console.log('values', values);
+            // console.log('id', id);
+            // dispatch(updateUser(id, values))
         } catch (error) {
             console.error('Error submitting data', error);
         }
@@ -148,7 +118,7 @@ export default function UserProfile(props) {
                     <img className="w-[180px] h-[180px] rounded-s-full" src={image} alt="Profil Image" />
                 </div>
                 <div className="flex flex-col justify-center">
-                    <h1 className="text-3xl font-semibold">{userData.last_name+ " " +userData.first_name}</h1>
+                    <h1 className="text-3xl font-semibold uppercase">{userData.last_name + " " + userData.first_name}</h1>
                     <p className="text-slate-500">
                         <a href="" className="text-blue-600/75">{userData.email}</a>
                         {" "}- {userData.role}
@@ -163,7 +133,7 @@ export default function UserProfile(props) {
                 </div>
             </div>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit()} className="space-y-6">
+                <form onSubmit={form.handleSubmit(submitData(userData._id))} className="space-y-6">
                     <FormField
                         control={form.control}
                         name="first_name"
@@ -175,18 +145,15 @@ export default function UserProfile(props) {
                                         <Input
                                             className=""
                                             disabled={isDisabled}
-                                            value={field.value || userData.user_name}
-                                            name={field.name}
-                                            onChange={(e) => {
-                                                handleChange(e);
-                                                field.onChange(e);
-                                            }}
+                                            value={field.value}
+                                            {...field}
                                         />
                                     </FormControl>
                                     <FormMessage className="text-red-600 h-0" />
                                 </div>
                             </FormItem>
-                        )}
+                            )
+                        }
                     />
                     <FormField
                         control={form.control}
@@ -197,11 +164,10 @@ export default function UserProfile(props) {
                                 <div className="inline-block w-full">
                                     <FormControl>
                                         <Input
-                                            disabled={isDisabled}
-                                            name={field.name}
-                                            value={field.value || userData.last_name}
                                             className=" "
-                                            onChange={(e) => { handleChange(e); field.onChange(e); }}
+                                            disabled={isDisabled}
+                                            value={field.value}
+                                            {...field}
                                         />
                                     </FormControl>
                                     <FormMessage className="text-red-600" />
@@ -210,6 +176,7 @@ export default function UserProfile(props) {
                             </FormItem>
                         )}
                     />
+                    
                     <FormField
                         control={form.control}
                         name="email"
@@ -220,15 +187,12 @@ export default function UserProfile(props) {
 
                                     <FormControl>
                                         <Input
-                                            value={field.value || userData.email}
                                             className="w-full"
-                                            name="email"
                                             disabled
                                             type="email"
-                                            onChange={(e) => {
-                                                handleChange(e);
-                                                field.onChange(e);
-                                            }} />
+                                            value={field.value}
+                                            {...field}
+                                             />
                                     </FormControl>
                                     <FormMessage />
                                 </div>
@@ -244,18 +208,21 @@ export default function UserProfile(props) {
                                 <div className="inline-block w-full">
                                     <Select
                                         disabled={isDisabled}
-                                        onValueChange={(value) => { setSelectedValue(value); field.onChange(value) }}
-                                        value={field.value || userData.role} >
+                                        onValueChange={field.onChange}
+                                        defaultValue={field.value}
+                                        >
 
                                         <FormControl >
-                                            <SelectTrigger className="">
-                                                <SelectValue placeholder="Select a role to display" />
-                                            </SelectTrigger>
+                                            <>
+                                                <SelectTrigger className="">
+                                                    <SelectValue placeholder="Select a role to display" />
+                                                </SelectTrigger>
+                                                <SelectContent name="role">
+                                                    <SelectItem value="admin">Admin User</SelectItem>
+                                                    <SelectItem value="manager">Manager User</SelectItem>
+                                                </SelectContent>
+                                            </>
                                         </FormControl>
-                                        <SelectContent name="role">
-                                            <SelectItem value="admin">Admin User</SelectItem>
-                                            <SelectItem value="manager">Manager User</SelectItem>
-                                        </SelectContent>
                                     </Select>
                                     <FormMessage />
                                 </div>
@@ -273,13 +240,10 @@ export default function UserProfile(props) {
                                     <FormControl>
                                         <Input
                                             name="user_name"
-                                            value={field.value || userData.user_name}
                                             disabled={isDisabled}
-                                            type="text"
-                                            onChange={(e) => {
-                                                handleChange(e);
-                                                field.onChange(e);
-                                            }} />
+                                            value={field.value}
+                                            {...field}
+                                             />
                                     </FormControl>
                                     <FormMessage className="text-red-600" />
                                 </div>

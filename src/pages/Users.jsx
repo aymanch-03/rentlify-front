@@ -3,29 +3,24 @@ import { useEffect, useState } from "react";
 import UserDialog from "../components/Users/addUserDialog";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
+import { ListUsers } from "../redux/features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const UserPage = () => {
-  const [users, setUsers] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+
+  const dispatch = useDispatch();
+  const {data, isLoading, error} = useSelector((state) => state.user.users);
+
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/v1/users")
-      .then((response) => {
-        const { data } = response.data;
-        setUsers(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setIsLoading(false);
-      });
-  }, []);
+    dispatch(ListUsers())
+  }, [dispatch])
+     
   const columns = getColumns({
     keyOne: "email",
     keyOneTitle: "User email",
     keyTwo: "role",
     keyTwoTitle: "User Role",
-    keyThree: "active",
+    keyThree: "active",   
     keyThreeTitle: "Status",
     keyFour: "createdAt",
     keyFive: "_id",
@@ -36,6 +31,9 @@ const UserPage = () => {
   const getUserId = (row) => {
     console.log(row.original._id);
   };
+
+  if (error) console.error(error)
+
   return (
     <div className="container h-full flex-1 flex-col space-y-8 p-8 flex">
       <div className="flex items-center justify-between space-y-2">
@@ -50,13 +48,16 @@ const UserPage = () => {
         </div>
       </div>
       <div className="">
+        {
+          data &&   
         <DataTable
-          data={users}
+          data={data}
           columns={columns}
           isLoading={isLoading}
-          option={"customers"}
+          option={"users"}
           onUserClick={getUserId}
         />
+        }
       </div>
     </div>
   );

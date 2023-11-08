@@ -7,7 +7,6 @@ import UsersPage from "./pages/Users";
 function App() {
   return (
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-      <UsersPage />
       <UserProfile id={'6544b833bd878d4ed4bdebda'}/>
     </ThemeProvider>
   );
