@@ -1,30 +1,25 @@
 /* eslint-disable react/prop-types */
-import { useLocation, Navigate, Outlet } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-// import { LoginUser } from "../redux/reducers/userReducers";
 import React from "react";
+import { useLocation, Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const RequireAuth = ({ allowedRoles }) => {
   // const dispatch = useDispatch();
   const location = useLocation();
   const { user, isLoading, error } = useSelector((state) => state.user);
 
-  // const role= useSelector(state => state.user.user.role);
+  //   const role= useSelector(state => state.user.user.role);
 
-  const auth = React.useMemo(() => (user ? user : ""), [user]);
+  const auth = React.useMemo(() => user ?? user, [user]);
 
   console.log(auth);
-  console.log(allowedRoles);
-
-  // const loginUserIfNeeded = () => {
-  //     dispatch(LoginUser({ username: 'your_username', password: 'your_password' }));
-  // };
+  // console.log(allowedRoles);
 
   if (isLoading) return <p>loading...</p>;
-
+  console.log(isLoading);
   if (error) return <p>error</p>;
 
-  if (auth?.role.toLowerCase() === allowedRoles.toLowerCase()) {
+  if (auth?.role === allowedRoles) {
     return <Outlet />;
   }
 

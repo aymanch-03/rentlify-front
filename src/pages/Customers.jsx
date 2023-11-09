@@ -1,10 +1,10 @@
 // import axios from "axios";
 import { useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
 import UserNav from "../components/ui/user-nav";
-import { listCustomers } from '../redux/reducers/listcustomersReducer';
+import { listCustomers } from "../redux/reducers/listcustomersReducer";
 
 const CustomerPage = () => {
   const dispatch = useDispatch(); // Initialize the dispatch function
@@ -15,15 +15,13 @@ const CustomerPage = () => {
     // Fetch customer data when the component mounts
     dispatch(listCustomers());
   }, [dispatch]);
-    
-    // console.log(customers);
-    
-    const columns = getColumns({
-      keyOne: "email",
-      keyOneTitle: "Customer email",
-      keyTwo: "valid_account",
-      keyTwoTitle: "Valid / Invalid",
-      keyThree: "active",
+
+  const columns = getColumns({
+    keyOne: "email",
+    keyOneTitle: "Customer email",
+    keyTwo: "valid_account",
+    keyTwoTitle: "Valid / Invalid",
+    keyThree: "active",
     keyThreeTitle: "Status",
     keyFour: "createdAt",
     keyFourTitle: "Created At",
@@ -50,10 +48,10 @@ const CustomerPage = () => {
           columns={columns}
           option={"customers"}
           isLoading={isLoading}
-          />
+        />
       </div>
     </div>
   );
-}
+};
 
 export default CustomerPage;

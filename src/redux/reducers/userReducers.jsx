@@ -27,7 +27,7 @@ const loginSlice = createSlice({
   name: "user",
   initialState: {
     user: null,
-    isLoading: true,
+    isLoading: false,
     error: null,
   },
   // reducers: {},
