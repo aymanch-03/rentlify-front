@@ -1,14 +1,11 @@
+import { Icons } from "../../ui/icons";
 import LineChart from "../LineChart";
 
-const OrderChart = () => {
+// eslint-disable-next-line react/prop-types
+const OrderChart = ({ dbData, totalOrders, dates, percentage, isLoading }) => {
   const options = {
     maintainAspectRatio: false,
     responsive: true,
-    // elements: {
-    //   point: {
-    //     radius: 0,
-    //   },
-    // },
     legend: {
       display: false,
     },
@@ -51,6 +48,7 @@ const OrderChart = () => {
     },
     scales: {
       x: {
+        // display: false,
         display: true,
         ticks: {
           font: {
@@ -71,11 +69,11 @@ const OrderChart = () => {
     },
   };
   const data = {
-    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    labels: dates,
 
     datasets: [
       {
-        data: [12, 16, 14, 15, 66, 27],
+        data: dbData,
         borderColor: "rgba(6, 214, 160,1)",
         borderWidth: 3,
       },
@@ -94,12 +92,30 @@ const OrderChart = () => {
         </div>
         <div>
           <p className="text-3xl font-medium leading-10 tracking-tight text-gray-900">
-            10,3K
+            {isLoading ? (
+              <Icons.spinner className="mr-2 h-6 w-6 animate-spin" />
+            ) : (
+              totalOrders
+            )}
           </p>
-          <span className="text-xs font-medium text-green-500">+14%</span>
-          <span className="text-xs font-normal leading-6 text-gray-400 pl-1">
-            vs last 7 days
-          </span>
+          {isLoading ? (
+            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            <>
+              <span
+                className={`text-xs font-medium ${
+                  percentage >= 0 ? "text-green-500" : "text-red-500"
+                }`}
+              >
+                {percentage >= 0 && !isLoading
+                  ? `+${percentage}%`
+                  : `${percentage}%`}
+              </span>
+              <span className="text-xs font-normal leading-6 text-gray-400 pl-1">
+                vs last 7 days
+              </span>
+            </>
+          )}
         </div>
       </div>
       <div className="col-span-2 grid">

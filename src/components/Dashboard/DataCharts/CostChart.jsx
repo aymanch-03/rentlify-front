@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import LineChart from "../LineChart";
 
-const CostChart = () => {
+const CostChart = ({ dbData, dates }) => {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -71,10 +72,10 @@ const CostChart = () => {
     },
   };
   const data = {
-    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    labels: dates,
     datasets: [
       {
-        data: [10, 12, 12, 12, 14, 15, 20],
+        data: dbData,
         borderColor: "#0077b6",
         borderWidth: 3,
       },
@@ -85,7 +86,7 @@ const CostChart = () => {
       <div className="col-span-1 flex flex-col justify-between whitespace-nowrap">
         <div>
           <p className="text-sm font-medium leading-6 text-gray-500">
-            Total Costs
+            Total Registered Customers
           </p>
           <p className="text-xs font-normal leading-6 text-gray-400">
             Last 7 days

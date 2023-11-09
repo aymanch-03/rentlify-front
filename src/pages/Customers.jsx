@@ -41,8 +41,8 @@ const CustomerPage = () => {
           <div className="container flex-1 flex-col space-y-8 sm:p-8 p-4 flex">
             <div className="flex items-center justify-start space-y-2">
               <div>
-                <h2 className="text-2xl font-bold tracking-tight">
-                  Welcome back!
+                <h2 className="text-2xl font-semibold tracking-tight">
+                  Customers Management
                 </h2>
                 <p className="text-muted-foreground">
                   {"Here's"} a list of your customers!

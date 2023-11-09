@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
 
+import StatsSkeleton from "../ui/statsSkeleton";
+
 const Stats = ({ classNames, stats }) => {
+  const isLoading = false;
   return (
     <div className="relative isolate overflow-hidden flex-1">
       <div className="border-b border-b-gray-900/10 ">
@@ -17,22 +20,28 @@ const Stats = ({ classNames, stats }) => {
                 "flex items-baseline flex-wrap justify-between gap-y-2 gap-x-4 border-t border-gray-900/5 px-4 py-10 sm:px-6 lg:border-t-0 xl:px-8"
               )}
             >
-              <dt className="text-sm font-medium leading-6 text-gray-500">
-                {stat.name}
-              </dt>
-              <dd
-                className={classNames(
-                  stat.changeType === "negative"
-                    ? "text-rose-600"
-                    : "text-green-500",
-                  "text-xs font-medium"
-                )}
-              >
-                {stat.change}
-              </dd>
-              <dd className="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
-                {stat.value}
-              </dd>
+              {isLoading ? (
+                <StatsSkeleton />
+              ) : (
+                <>
+                  <dt className="text-sm font-medium leading-6 text-gray-500">
+                    {stat.name}
+                  </dt>
+                  <dd
+                    className={classNames(
+                      stat.changeType === "negative"
+                        ? "text-rose-600"
+                        : "text-green-500",
+                      "text-xs font-medium"
+                    )}
+                  >
+                    {stat.change}
+                  </dd>
+                  <dd className="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
+                    {stat.value}
+                  </dd>
+                </>
+              )}
             </div>
           ))}
         </dl>

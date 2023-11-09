@@ -253,13 +253,17 @@ function getColumns({
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title={keyFiveTitle} />
       ),
-      cell: ({ row }) => (
-        <Badge variant="outline" className={"font-medium"}>
-          {option === "orders"
-            ? `${row.getValue(keyFive)} MAD`
-            : row.getValue(keyFive)}
-        </Badge>
-      ),
+      cell: ({ row }) => {
+        return (
+          <p className={"font-medium"}>
+            {option === ("customers" || "users")
+              ? `${row.getValue(keyFive)}`
+              : option === "orders"
+              ? `${row.getValue(keyFive)},00 MAD`
+              : null}
+          </p>
+        );
+      },
       enableSorting: false,
       enableHiding: false,
     },

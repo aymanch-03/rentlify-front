@@ -1,24 +1,8 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+/* eslint-disable react/prop-types */
 import { orderStatuses } from "../../../data/data";
 import { Badge } from "../../ui/badge";
 
-const OrdersTable = () => {
-  const [orders, setOrders] = useState([]);
-  //   const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/v1/orders")
-      .then((response) => {
-        const { data } = response.data;
-        setOrders(data.slice(0, 4));
-        // setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        // setIsLoading(false);
-      });
-  }, []);
+const OrdersTable = ({ orders }) => {
   const getStatus = (order) => {
     const status = orderStatuses.find(
       (status) => status.value === order.status
@@ -81,9 +65,9 @@ const OrdersTable = () => {
                   {/* <Badge variant={"outline"}>{order.status}</Badge> */}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <Badge variant={"outline"} className={"font-medium"}>
-                    {`${order.cart_total_price} MAD`}
-                  </Badge>
+                  <p className={"font-medium"}>
+                    {`${order.cart_total_price},00 MAD`}
+                  </p>
                 </td>
               </tr>
             );

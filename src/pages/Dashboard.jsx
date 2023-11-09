@@ -7,25 +7,25 @@ import Layout from "../layouts/Layout";
 const stats = [
   {
     name: "Total Revenue",
-    value: "$58,778.00",
+    value: "58,778.00 MAD",
     change: "+4.75%",
     changeType: "positive",
   },
   {
     name: "Total Profit",
-    value: "$32,654.00",
+    value: "32,654.00 MAD",
     change: "+2.02%",
     changeType: "positive",
   },
   {
-    name: "Total of Customers",
+    name: "Total Customers",
     value: "392",
     change: "+1.39%",
     changeType: "positive",
   },
   {
     name: "Expenses",
-    value: "$30,156.00",
+    value: "30,156.00 MAD",
     change: "-10.18%",
     changeType: "negative",
   },

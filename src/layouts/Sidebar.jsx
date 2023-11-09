@@ -38,7 +38,6 @@ const adminLinks = [
 const Sidebar = () => {
   const { sidebar, handelSidebar } = useSidebar();
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
-  console;
 
   const handleLinkClick = (path) => {
     setCurrentPath(path);
@@ -58,8 +57,8 @@ const Sidebar = () => {
         }`}
       />
 
-      <div className="space-y-5 whitespace-nowrap flex-1 px-4 pt-[1.1rem]">
-        <div className="flex items-center gap-2">
+      <div className="space-y-5 whitespace-nowrap flex-1  pt-[1.1rem]">
+        <div className="flex items-center gap-2 px-4">
           <img
             className="h-8 mix-blend-multiply w-auto"
             src={blackLogo}
@@ -70,21 +69,25 @@ const Sidebar = () => {
           )}
         </div>
         <p
-          className={`text-gray-500/40 text-sm transition-all font-medium uppercase px-1 ${
+          className={`text-gray-500/40 text-sm transition-all font-medium uppercase px-5 ${
             !sidebar && "opacity-0"
           }`}
         >
           general
         </p>
-        <ul className="flex flex-col gap-4">
+        <ul className="flex flex-col gap-2.5">
           {generalLinks.map((item, index) => {
             return (
               <Link
                 to={item.path}
                 key={index}
-                className={`flex justify-between items-center gap-3 py-1 px-1 rounded-md group cursor-pointer transition-all ${
-                  !sidebar && "w-fit hover:bg-primary/10"
-                } ${item.path === currentPath ? "bg-primary/10" : ""}`}
+                className={`flex justify-between  items-center gap-3 py-2 group cursor-pointer transition-all px-5 ${
+                  !sidebar && "w-fit hover:bg-primary/10 py-1"
+                } ${
+                  item.path === currentPath
+                    ? "bg-primary/10 border-r-2 border-primary"
+                    : null
+                }`}
                 onClick={() => handleLinkClick(item.path)}
               >
                 <div className="flex items-center gap-3 group">
@@ -106,28 +109,32 @@ const Sidebar = () => {
           })}
         </ul>
         <p
-          className={`text-gray-500/40 text-sm transition-all font-medium uppercase px-1 ${
+          className={`text-gray-500/40 text-sm transition-all font-medium uppercase px-5 ${
             !sidebar && "opacity-0"
           }`}
         >
           Admin
         </p>
-        <ul className="flex flex-col gap-4">
+        <ul className="flex flex-col gap-2.5">
           {adminLinks.map((item, index) => {
             return (
               <Link
                 to={item.path}
                 key={index}
-                className={`flex justify-between items-center gap-3 py-1 px-1 rounded-md group cursor-pointer transition-all ${
-                  !sidebar && "w-fit hover:bg-primary/10"
-                } ${item.path === currentPath ? "bg-primary/10" : ""}`}
+                className={`flex justify-between items-center gap-3 py-2 px-5 group cursor-pointer transition-all ${
+                  !sidebar && "w-fit hover:bg-primary/10 py-1"
+                } ${
+                  item.path === currentPath
+                    ? "bg-primary/10 border-r-2 border-primary"
+                    : ""
+                }`}
                 onClick={() => handleLinkClick(item.path)}
               >
                 <div className="flex items-center gap-3 group">
                   <Icon
                     icon={item.icon}
                     width={23}
-                    className={`${!sidebar && "group-hover:text-primary "}`}
+                    className={`${!sidebar && "group-hover:text-primary"}`}
                   />
                   <p
                     className={`text-sm transition-all ${
