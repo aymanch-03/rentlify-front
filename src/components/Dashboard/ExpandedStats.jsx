@@ -65,13 +65,13 @@ const ExpandedStats = () => {
               percentage={percentageIncrease}
             />
           )}
-          {/* {isLoading ? (
+          {isLoading ? (
             <ChartsSkeleton
               className={"md:border-l border-t md:border-t-0 border-gray-900/5"}
             />
           ) : (
             <CostChart dbData={ordersData} dates={chartLabels} />
-          )} */}
+          )}
           {/* <CostChart dbData={orderData7Days} dates={labels.reverse()} /> */}
         </section>
       </div>
