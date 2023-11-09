@@ -18,8 +18,6 @@ function Routers() {
           <Route path="/" element={<AuthenticationPage />}/>
           <Route element={<RequireAuth allowedRoles={'admin' || 'manager'}/>}>
             <Route path="/dashboard" element={<Dashboard />}/>
-          {/* </Route>
-          <Route element={<RequireAuth allowedRoles={'admin'}/>}> */}
             <Route path="/customers" element={<Customers />}/>
             <Route path="/customer" element={<CustomerPage />}/>
             <Route path="/users" element={<Users />}/>
