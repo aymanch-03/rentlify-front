@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+
+
+
 export const listCustomers = createAsyncThunk("customers/listCustomers", async (customers) => {
     const request = await axios.get("http://localhost:5000/v1/customers",customers, {
       withCredentials: true,
