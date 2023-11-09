@@ -9,10 +9,15 @@ import { useDispatch, useSelector } from "react-redux";
 const UserPage = () => {
 
   const dispatch = useDispatch();
-  const {data, isLoading, error} = useSelector((state) => state.user.users);
+  const data = useSelector((state) => state.user.users);
+  console.log(data)
+  const isLoading = false
+  
+// console.log(data);
+  
 
-  useEffect(() => {
-    dispatch(ListUsers())
+useEffect(() => {
+    dispatch(ListUsers());
   }, [dispatch])
      
   const columns = getColumns({
@@ -32,7 +37,6 @@ const UserPage = () => {
     console.log(row.original._id);
   };
 
-  if (error) console.error(error)
 
   return (
     <div className="container h-full flex-1 flex-col space-y-8 p-8 flex">
@@ -49,12 +53,12 @@ const UserPage = () => {
       </div>
       <div className="">
         {
-          data &&   
+          data &&
         <DataTable
           data={data}
           columns={columns}
           isLoading={isLoading}
-          option={"users"}
+          option={"customers"}
           onUserClick={getUserId}
         />
         }

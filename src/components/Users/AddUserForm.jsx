@@ -25,7 +25,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { useState } from "react"
 import {addUser} from "../../redux/features/userSlice";
 const FormSchema = z.object({
     first_name: z

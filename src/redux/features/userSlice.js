@@ -4,7 +4,8 @@ import axios from "axios";
 export const ListUsers = createAsyncThunk("user/getUsers", async (_, { rejectWithValue }) => {
   try {
     const response = await axios.get("http://localhost:5000/v1/users")
-    return response.data;
+    return response.data.data;
+
   } catch (error) {
     rejectWithValue(error.response.data)
   }
@@ -13,7 +14,7 @@ export const ListUsers = createAsyncThunk("user/getUsers", async (_, { rejectWit
 export const getUser = createAsyncThunk("user/getUser", async (id, { rejectWithValue }) => {
   try {
     const response = await axios.get(`http://localhost:5000/v1/users/${id}`)
-    return response.data;
+    return response.data.data;
   } catch (error) {
     rejectWithValue(error.response.data)
   }
@@ -21,8 +22,8 @@ export const getUser = createAsyncThunk("user/getUser", async (id, { rejectWithV
 
 export const addUser = createAsyncThunk("user/addUser", async (user, { rejectWithValue }) => {
   try {
-    const response = axios.post("http://localhost:5000/v1/users", user)
-    return response.data;
+    const response = await axios.post("http://localhost:5000/v1/users", user)
+    return response.data.data;
   } catch (error) {
     rejectWithValue(error.response.data)
   }
@@ -31,7 +32,7 @@ export const addUser = createAsyncThunk("user/addUser", async (user, { rejectWit
 export const updateUser = createAsyncThunk("user/updateUser", async ({ id, user }, { rejectWithValue }) => {
   try {
     const response = axios.put(`http://localhost:5000/v1/users/${id}`, user)
-    return response.data;
+    return response.data.data;
   } catch (error) {
     rejectWithValue(error.response.data)
   }
@@ -42,15 +43,17 @@ const userSlice = createSlice({
   name: "users",
   initialState: {
     users: [],
+    user:{},
     isLoading: true,
     error: null
   },
-  reducers: {},
+  reducers: {
+
+  },
   extraReducers: (builder) => {
     builder
       .addCase(ListUsers.pending, (state, action) => {
         state.isLoading = true;
-        state.users = [];
         state.error = null
       })
       .addCase(ListUsers.fulfilled, (state, action) => {
@@ -60,38 +63,32 @@ const userSlice = createSlice({
       })
       .addCase(ListUsers.rejected, (state, action) => {
         state.isLoading = false;
-        state.users = [];
         state.error = action.payload
       })
       .addCase(getUser.pending, (state, action) => {
-        state.isLoading = true;
-        state.users = [];
         state.error = null
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.users = action.payload;
-        state.error = null
+        state.user = action.payload;
+        state.error = null;
       })
       .addCase(getUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.users = [];
         state.error = action.payload
       })
       .addCase(addUser.pending, (state, action) => {
         state.isLoading = true;
-        state.users = [];
         state.error = null
       })
       .addCase(addUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.users = action.payload;
+        state.users = [...state.users, action.payload];
         state.error = null
       })
       .addCase(addUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.users = [];
-        state.error = action.payload
+        state.error = action.payload;
       })
   },
 });
