@@ -1,26 +1,20 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+// import axios from "axios";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
 import UserNav from "../components/ui/user-nav";
+import {ListOrders} from "../redux/reducers/orderReducer";
 
 const OrderPage = () => {
-  const [orders, setOrders] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/v1/orders")
-      .then((response) => {
-        const { data } = response.data;
-        setOrders(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setIsLoading(false);
-      });
-  }, []);
+  const dispatch = useDispatch();
+  const orders = useSelector((state) => state.orders.orders.data);
+  const isloading = useSelector((state) => state.orders.loading);
   console.log(orders);
+
+  useEffect(() => {
+    dispatch(ListOrders());
+  }, [dispatch]);
   const columns = getColumns({
     keyOne: "_id",
     keyOneTitle: "Order ID",
@@ -48,7 +42,7 @@ const OrderPage = () => {
         </div>
       </div>
 
-      <DataTable data={orders} columns={columns} isLoading={isLoading} />
+      <DataTable data={orders} columns={columns} isLoading={isloading} />
     </div>
   );
 };

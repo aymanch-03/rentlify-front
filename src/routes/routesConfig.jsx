@@ -5,6 +5,8 @@ import Customers from "../pages/Customers";
 import Dashboard from "../pages/Dashboard";
 import AuthenticationPage from "../pages/Login";
 import Users from "../pages/Users";
+import Products from '../pages/Products';
+import Orders from '../pages/Order';
 import RequireAuth from "../components/RequireAuth";
 
 
@@ -21,6 +23,8 @@ function Routers() {
             <Route path="/customers" element={<Customers />}/>
             <Route path="/customer" element={<CustomerPage />}/>
             <Route path="/users" element={<Users />}/>
+            <Route path="/products" element={<Products />}/>
+            <Route path="/orders" element={<Orders />}/>
           </Route>
         </Routes>
       </Router>
