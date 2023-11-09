@@ -1,22 +1,28 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const listCustomers = createAsyncThunk("customers/listCustomers", async (customers) => {
-    const request = await axios.get("http://localhost:5000/v1/customers",customers, {
-      withCredentials: true,
-    });
+export const listCustomers = createAsyncThunk(
+  "customers/listCustomers",
+  async (customers) => {
+    const request = await axios.get(
+      "http://localhost:5000/v1/customers",
+      customers,
+      {
+        withCredentials: true,
+      }
+    );
     const response = await request.data.data;
     localStorage.setItem("customers", JSON.stringify(response));
-    console.log(response);
     return response;
-});
+  }
+);
 
 const customerSlice = createSlice({
   name: "customers",
   initialState: {
     data: [],
   },
-//   reducers: {},
+  //   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(listCustomers.fulfilled, (state, action) => {

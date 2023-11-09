@@ -12,14 +12,7 @@ const CustomerPage = () => {
 
   useEffect(() => {
     dispatch(listCustomers(customers));
-    // .then((result)=>{
-    //   if(result.payload){
-    //     console.log("Customer Page: ", result.payload);
-    //   }
-    // });
-  });
-
-  console.log(customers);
+  }, [dispatch]);
 
   const columns = getColumns({
     keyOne: "email",
