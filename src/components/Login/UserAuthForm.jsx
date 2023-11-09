@@ -1,19 +1,22 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { LoginUser } from "../../redux/reducers/userReducers";
 import { Button } from "../ui/button";
 import { Icons } from "../ui/icons";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { useToast } from "../ui/use-toast";
 
 function UserAuthForm({ className, ...props }) {
-  const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const [user, setUser] = useState({ user_name: "", password: "" });
+  const [user, setUser] = useState({
+    user_name: "",
+    password: "",
+  });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -22,20 +25,12 @@ function UserAuthForm({ className, ...props }) {
   const onSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
-    try {
-      const result = await axios.post(
-        "http://localhost:5000/v1/users/login",
-        user
-      );
-
-      navigate("/dashboard");
-    } catch (error) {
-      if (error?.response?.status === 401) {
-        console.log(error.response.data.message);
+    dispatch(LoginUser(user)).then((result) => {
+      if (result.payload) {
+        setUser("");
+        navigate("/dashboard");
       }
-    } finally {
-      setIsLoading(false);
-    }
+    });
   };
 
   return (

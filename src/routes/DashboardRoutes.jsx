@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import RequireAuth from "../components/RequireAuth";
 import Layout from "../layouts/Layout";
 import CustomerPage from "../pages/CustomerPage";
 import Customers from "../pages/Customers";
@@ -10,11 +11,13 @@ const DashboardRoutes = () => {
   return (
     <Layout>
       <Routes>
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="customers" element={<Customers />} />
-        <Route path="orders" element={<OrderPage />} />
-        <Route path="customer" element={<CustomerPage />} />
-        <Route path="users" element={<Users />} />
+        <Route element={<RequireAuth allowedRoles={"admin" || "manager"} />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/customers" element={<Customers />} />
+          <Route path="/customer" element={<CustomerPage />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="orders" element={<OrderPage />} />
+        </Route>
       </Routes>
     </Layout>
   );
