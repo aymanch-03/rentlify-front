@@ -1,9 +1,10 @@
 // import axios from "axios";
+import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
-import { listCustomers } from "../redux/reducers/listcustomersReducer";
+import { listCustomers } from "../redux/reducers/customerSlice";
 
 const CustomerPage = () => {
   const dispatch = useDispatch(); // Initialize the dispatch function
@@ -11,15 +12,9 @@ const CustomerPage = () => {
   const isLoading = useSelector((state) => state.customers.loading); // Access loading state from Redux store
 
   useEffect(() => {
-    dispatch(listCustomers(customers));
-    // .then((result)=>{
-    //   if(result.payload){
-    //     console.log("Customer Page: ", result.payload);
-    //   }
-    // });
-  });
-
-  console.log(customers);
+    // Fetch customer data when the component mounts
+    dispatch(listCustomers());
+  }, [dispatch, isLoading]);
 
   const columns = getColumns({
     keyOne: "email",
@@ -34,44 +29,29 @@ const CustomerPage = () => {
     keyFiveTitle: "Customer ID",
     option: "customers",
   });
-  return (
-    <>
-      <div className="flex">
-        <main className="flex-1 h-screen overflow-scroll">
-          <div className="container flex-1 flex-col space-y-8 sm:p-8 p-4 flex">
-            <div className="flex items-center justify-start space-y-2">
-              <div>
-                <h2 className="text-2xl font-semibold tracking-tight">
-                  Customers Management
-                </h2>
-                <p className="text-muted-foreground">
-                  {"Here's"} a list of your customers!
-                </p>
-              </div>
-            </div>
-            <div className="">
-              <DataTable
-                data={customers}
-                columns={columns}
-                option={"customers"}
-                isLoading={isLoading}
-              />
-            </div>
-          </div>
-        </main>
+  return isLoading ? (
+    <Loader2 className="animate-spin" size={40} />
+  ) : (
+    <div className="container h-full flex-1 flex-col space-y-8 sm:p-8 p-4 flex">
+      <div className="flex items-center justify-between space-y-2">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight">Welcome back!</h2>
+          <p className="text-muted-foreground">
+            {"Here's"} a list of your customers!
+          </p>
+        </div>
+        <div className="flex items-center space-x-2"></div>
       </div>
-    </>
+      <div className="">
+        <DataTable
+          data={customers}
+          columns={columns}
+          option={"customers"}
+          isLoading={isLoading}
+        />
+      </div>
+    </div>
   );
 };
 
 export default CustomerPage;
-
-{
-  /* <div className="flex">
-      <Sidebar />
-      <main className="flex-1">
-        <Header />
-        <Stats stats={stats} classNames={classNames} />
-      </main>
-    </div> */
-}

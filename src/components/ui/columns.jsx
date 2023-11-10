@@ -256,11 +256,17 @@ function getColumns({
       cell: ({ row }) => {
         return (
           <p className={"font-medium"}>
-            {option === ("customers" || "users")
-              ? `${row.getValue(keyFive)}`
-              : option === "orders"
-              ? `${row.getValue(keyFive)},00 MAD`
-              : null}
+            {option === "users" ? (
+              <Badge variant={"outline"} className={"font-medium"}>
+                {row.getValue(keyFive)}
+              </Badge>
+            ) : option === "orders" ? (
+              `${row.getValue(keyFive)},00 MAD`
+            ) : option === "customers" ? (
+              <Badge variant={"outline"} className={"font-medium"}>
+                {row.getValue(keyFive)}
+              </Badge>
+            ) : null}
           </p>
         );
       },

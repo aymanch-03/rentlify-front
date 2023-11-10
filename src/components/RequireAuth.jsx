@@ -1,28 +1,31 @@
 /* eslint-disable react/prop-types */
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { LoginUser } from "../redux/reducers/userReducers";
+import { useCookies } from "react-cookie";
+import { useSelector } from "react-redux";
+import { Navigate, Outlet } from "react-router-dom";
 
 const RequireAuth = ({ allowedRoles }) => {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const auth = useSelector((state) => state.user.user);
-  const role = useSelector((state) => state.user?.user?.role);
-  console.log(role);
-  const loginUserIfNeeded = () => {
-    dispatch(
-      LoginUser({ username: "your_username", password: "your_password" })
-    );
-  };
-
-  if (role === allowedRoles) {
-    return <Outlet />;
-  } else if (auth) {
-    return <Navigate to="/" state={{ from: location }} replace />;
-  } else {
-    loginUserIfNeeded();
-    return <Navigate to="/" state={{ from: location }} replace />;
+  const [cookies] = useCookies(["token"]);
+  const token = cookies.token;
+  const { user, isLoading, error } = useSelector((state) => state.auth);
+  if (isLoading) {
+    console.log("isloading");
+    return <p>loading...</p>;
   }
-};
 
+  if (error) {
+    console.log(error);
+
+    return <p>error</p>;
+  }
+  if (!token) {
+    console.log("No Token");
+    return <Navigate to="/" />;
+  }
+
+  return user && allowedRoles.includes(user.role) ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/" />
+  );
+};
 export default RequireAuth;

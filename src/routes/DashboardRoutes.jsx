@@ -11,7 +11,7 @@ const DashboardRoutes = () => {
   return (
     <Layout>
       <Routes>
-        <Route element={<RequireAuth allowedRoles={"admin" || "manager"} />}>
+        <Route element={<RequireAuth allowedRoles={["admin", "manager"]} />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/customer" element={<CustomerPage />} />

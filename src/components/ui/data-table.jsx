@@ -23,7 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from "./table";
-function DataTable({ columns, data, option, isLoading }) {
+function DataTable({ columns, data, option, isLoading, onUserClick }) {
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState({});
   const [columnFilters, setColumnFilters] = useState([]);
@@ -103,6 +103,7 @@ function DataTable({ columns, data, option, isLoading }) {
                 <TableRow
                   key={row?.id}
                   data-state={row.getIsSelected() && "selected"}
+                  onClick={() => onUserClick(row)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell?.id}>

@@ -1,24 +1,20 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
+import { ListUsers } from "../redux/reducers/userSlice";
 
-const Users = () => {
-  const [users, setUsers] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+const UserPage = () => {
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.user.users);
+  const isLoading = false;
+
+  // console.log(data);
+
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/v1/users")
-      .then((response) => {
-        const { data } = response.data;
-        setUsers(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setIsLoading(false);
-      });
-  }, []);
+    dispatch(ListUsers());
+  }, [dispatch]);
+
   const columns = getColumns({
     keyOne: "email",
     keyOneTitle: "User email",
@@ -32,30 +28,36 @@ const Users = () => {
     option: "users",
   });
 
+  const getUserId = (row) => {
+    console.log(row.original._id);
+  };
+
   return (
-    <>
-      <div className="container h-full flex-1 flex-col space-y-8 sm:p-8 p-4 flex">
-        <div className="flex items-center justify-between space-y-2">
-          <div>
-            <h2 className="text-2xl font-semibold tracking-tight">
-              Users Management
-            </h2>
-            <p className="text-muted-foreground">
-              {"Here's"} a list of your users!
-            </p>
-          </div>
+    <div className="container h-full flex-1 flex-col space-y-8 p-8 flex">
+      <div className="flex items-center justify-between space-y-2">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight">USERS</h2>
+          <p className="text-muted-foreground">
+            {"Here's"} a list of all users!
+          </p>
         </div>
-        <div className="">
+        <div className="flex items-center space-x-2">
+          {/* <UserDialog /> */}
+        </div>
+      </div>
+      <div className="">
+        {data && (
           <DataTable
-            data={users}
+            data={data}
             columns={columns}
             isLoading={isLoading}
             option={"customers"}
+            onUserClick={getUserId}
           />
-        </div>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 
-export default Users;
+export default UserPage;
