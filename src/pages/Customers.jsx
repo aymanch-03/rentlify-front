@@ -5,6 +5,7 @@ import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
 import UserNav from "../components/ui/user-nav";
 import { listCustomers } from "../redux/reducers/listcustomersReducer";
+import { Loader2 } from "lucide-react";
 
 const CustomerPage = () => {
   const dispatch = useDispatch(); // Initialize the dispatch function
@@ -14,7 +15,7 @@ const CustomerPage = () => {
   useEffect(() => {
     // Fetch customer data when the component mounts
     dispatch(listCustomers());
-  }, [dispatch]);
+  }, [dispatch, isLoading]);
 
   const columns = getColumns({
     keyOne: "email",
@@ -29,7 +30,9 @@ const CustomerPage = () => {
     keyFiveTitle: "Customer ID",
     option: "customers",
   });
-  return (
+  return isLoading ? (
+    <Loader2 className="animate-spin" size={40} />
+  ) : (
     <div className="container h-full flex-1 flex-col space-y-8 sm:p-8 p-4 flex">
       <div className="flex items-center justify-between space-y-2">
         <div>

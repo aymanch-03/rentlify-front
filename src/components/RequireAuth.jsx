@@ -1,30 +1,32 @@
 /* eslint-disable react/prop-types */
-import React from "react";
-import { useLocation, Navigate, Outlet } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const RequireAuth = ({ allowedRoles }) => {
-  // const dispatch = useDispatch();
-  const location = useLocation();
+  const [cookies] = useCookies(["token"]);
+  const token = cookies.token;
   const { user, isLoading, error } = useSelector((state) => state.user);
 
-  //   const role= useSelector(state => state.user.user.role);
-
-  const auth = React.useMemo(() => user ?? user, [user]);
-
-  console.log(auth);
-  // console.log(allowedRoles);
-
-  if (isLoading) return <p>loading...</p>;
-  console.log(isLoading);
-  if (error) return <p>error</p>;
-
-  if (auth?.role === allowedRoles) {
-    return <Outlet />;
+  if (isLoading) {
+    console.log("isloading");
+    return <p>loading...</p>;
   }
 
-  if (!auth) {
-    return <Navigate to="/" state={{ from: location }} />;
+  if (error) {
+    console.log("error");
+
+    return <p>error</p>;
   }
+  if (!token) {
+    console.log("no token");
+    return <Navigate to="/" />;
+  }
+
+  return user && allowedRoles.includes(user.role) ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/" />
+  );
 };
 export default RequireAuth;

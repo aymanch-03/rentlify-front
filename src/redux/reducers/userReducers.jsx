@@ -14,7 +14,8 @@ export const LoginUser = createAsyncThunk(
       );
       console.log(request);
       const response = await request.data.user;
-      localStorage.setItem("user", JSON.stringify(response));
+      const token = await request.data.accessToken;
+      window.localStorage.setItem("token", JSON.stringify(token));
       return response;
     } catch (error) {
       rejectWithValue(error.response.data);

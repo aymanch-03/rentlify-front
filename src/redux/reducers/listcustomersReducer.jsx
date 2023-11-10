@@ -12,7 +12,7 @@ export const listCustomers = createAsyncThunk(
       }
     );
     const response = await request.data.data;
-    // console.log(response);
+    console.log(response);
     return response;
   }
 );
