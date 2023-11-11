@@ -1,31 +1,25 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
+import { listOrders } from "../redux/reducers/orderSlice";
 
 const OrderPage = () => {
-  const [orders, setOrders] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
+  const orders = useSelector((state) => state.orders.data);
+  const isLoading = useSelector((state) => state.orders.loading);
+
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/v1/orders")
-      .then((response) => {
-        const { data } = response.data;
-        setOrders(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setIsLoading(false);
-      });
-  }, []);
+    dispatch(listOrders());
+  }, [dispatch, isLoading]);
+
   const columns = getColumns({
     keyOne: "_id",
     keyOneTitle: "Order ID",
     keyTwo: "customer_id",
     keyTwoTitle: "Customer email",
     keyThree: "status",
-    keyThreeTitle: "Order status",
+    keyThreeTitle: "Ordaurer status",
     keyFour: "createdAt",
     keyFive: "cart_total_price",
     keyFiveTitle: "Total price",

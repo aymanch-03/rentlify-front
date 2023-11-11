@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import blackLogo from "../assets/Logo/singLogoBlack.svg";
 import { useSidebar } from "../context/SidebarProvider";
-// import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
+
 const generalLinks = [
   {
     link: "Dashboard",
@@ -45,7 +45,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`inset-0 z-[9999] h-screen fixed bg-[#fafafa] border-r border-gray-900/10 flex flex-col transition-all ${
+      className={`inset-0 z-[99] h-screen fixed bg-[#fafafa] border-r border-gray-900/10 flex flex-col transition-all ${
         sidebar ? "md:w-72 w-60" : "w-[3.9rem]"
       }`}
     >

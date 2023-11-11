@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Icon } from "@iconify/react";
 import { useCookies } from "react-cookie";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
@@ -14,10 +15,9 @@ import {
 } from "../components/ui/dropdown-menu";
 
 const Header = () => {
-  const [cookie, removeCookie] = useCookies();
+  const [cookie, setCookie, removeCookie] = useCookies(["token"]);
   const handleLogout = () => {
-removeCookie('token')
-    // removeCookie("token", { path: "/" });
+    removeCookie("token", { path: "/" });
   };
   return (
     <header className="flex h-16 border-b border-gray-900/10 sticky transition-all top-0 z-50 bg-white">

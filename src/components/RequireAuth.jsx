@@ -3,9 +3,12 @@ import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 import DashboardSkeleton from "./Dashboard/DashboardSkeleton";
+import { Icons } from "./ui/icons";
+import { useToast } from "./ui/use-toast";
 
 const RequireAuth = ({ allowedRoles }) => {
   const [cookies] = useCookies(["token"]);
+  const { toast } = useToast();
   const token = cookies.token;
   const { user, isLoading, error } = useSelector((state) => state.auth);
   if (isLoading) {
@@ -13,12 +16,13 @@ const RequireAuth = ({ allowedRoles }) => {
   }
 
   if (error) {
-    console.log(error);
-
-    return <p>error</p>;
+    toast({
+      variant: "destructive",
+      description: "Something went wrong",
+    });
+    return <Icons.spinner className="animate-spin w-6 h-6" />;
   }
   if (!token) {
-    console.log("No Token Provided from RequireAuth");
     return <Navigate to="/" />;
   }
 

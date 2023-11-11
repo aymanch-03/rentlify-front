@@ -1,7 +1,8 @@
 /* eslint-disable no-prototype-builtins */
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getDataFormatted } from "../../lib/chartData";
+import { listOrders } from "../../redux/reducers/orderSlice";
 import CustAndOrderSkeleton from "../ui/CustAndOrderSkeleton";
 import ChartsSkeleton from "../ui/chartsSkeleton";
 import CostChart from "./DataCharts/CostChart";
@@ -10,22 +11,13 @@ import OrderChart from "./DataCharts/OrderChart";
 import RecentOrders from "./RecentOrders";
 
 const ExpandedStats = () => {
-  const [orders, setOrders] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/v1/orders")
-      .then((response) => {
-        const { data } = response.data;
-        setOrders(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setIsLoading(false);
-      });
-  }, []);
+  const dispatch = useDispatch();
+  const orders = useSelector((state) => state.orders.data);
+  const isLoading = useSelector((state) => state.orders.loading);
 
+  useEffect(() => {
+    dispatch(listOrders());
+  }, [dispatch, isLoading]);
   const dataByDay = {};
   const data7Days = [];
   const data14Days = [];

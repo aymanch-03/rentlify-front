@@ -1,10 +1,11 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const bearerToken = "Bearer " + Cookies.get("token");
-console.log(bearerToken);
+const token = Cookies.get("token");
+// const bearerToken = "Bearer " + token;
 const axiosInstance = axios.create({
   baseURL: "http://localhost:5000/v1",
-  headers: { Authorization: bearerToken },
+  headers: { "x-access-token": token },
 });
+
 export default axiosInstance;

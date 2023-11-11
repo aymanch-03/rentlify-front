@@ -7,7 +7,7 @@ export const ListUsers = createAsyncThunk(
   "user/getUsers",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("http://localhost:5000/v1/users");
+      const response = await axios.get("/users");
       return response.data.data;
     } catch (error) {
       rejectWithValue(error.response.data);

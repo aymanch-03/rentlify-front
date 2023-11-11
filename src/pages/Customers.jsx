@@ -1,5 +1,4 @@
 // import axios from "axios";
-import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import getColumns from "../components/ui/columns";
@@ -9,12 +8,7 @@ import { listCustomers } from "../redux/reducers/customerSlice";
 const CustomerPage = () => {
   const dispatch = useDispatch(); // Initialize the dispatch function
   const customers = useSelector((state) => state.customers.data); // Access customer data from Redux store
-  const isLoading = useSelector((state) => state.customers.loading); // Access loading state from Redux store
-
-  useEffect(() => {
-    // Fetch customer data when the component mounts
-    dispatch(listCustomers());
-  }, [dispatch, isLoading]);
+  const isLoading = useSelector((state) => state.customers.isLoading); // Access customer data from Redux store
 
   const columns = getColumns({
     keyOne: "email",
@@ -29,9 +23,14 @@ const CustomerPage = () => {
     keyFiveTitle: "Customer ID",
     option: "customers",
   });
-  return isLoading ? (
-    <Loader2 className="animate-spin" size={40} />
-  ) : (
+
+  useEffect(() => {
+    // Fetch customer data when the component mounts
+
+    dispatch(listCustomers());
+  }, [dispatch]);
+
+  return (
     <div className="container h-full flex-1 flex-col space-y-8 sm:p-8 p-4 flex">
       <div className="flex items-center justify-between space-y-2">
         <div>

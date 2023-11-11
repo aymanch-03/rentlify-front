@@ -4,7 +4,7 @@ import { createContext, useContext, useState } from "react";
 export const SidebarProviderContext = createContext();
 
 const SidebarProvider = ({ children, ...props }) => {
-  const [sidebar, setSidebar] = useState(true);
+  const [sidebar, setSidebar] = useState(false);
   const handelSidebar = () => {
     setSidebar((prev) => !prev);
   };

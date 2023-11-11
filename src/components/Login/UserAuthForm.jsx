@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+import { useToast } from "@/components/ui/use-toast";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LoginUser } from "../../redux/reducers/authSlice";
 import { Button } from "../ui/button";
@@ -10,13 +11,14 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
 function UserAuthForm({ className, ...props }) {
-  const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState({
     user_name: "",
     password: "",
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.auth.isLoading);
+  const { toast } = useToast();
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -24,11 +26,20 @@ function UserAuthForm({ className, ...props }) {
   };
   const onSubmit = async (event) => {
     event.preventDefault();
-    setIsLoading(true);
+
     dispatch(LoginUser(user)).then((result) => {
       if (result.payload) {
         setUser("");
         navigate("/dashboard");
+        toast({
+          variant: "success",
+          title: "Login successful!",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Invalid login credentials. Please try again.",
+        });
       }
     });
   };
@@ -52,6 +63,7 @@ function UserAuthForm({ className, ...props }) {
               autoCorrect="off"
               disabled={isLoading}
               onChange={handleChange}
+              required
             />
           </div>
           <div className="grid gap-1">
@@ -68,6 +80,7 @@ function UserAuthForm({ className, ...props }) {
               autoCorrect="off"
               disabled={isLoading}
               onChange={handleChange}
+              required
             />
             <a
               href=""

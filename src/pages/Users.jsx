@@ -7,7 +7,7 @@ import { ListUsers } from "../redux/reducers/userSlice";
 const UserPage = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.user.users);
-  const isLoading = false;
+  const isLoading = useSelector((state) => state.user.isLoading);
 
   // console.log(data);
 

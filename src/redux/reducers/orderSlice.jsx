@@ -2,10 +2,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../axios";
 
-export const listCustomers = createAsyncThunk(
-  "customers/listCustomers",
-  async (customers) => {
-    const request = await axios.get("/customers", customers, {
+export const listOrders = createAsyncThunk(
+  "orders/listOrders",
+  async (orders) => {
+    const request = await axios.get("/orders", orders, {
       withCredentials: true,
     });
     const response = await request.data.data;
@@ -13,8 +13,8 @@ export const listCustomers = createAsyncThunk(
   }
 );
 
-const customerSlice = createSlice({
-  name: "customers",
+const orderSlice = createSlice({
+  name: "orders",
   initialState: {
     data: [],
     isLoading: false,
@@ -22,22 +22,22 @@ const customerSlice = createSlice({
   //   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(listCustomers.pending, (state, action) => {
+      .addCase(listOrders.pending, (state, action) => {
         state.status = "pending";
         state.isLoading = true;
       })
-      .addCase(listCustomers.fulfilled, (state, action) => {
+      .addCase(listOrders.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.data = action.payload;
         state.isLoading = false;
-        // console.log(action.payload);
+        state.data = action.payload;
       })
-      .addCase(listCustomers.rejected, (state, action) => {
+      .addCase(listOrders.rejected, (state, action) => {
         state.status = "failed";
         state.isLoading = false;
         console.log(action.error.message);
       });
+    // eslint-disable-next-line no-unused-vars
   },
 });
 
-export default customerSlice.reducer;
+export default orderSlice.reducer;

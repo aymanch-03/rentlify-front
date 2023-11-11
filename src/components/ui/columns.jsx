@@ -254,21 +254,23 @@ function getColumns({
         <DataTableColumnHeader column={column} title={keyFiveTitle} />
       ),
       cell: ({ row }) => {
-        return (
-          <p className={"font-medium"}>
-            {option === "users" ? (
-              <Badge variant={"outline"} className={"font-medium"}>
-                {row.getValue(keyFive)}
-              </Badge>
-            ) : option === "orders" ? (
-              `${row.getValue(keyFive)},00 MAD`
-            ) : option === "customers" ? (
-              <Badge variant={"outline"} className={"font-medium"}>
-                {row.getValue(keyFive)}
-              </Badge>
-            ) : null}
-          </p>
-        );
+        const cellValue = row.getValue(keyFive);
+
+        if (option === "users" || option === "customers") {
+          return (
+            <p className="font-medium">
+              {option === "users" || option === "customers" ? (
+                <Badge variant="outline" className="font-medium">
+                  {cellValue}
+                </Badge>
+              ) : null}
+            </p>
+          );
+        } else if (option === "orders") {
+          return <p className="font-medium">{`${cellValue},00 MAD`}</p>;
+        }
+
+        return null;
       },
       enableSorting: false,
       enableHiding: false,
