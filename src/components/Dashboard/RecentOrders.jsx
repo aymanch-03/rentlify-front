@@ -9,7 +9,12 @@ const RecentOrders = () => {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/v1/orders")
+      .get("http://localhost:5000/v1/orders", {
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": "auth token",
+        },
+      })
       .then((response) => {
         const { data } = response.data;
         setOrders(data.slice(0, 4));

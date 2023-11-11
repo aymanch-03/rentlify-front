@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from "../axios";
 
 export const LoginUser = createAsyncThunk(
   "user/LoginUser",
@@ -12,8 +12,6 @@ export const LoginUser = createAsyncThunk(
         { withCredentials: true }
       );
       const response = await request.data.user;
-      const token = await request.data.accessToken;
-      window.localStorage.setItem("token", JSON.stringify(token));
       return response;
     } catch (error) {
       rejectWithValue(error.response.data);

@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { getDataFormatted } from "../../lib/chartData";
+import CustAndOrderSkeleton from "../ui/CustAndOrderSkeleton";
 import ChartsSkeleton from "../ui/chartsSkeleton";
 import CostChart from "./DataCharts/CostChart";
 import CustomersAndOrders from "./DataCharts/CustomersAndOrders";
@@ -78,7 +79,7 @@ const ExpandedStats = () => {
       <div className="border-b border-gray-900/10 relative">
         <section className="mx-auto grid max-w-7xl grid-cols-1 md:grid-cols-3 lg:px-2 xl:px-0  isolate">
           <RecentOrders />
-          <CustomersAndOrders />
+          {isLoading ? <CustAndOrderSkeleton /> : <CustomersAndOrders />}
         </section>
       </div>
     </>

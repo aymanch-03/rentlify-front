@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import { useCookies } from "react-cookie";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Button } from "../components/ui/button";
 import {
@@ -13,6 +14,11 @@ import {
 } from "../components/ui/dropdown-menu";
 
 const Header = () => {
+  const [cookie, removeCookie] = useCookies();
+  const handleLogout = () => {
+removeCookie('token')
+    // removeCookie("token", { path: "/" });
+  };
   return (
     <header className="flex h-16 border-b border-gray-900/10 sticky transition-all top-0 z-50 bg-white">
       <div className="mx-auto container flex w-full items-center justify-between">
@@ -64,7 +70,10 @@ const Header = () => {
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={handleLogout}
+              >
                 Log out
                 <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
               </DropdownMenuItem>
