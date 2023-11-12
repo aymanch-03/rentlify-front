@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../axios";
-import { useParams } from "react-router-dom";
-
-
+// import { useParams } from "react-router-dom";
 
 export const ListProducts = createAsyncThunk(
   "Product/ListProducts",
@@ -19,18 +17,15 @@ export const ListProducts = createAsyncThunk(
   );
   export const GetProducts = createAsyncThunk(
     "Product/GetProducts",
-    async ( { rejectWithValue }) => {
-    const {id} = useParams();
-    console.log(id);
-    try {
-      const response = await axios.get(`products/${id}`);
-      return response.data.data;
-    } catch (error) {
-      rejectWithValue(error.response.data);
+    async (id, { rejectWithValue }) => {
+      try {
+        const response = await axios.get(`/products/${id}`);
+        return response.data.product;
+      } catch (error) {
+        rejectWithValue(error.response.data);
+      }
     }
-  }
-);
-
+  );
 const productsSlice = createSlice({
   name: "products",
   initialState: {
@@ -50,13 +45,12 @@ const productsSlice = createSlice({
         console.log(action.payload);
       })
       .addCase(GetProducts.fulfilled, (state, action) => {
-        state.isLoading = false;
         state.product = action.payload;
-        state.error = null;
+        console.log("Success", action.payload);
       })
       .addCase(GetProducts.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
+        state.status = "rejected";
+        console.error("Error fetching products:", action.error.message);
       });
   },
 });

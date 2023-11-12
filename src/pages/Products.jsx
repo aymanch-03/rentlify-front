@@ -30,7 +30,6 @@ export default function Products() {
                   <div>
                     <h3 className="text-sm text-gray-700">
                       <Link to={`/productDetails/${product._id}`}>
-                        {/* href={product.href} */}
                         <span aria-hidden="true" className="absolute inset-0" />
                         {product.product_name}
                       </Link>

@@ -20,7 +20,7 @@ const DashboardRoutes = () => {
           <Route path="/users" element={<Users />} />
           <Route path="orders" element={<OrderPage />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/productDetails/:_id" element={<ProductDetails />} />
+          <Route path="/productDetails/:id" element={<ProductDetails />} />
         </Route>
       </Routes>
     </Layout>
