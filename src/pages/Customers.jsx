@@ -26,7 +26,6 @@ const CustomerPage = () => {
 
   useEffect(() => {
     // Fetch customer data when the component mounts
-
     dispatch(listCustomers());
   }, [dispatch]);
 
