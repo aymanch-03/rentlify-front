@@ -3,9 +3,9 @@ import axios from "axios";
 
 export const ListUsers = createAsyncThunk("user/getUsers", async (_, { rejectWithValue }) => {
   try {
-    const response = await axios.get("http://localhost:5000/v1/users")
+    const response = await axios.get("http://localhost:5000/v1/users");
+    // console.log('response : ', response.data.data);
     return response.data.data;
-
   } catch (error) {
     rejectWithValue(error.response.data)
   }
@@ -14,6 +14,7 @@ export const ListUsers = createAsyncThunk("user/getUsers", async (_, { rejectWit
 export const getUser = createAsyncThunk("user/getUser", async (id, { rejectWithValue }) => {
   try {
     const response = await axios.get(`http://localhost:5000/v1/users/${id}`)
+    // console.log('response: ', response.data.data)
     return response.data.data;
   } catch (error) {
     rejectWithValue(error.response.data)
@@ -29,9 +30,12 @@ export const addUser = createAsyncThunk("user/addUser", async (user, { rejectWit
   }
 });
 
-export const updateUser = createAsyncThunk("user/updateUser", async ({ id, user }, { rejectWithValue }) => {
+export const updateUser = createAsyncThunk("user/updateUser", async ({ id, updatedUser }, { rejectWithValue }) => {
   try {
-    const response = axios.put(`http://localhost:5000/v1/users/${id}`, user)
+    // console.log("id : ",id)
+    // console.log("user : ",updatedUser)
+    const response = await axios.put(`http://localhost:5000/v1/users/${id}`, updatedUser)
+    console.log("response : ",response.data.data)
     return response.data.data;
   } catch (error) {
     rejectWithValue(error.response.data)
@@ -43,7 +47,7 @@ const userSlice = createSlice({
   name: "users",
   initialState: {
     users: [],
-    user:{},
+    user: {},
     isLoading: true,
     error: null
   },
@@ -89,6 +93,27 @@ const userSlice = createSlice({
       .addCase(addUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(updateUser.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const updatedUsers = state.users.map((user) => {
+          if (user._id === action.payload._id){
+            return action.payload;
+          }else {
+            return user
+          }
+        });
+        state.users=updatedUsers;
+        console.log("state.users: ",updatedUsers);        
+        state.error = null
       })
   },
 });
