@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import {ListProducts} from '../redux/reducers/productSlice';
+import ProductDialog from '../components/products/addProductDialog';
 import { Link } from "react-router-dom";
 
 
@@ -13,6 +14,7 @@ export default function Products() {
     console.log(Products);
     return (
       <div className="bg-white">
+        <ProductDialog />
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">Products</h2>
   
