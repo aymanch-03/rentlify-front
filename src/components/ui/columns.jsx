@@ -5,6 +5,7 @@ import {
   orderStatuses,
   userLabels,
 } from "../../data/data";
+import DeleteUser from "../Users/deleteBtn";
 import { Badge } from "./badge";
 import { Checkbox } from "./checkbox";
 import DataTableColumnHeader from "./data-table-column-header";
@@ -63,20 +64,20 @@ function getColumns({
     },
     option === "orders"
       ? {
-          accessorKey: keyTwo,
-          header: ({ column }) => (
-            <DataTableColumnHeader column={column} title={keyTwoTitle} />
-          ),
-          cell: ({ row }) => (
-            <Badge className="font-medium" variant={"outline"}>
-              {row.getValue(keyTwo).email}
-            </Badge>
-          ),
-          enableSorting: false,
-          enableHiding: false,
-        }
+        accessorKey: keyTwo,
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title={keyTwoTitle} />
+        ),
+        cell: ({ row }) => (
+          <Badge className="font-medium" variant={"outline"}>
+            {row.getValue(keyTwo).email}
+          </Badge>
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      }
       : option === "customers"
-      ? {
+        ? {
           accessorKey: keyTwo,
           header: ({ column }) => (
             <DataTableColumnHeader column={column} title={keyTwoTitle} />
@@ -102,63 +103,63 @@ function getColumns({
             );
           },
         }
-      : option === "users"
-      ? {
-          accessorKey: keyTwo,
-          header: ({ column }) => (
-            <DataTableColumnHeader column={column} title={keyTwoTitle} />
-          ),
-          cell: ({ row }) => {
-            const label = userLabels.find(
-              (label) => label.value === row.original.role
-            );
-            return (
-              <div className="flex space-x-2">
-                {label && (
-                  <Badge variant="outline" className={"font-medium"}>
-                    {label.label}
-                  </Badge>
-                )}
-              </div>
-            );
-          },
-        }
-      : null,
+        : option === "users"
+          ? {
+            accessorKey: keyTwo,
+            header: ({ column }) => (
+              <DataTableColumnHeader column={column} title={keyTwoTitle} />
+            ),
+            cell: ({ row }) => {
+              const label = userLabels.find(
+                (label) => label.value === row.original.role
+              );
+              return (
+                <div className="flex space-x-2">
+                  {label && (
+                    <Badge variant="outline" className={"font-medium"}>
+                      {label.label}
+                    </Badge>
+                  )}
+                </div>
+              );
+            },
+          }
+          : null,
     option === "orders"
       ? {
-          accessorKey: keyThree,
-          header: ({ column }) => (
-            <DataTableColumnHeader column={column} title={keyThreeTitle} />
-          ),
-          cell: ({ row }) => {
-            const status = orderStatuses.find(
-              (status) => status.value === row.getValue(keyThree)
-            );
+        accessorKey: keyThree,
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title={keyThreeTitle} />
+        ),
+        cell: ({ row }) => {
+          const status = orderStatuses.find(
+            (status) => status.value === row.getValue(keyThree)
+          );
 
-            if (!status) {
-              return null;
-            }
+          if (!status) {
+            return null;
+          }
 
-            return (
-              <div className="flex w-[100px] items-center">
-                {status.icon && (
-                  <status.icon className={`mr-2 h-4 w-4 ${status.color}`} />
-                )}
-                <Badge
-                  variant="outline"
-                  className={`font-medium ${status.badgeStyles}`}
-                >
-                  {status.label}
-                </Badge>
-              </div>
-            );
-          },
-          filterFn: (row, id, value) => {
-            return value.includes(row.getValue(id));
-          },
-        }
+          return (
+            <div className="flex w-[100px] items-center">
+              {status.icon && (
+                <status.icon className={`mr-2 h-4 w-4 ${status.color}`} />
+              )}
+              <Badge
+                variant="outline"
+                className={`font-medium ${status.badgeStyles}`}
+              >
+                {status.label}
+              </Badge>
+            </div>
+          );
+        },
+        filterFn: (row, id, value) => {
+          return value.includes(row.getValue(id));
+        },
+      }
       : option === "customers"
-      ? {
+        ? {
           accessorKey: keyThree,
           header: ({ column }) => (
             <DataTableColumnHeader column={column} title={keyThreeTitle} />
@@ -190,40 +191,40 @@ function getColumns({
             return value.includes(row.getValue(id));
           },
         }
-      : option === "users"
-      ? {
-          accessorKey: keyThree,
-          header: ({ column }) => (
-            <DataTableColumnHeader column={column} title={keyThreeTitle} />
-          ),
-          cell: ({ row }) => {
-            const status = customerStatuses.find(
-              (status) => status.value === row.getValue(keyThree)
-            );
+        : option === "users"
+          ? {
+            accessorKey: keyThree,
+            header: ({ column }) => (
+              <DataTableColumnHeader column={column} title={keyThreeTitle} />
+            ),
+            cell: ({ row }) => {
+              const status = customerStatuses.find(
+                (status) => status.value === row.getValue(keyThree)
+              );
 
-            if (!status) {
-              return null;
-            }
+              if (!status) {
+                return null;
+              }
 
-            return (
-              <div className="flex w-[100px] items-center">
-                {status.icon && (
-                  <status.icon className={`mr-2 h-4 w-4 ${status.color}`} />
-                )}
-                <Badge
-                  variant="outline"
-                  className={`font-medium ${status.badgeColor}`}
-                >
-                  {status.label}
-                </Badge>
-              </div>
-            );
-          },
-          filterFn: (row, id, value) => {
-            return value.includes(row.getValue(id));
-          },
-        }
-      : null,
+              return (
+                <div className="flex w-[100px] items-center">
+                  {status.icon && (
+                    <status.icon className={`mr-2 h-4 w-4 ${status.color}`} />
+                  )}
+                  <Badge
+                    variant="outline"
+                    className={`font-medium ${status.badgeColor}`}
+                  >
+                    {status.label}
+                  </Badge>
+                </div>
+              );
+            },
+            filterFn: (row, id, value) => {
+              return value.includes(row.getValue(id));
+            },
+          }
+          : null,
     {
       accessorKey: keyFour,
       header: ({ column }) => (
@@ -259,7 +260,7 @@ function getColumns({
     },
     {
       id: "actions",
-      cell: ({ row }) => <DataTableRowActions row={row} />,
+      cell: ({ row }) => <DeleteUser id={row.getValue(keyFive)} />
     },
   ];
 }

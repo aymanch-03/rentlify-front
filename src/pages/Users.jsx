@@ -5,6 +5,7 @@ import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
 import { ListUsers } from "../redux/features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import DeleteUser from "../components/Users/deleteBtn";
 
 const UserPage = () => {
 
