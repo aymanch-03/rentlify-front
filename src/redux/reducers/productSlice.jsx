@@ -27,11 +27,12 @@ export const GetProducts = createAsyncThunk(
     }
   );
 
-  export const updateProduct = createAsyncThunk(
+  export const UpdateProduct = createAsyncThunk(
     "product/updateProduct",
     async ({ id, product }, { rejectWithValue }) => {
       try {
-        const response = axios.put(`/users/${id}`, product);
+        const response = await axios.put(`/products/${id}`, product);
+        console.log(response);
         return response.data.data;
       } catch (error) {
         rejectWithValue(error.response.data);
@@ -40,9 +41,9 @@ export const GetProducts = createAsyncThunk(
   );
 export const AddProduct = createAsyncThunk(
     "Product/AddProduct",
-    async (Product, { rejectWithValue }) => {
+    async (data, { rejectWithValue }) => {
       try {
-        const response = await axios.post("/products", Product);
+        const response = await axios.post("/products", data);
         return response.data.data;
       } catch (error) {
         rejectWithValue(error.response.data);
@@ -50,6 +51,17 @@ export const AddProduct = createAsyncThunk(
     }
   );
   
+// export const updateProduct = createAsyncThunk("Product/updateProduct", async ({ id, product }, { rejectWithValue }) => {
+//   try {
+//     const response = axios.put(`/products/${id}`, product)
+//     // return response.data.data;
+//     console.log(response);
+//   } catch (error) {
+//     rejectWithValue(error.response.data)
+//   }
+// });
+
+
 const productsSlice = createSlice({
   name: "products",
   initialState: {
@@ -76,14 +88,22 @@ const productsSlice = createSlice({
         state.status = "rejected";
         console.error("Error fetching products:", action.error.message);
       })
-      .addCase(AddProduct.fulfilled, (state, action) => {
-        state.products = [...state.products, action.payload];
-        console.log("Success", action.payload);
+      .addCase(UpdateProduct.fulfilled, (state, action) => {
+        const updatedProduct = state.products.map((product) => {
+          if (product._id === action.payload._id) {
+            return action.payload;
+          } else {
+            return product;
+          }
+        });
+        state.products = updatedProduct;
+        console.log(state.products);
       })
-      .addCase(AddProduct.rejected, (state, action) => {
+      .addCase(UpdateProduct.rejected, (state, action) => {
         state.status = "rejected";
         console.error("Error fetching products:", action.error.message);
-      });
+      })
+
   },
 });
 
