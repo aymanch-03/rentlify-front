@@ -74,7 +74,7 @@ export default function UpdateUserForm(props) {
     const form = useForm({
         resolver: zodResolver(FormSchema),
         defaultValues: {
-            first_name: user.first_name || 'empty',
+            first_name: user.first_name ,
             last_name: user.last_name,
             role: user.role,
             user_name: user.user_name,
@@ -217,7 +217,6 @@ export default function UpdateUserForm(props) {
                     </div>
                 </form>
             </Form>
-
         </div>
     )
 }
