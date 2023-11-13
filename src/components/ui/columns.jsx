@@ -5,6 +5,7 @@ import {
   orderStatuses,
   userLabels,
 } from "../../data/data";
+import DeleteUser from "../Users/deleteBtn";
 import { Badge } from "./badge";
 import { Checkbox } from "./checkbox";
 import DataTableColumnHeader from "./data-table-column-header";
@@ -274,7 +275,7 @@ function getColumns({
     },
     {
       id: "actions",
-      cell: ({ row }) => <DataTableRowActions row={row} />,
+      cell: ({ row }) => <DeleteUser id={row.getValue(keyFive)} row={row} />,
     },
   ];
 }

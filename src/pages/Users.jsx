@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
 import { ListUsers } from "../redux/reducers/userSlice";
+import UserDialog from "../components/Users/addUserDialog";
 
 const UserPage = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const UserPage = () => {
           </p>
         </div>
         <div className="flex items-center space-x-2">
-          {/* <UserDialog /> */}
+          <UserDialog />
         </div>
       </div>
       <div className="">
