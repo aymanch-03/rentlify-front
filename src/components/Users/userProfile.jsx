@@ -6,7 +6,6 @@ import { useEffect } from "react"
 import { getUser } from "../../redux/features/userSlice";
 import image from "../../assets/1946429.png"
 import UpdateUserForm from './UpdateUserForm';
-import UserForm from './UserForm';
 
 
 export default function UserProfile(props) {
@@ -19,7 +18,7 @@ export default function UserProfile(props) {
 
     const user = useSelector((state) => state.user.user);
 
-    return !user ? <Loader2 className='animate-spin' /> : (
+    return (
         <div className="m-8 pr-[200px]">
             <div className="inline-flex">
                 <div className="w-[300px]">
