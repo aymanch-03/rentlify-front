@@ -51,15 +51,18 @@ export const updateUser = createAsyncThunk(
   }
 );
 
-export const deleteUser = createAsyncThunk("user/deleteUser", async (id, { rejectWithValue }) => {
-  try {
-    const response = await axios.delete(`/users/${id}`)
-    console.log("Deleted User: ", response.data.data)
-    return response.data.data;
-  } catch (error) {
-    rejectWithValue(error.response.data)
+export const deleteUser = createAsyncThunk(
+  "user/deleteUser",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`/users/${id}`);
+      console.log("Deleted User: ", response);
+      return response.data.data;
+    } catch (error) {
+      rejectWithValue(error.response.data);
+    }
   }
-});
+);
 const userSlice = createSlice({
   name: "users",
   initialState: {
@@ -129,21 +132,26 @@ const userSlice = createSlice({
         state.users = updatedUsers;
         console.log(state.users);
         state.error = null;
-      }) .addCase(deleteUser.pending, (state, action) => {
+      })
+      .addCase(deleteUser.pending, (state, action) => {
         state.isLoading = true;
         state.error = null;
-      }) .addCase(deleteUser.rejected, (state, action) => {
+      })
+      .addCase(deleteUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
-        const Users = state.users.filter(user => user._id !== action.payload._id)
-        // console.log("action.payload._id ", action.payload._id);
+        console.log("action.meta.arg" + action.meta.arg);
+        const Users = state.users.filter(
+          (user) => user._id !== action.payload._id
+        );
+        console.log("action.payload._id ", action.payload._id);
         // console.log("state.users: ", Users);
         state.users = Users;
         state.isLoading = false;
         state.error = null;
-      })
+      });
   },
 });
 

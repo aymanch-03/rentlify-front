@@ -1,10 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import UserDialog from "../components/Users/addUserDialog";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
 import { ListUsers } from "../redux/reducers/userSlice";
-import UserDialog from "../components/Users/addUserDialog";
-import { useState } from "react";
 
 const UserPage = () => {
   const dispatch = useDispatch();
@@ -17,27 +16,28 @@ const UserPage = () => {
     dispatch(ListUsers());
   }, [dispatch]);
 
+  const [userId, setUserId] = useState("");
+
+  const getUserId = (row) => {
+    const user = row.original._id;
+    setUserId(user);
+  };
   const columns = getColumns({
-    keyOne: "email",
-    keyOneTitle: "User email",
-    keyTwo: "role",
-    keyTwoTitle: "User Role",
-    keyThree: "active",
-    keyThreeTitle: "Status",
-    keyFour: "createdAt",
-    keyFive: "_id",
-    keyFiveTitle: "User ID",
+    keyOne: "_id",
+    keyOneTitle: "User Id",
+    keyTwo: "email",
+    keyTwoTitle: "Email Adress",
+    keyThree: "role",
+    keyThreeTitle: "User Role",
+    keyFour: "active",
+    keyFourTitle: "Status",
+    keyFive: "createdAt",
+    keyFiveTitle: "Created at",
     option: "users",
+    onUserHover: getUserId,
+    path: `/users/${userId}`,
   });
 
-  const [userId, setUserId] = useState(null)
-  
-  const getUserId = (row) => {
-    const user = row.original._id
-    setUserId(user);
-
-  };
-  
   return (
     <div className="container h-full flex-1 flex-col space-y-8 p-8 flex">
       <div className="flex items-center justify-between space-y-2">
@@ -60,7 +60,7 @@ const UserPage = () => {
             columns={columns}
             isLoading={isLoading}
             option={"customers"}
-            onUserClick={getUserId}
+            // onUserClick={getUserId}
             path={`/users/${userId}`}
           />
         )}

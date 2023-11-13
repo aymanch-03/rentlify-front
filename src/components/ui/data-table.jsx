@@ -14,7 +14,6 @@ import {
 import React, { useState } from "react";
 import DataTablePagination from "./data-table-pagination";
 import DataTableToolbar from "./data-table-toolbar";
-import { Icons } from "./icons";
 import {
   Table,
   TableBody,
@@ -23,8 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from "./table";
-import { Link } from "react-router-dom";
-function DataTable({ columns, data, option, isLoading, onUserClick,path }) {
+function DataTable({ columns, data, option, isLoading }) {
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState({});
   const [columnFilters, setColumnFilters] = useState([]);
@@ -103,16 +101,14 @@ function DataTable({ columns, data, option, isLoading, onUserClick,path }) {
                 <TableRow
                   key={row?.id}
                   data-state={row.getIsSelected() && "selected"}
-                  onMouseOver={() => onUserClick(row)}
+                  // onMouseOver={() => onUserClick(row)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell?.id}>
-                      <Link to={path}>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
                       )}
-                      </Link>
                     </TableCell>
                   ))}
                 </TableRow>

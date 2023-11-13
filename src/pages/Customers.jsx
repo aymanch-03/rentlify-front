@@ -11,16 +11,16 @@ const CustomerPage = () => {
   const isLoading = useSelector((state) => state.customers.isLoading); // Access customer data from Redux store
 
   const columns = getColumns({
-    keyOne: "email",
-    keyOneTitle: "Customer email",
-    keyTwo: "valid_account",
-    keyTwoTitle: "Valid / Invalid",
+    keyOne: "_id",
+    keyOneTitle: "Customer Id ",
+    keyTwo: "email",
+    keyTwoTitle: "Email Address",
     keyThree: "active",
     keyThreeTitle: "Status",
-    keyFour: "createdAt",
-    keyFourTitle: "Created At",
-    keyFive: "_id",
-    keyFiveTitle: "Customer ID",
+    keyFour: "valid_account",
+    keyFourTitle: "Valid / Invalid",
+    keyFive: "createdAt",
+    keyFiveTitle: "Created At",
     option: "customers",
   });
 
