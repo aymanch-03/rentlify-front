@@ -1,16 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { Icon } from "@iconify/react";
 import { useCookies } from "react-cookie";
-import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
+import { useSelector } from "react-redux";
+import { Avatar, AvatarFallback } from "../components/ui/avatar";
 import { Button } from "../components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu";
 
@@ -19,6 +18,16 @@ const Header = () => {
   const handleLogout = () => {
     removeCookie("token", { path: "/" });
   };
+  const { first_name, email, user_name, last_name } = useSelector(
+    (state) => state.auth.user
+  );
+
+  const fullName = `${first_name} ${last_name}`;
+  const [firstNameInitial, lastNameInitial] = fullName
+    .split(" ")
+    .map((name) => name.charAt(0).toUpperCase());
+  const fallbackAvatar = `${firstNameInitial}${lastNameInitial}`;
+
   return (
     <header className="flex h-16 border-b border-gray-900/10 sticky transition-all top-0 z-50 bg-white">
       <div className="mx-auto container flex w-full items-center justify-between">
@@ -39,11 +48,7 @@ const Header = () => {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                 <Avatar className="h-9 w-9">
-                  <AvatarImage
-                    src="https://github.com/aymanch-03.png"
-                    alt="@aymanch-03"
-                  />
-                  <AvatarFallback>AE</AvatarFallback>
+                  <AvatarFallback>{fallbackAvatar}</AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
@@ -51,31 +56,21 @@ const Header = () => {
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
                   <p className="text-sm font-medium leading-none">
-                    Ayman ECHAKAR
+                    {user_name}
                   </p>
                   <p className="text-xs leading-none text-muted-foreground">
-                    ayman003@gmail.com
+                    {email}
                   </p>
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuGroup>
-                <DropdownMenuItem className="cursor-pointer">
-                  Profile
-                  <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer">
-                  Settings
-                  <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                className="cursor-pointer"
+                className="cursor-pointer flex items-center justify-between"
                 onClick={handleLogout}
               >
-                Log out
-                <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                <span>Log out</span>
+                <Icon icon="solar:logout-2-line-duotone" className="w-4 h-4" />
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

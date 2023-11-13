@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
 import axios from "../axios";
 
 export const LoginUser = createAsyncThunk(
@@ -25,7 +26,11 @@ const authSlice = createSlice({
     isLoading: false,
     error: null,
   },
-  // reducers: {},
+  reducers: {
+    updateUserInAuthSlice: (state, action) => {
+      state.user = { ...state.user, ...action.payload };
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(LoginUser.pending, (state, action) => {
@@ -48,5 +53,5 @@ const authSlice = createSlice({
       });
   },
 });
-
+export const { updateUserInAuthSlice } = authSlice.actions;
 export default authSlice.reducer;

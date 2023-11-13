@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /** @type {import('tailwindcss').Config} */
 export const darkMode = ["class"];
 export const content = [
@@ -14,6 +15,7 @@ export const theme = {
       "2xl": "1400px",
     },
   },
+
   extend: {
     colors: {
       border: "hsl(var(--border))",
@@ -72,4 +74,7 @@ export const theme = {
   },
 };
 // eslint-disable-next-line no-undef
-export const plugins = [require("tailwindcss-animate")];
+export const plugins = [
+  require("tailwindcss-animate"),
+  require("@tailwindcss/forms"),
+];

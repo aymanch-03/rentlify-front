@@ -41,9 +41,9 @@ export const addUser = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
   "user/updateUser",
-  async ({ id, user }, { rejectWithValue }) => {
+  async ({ id, newUserData }, { rejectWithValue }) => {
     try {
-      const response = axios.put(`http://localhost:5000/v1/users/${id}`, user);
+      const response = await axios.put(`/users/${id}`, newUserData);
       return response.data.data;
     } catch (error) {
       rejectWithValue(error.response.data);
@@ -56,7 +56,7 @@ const userSlice = createSlice({
   initialState: {
     users: [],
     user: {},
-    isLoading: true,
+    isLoading: false,
     error: null,
   },
   reducers: {},
@@ -74,7 +74,7 @@ const userSlice = createSlice({
       .addCase(ListUsers.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-      })
+      }) // Getting one user
       .addCase(getUser.pending, (state, action) => {
         state.error = null;
       })
@@ -86,7 +86,7 @@ const userSlice = createSlice({
       .addCase(getUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-      })
+      }) // Add one user
       .addCase(addUser.pending, (state, action) => {
         state.isLoading = true;
         state.error = null;
@@ -99,6 +99,28 @@ const userSlice = createSlice({
       .addCase(addUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      }) // Update user
+      .addCase(updateUser.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const updatedUsers = state.users.map((user) => {
+          if (user._id === action.payload._id) {
+            return action.payload;
+          } else {
+            return user;
+          }
+        });
+
+        state.users = updatedUsers;
+        console.log(state.users);
+        state.error = null;
       });
   },
 });

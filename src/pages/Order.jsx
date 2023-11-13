@@ -7,11 +7,7 @@ import { listOrders } from "../redux/reducers/orderSlice";
 const OrderPage = () => {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.orders.data);
-  const isLoading = useSelector((state) => state.orders.loading);
-
-  useEffect(() => {
-    dispatch(listOrders());
-  }, [dispatch, isLoading]);
+  const isLoading = useSelector((state) => state.orders.isLoading);
 
   const columns = getColumns({
     keyOne: "_id",
@@ -25,6 +21,9 @@ const OrderPage = () => {
     keyFiveTitle: "Total price",
     option: "orders",
   });
+  useEffect(() => {
+    dispatch(listOrders());
+  }, [dispatch]);
 
   return (
     <>

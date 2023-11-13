@@ -258,20 +258,17 @@ function getColumns({
 
         if (option === "users" || option === "customers") {
           return (
-            <p className="font-medium">
-              {option === "users" || option === "customers" ? (
-                <Badge variant="outline" className="font-medium">
-                  {cellValue}
-                </Badge>
-              ) : null}
-            </p>
+            <Badge variant="outline" className="font-medium">
+              {cellValue}
+            </Badge>
           );
         } else if (option === "orders") {
-          return <p className="font-medium">{`${cellValue},00 MAD`}</p>;
+          return <>{`${cellValue},00 MAD`}</>;
         }
 
         return null;
       },
+
       enableSorting: false,
       enableHiding: false,
     },

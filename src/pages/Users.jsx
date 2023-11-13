@@ -36,7 +36,9 @@ const UserPage = () => {
     <div className="container h-full flex-1 flex-col space-y-8 p-8 flex">
       <div className="flex items-center justify-between space-y-2">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight">USERS</h2>
+          <h2 className="text-2xl font-bold tracking-tight">
+            Users Management
+          </h2>
           <p className="text-muted-foreground">
             {"Here's"} a list of all users!
           </p>

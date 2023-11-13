@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { Icon } from "@iconify/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import blackLogo from "../assets/Logo/singLogoBlack.svg";
 import { useSidebar } from "../context/SidebarProvider";
@@ -33,7 +33,7 @@ const adminLinks = [
     icon: "solar:users-group-rounded-line-duotone",
     path: "/users",
   },
-  { link: "Admin Roles", icon: "solar:settings-line-duotone", path: "/users" },
+  { link: "Settings", icon: "solar:settings-line-duotone", path: "/profile" },
 ];
 const Sidebar = () => {
   const { sidebar, handelSidebar } = useSidebar();
@@ -42,6 +42,15 @@ const Sidebar = () => {
   const handleLinkClick = (path) => {
     setCurrentPath(path);
   };
+  useEffect(() => {
+    const handlePopstate = () => {
+      setCurrentPath(window.location.pathname);
+    };
+    window.addEventListener("popstate", handlePopstate);
+    return () => {
+      window.removeEventListener("popstate", handlePopstate);
+    };
+  }, []);
 
   return (
     <div
