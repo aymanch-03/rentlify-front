@@ -49,7 +49,7 @@ export default function UpdateUserForm(props) {
     const [isDisplayed, setIsDisplayed] = useState('hidden');
 
     useEffect(() => {
-        setUser(props.data);
+        setUser(props);
     },[])
 
     function editData() {
@@ -63,9 +63,9 @@ export default function UpdateUserForm(props) {
 
     const submitData = async (id, values) => {
         try {
-            // console.log('values', values);
-            // console.log('id', id);
-            // dispatch(updateUser(id, values))
+            console.log('values', values);
+            console.log('id', id);
+            dispatch(updateUser(id, values))
         } catch (error) {
             console.error('Error submitting data', error);
         }

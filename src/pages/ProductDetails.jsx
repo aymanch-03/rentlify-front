@@ -10,11 +10,11 @@ import UpdateProductDialog from "../components/products/UpdatEProductDialog";
 
 
 export default function Example() {
-    const dispatch = useDispatch();
-    const Product = useSelector((state) => state.products.product);
-    const { id } = useParams();
-    console.log(Product);
-    useEffect(() => {
+  const dispatch = useDispatch();
+  const Product = useSelector((state) => state.products.product);
+  const { id } = useParams();
+  console.log(Product);
+  useEffect(() => {
       dispatch(GetProducts(id));
     }, [dispatch, id]);
 
