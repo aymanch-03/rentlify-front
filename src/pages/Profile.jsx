@@ -192,7 +192,7 @@ export default function Profile() {
                 </div>
 
                 <form className="md:col-span-2">
-                  <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
+                  <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-full sm:grid-cols-6">
                     <div className="col-span-full">
                       <label
                         htmlFor="current-password"
