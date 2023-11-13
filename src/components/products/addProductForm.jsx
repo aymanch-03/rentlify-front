@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -25,35 +26,34 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import {addUser} from "../../redux/features/userSlice";
+import {AddProduct} from "../../redux/reducers/productSlice";
 const FormSchema = z.object({
-    first_name: z
+    product_name: z
         .string({
             required_error: "First name is required",
         })
         .min(2)
         .max(18),
-    last_name: z
+        product_image: z
         .string({
             required_error: "Last name is required",
         })
         .min(2)
         .max(18),
-    role: z
+        active: z
         .string()
         .min(1, { message: "Please select a role to display." }),
-    user_name: z
+        price: z
         .string({
             required_error: "Username is required",
         })
         .min(2),
-    email: z
+        long_description: z
         .string({
             required_error: "Email is required",
         })
-        .min(2)
-        .email(),
-    password: z
+        .min(2),
+        short_description: z
         .string({
             required_error: "Password is required",
         })
@@ -65,12 +65,12 @@ export default function InputForm() {
     const form = useForm({
         resolver: zodResolver(FormSchema),
         defaultValues: {
-            first_name: "",
-            last_name: "",
-            role: "",
-            user_name: "",
-            email: "",
-            password: "",
+            product_name: "",
+            product_image: "",
+            active: "",
+            price: "",
+            long_description: "",
+            short_description: "",
         }
     })
     
@@ -78,7 +78,7 @@ export default function InputForm() {
 
     const submitData = async (values) => {
         try {
-            dispatch(addUser(values))
+            dispatch(AddProduct(values))
         } catch (error) {
             console.error('Error submitting data', error);
         }
@@ -90,10 +90,10 @@ export default function InputForm() {
                 <div className="grid grid-cols-2 gap-x-5">
                     <FormField
                         control={form.control}
-                        name="first_name"
+                        name="product_name"
                         render={({ field }) => (
                             <FormItem >
-                                <FormLabel>FIRST NAME</FormLabel>
+                                <FormLabel>PRODUCT NAME</FormLabel>
                                 <FormControl>
                                     <Input
                                         className="input"
@@ -106,10 +106,10 @@ export default function InputForm() {
                     />
                     <FormField
                         control={form.control}
-                        name="last_name"
+                        name="product_image"
                         render={({ field }) => (
                             <FormItem >
-                                <FormLabel>LAST NAME</FormLabel>
+                                <FormLabel>PRODUCT IMAGE</FormLabel>
                                 <FormControl>
                                     <Input
                                         name={field.name}
@@ -124,21 +124,21 @@ export default function InputForm() {
                 </div>
                 <FormField
                     control={form.control}
-                    name="role"
+                    name="active"
 
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>PLATFORM ROLE</FormLabel>
+                            <FormLabel>STATUS</FormLabel>
                             <Select onValueChange={field.onChange} defaultValue={field.value} >
 
                                 <FormControl >
                                     <SelectTrigger>
-                                        <SelectValue placeholder="Select a role to display" />
+                                        <SelectValue placeholder="Select a status to display" />
                                     </SelectTrigger>
                                 </FormControl>
-                                <SelectContent name="role">
-                                    <SelectItem value="admin">Admin User</SelectItem>
-                                    <SelectItem value="manager">Manager User</SelectItem>
+                                <SelectContent name="active">
+                                    <SelectItem value="true">Active</SelectItem>
+                                    <SelectItem value="false">Idle</SelectItem>
                                 </SelectContent>
                             </Select>
                             <FormMessage />
@@ -147,13 +147,13 @@ export default function InputForm() {
                 />
                 <FormField
                     control={form.control}
-                    name="user_name"
+                    name="price"
                     render={({ field }) => (
                         <FormItem >
-                            <FormLabel>USERNAME</FormLabel>
+                            <FormLabel>PRICE</FormLabel>
                             <FormControl>
                                 <Input
-                                    name="user_name"
+                                    name="price"
                                     type="text"
                                     {...field}
                                      />
@@ -164,12 +164,12 @@ export default function InputForm() {
                 />
                 <FormField
                     control={form.control}
-                    name="email"
+                    name="long_description"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>EMAIL</FormLabel>
+                            <FormLabel>LONG DESCRIPTION</FormLabel>
                             <FormControl>
-                                <Input name="email" type="email" {...field} />
+                                <Input name="long_description" type="text" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -177,12 +177,12 @@ export default function InputForm() {
                 />
                 <FormField
                     control={form.control}
-                    name="password"
+                    name="short_description"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>PASSWORD</FormLabel>
+                            <FormLabel>SHORT DESCRIPTION</FormLabel>
                             <FormControl>
-                                <Input name="password" type="password" {...field} />
+                                <Input name="short_description" type="text" {...field} />
                             </FormControl>
                             <FormMessage className="text-red-600" />
                         </FormItem>
@@ -193,7 +193,7 @@ export default function InputForm() {
                     <DialogClose asChild>
                         <Button className='p-4' type="button" variant="secondary">Close</Button>
                     </DialogClose>
-                    <Button className='p-4' type="submit">Add User</Button>
+                    <Button className='p-4' type="submit">Add Product</Button>
                 </DialogFooter>
             </form>
         </Form>

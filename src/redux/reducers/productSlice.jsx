@@ -15,7 +15,7 @@ export const ListProducts = createAsyncThunk(
     // console.log(response);
   }
   );
-  export const GetProducts = createAsyncThunk(
+export const GetProducts = createAsyncThunk(
     "Product/GetProducts",
     async (id, { rejectWithValue }) => {
       try {
@@ -26,6 +26,18 @@ export const ListProducts = createAsyncThunk(
       }
     }
   );
+export const AddProduct = createAsyncThunk(
+    "Product/AddProduct",
+    async (Product, { rejectWithValue }) => {
+      try {
+        const response = await axios.post("/products", Product);
+        return response.data.data;
+      } catch (error) {
+        rejectWithValue(error.response.data);
+      }
+    }
+  );
+  
 const productsSlice = createSlice({
   name: "products",
   initialState: {
@@ -49,6 +61,14 @@ const productsSlice = createSlice({
         console.log("Success", action.payload);
       })
       .addCase(GetProducts.rejected, (state, action) => {
+        state.status = "rejected";
+        console.error("Error fetching products:", action.error.message);
+      })
+      .addCase(AddProduct.fulfilled, (state, action) => {
+        state.products = [...state.products, action.payload];
+        console.log("Success", action.payload);
+      })
+      .addCase(AddProduct.rejected, (state, action) => {
         state.status = "rejected";
         console.error("Error fetching products:", action.error.message);
       });

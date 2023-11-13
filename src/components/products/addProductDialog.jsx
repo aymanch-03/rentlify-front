@@ -6,7 +6,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { UserPlus } from "lucide-react"
+import { PackagePlus } from "lucide-react"
 import InputForm from "./addProductForm";
 
 export default function ProductDialog() {
@@ -14,13 +14,13 @@ export default function ProductDialog() {
         <Dialog>
             <DialogTrigger asChild>
                 <Button className='p-4' variant="outline">
-                <UserPlus className="w-4 mr-2"/>
-                     Add User
+                <PackagePlus className="w-4 mr-2"/>
+                     Add Product
                      </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[600px]">
                 <DialogHeader>
-                    <DialogTitle>ADD USER</DialogTitle>
+                    <DialogTitle>ADD PRODUCT</DialogTitle>
                 </DialogHeader>
                 {/***********/}
                 <InputForm />
