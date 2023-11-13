@@ -26,6 +26,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import {addUser} from "../../redux/reducers/userSlice";
+import { useToast } from "../ui/use-toast"
 const FormSchema = z.object({
     first_name: z
         .string({
@@ -62,6 +63,8 @@ const FormSchema = z.object({
 })
 
 export default function InputForm() {
+    const {toast} = useToast()
+    const stateError = useSelector(state=> state.user.error)
     const form = useForm({
         resolver: zodResolver(FormSchema),
         defaultValues: {
@@ -79,8 +82,13 @@ export default function InputForm() {
     const submitData = async (values) => {
         try {
             dispatch(addUser(values))
+            if(!stateError){
+               return toast({variant:'success', description: 'User added successfully'})
+            }
+            toast({variant:'destructive', description: 'Cannot add user now. Please try again later'})
         } catch (error) {
             console.error('Error submitting data', error);
+            
         }
     };
 

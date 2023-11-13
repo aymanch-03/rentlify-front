@@ -23,12 +23,12 @@ import {
   TableHeader,
   TableRow,
 } from "./table";
-function DataTable({ columns, data, option, isLoading, onUserClick }) {
+import { Link } from "react-router-dom";
+function DataTable({ columns, data, option, isLoading, onUserClick,path }) {
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState({});
   const [columnFilters, setColumnFilters] = useState([]);
   const [sorting, setSorting] = useState([]);
-
   const table = useReactTable({
     data,
     columns,
@@ -103,14 +103,16 @@ function DataTable({ columns, data, option, isLoading, onUserClick }) {
                 <TableRow
                   key={row?.id}
                   data-state={row.getIsSelected() && "selected"}
-                  onClick={() => onUserClick(row)}
+                  onMouseOver={() => onUserClick(row)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell?.id}>
+                      <Link to={path}>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
                       )}
+                      </Link>
                     </TableCell>
                   ))}
                 </TableRow>

@@ -4,6 +4,7 @@ import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
 import { ListUsers } from "../redux/reducers/userSlice";
 import UserDialog from "../components/Users/addUserDialog";
+import { useState } from "react";
 
 const UserPage = () => {
   const dispatch = useDispatch();
@@ -29,10 +30,14 @@ const UserPage = () => {
     option: "users",
   });
 
+  const [userId, setUserId] = useState(null)
+  
   const getUserId = (row) => {
-    console.log(row.original._id);
-  };
+    const user = row.original._id
+    setUserId(user);
 
+  };
+  
   return (
     <div className="container h-full flex-1 flex-col space-y-8 p-8 flex">
       <div className="flex items-center justify-between space-y-2">
@@ -56,6 +61,7 @@ const UserPage = () => {
             isLoading={isLoading}
             option={"customers"}
             onUserClick={getUserId}
+            path={`/users/${userId}`}
           />
         )}
       </div>

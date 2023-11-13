@@ -7,6 +7,7 @@ import Dashboard from "../pages/Dashboard";
 import OrderPage from "../pages/Order";
 import Profile from "../pages/Profile";
 import Users from "../pages/Users";
+import UserProfile from "../components/Users/userProfile";
 
 const DashboardRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const DashboardRoutes = () => {
           <Route path="/customers" element={<Customers />} />
           <Route path="/customer" element={<CustomerPage />} />
           <Route path="/users" element={<Users />} />
+          <Route path="/users/:id" element={<UserProfile />} />
           <Route path="/orders" element={<OrderPage />} />
           <Route path="orders" element={<OrderPage />} />
           <Route path="profile" element={<Profile />} />
