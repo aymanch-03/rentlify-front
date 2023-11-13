@@ -8,6 +8,7 @@ import OrderPage from "../pages/Order";
 import Users from "../pages/Users";
 import Products from "../pages/Products";
 import ProductDetails from '../pages/ProductDetails';
+import UpdateProducts from "../pages/UpdateProducts";
 
 const DashboardRoutes = () => {
   return (
@@ -21,6 +22,7 @@ const DashboardRoutes = () => {
           <Route path="orders" element={<OrderPage />} />
           <Route path="/products" element={<Products />} />
           <Route path="/productDetails/:id" element={<ProductDetails />} />
+          <Route path="/UpdateProduct/:id" element={<UpdateProducts />} />
         </Route>
       </Routes>
     </Layout>

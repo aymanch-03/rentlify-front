@@ -26,6 +26,18 @@ export const GetProducts = createAsyncThunk(
       }
     }
   );
+
+  export const updateProduct = createAsyncThunk(
+    "product/updateProduct",
+    async ({ id, product }, { rejectWithValue }) => {
+      try {
+        const response = axios.put(`/users/${id}`, product);
+        return response.data.data;
+      } catch (error) {
+        rejectWithValue(error.response.data);
+      }
+    }
+  );
 export const AddProduct = createAsyncThunk(
     "Product/AddProduct",
     async (Product, { rejectWithValue }) => {

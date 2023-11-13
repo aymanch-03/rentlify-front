@@ -5,22 +5,43 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { GetProducts } from '../redux/reducers/productSlice';
 import { useParams } from "react-router-dom";
-import UpdateProductDialog from "../components/products/UpdatEProductDialog";
-
+// import UpdateProductDialog from "../components/products/UpdatEProductDialog";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { PackagePlus } from "lucide-react";
+// import InputForm from "./addProduct";
+import { Link } from "react-router-dom";
 
 
 export default function Example() {
   const dispatch = useDispatch();
   const Product = useSelector((state) => state.products.product);
   const { id } = useParams();
-  console.log(Product);
+  // console.log(id);
   useEffect(() => {
       dispatch(GetProducts(id));
     }, [dispatch, id]);
 
     return (
       <div>
-        <UpdateProductDialog />
+        <>
+    <Link to={`/UpdateProduct/${id}`}>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className="p-4" variant="outline">
+            <PackagePlus className="w-4 mr-2" />
+            Update Product
+          </Button>
+        </DialogTrigger>
+      </Dialog>
+    </Link>
+ </>
           <div key={Product._id} className="bg-white">
             <div className="pt-6">
               <nav aria-label="Breadcrumb">
