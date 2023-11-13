@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { GetProducts } from '../redux/reducers/productSlice';
 import { useParams } from "react-router-dom";
+import UpdateProductDialog from "../components/products/UpdatEProductDialog";
 
 
 
@@ -19,6 +20,7 @@ export default function Example() {
 
     return (
       <div>
+        <UpdateProductDialog />
           <div key={Product._id} className="bg-white">
             <div className="pt-6">
               <nav aria-label="Breadcrumb">
