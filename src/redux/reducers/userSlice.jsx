@@ -71,7 +71,12 @@ const userSlice = createSlice({
     isLoading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    updateUsersInUserSlice: (state, action) => {
+      state.users = { ...state.users, ...action.payload };
+      console.log(state.users);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(ListUsers.pending, (state, action) => {
@@ -156,3 +161,4 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
+export const { updateUsersInUserSlice } = userSlice.actions;

@@ -10,22 +10,30 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useDispatch } from "react-redux";
+import { useCookies } from "react-cookie";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteUser } from "../../redux/reducers/userSlice";
 import { useToast } from "../ui/use-toast";
 
 export default function DeleteUser({ id }) {
   const dispatch = useDispatch();
+  const authUser = useSelector((state) => state.auth.user);
   const { toast } = useToast();
+  const [cookie, setCookie, removeCookie] = useCookies();
 
   const handleSubmit = (id) => {
     try {
       console.log("id:", id);
+      if (id === authUser._id) {
+        removeCookie("token");
+      }
       dispatch(deleteUser(id));
-      toast({
-        variant: "success",
-        description: "User deleted successfully",
-      });
+      setTimeout(() => {
+        toast({
+          variant: "success",
+          description: "User deleted successfully",
+        });
+      }, 800);
     } catch (error) {
       console.error("Error Deleting user", error);
       toast({

@@ -39,15 +39,10 @@ const Header = () => {
         </div>
 
         <div className="flex flex-1 items-center justify-end gap-x-8">
-          <Icon
-            icon="solar:bell-line-duotone"
-            width={26}
-            className="pt-1 cursor-pointer hover:text-gray-600 transition-all"
-          />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                <Avatar className="h-9 w-9">
+                <Avatar className="h-9 w-9 border border-black/20">
                   <AvatarFallback>{fallbackAvatar}</AvatarFallback>
                 </Avatar>
               </Button>

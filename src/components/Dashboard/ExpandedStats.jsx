@@ -55,7 +55,7 @@ const ExpandedStats = () => {
               dbData={ordersData}
               totalOrders={totalData7Days}
               dates={chartLabels}
-              percentage={percentageIncrease}
+              percentage={percentageIncrease.toFixed(2)}
             />
           )}
           {isLoading ? (

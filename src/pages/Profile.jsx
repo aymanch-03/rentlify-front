@@ -10,9 +10,8 @@ import { ListUsers, updateUser } from "../redux/reducers/userSlice";
 export default function Profile() {
   const { toast } = useToast();
   const dispatch = useDispatch();
-  //   const users = useSelector((state) => state.user.users);
   const user = useSelector((state) => state.auth.user);
-  const isLoading = useSelector((state) => state.user.isLoading);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     user_name: user.user_name,
@@ -20,6 +19,7 @@ export default function Profile() {
     last_name: user.last_name,
     email: user.email,
   });
+
   useEffect(() => {
     setFormData({
       user_name: user.user_name,
@@ -28,6 +28,7 @@ export default function Profile() {
       email: user.email,
     });
   }, [user]);
+
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -37,19 +38,36 @@ export default function Profile() {
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
+
+    const isDataChanged = Object.keys(formData).some(
+      (key) => formData[key] !== user[key]
+    );
+
+    if (!isDataChanged) {
+      toast({
+        variant: "default",
+        description:
+          "No changes made – your personal information is already current.",
+      });
+      return;
+    }
+
     const isNotEmpty = Object.values(formData).every((value) => value);
 
     if (isNotEmpty && user._id) {
       try {
-        // Dispatch the updateUser action
         dispatch(updateUser({ id: user._id, newUserData: formData }));
         dispatch(updateUserInAuthSlice(formData));
         dispatch(ListUsers());
 
-        toast({
-          variant: "success",
-          description: "Your personal information has been updated",
-        });
+        setIsLoading(true);
+        setTimeout(() => {
+          setIsLoading(false);
+          toast({
+            variant: "success",
+            description: "Your personal information has been updated",
+          });
+        }, 900);
       } catch (error) {
         console.error(error);
         toast({
@@ -64,7 +82,6 @@ export default function Profile() {
       });
     }
   };
-  console.log(user);
   return (
     <>
       <div className="">
@@ -170,9 +187,9 @@ export default function Profile() {
                   <div className="mt-8 flex">
                     <button
                       type="submit"
-                      className="rounded-md bg-primary px-3 py-2 gap-2 flex items-center text-sm font-medium text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                      className="rounded-md bg-primary px-4 py-2 gap-2 flex items-center text-sm font-medium text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                     >
-                      Save
+                      Save changes
                       {isLoading && (
                         <Icons.spinner className="animate-spin w-4 h-4" />
                       )}
@@ -251,9 +268,12 @@ export default function Profile() {
                   <div className="mt-8 flex">
                     <button
                       type="submit"
-                      className="rounded-md bg-primary px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                      className="rounded-md bg-primary px-4 py-2 gap-2 flex items-center text-sm font-medium text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                     >
-                      Save
+                      Save changes
+                      {isLoading && (
+                        <Icons.spinner className="animate-spin w-4 h-4" />
+                      )}
                     </button>
                   </div>
                 </form>
