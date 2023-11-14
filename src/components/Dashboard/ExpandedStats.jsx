@@ -1,7 +1,7 @@
 /* eslint-disable no-prototype-builtins */
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDataFormatted } from "../../lib/chartData";
+import { getDataFormatted } from "../../lib/helpers";
 import { listOrders } from "../../redux/reducers/orderSlice";
 import CustAndOrderSkeleton from "../ui/CustAndOrderSkeleton";
 import ChartsSkeleton from "../ui/chartsSkeleton";
