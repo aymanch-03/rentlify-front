@@ -2,7 +2,7 @@
 import ExpandedStats from "../components/Dashboard/ExpandedStats";
 import Stats from "../components/Dashboard/Stats";
 import { useSidebar } from "../context/SidebarProvider";
-import Layout from "../layouts/Layout";
+import Layout from "../layouts/OfficeLayout";
 
 const stats = [
   {
