@@ -19,6 +19,7 @@ export default function DeleteUser({ id }) {
   const dispatch = useDispatch();
   const authUser = useSelector((state) => state.auth.user);
   const { toast } = useToast();
+  // eslint-disable-next-line no-unused-vars
   const [cookie, setCookie, removeCookie] = useCookies();
 
   const handleSubmit = (id) => {

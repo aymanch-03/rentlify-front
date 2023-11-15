@@ -330,6 +330,7 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
               <FormField
                 control={form.control}
                 name="active"
+                // eslint-disable-next-line no-unused-vars
                 render={({ field }) => (
                   <FormItem className="">
                     <FormLabel className="text-slate-500">Status</FormLabel>
