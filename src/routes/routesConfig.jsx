@@ -6,7 +6,7 @@ function Routers() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<AuthenticationPage />} />
+        <Route path="/auth/login" element={<AuthenticationPage />} />
         <Route path="/*" element={<DashboardRoutes />} />
       </Routes>
     </div>

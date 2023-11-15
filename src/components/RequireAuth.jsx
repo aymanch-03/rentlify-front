@@ -23,13 +23,13 @@ const RequireAuth = ({ allowedRoles }) => {
     return <Icons.spinner className="animate-spin w-6 h-6" />;
   }
   if (!token) {
-    return <Navigate to="/" />;
+    return <Navigate to="/auth/login" />;
   }
 
   return user && allowedRoles.includes(user.role) ? (
     <Outlet />
   ) : (
-    <Navigate to="/" />
+    <Navigate to="/auth/login" />
   );
 };
 export default RequireAuth;

@@ -30,7 +30,7 @@ function UserAuthForm({ className, ...props }) {
     dispatch(LoginUser(user)).then((result) => {
       if (result.payload) {
         setUser("");
-        navigate("/dashboard");
+        navigate("/");
         toast({
           variant: "success",
           title: "Login successful!",

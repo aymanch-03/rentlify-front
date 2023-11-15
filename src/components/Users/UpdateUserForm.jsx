@@ -284,9 +284,9 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
                     <div className="inline-block w-full">
                       <Select
                         name="role"
-                        value={user.role}
+                        defaultValue={user.role}
                         disabled={isDisabled}
-                        {...field}
+                        onValueChange={field.onChange}
                       >
                         <FormControl>
                           <>
@@ -338,7 +338,6 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
                         name="active"
                         value={user.active}
                         disabled={isDisabled}
-                        {...field}
                       >
                         <FormControl>
                           <>
@@ -358,7 +357,11 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
                 )}
               />
               <div className={`flex justify-between ${isDisplayed}`}>
-                <Button className="p-4 flex items-center gap-2" type="submit">
+                <Button
+                  className="p-4 flex items-center gap-2"
+                  type="submit"
+                  disabled={spinnerLoading}
+                >
                   <p>Save Changes</p>
                   {spinnerLoading ? (
                     <Icons.spinner className="animate-spin w-5 h-5" />

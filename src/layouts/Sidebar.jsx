@@ -9,7 +9,7 @@ const generalLinks = [
   {
     link: "Dashboard",
     icon: "solar:widget-5-line-duotone",
-    path: "/dashboard",
+    path: "/",
   },
   {
     link: "Customers",

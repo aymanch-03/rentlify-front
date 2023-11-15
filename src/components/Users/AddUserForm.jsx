@@ -1,14 +1,12 @@
 import { Button } from "@/components/ui/button";
 import {
   DialogClose,
-  DialogDescription,
   DialogFooter,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -23,6 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import * as z from "zod";
@@ -64,6 +63,7 @@ const FormSchema = z.object({
 export default function InputForm() {
   const { toast } = useToast();
   const stateError = useSelector((state) => state.user.error);
+
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -84,7 +84,12 @@ export default function InputForm() {
       if (!stateError) {
         return toast({
           variant: "success",
-          description: "User added successfully",
+          description: (
+            <div className="flex items-center justify-between gap-3">
+              <Icon icon="solar:check-circle-linear" width={23} height={23} />
+              <p>User added successfully</p>
+            </div>
+          ),
         });
       }
       toast({
@@ -105,7 +110,7 @@ export default function InputForm() {
             name="first_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>FIRST NAME</FormLabel>
+                <FormLabel>First name</FormLabel>
                 <FormControl>
                   <Input className="input" {...field} />
                 </FormControl>
@@ -118,7 +123,7 @@ export default function InputForm() {
             name="last_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>LAST NAME</FormLabel>
+                <FormLabel>Last name</FormLabel>
                 <FormControl>
                   <Input name={field.name} className="input" {...field} />
                 </FormControl>
@@ -132,7 +137,7 @@ export default function InputForm() {
           name="role"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>PLATFORM ROLE</FormLabel>
+              <FormLabel>Platform Role</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -153,7 +158,7 @@ export default function InputForm() {
           name="user_name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>USERNAME</FormLabel>
+              <FormLabel>Username</FormLabel>
               <FormControl>
                 <Input name="user_name" type="text" {...field} />
               </FormControl>
@@ -188,9 +193,13 @@ export default function InputForm() {
           )}
         />
         <br />
-        <DialogFooter className="!justify-between flex mt-8">
+        <DialogFooter className="!justify-between flex mt-8 gap-y-4">
           <DialogClose asChild>
-            <Button className="p-4" type="button" variant="secondary">
+            <Button
+              className="p-4 border border-black/5"
+              type="button"
+              variant="secondary"
+            >
               Close
             </Button>
           </DialogClose>
