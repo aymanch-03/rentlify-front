@@ -138,7 +138,8 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
             <div className="flex flex-col justify-center">
               <div className="flex gap-4 items-center ">
                 <h1 className="text-2xl font-medium ">
-                  {user?.first_name + " " + user?.last_name}
+                  <span className="capitalize">{user?.first_name}</span>{" "}
+                  <span className="capitalize">{user?.last_name}</span>
                 </h1>
                 <span
                   className={`capitalize flex items-center gap-1 ${
@@ -264,7 +265,7 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
                     <div className="inline-block w-full">
                       <FormControl>
                         <Input
-                          placeholder={user.email}
+                          value={user.email}
                           className="w-full"
                           disabled
                           type="email"

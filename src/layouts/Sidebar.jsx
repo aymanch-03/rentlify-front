@@ -9,31 +9,35 @@ const generalLinks = [
   {
     link: "Dashboard",
     icon: "solar:widget-5-line-duotone",
-    path: "/",
+    path: "/office",
   },
   {
     link: "Customers",
     icon: "solar:users-group-two-rounded-line-duotone",
-    path: "/customers",
+    path: "/office/customers",
   },
   {
     link: "Order Management",
     icon: "solar:bill-list-line-duotone",
-    path: "/orders",
+    path: "/office/orders",
   },
   {
     link: "Transactions",
     icon: "solar:transfer-horizontal-bold-duotone",
-    path: "/payements",
+    path: "/office/payements",
   },
 ];
 const adminLinks = [
   {
     link: "Manage Users",
     icon: "solar:users-group-rounded-line-duotone",
-    path: "/users",
+    path: "/office/users",
   },
-  { link: "Settings", icon: "solar:settings-line-duotone", path: "/profile" },
+  {
+    link: "Settings",
+    icon: "solar:settings-line-duotone",
+    path: "/office/profile",
+  },
 ];
 const Sidebar = () => {
   const { sidebar, handelSidebar } = useSidebar();
