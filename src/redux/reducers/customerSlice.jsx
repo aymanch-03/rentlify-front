@@ -23,8 +23,7 @@ export const registerCustomer = createAsyncThunk(
       const response = await request.data;
       return response;
     } catch (error) {
-      rejectWithValue(error);
-      return error.response.data;
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -46,7 +45,6 @@ const customerSlice = createSlice({
         state.status = "succeeded";
         state.data = action.payload;
         state.isLoading = false;
-        // console.log(action.payload);
       })
       .addCase(listCustomers.rejected, (state, action) => {
         state.status = "failed";
@@ -69,7 +67,6 @@ const customerSlice = createSlice({
         state.isLoading = false;
         state.status = "rejected";
         state.error = action.error;
-        console.error(action.error.message.error);
       });
   },
 });

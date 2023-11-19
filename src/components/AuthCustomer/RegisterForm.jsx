@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useToast } from "@/components/ui/use-toast";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Icon } from "@iconify/react";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { registerCustomer } from "../../redux/reducers/customerSlice";
 import { Button } from "../ui/button";
+import { Checkbox } from "../ui/checkbox";
 import { Icons } from "../ui/icons";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -19,12 +21,11 @@ function RegisterForm({ className, ...props }) {
     first_name: "",
     last_name: "",
   });
+  const [validationErrors, setValidationErrors] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.customers);
-
   const { toast } = useToast();
-
   const handleChange = (e) => {
     const { value, name } = e.target;
     setCustomer({ ...customer, [name]: value });
@@ -38,21 +39,24 @@ function RegisterForm({ className, ...props }) {
       if (result.payload.customer) {
         setCustomer("");
         navigate("/login");
+        setValidationErrors([]);
       } else {
-        toast({
-          variant: "destructive",
-          title: result.payload.error,
-        });
+        const errors = result.payload.error;
+        const allErrors = errors.split(".");
+        setValidationErrors(allErrors);
+
+        // toast({
+        //   variant: "destructive",
+        //   title: result.payload.error,
+        // });
       }
     } catch (error) {
-      console.log("An unexpected error occurred:", error);
       toast({
         variant: "destructive",
         title: "An unexpected error occurred.",
       });
     }
   };
-
   return (
     <div className={`grid gap-4  ${className}`} {...props}>
       <Button
@@ -130,7 +134,7 @@ function RegisterForm({ className, ...props }) {
               id="password"
               className="placeholder:text-black/30 text-sm px-3 py-5"
               name="password"
-              placeholder="Enter your password"
+              placeholder="••••••••"
               type="password"
               autoCapitalize="none"
               autoCorrect="off"
@@ -139,6 +143,36 @@ function RegisterForm({ className, ...props }) {
               required
             />
           </div>
+          <span className="text-sm text-black/50 font-extralight">
+            Min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char.{" "}
+          </span>
+
+          <div className="items-center my-2 flex gap-2">
+            <Checkbox name="terms" required />
+
+            <label
+              htmlFor="terms"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Accept terms and conditions
+            </label>
+          </div>
+
+          {validationErrors.map((error, index) => {
+            return (
+              <span
+                className="text-sm text-red-500 flex items-center gap-2"
+                key={index}
+              >
+                <Icon
+                  icon="solar:close-circle-bold-duotone"
+                  className="w-4 h-4 flex-shrink-0"
+                />
+                <span>{error}</span>
+              </span>
+            );
+          })}
+
           <Button disabled={isLoading} className="mt-6 py-5 text-base">
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
@@ -148,7 +182,7 @@ function RegisterForm({ className, ...props }) {
           <p className=" text-sm  hover:text-black text-black/80 transition-all">
             Already have an account?{" "}
             <Link to="/login" className="underline font-medium ">
-              Sign Up
+              Log in
             </Link>
           </p>
         </div>

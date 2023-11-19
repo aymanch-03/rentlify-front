@@ -16,20 +16,6 @@ export const loginCustomer = createAsyncThunk(
     }
   }
 );
-export const registerCustomer = createAsyncThunk(
-  "customer/registerCustomer",
-  async (customer, { rejectWithValue }) => {
-    try {
-      const request = await axios.post("/customers", customer, {
-        withCredentials: true,
-      });
-      const response = await request.data.customer;
-      return response;
-    } catch (error) {
-      rejectWithValue(error.response.data);
-    }
-  }
-);
 
 const authCustomerSlice = createSlice({
   name: "customer",
