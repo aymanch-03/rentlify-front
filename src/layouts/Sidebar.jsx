@@ -2,7 +2,7 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import blackLogo from "../assets/Logo/singLogoBlack.svg";
+import blackLogo from "../assets/Logo/singLogoBlack.png";
 import { useSidebar } from "../context/SidebarProvider";
 
 const generalLinks = [

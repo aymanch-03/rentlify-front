@@ -61,7 +61,7 @@ const UserPage = () => {
             isLoading={isLoading}
             option={"customers"}
             // onUserClick={getUserId}
-            path={`/users/${userId}`}
+            path={`/office/users/${userId}`}
           />
         )}
       </div>

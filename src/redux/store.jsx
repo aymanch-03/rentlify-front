@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import authCustomerSlice from "./reducers/authCustomerSlice";
 import authReducer from "./reducers/authSlice";
 import customerReducer from "./reducers/customerSlice";
 import orderReducer from "./reducers/orderSlice";
@@ -20,6 +21,7 @@ const store = configureStore({
     user: userReducer,
     customers: customerReducer,
     orders: orderReducer,
+    authCustomer: authCustomerSlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware({
