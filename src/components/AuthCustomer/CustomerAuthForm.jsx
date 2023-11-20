@@ -49,14 +49,14 @@ function CustomerAuthForm({ className, ...props }) {
 
   return (
     <div className={`grid gap-4  ${className}`} {...props}>
-      <Button
+      {/* <Button
         variant="outline"
         className="py-5 w-full flex-1 flex  items-center justify-center gap-3"
       >
         <Icon icon="devicon:google" className="w-5 h-5" />
         <p> Login with Google</p>
       </Button>
-      <Separator className="bg-black/5" />
+      <Separator className="bg-black/5" /> */}
 
       <form onSubmit={onSubmit}>
         <div className="grid gap-2">

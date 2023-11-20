@@ -72,10 +72,10 @@ export default function Navbar() {
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5 flex items-center gap-2">
+          <Link to="/" className="-m-1.5 p-1.5 flex items-center gap-2">
             <img className="h-8 w-auto" src={navLogo} alt="Rentlify" />
             <span className="uppercase font-semibold ">RENTLIFY</span>
-          </a>
+          </Link>
         </div>
 
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
