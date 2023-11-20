@@ -2,13 +2,16 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ListProducts, AddProduct } from "../redux/reducers/productSlice";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; 
 
 export default function Example() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     sku:"",
     product_image: null,
+    address:"",
     short_description: "",
     subcategory_id:"",
     long_description: "",
@@ -36,9 +39,9 @@ export default function Example() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { sku, product_image, short_description, subcategory_id, long_description, active, price, product_name } = formData;
+      const { sku, address, product_image, short_description, subcategory_id, long_description, active, price, product_name } = formData;
 
-      if (!sku || !product_image || !short_description || !subcategory_id || !long_description || !active || !price || !product_name) {
+      if (!sku || !address || !product_image || !short_description || !subcategory_id || !long_description || !active || !price || !product_name) {
         console.error('Please fill out all required fields');
         return;
       }
@@ -61,6 +64,7 @@ export default function Example() {
 
       dispatch(AddProduct(updatedFormData));
       dispatch(ListProducts());
+      navigate("/products");
     } catch (error) {
       console.error("Error updating data:", error);
     }
@@ -103,6 +107,23 @@ export default function Example() {
                   type="text"
                   name="product_name"
                   placeholder="Product Name"
+                  onChange={(e) => handleInputChange(e)}
+                  className="p-4 block w-full rounded-md  border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="address"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Address
+              </label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="address"
+                  placeholder="Address"
                   onChange={(e) => handleInputChange(e)}
                   className="p-4 block w-full rounded-md  border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />

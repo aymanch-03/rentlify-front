@@ -26,8 +26,8 @@ export default function Products() {
       <div className="bg-white">
         {/* <ProductDialog /> */}
         <Link to={"/addproduct"}>
-      <Dialog>
-        <DialogTrigger asChild>
+      <Dialog >
+        <DialogTrigger className="px-4 py-16" asChild>
           <Button className="p-4" variant="outline">
             <PackagePlus className="w-4 mr-2" />
             Add Product
@@ -43,7 +43,7 @@ export default function Products() {
               <div key={product._id} className="group relative">
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                   <img
-                    src='https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg'
+                    src={product.product_image}
   
                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                   />

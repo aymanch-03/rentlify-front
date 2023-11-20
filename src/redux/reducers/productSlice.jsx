@@ -12,8 +12,8 @@ export const ListProducts = createAsyncThunk(
     const response = await request.data;
 
     localStorage.setItem("Products", JSON.stringify(response));
+    console.log(response);
     return response;
-    // console.log(response);
   }
   );
 export const GetProducts = createAsyncThunk(
@@ -43,11 +43,11 @@ export const GetProducts = createAsyncThunk(
 export const AddProduct = createAsyncThunk(
     "Product/AddProduct",
     async (data, { rejectWithValue }) => {
-      console.log(data);
+      // console.log(data);
       try {
         const response = await axios.post("/products/create", data);
-        console.log(response);
-        return response.data.data;
+        console.log(response.data.product);
+        return response.data.product;
       } catch (error) {
         rejectWithValue(error.response.data);
       }
@@ -73,7 +73,7 @@ const productsSlice = createSlice({
         console.log(action.payload);
       })
       .addCase(AddProduct.fulfilled, (state, action) => {
-        state.products = action.payload;
+        state.products = [...state.products,action.payload];
         console.log("Success", action.payload);
       })
       .addCase(AddProduct.rejected, (state, action) => {
