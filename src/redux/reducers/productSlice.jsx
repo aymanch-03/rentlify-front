@@ -43,8 +43,10 @@ export const GetProducts = createAsyncThunk(
 export const AddProduct = createAsyncThunk(
     "Product/AddProduct",
     async (data, { rejectWithValue }) => {
+      console.log(data);
       try {
-        const response = await axios.post("/products", data);
+        const response = await axios.post("/products/create", data);
+        console.log(response);
         return response.data.data;
       } catch (error) {
         rejectWithValue(error.response.data);
@@ -70,6 +72,15 @@ const productsSlice = createSlice({
         state.status = "rejected";
         console.log(action.payload);
       })
+      .addCase(AddProduct.fulfilled, (state, action) => {
+        state.products = action.payload;
+        console.log("Success", action.payload);
+      })
+      .addCase(AddProduct.rejected, (state, action) => {
+        state.status = "rejected";
+        console.log("error", action.payload);
+      })
+
       .addCase(GetProducts.fulfilled, (state, action) => {
         state.product = action.payload;
         // console.log("Success", action.payload);

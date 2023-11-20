@@ -1,8 +1,18 @@
+/* eslint-disable no-unused-vars */
 import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import {ListProducts} from '../redux/reducers/productSlice';
-import ProductDialog from '../components/products/addProductDialog';
+// import ProductDialog from '../components/products/addProductDialog';
 import { Link } from "react-router-dom";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { PackagePlus } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 
 export default function Products() {
@@ -14,7 +24,17 @@ export default function Products() {
     console.log(Products);
     return (
       <div className="bg-white">
-        <ProductDialog />
+        {/* <ProductDialog /> */}
+        <Link to={"/addproduct"}>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className="p-4" variant="outline">
+            <PackagePlus className="w-4 mr-2" />
+            Add Product
+          </Button>
+        </DialogTrigger>
+      </Dialog>
+    </Link>
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">Products</h2>
   
