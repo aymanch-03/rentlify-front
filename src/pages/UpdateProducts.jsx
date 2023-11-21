@@ -7,9 +7,11 @@ import { GetProducts } from "../redux/reducers/productSlice";
 import { ListProducts } from "../redux/reducers/productSlice";
 import { useParams } from "react-router-dom";
 import { UpdateProduct } from "../redux/reducers/productSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function Example() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const Product = useSelector((state) => state.products.product);
 
   const { id } = useParams();
@@ -24,7 +26,7 @@ export default function Example() {
 
   useEffect(() => {
     dispatch(GetProducts(id));
-    
+
     setFormData(Product);
   }, [dispatch]);
 
@@ -42,9 +44,9 @@ export default function Example() {
       console.log(id);
       dispatch(UpdateProduct({ id, product: formData }));
       dispatch(ListProducts());
-      
+
       // Redirect or perform any other actions after a successful update
-      // history.push("/success");
+      navigate(`/productDetails/${id}`);
     } catch (error) {
       console.error("Error updating data:", error);
       // Handle error and possibly show an error message to the user

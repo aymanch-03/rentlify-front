@@ -10,6 +10,7 @@ import Products from "../pages/Products";
 import ProductDetails from '../pages/ProductDetails';
 import UpdateProducts from "../pages/UpdateProducts";
 import  AddProduct  from "../pages/AddProduct";
+import Subcategories from "../pages/subcategories";
 
 const DashboardRoutes = () => {
   return (
@@ -21,6 +22,7 @@ const DashboardRoutes = () => {
           <Route path="/customer" element={<CustomerPage />} />
           <Route path="/users" element={<Users />} />
           <Route path="orders" element={<OrderPage />} />
+          <Route path="/subcategories" element={<Subcategories />} />
           <Route path="/products" element={<Products />} />
           <Route path="/productDetails/:id" element={<ProductDetails />} />
           <Route path="/UpdateProduct/:id" element={<UpdateProducts />} />

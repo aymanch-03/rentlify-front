@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ListProducts, AddProduct } from "../redux/reducers/productSlice";
+import {ListSubcategories} from "../redux/reducers/subcategorieSlice";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; 
 
@@ -64,6 +65,8 @@ export default function Example() {
 
       dispatch(AddProduct(updatedFormData));
       dispatch(ListProducts());
+      dispatch(ListSubcategories());
+
       navigate("/products");
     } catch (error) {
       console.error("Error updating data:", error);

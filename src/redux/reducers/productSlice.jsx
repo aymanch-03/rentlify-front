@@ -43,7 +43,6 @@ export const GetProducts = createAsyncThunk(
 export const AddProduct = createAsyncThunk(
     "Product/AddProduct",
     async (data, { rejectWithValue }) => {
-      // console.log(data);
       try {
         const response = await axios.post("/products/create", data);
         console.log(response.data.product);
@@ -53,6 +52,20 @@ export const AddProduct = createAsyncThunk(
       }
     }
   );
+
+  export const deleteProduct = createAsyncThunk(
+    "product/deleteProduct",
+    async (id, { rejectWithValue }) => {
+      try {
+        const response = await axios.delete(`/products/${id}`);
+        console.log("Deleted product: ", response);
+        return response.data.data;
+      } catch (error) {
+        rejectWithValue(error.response.data);
+      }
+    }
+  );
+
 
 
 const productsSlice = createSlice({

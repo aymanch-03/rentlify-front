@@ -9,7 +9,6 @@ const UserPage = () => {
   const data = useSelector((state) => state.user.users);
   const isLoading = useSelector((state) => state.user.isLoading);
 
-  // console.log(data);
 
   useEffect(() => {
     dispatch(ListUsers());
