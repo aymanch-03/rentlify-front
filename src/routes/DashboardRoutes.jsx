@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import RequireAuth from "../components/RequireAuth";
 import UserProfile from "../components/Users/userProfile";
 import OfficeLayout from "../layouts/OfficeLayout";
-import CustomerPage from "../pages/CustomerPage";
+import CustomerDetails from "../pages/CustomerDetails";
 import Customers from "../pages/Customers";
 import Dashboard from "../pages/Dashboard";
 import OrderPage from "../pages/Order";
@@ -16,7 +16,7 @@ const DashboardRoutes = () => {
         <Route element={<RequireAuth allowedRoles={["admin", "manager"]} />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="customers" element={<Customers />} />
-          <Route path="customer" element={<CustomerPage />} />
+          <Route path="customers/:id" element={<CustomerDetails />} />
           <Route path="users" element={<Users />} />
           <Route path="users/:id" element={<UserProfile />} />
           <Route path="orders" element={<OrderPage />} />

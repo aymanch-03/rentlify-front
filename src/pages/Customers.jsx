@@ -1,5 +1,5 @@
 // import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
@@ -9,26 +9,32 @@ const CustomerPage = () => {
   const dispatch = useDispatch(); // Initialize the dispatch function
   const customers = useSelector((state) => state.customers.data); // Access customer data from Redux store
   const isLoading = useSelector((state) => state.customers.isLoading); // Access customer data from Redux store
+  const [customerId, setCustomerId] = useState("");
+
+  useEffect(() => {
+    dispatch(listCustomers());
+  }, [dispatch]);
+
+  const getCustomerId = (row) => {
+    const customer = row.original._id;
+    setCustomerId(customer);
+  };
 
   const columns = getColumns({
     keyOne: "_id",
     keyOneTitle: "Customer Id ",
     keyTwo: "email",
     keyTwoTitle: "Email Address",
-    keyThree: "active",
-    keyThreeTitle: "Status",
-    keyFour: "valid_account",
-    keyFourTitle: "Valid / Invalid",
+    keyThree: "valid_account",
+    keyFourTitle: "Status",
+    keyFour: "active",
+    keyThreeTitle: "Valid / Invalid",
     keyFive: "createdAt",
     keyFiveTitle: "Created At",
     option: "customers",
+    onUserHover: getCustomerId,
+    path: customerId,
   });
-
-  useEffect(() => {
-    // Fetch customer data when the component mounts
-
-    dispatch(listCustomers());
-  }, [dispatch]);
 
   return (
     <div className="container h-full flex-1 flex-col space-y-8 sm:p-8 p-4 flex">

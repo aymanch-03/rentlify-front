@@ -44,11 +44,6 @@ function RegisterForm({ className, ...props }) {
         const errors = result.payload.error;
         const allErrors = errors.split(".");
         setValidationErrors(allErrors);
-
-        // toast({
-        //   variant: "destructive",
-        //   title: result.payload.error,
-        // });
       }
     } catch (error) {
       toast({

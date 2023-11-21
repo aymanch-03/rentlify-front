@@ -22,19 +22,25 @@ export default function DeleteUser({ id }) {
   // eslint-disable-next-line no-unused-vars
   const [cookie, setCookie, removeCookie] = useCookies();
 
-  const handleSubmit = (id) => {
+  const handleSubmit = async (id) => {
     try {
-      console.log("id:", id);
       if (id === authUser._id) {
         removeCookie("token");
       }
-      dispatch(deleteUser(id));
-      setTimeout(() => {
+      const result = await dispatch(deleteUser(id));
+      if (result.payload._id) {
+        return setTimeout(() => {
+          toast({
+            variant: "success",
+            description: "User deleted successfully",
+          });
+        }, 800);
+      } else {
         toast({
-          variant: "success",
-          description: "User deleted successfully",
+          variant: "destructive",
+          description: result.payload,
         });
-      }, 800);
+      }
     } catch (error) {
       console.error("Error Deleting user", error);
       toast({

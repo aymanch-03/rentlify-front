@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { data } from "autoprefixer";
 import axios from "../axios";
 
 export const listCustomers = createAsyncThunk(
@@ -14,7 +13,7 @@ export const listCustomers = createAsyncThunk(
   }
 );
 export const registerCustomer = createAsyncThunk(
-  "customer/registerCustomer",
+  "customers/registerCustomer",
   async (customer, { rejectWithValue }) => {
     try {
       const request = await axios.post("/customers", customer, {
@@ -27,14 +26,38 @@ export const registerCustomer = createAsyncThunk(
     }
   }
 );
+export const getCustomer = createAsyncThunk(
+  "customers/getCustomer",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`/customers/${id}`);
+      return response.data.data;
+    } catch (error) {
+      rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const updateCustomer = createAsyncThunk(
+  "customers/updateCustomer",
+  async ({ id, newCustomerData }, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(`/customers/${id}`, newCustomerData);
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 const customerSlice = createSlice({
   name: "customers",
   initialState: {
     data: [],
+    customer: {},
     isLoading: false,
   },
-  //   reducers: {},
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(listCustomers.pending, (state, action) => {
@@ -67,6 +90,40 @@ const customerSlice = createSlice({
         state.isLoading = false;
         state.status = "rejected";
         state.error = action.error;
+      })
+      .addCase(getCustomer.pending, (state, action) => {
+        state.error = null;
+      })
+      .addCase(getCustomer.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.customer = action.payload;
+        state.error = null;
+      })
+      .addCase(getCustomer.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateCustomer.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateCustomer.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateCustomer.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.customer = action.payload;
+        const updatedCustomers = state.data.map((customer) => {
+          if (customer._id === action.payload._id) {
+            return action.payload;
+          } else {
+            return customer;
+          }
+        });
+        state.data = updatedCustomers;
+        console.log(state.data);
+        state.error = null;
       });
   },
 });

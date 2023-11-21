@@ -23,7 +23,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import * as z from "zod";
 import { timeAgo } from "../../lib/helpers";
-import { updateUser } from "../../redux/reducers/userSlice";
+import { updateCustomer } from "../../redux/reducers/customerSlice";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Icons } from "../ui/icons";
 import { Skeleton } from "../ui/skeleton";
@@ -32,11 +32,13 @@ import { useToast } from "../ui/use-toast";
 const FormSchema = z.object({
   first_name: z.string().min(2).max(18),
   last_name: z.string().min(2).max(18),
-  role: z.string().min(1, { message: "Please select a role to display." }),
-  user_name: z.string().min(2),
 });
 
-export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
+export default function UpdateCustomerForm({
+  customer,
+  fallbackAvatar,
+  isLoading,
+}) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isDisplayed, setIsDisplayed] = useState("hidden");
   const [spinnerLoading, setSpinnerLoading] = useState(false);
@@ -45,56 +47,48 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
-      role: user.role,
-      user_name: user.user_name,
-      active: user.active,
+      first_name: customer.first_name,
+      last_name: customer.last_name,
+      email: customer.email,
+      active: customer.active,
     },
   });
 
   useEffect(() => {
     form.reset({
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
-      role: user.role,
-      user_name: user.user_name,
-      active: user.active,
+      first_name: customer.first_name,
+      last_name: customer.last_name,
+      email: customer.email,
+      active: customer.active,
     });
-  }, [form, user]);
+  }, [form, customer]);
 
   const editData = () => {
     setIsDisplayed("flex");
     setIsDisabled(false);
 
-    form.setValue("first_name", user.first_name);
-    form.setValue("last_name", user.last_name);
-    form.setValue("email", user.email);
-    form.setValue("role", user.role);
-    form.setValue("user_name", user.user_name);
-    form.setValue("active", user.active);
+    form.setValue("first_name", customer.first_name, { shouldDirty: true });
+    form.setValue("last_name", customer.last_name, { shouldDirty: true });
+    form.setValue("email", customer.email, { shouldDirty: true });
+    form.setValue("active", customer.active, { shouldDirty: true });
   };
 
   const cancelEdit = () => {
     setIsDisplayed("invisible");
     setIsDisabled(true);
 
-    form.setValue("first_name", user.first_name);
-    form.setValue("last_name", user.last_name);
-    form.setValue("email", user.email);
-    form.setValue("role", user.role);
-    form.setValue("user_name", user.user_name);
-    form.setValue("active", user.active);
+    form.setValue("first_name", customer.first_name, { shouldDirty: false });
+    form.setValue("last_name", customer.last_name, { shouldDirty: false });
+    form.setValue("email", customer.email, { shouldDirty: false });
+    form.setValue("active", customer.active, { shouldDirty: false });
   };
 
   // eslint-disable-next-line no-unused-vars
   const submitData = (id, data) => {
     try {
-      const newUserData = form.getValues();
-      const isDataChanged = Object.keys(newUserData).some(
-        (key) => newUserData[key] !== user[key]
+      const newCustomerData = form.getValues();
+      const isDataChanged = Object.keys(newCustomerData).some(
+        (key) => newCustomerData[key] !== customer[key]
       );
 
       if (!isDataChanged) {
@@ -106,7 +100,7 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
         return;
       }
 
-      dispatch(updateUser({ id, newUserData }));
+      dispatch(updateCustomer({ id, newCustomerData }));
       setSpinnerLoading(true);
       setTimeout(() => {
         setSpinnerLoading(false);
@@ -136,27 +130,26 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
             <div className="flex flex-col justify-center">
               <div className="flex gap-4 items-center ">
                 <h1 className="text-2xl font-medium ">
-                  <span className="capitalize">{user?.first_name}</span>{" "}
-                  <span className="capitalize">{user?.last_name}</span>
+                  <span className="capitalize">{customer?.first_name}</span>{" "}
+                  <span className="capitalize">{customer?.last_name}</span>
                 </h1>
                 <span
                   className={`capitalize flex items-center gap-1 ${
-                    user.active ? "text-green-500" : "text-red-500"
+                    customer.active ? "text-green-500" : "text-red-500"
                   }`}
                 >
-                  {user.active ? (
+                  {customer.active ? (
                     <Icon icon="solar:check-circle-linear" />
                   ) : (
                     <Icon icon="solar:shield-cross-linear" />
                   )}
-                  {user.active ? "active" : "inactive"}
+                  {customer.active ? "active" : "inactive"}
                 </span>
               </div>
               <p className="text-slate-500">
-                <a href="" className="text-blue-600/75">
-                  {user?.email}
-                </a>{" "}
-                - <span className="capitalize">{user?.role}</span>
+                <span href="" className="text-blue-600/75">
+                  {customer?.email}
+                </span>
               </p>
             </div>
           </div>
@@ -168,13 +161,15 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
                 width="25"
                 height="25"
               />
-              {`Joined ${new Date(user.createdAt).toLocaleDateString("en-US", {
-                month: "short",
-                year: "numeric",
-              })}`}
-              {/* <Skeleton className={"w-40 h-3"} /> */}
+              {`Joined ${new Date(customer.createdAt).toLocaleDateString(
+                "en-US",
+                {
+                  month: "short",
+                  year: "numeric",
+                }
+              )}`}
             </div>
-            {user.last_login && (
+            {customer.last_login && (
               <div className="py-5 px-2 flex items-center gap-2">
                 <Icon
                   icon="solar:login-line-duotone"
@@ -182,7 +177,7 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
                   width="25"
                   height="25"
                 />
-                {`Last login ${timeAgo(user.last_login)}`}
+                {`Last login ${timeAgo(customer.last_login)}`}
               </div>
             )}
           </div>
@@ -195,7 +190,7 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
             onClick={editData}
           >
             <Icon icon="solar:pen-2-line-duotone" width={18} height={18} />
-            <p className="md:block hidden">Edit User</p>
+            <p className="md:block hidden">Edit Customer</p>
           </Button>
         </div>
       </div>
@@ -207,7 +202,9 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
           </div>
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit((data) => submitData(user._id, data))}
+              onSubmit={form.handleSubmit((data) => {
+                submitData(customer._id, data);
+              })}
               className="space-y-6 md:col-span-2 col-span-3"
             >
               <section className="flex items-center gap-2">
@@ -222,7 +219,7 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
                       <div className="inline-block w-full">
                         <FormControl>
                           <Input
-                            placeholder={user.first_name}
+                            placeholder={customer.first_name}
                             disabled={isDisabled}
                             {...field}
                           />
@@ -244,7 +241,7 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
                         <FormControl>
                           <Input
                             className=" "
-                            placeholder={user.last_name}
+                            placeholder={customer.last_name}
                             disabled={isDisabled}
                             {...field}
                           />
@@ -263,7 +260,7 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
                     <div className="inline-block w-full">
                       <FormControl>
                         <Input
-                          value={user.email}
+                          value={customer.email}
                           className="w-full"
                           disabled
                           type="email"
@@ -274,58 +271,7 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="role"
-                render={({ field }) => (
-                  <FormItem className="">
-                    <FormLabel className="text-slate-500">Role</FormLabel>
-                    <div className="inline-block w-full">
-                      <Select
-                        name="role"
-                        defaultValue={user.role}
-                        disabled={isDisabled}
-                        onValueChange={field.onChange}
-                      >
-                        <FormControl>
-                          <>
-                            <SelectTrigger className="">
-                              <SelectValue placeholder="Select a role to display" />
-                            </SelectTrigger>
-                            <SelectContent name="role">
-                              <SelectItem value="admin">Admin User</SelectItem>
-                              <SelectItem value="manager">
-                                Manager User
-                              </SelectItem>
-                            </SelectContent>
-                          </>
-                        </FormControl>
-                      </Select>
-                      <FormMessage />
-                    </div>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="user_name"
-                render={({ field }) => (
-                  <FormItem className="">
-                    <FormLabel className="text-slate-500">Username</FormLabel>
-                    <div className="inline-block w-full">
-                      <FormControl>
-                        <Input
-                          name="user_name"
-                          placeholder={user.user_name}
-                          disabled={isDisabled}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-600" />
-                    </div>
-                  </FormItem>
-                )}
-              />
+
               <FormField
                 control={form.control}
                 name="active"
@@ -336,8 +282,7 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
                     <div className="inline-block w-full">
                       <Select
                         name="active"
-                        onValueChange={form.onChange}
-                        value={field.value}
+                        value={customer.active}
                         disabled={isDisabled}
                       >
                         <FormControl>
@@ -346,8 +291,8 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
                               <SelectValue placeholder="Select a role to display" />
                             </SelectTrigger>
                             <SelectContent name="active">
-                              <SelectItem value={false}>Active</SelectItem>
-                              <SelectItem value={true}>Inactive</SelectItem>
+                              <SelectItem value={true}>Active</SelectItem>
+                              <SelectItem value={false}>Inactive</SelectItem>
                             </SelectContent>
                           </>
                         </FormControl>

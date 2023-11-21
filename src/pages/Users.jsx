@@ -35,7 +35,7 @@ const UserPage = () => {
     keyFiveTitle: "Created at",
     option: "users",
     onUserHover: getUserId,
-    path: `/users/${userId}`,
+    path: `${userId}`,
   });
 
   return (
@@ -60,8 +60,7 @@ const UserPage = () => {
             columns={columns}
             isLoading={isLoading}
             option={"customers"}
-            // onUserClick={getUserId}
-            path={`/office/users/${userId}`}
+            // path={`/office/users/${userId}`}
           />
         )}
       </div>

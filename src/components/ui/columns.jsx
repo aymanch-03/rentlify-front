@@ -10,7 +10,6 @@ import DeleteUser from "../Users/deleteBtn";
 import { Badge } from "./badge";
 import { Checkbox } from "./checkbox";
 import DataTableColumnHeader from "./data-table-column-header";
-import DataTableRowActions from "./data-table-row-actions";
 
 function getColumns({
   keyOne,
@@ -62,7 +61,11 @@ function getColumns({
         <Badge
           className="font-medium"
           variant={"outline"}
-          onMouseOver={option === "users" ? () => onUserHover(row) : undefined}
+          onMouseOver={
+            option === "users" || option === "customers"
+              ? () => onUserHover(row)
+              : undefined
+          }
         >
           <Link to={path}>{row.getValue(keyOne)}</Link>
         </Badge>
@@ -185,6 +188,11 @@ function getColumns({
               </div>
             );
           },
+          filterFn: (row, id, value) => {
+            return value.includes(row.getValue(id));
+          },
+          enableSorting: true,
+          enableHiding: true,
         }
       : null,
     option === "orders"
@@ -268,6 +276,8 @@ function getColumns({
               </div>
             );
           },
+          enableSorting: true,
+          enableHiding: true,
           filterFn: (row, id, value) => {
             return value.includes(row.getValue(id));
           },
