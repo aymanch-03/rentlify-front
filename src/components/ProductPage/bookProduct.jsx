@@ -8,7 +8,7 @@ import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-} from "@/components/ui/popover";
+} from "../ui/popover";
 import { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import moment from 'moment';

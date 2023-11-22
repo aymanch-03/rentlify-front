@@ -32,32 +32,32 @@ export default function Pictures() {
                 </Dialog>
             </div>
             <div className="col-span-4 rounded-3xl row-span-1">
-            <Dialog>
+                <Dialog>
                     <DialogTrigger asChild>
                         <div className="h-full col-span-8 row-span-2 rounded-3xl">
-                        <img className="w-full object-cover h-full rounded-3xl" src={images[1]} />
+                            <img className="w-full object-cover h-full rounded-3xl" src={images[1]} />
                         </div>
                     </DialogTrigger>
                     <DialogContent className="w-[full] h-full ">
                         <DialogFooter>
                             <div className="w-full h-full">
-                            <img className="w-full object-cover h-full rounded-3xl" src={images[1]} />
+                                <img className="w-full object-cover h-full rounded-3xl" src={images[1]} />
                             </div>
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
             </div>
             <div className="col-span-2 rounded-3xl row-span-1 ">
-            <Dialog>
+                <Dialog>
                     <DialogTrigger asChild>
-                        <div className="h-full col-span-8 row-span-2 rounded-3xl">
-                        <img className="w-full object-cover h-full rounded-3xl " src={images[2]} />
+                        <div className="h-full w-[full] col-span-8 row-span-2 rounded-3xl">
+                            <img className="w-full object-cover h-full rounded-3xl " src={images[2]} />
                         </div>
                     </DialogTrigger>
-                    <DialogContent className="w-[full] h-full ">
+                    <DialogContent className="w-[100vw]  h-full ">
                         <DialogFooter>
                             <div className="w-full h-full">
-                            <img className="w-full object-cover h-full rounded-3xl " src={images[2]} />
+                                <img className="w-full object-cover h-full rounded-3xl " src={images[2]} />
                             </div>
                         </DialogFooter>
                     </DialogContent>
