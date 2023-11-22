@@ -17,7 +17,7 @@ export function DatePicker() {
         <Button
           variant={"ghost"}
           className={cn(
-            "w-full justify-start text-left group font-light text-lg px-2 hover:bg-white ",
+            "w-full justify-start text-left group text-black/80 transition-all focus:ring-0 text-base font-medium px-0 hover:bg-white ",
             !date && "text-muted-foreground"
           )}
         >
