@@ -51,13 +51,18 @@ function DataTableToolbar({ table, option }) {
               }
             />
           )}
-          {table.getColumn("role") && (
-            <DataTableFacetedFilter
+          {/* {
+            options === 'users'? 
+
+              {table.getColumn("role") && (
+                <DataTableFacetedFilter
               column={table.getColumn("role")}
               title="User Role"
               options={userLabels}
-            />
-          )}
+              />
+              )}
+              } : null
+            } */}
         </div>
       </div>
       <DataTableViewOptions table={table} />

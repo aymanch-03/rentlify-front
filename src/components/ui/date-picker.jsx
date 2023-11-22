@@ -1,6 +1,6 @@
 "use client";
 
-import { format } from "date-fns";
+import { addDays, format } from "date-fns";
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -9,6 +9,10 @@ import { Calendar } from "./calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
 export function DatePicker() {
+  // const [date, setDate] = useState({
+  //   from: new Date(),
+  //   to: addDays(new Date(), 1),
+  // });
   const [date, setDate] = useState();
 
   return (
@@ -17,12 +21,12 @@ export function DatePicker() {
         <Button
           variant={"ghost"}
           className={cn(
-            "w-full justify-start text-left group text-black/80 transition-all focus:ring-0 text-base font-medium px-0 hover:bg-white ",
+            "w-full justify-start text-left group text-black/80 transition-all focus:ring-0 text-base font-normal pt-3 pb-2 px-0 hover:bg-white ",
             !date && "text-muted-foreground"
           )}
         >
           {date ? (
-            format(date, "PPP")
+            format(date, "LLL dd, y")
           ) : (
             <span className="text-black/40 transition-all group-hover:text-black/80">
               Add a date

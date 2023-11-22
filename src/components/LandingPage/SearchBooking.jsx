@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import { PopoverClose } from "@radix-ui/react-popover";
 import { useState } from "react";
 import CityPicker from "../ui/CityPicker";
 import { Button } from "../ui/button";
@@ -38,65 +39,59 @@ export default function SearchBooking() {
       <form className="mx-auto max-w-7xl grid bg-white grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 lg:px-6 ">
         <div className="flex flex-col border-t border-r-0 sm:border-r border-gray-900/5 px-4 py-4 sm:px-6 lg:border-t-0 xl:px-8">
           <p className="text-sm font-medium text-gray-400">Location</p>
-          <div className="flex items-start gap-3">
+          <div className="flex items-center gap-3">
             <Icon
               icon="solar:city-bold-duotone"
-              width={28}
-              height={28}
-              className="text-primary"
+              width={24}
+              height={24}
+              className="flex-shrink-0 text-primary"
             />
             <CityPicker />
           </div>
         </div>
         <div className="flex flex-col border-t border-r-0 lg:border-r border-gray-900/5 px-4 py-4 sm:px-6 lg:border-t-0 xl:px-8">
           <p className="text-sm font-medium text-gray-400">Check-in</p>
-          <div className="flex items-start gap-3 overflow-hidden ">
+          <div className="flex items-center gap-3 overflow-hidden ">
             <Icon
               icon="solar:calendar-search-bold-duotone"
-              width={28}
-              height={28}
-              className="text-primary "
+              width={24}
+              height={24}
+              className="flex-shrink-0 text-primary "
             />
             <DatePicker />
           </div>
         </div>
         <div className="flex flex-col border-t border-r-0 sm:border-r border-gray-900/5 px-4 py-4 sm:px-6 lg:border-t-0 xl:px-8">
           <p className="text-sm font-medium text-gray-400">Check-out</p>
-          <div className="flex items-start gap-3">
+          <div className="flex items-center gap-3">
             <Icon
               icon="solar:calendar-search-bold-duotone"
-              width={28}
-              height={28}
-              className="text-primary"
+              width={24}
+              height={24}
+              className="flex-shrink-0 text-primary"
             />
             <DatePicker />
           </div>
         </div>
         <div className="flex flex-col border-t border-r-0 lg:border-r border-gray-900/5 px-4 py-4 sm:px-6 lg:border-t-0 xl:px-8">
           <p className="text-sm font-medium text-gray-400">Guests</p>
-          <div className="flex items-end gap-3">
+          <div className="">
             <Popover>
               <PopoverTrigger asChild>
-                <>
+                <div className="flex items-end gap-3 cursor-pointer py-2">
                   <Icon
                     icon="solar:users-group-rounded-bold-duotone"
-                    width={28}
-                    height={28}
-                    className="text-primary"
+                    width={24}
+                    height={24}
+                    className="flex-shrink-0 text-primary"
                   />
                   <span className="focus:ring-0 text-base font-medium px-0">
                     {`${guests === 1 ? `${guests} guest` : `${guests} guests`}`}
                   </span>
-                </>
+                </div>
               </PopoverTrigger>
               <PopoverContent className="w-80">
                 <div className="grid gap-4">
-                  <div className="space-y-2">
-                    <h4 className="font-medium leading-none">Dimensions</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Set the dimensions for the layer.
-                    </p>
-                  </div>
                   <div className="flex flex-col gap-4">
                     <div className="flex justify-between items-center">
                       <Label className="">Adults</Label>
@@ -156,12 +151,14 @@ export default function SearchBooking() {
                       </div>
                     </div>
                     <div className="flex justify-end">
-                      <Button
-                        className="rounded-full w-[80px]"
-                        onClick={totalGuests}
-                      >
-                        Done
-                      </Button>
+                      <PopoverClose>
+                        <Button
+                          className="rounded-full w-[80px]"
+                          onClick={totalGuests}
+                        >
+                          Done
+                        </Button>
+                      </PopoverClose>
                     </div>
                   </div>
                 </div>

@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import { Icon } from "@iconify/react";
 import {
   Select,
   SelectContent,
@@ -11,7 +10,7 @@ import {
 const CityPicker = ({ onValueChange }) => {
   return (
     <Select onValueChange={onValueChange}>
-      <SelectTrigger className="w-full border-none px-0 shadow-none outline-none text-black/80 transition-all focus:ring-0 text-base font-medium">
+      <SelectTrigger className="w-full border-none px-0 pt-3 pb-2 shadow-none outline-none text-black/80 transition-all focus:ring-0 text-base font-medium">
         <SelectValue placeholder="Select a City" />
       </SelectTrigger>
       <SelectContent className="w-auto">
