@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import moment from 'moment';
+import { PopoverClose } from "@radix-ui/react-popover";
 const product = {
     _id: "655b1612007341e440355459",
     sku: "148803",
@@ -62,10 +63,7 @@ export default function BookingBox() {
             setChildren(children - 1);
         }
     };
-    const isDateDisabled = (date) => {
-        // Disable days before the current date
-        return moment(date).isBefore(moment(), 'day');
-      };
+
     return (
         <div className="rounded-2xl w-4/12 p-10 m-10 shadow-xl">
             <div className="flex justify-between items-center p-2">
@@ -112,7 +110,6 @@ export default function BookingBox() {
                                 selected={date}
                                 onSelect={setDate}
                                 numberOfMonths={2}
-                                filterDate={isDateDisabled}
                             />
                         </PopoverContent>
                     </Popover>
@@ -155,8 +152,6 @@ export default function BookingBox() {
                                 selected={date}
                                 onSelect={setDate}
                                 numberOfMonths={2}
-                                filterDate={isDateDisabled}
-
                             />
                         </PopoverContent>
                     </Popover>
@@ -210,7 +205,9 @@ export default function BookingBox() {
                                         </div>
                                     </div>
                                     <div className="flex justify-end">
+                                        <PopoverClose>
                                         <Button className="rounded-full w-[80px]" onClick={totalGuests}>Done</Button>
+                                        </PopoverClose>
                                     </div>
                                 </div>
                             </div>
