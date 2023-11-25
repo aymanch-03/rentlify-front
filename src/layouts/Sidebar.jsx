@@ -26,6 +26,11 @@ const generalLinks = [
     icon: "solar:transfer-horizontal-bold-duotone",
     path: "/office/payements",
   },
+  {
+    link: "Categories",
+    icon: "solar:widget-add-line-duotone",
+    path: "/office/categories",
+  },
 ];
 const adminLinks = [
   {

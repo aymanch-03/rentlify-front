@@ -36,7 +36,6 @@ export default function UserProfile() {
         fallbackAvatar={fallbackAvatar}
         isLoading={isLoading}
       />
-      {/* <UserForm user={user}/> */}
     </div>
   );
 }

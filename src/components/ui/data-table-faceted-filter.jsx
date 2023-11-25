@@ -3,7 +3,8 @@
 import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
 import React from "react";
 // import { Column } from "@tanstack/react-table";
-import { cn } from "@/lib/utils";
+import { controllers } from "chart.js";
+import { cn } from "../../lib/utils";
 import { Badge } from "./badge";
 import { Button } from "./button";
 import {
@@ -21,7 +22,6 @@ import { Separator } from "./separator";
 function DataTableFacetedFilter({ column, title, options }) {
   const facets = column?.getFacetedUniqueValues();
   const selectedValues = new Set(column?.getFilterValue() || []);
-
   return (
     <Popover>
       <PopoverTrigger asChild>

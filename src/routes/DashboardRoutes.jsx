@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import RequireAuth from "../components/RequireAuth";
 import UserProfile from "../components/Users/userProfile";
 import OfficeLayout from "../layouts/OfficeLayout";
+import CategoriesPage from "../pages/Categories";
 import CustomerDetails from "../pages/CustomerDetails";
 import Customers from "../pages/Customers";
 import Dashboard from "../pages/Dashboard";
@@ -20,7 +21,7 @@ const DashboardRoutes = () => {
           <Route path="users" element={<Users />} />
           <Route path="users/:id" element={<UserProfile />} />
           <Route path="orders" element={<OrderPage />} />
-          <Route path="orders" element={<OrderPage />} />
+          <Route path="categories" element={<CategoriesPage />} />
           <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>

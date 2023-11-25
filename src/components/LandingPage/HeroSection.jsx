@@ -25,7 +25,7 @@ const HeroSection = () => {
       location: value,
     });
   };
-  console.log(formData);
+
   return (
     <div className="h-[20rem] relative bg-cover bg-center bg-no-repeat bg-[url(src/assets/mainBg.jpg.webp)]">
       <form>
