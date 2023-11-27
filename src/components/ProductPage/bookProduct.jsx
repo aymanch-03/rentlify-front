@@ -65,7 +65,7 @@ export default function BookingBox() {
     };
 
     return (
-        <div className="rounded-2xl w-4/12 p-10 m-10 shadow-xl">
+        <div className="rounded-2xl lg:w-4/12 p-10 m-10 shadow-xl">
             <div className="flex justify-between items-center p-2">
                 <h3><span className="font-semibold text-4xl">{totalPrice}</span>/  {`${days === 1 ? `${days} night` : `${days} nights`}`}</h3>
                 <div className="w-[55px] flex justify-between items-center">

@@ -6,7 +6,7 @@ export default function ProductPage(){
     return(
         <div className="p-4">
             <Pictures/>
-            <div className="flex">
+            <div className="lg:flex">
             <ProductDetails/>
             <BookingBox/>
             </div>

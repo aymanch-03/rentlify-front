@@ -23,22 +23,22 @@ export default function Pictures() {
             prevSlide === 0 ? images.length - 1 : prevSlide - 1
         );
     };
-
+    
     return (
-        <div className="w-full gap-3 h-[30rem] p-10 grid grid-cols-12 grid-rows-2 ">
+        <div className="w-full lg:gap-3 lg:h-[30rem] lg:p-10 lg:grid lg:grid-cols-12 md:grid-rows-2">
             <div className="col-span-8 row-span-2 rounded-3xl">
                 <Dialog>
                     <DialogTrigger asChild>
-                        <div className="h-full col-span-8 row-span-2 rounded-3xl">
+                        <div className="h-full col-span-8 row-span-2 rounded-3xl flex justify-center items-center">
                             <img className="w-full h-full object-cover rounded-3xl" src={images[0]} onClick={() => { setCurrentSlide(0) }} />
                         </div>
                     </DialogTrigger>
-                    <DialogContent className="max-w-[80vw] w-[80vw] h-[95vh] p-4 ">
-                        <div className="w-full h-full flex items-center justify-center">
+                    <DialogContent className="max-w-[80vw] w-[80vw] h-[95vh] p-4  bg-transparent border-none shadow-none">
+                        <div className="w-full h-full  flex items-center justify-center">
                             <Button className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400" variant="ghost" onClick={prevSlide}>
                                 <Icon icon="solar:alt-arrow-left-outline" className="w-6 h-6" />
                             </Button>
-                            <div className="w-[70vw]">
+                            <div className="w-[65vw] m-4">
                                 <img className="m-auto w-auto object-cover h-[80vh]" src={images[currentSlide]} />
                             </div>
                             <Button className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400" variant="ghost" onClick={nextSlide}>
@@ -49,14 +49,14 @@ export default function Pictures() {
                     </DialogContent>
                 </Dialog>
             </div>
-            <div className="col-span-4 rounded-3xl row-span-1">
+            <div className="col-span-4 rounded-3xl row-span-1 lg:block hidden">
             <Dialog>
                     <DialogTrigger asChild>
                         <div className="h-full col-span-8 row-span-2 rounded-3xl">
                             <img className="w-full h-full object-cover rounded-3xl" src={images[1]} onClick={() => { setCurrentSlide(1) }} />
                         </div>
                     </DialogTrigger>
-                    <DialogContent className="max-w-[80vw] w-[80vw] h-[95vh] p-4 ">
+                    <DialogContent className="max-w-[80vw] w-[80vw] h-[95vh] p-4  bg-transparent border-none shadow-none">
                         <div className="w-full h-full  flex items-center justify-center">
                             <Button className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400" variant="ghost" onClick={prevSlide}>
                                 <Icon icon="solar:alt-arrow-left-outline" className="w-6 h-6" />
@@ -72,7 +72,7 @@ export default function Pictures() {
                     </DialogContent>
                 </Dialog>
             </div>
-            <div className="col-span-2 rounded-3xl row-span-1 ">
+            <div className="col-span-2 rounded-3xl row-span-1 lg:block hidden">
             <Dialog>
                     <DialogTrigger asChild>
                         <div className="h-full col-span-8 row-span-2 rounded-3xl">
@@ -95,7 +95,7 @@ export default function Pictures() {
                     </DialogContent>
                 </Dialog>
             </div>
-            <div className="col-span-2 ">
+            <div className="col-span-2 hidden lg:block ">
                 <Dialog>
                     <DialogTrigger asChild>
                         <div className={`cursor-pointer flex items-center justify-center w-full h-full rounded-3xl row-span-1 relative bg-[url(src/assets/Image3.webp)] bg-cover bg-center bg-no-repeat`}>
