@@ -12,7 +12,7 @@ export const ListSubcategories = createAsyncThunk(
   
       localStorage.setItem("subcategories", JSON.stringify(response));
       console.log(response.data);
-      return response;
+      return response.data;
     }
     );
 

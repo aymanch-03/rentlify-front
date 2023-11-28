@@ -21,6 +21,7 @@ export const GetProducts = createAsyncThunk(
     async (id, { rejectWithValue }) => {
       try {
         const response = await axios.get(`/products/${id}`);
+        console.log(response);
         return response.data.product;
       } catch (error) {
         rejectWithValue(error.response.data);
@@ -53,18 +54,18 @@ export const AddProduct = createAsyncThunk(
     }
   );
 
-  export const deleteProduct = createAsyncThunk(
-    "product/deleteProduct",
-    async (id, { rejectWithValue }) => {
-      try {
-        const response = await axios.delete(`/products/${id}`);
-        console.log("Deleted product: ", response);
-        return response.data.data;
-      } catch (error) {
-        rejectWithValue(error.response.data);
-      }
-    }
-  );
+  // export const deleteProduct = createAsyncThunk(
+  //   "product/deleteProduct",
+  //   async (id, { rejectWithValue }) => {
+  //     try {
+  //       const response = await axios.delete(`/products/${id}`);
+  //       console.log("Deleted product: ", response);
+  //       return response.data.data;
+  //     } catch (error) {
+  //       rejectWithValue(error.response.data);
+  //     }
+  //   }
+  // );
 
 
 
@@ -74,7 +75,7 @@ const productsSlice = createSlice({
     products: [],
     product: {},
   },
-  // reducers: {},
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(ListProducts.fulfilled, (state, action) => {
@@ -93,10 +94,9 @@ const productsSlice = createSlice({
         state.status = "rejected";
         console.log("error", action.payload);
       })
-
       .addCase(GetProducts.fulfilled, (state, action) => {
         state.product = action.payload;
-        // console.log("Success", action.payload);
+        console.log("Success", action.payload);
       })
       .addCase(GetProducts.rejected, (state, action) => {
         state.status = "rejected";
@@ -112,8 +112,6 @@ const productsSlice = createSlice({
             return product;
           }
         });
-
-        // console.log('TEST',updatedProduct);
         state.products = updatedProducts;
 
       })

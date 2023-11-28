@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import {ListProducts} from '../redux/reducers/productSlice';
+import {ListSubcategories} from "../redux/reducers/subcategorieSlice";
 // import ProductDialog from '../components/products/addProductDialog';
 import { Link } from "react-router-dom";
 import {
@@ -20,6 +21,7 @@ export default function Products() {
     const Products = useSelector((state) => state.products.products);
     useEffect(() => {
       dispatch(ListProducts());
+      dispatch(ListSubcategories());
     }, [dispatch]);
     console.log(Products);
     return (
@@ -43,8 +45,7 @@ export default function Products() {
               <div key={product._id} className="group relative">
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                   <img
-                    src={product.product_image}
-  
+                    src={product.product_image[1]}
                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                   />
                 </div>
