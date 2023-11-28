@@ -42,7 +42,7 @@ export default function ProductDetails() {
         },
     ]
     return (
-        <div className='p-10 lg:w-8/12'>
+        <div className='p-10 col-span-7'>
             <h1 className='font-bold text-4xl'>
                 {/* Beach Farm Holiday Cottages */}
                 {product.product_name}

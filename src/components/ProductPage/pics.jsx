@@ -75,11 +75,11 @@ export default function Pictures() {
             <div className="col-span-2 rounded-3xl row-span-1 lg:block hidden">
             <Dialog>
                     <DialogTrigger asChild>
-                        <div className="h-full col-span-8 row-span-2 rounded-3xl">
-                            <img className="w-full h-full object-cover rounded-3xl" src={images[2]} onClick={() => { setCurrentSlide(3) }} />
+                        <div className="h-full col-span-8 row-span-2 rounded-3xl flex justify-center items-center">
+                            <img className="w-full h-full object-cover rounded-3xl" src={images[2]} onClick={() => { setCurrentSlide(2) }} />
                         </div>
                     </DialogTrigger>
-                    <DialogContent className="max-w-[80vw] w-[80vw] h-[95vh] p-4 ">
+                    <DialogContent className="max-w-[80vw] w-[80vw] h-[95vh] p-4 bg-transparent border-none shadow-none">
                         <div className="w-full h-full  flex items-center justify-center">
                             <Button className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400" variant="ghost" onClick={prevSlide}>
                                 <Icon icon="solar:alt-arrow-left-outline" className="w-6 h-6" />

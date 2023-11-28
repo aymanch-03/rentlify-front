@@ -11,8 +11,10 @@ import {
 } from "../ui/popover";
 import { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
-import moment from 'moment';
 import { PopoverClose } from "@radix-ui/react-popover";
+import { Link, useParams } from "react-router-dom"
+import { useDispatch } from "react-redux";
+
 const product = {
     _id: "655b1612007341e440355459",
     sku: "148803",
@@ -28,10 +30,12 @@ const product = {
 }
 
 export default function BookingBox() {
+    const { id } = useParams();
+    const dispatch = useDispatch();
     const [date, setDate] = useState({
         from: new Date(),
         to: addDays(new Date(), 1)
-          })    
+    })
     const [days, setDays] = useState(0)
     const [guests, setGuests] = useState(1)
     const [adults, setAdults] = useState(1)
@@ -65,7 +69,7 @@ export default function BookingBox() {
     };
 
     return (
-        <div className="rounded-2xl lg:w-4/12 p-10 m-10 shadow-xl">
+        <div className="rounded-2xl col-span-5 p-10 m-10 shadow-xl">
             <div className="flex justify-between items-center p-2">
                 <h3><span className="font-semibold text-4xl">{totalPrice}</span>/  {`${days === 1 ? `${days} night` : `${days} nights`}`}</h3>
                 <div className="w-[55px] flex justify-between items-center">
@@ -115,7 +119,6 @@ export default function BookingBox() {
                     </Popover>
                 </div>
                 <div className="h-[80px] flex flex-col items-center ml-[-1px] border border-inherit rounded-tr-2xl">
-
                     <Popover>
                         <PopoverTrigger asChild>
                             <Button
@@ -206,7 +209,7 @@ export default function BookingBox() {
                                     </div>
                                     <div className="flex justify-end">
                                         <PopoverClose>
-                                        <Button className="rounded-full w-[80px]" onClick={totalGuests}>Done</Button>
+                                            <Button className="rounded-full w-[80px]" onClick={totalGuests}>Done</Button>
                                         </PopoverClose>
                                     </div>
                                 </div>
@@ -215,7 +218,9 @@ export default function BookingBox() {
                     </Popover>
                 </div>
             </div>
-            <Button className="w-full mt-5">BOOK NOW</Button>
+            <Link to={`/order/${id}`}>
+                <Button className="w-full mt-5">BOOK NOW</Button>
+            </Link>
         </div>
     )
 
