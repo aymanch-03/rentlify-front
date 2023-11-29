@@ -26,7 +26,7 @@ const RecentOrders = () => {
                 Recent Orders
               </p>
               <Link
-                to="/orders"
+                to="orders"
                 className="text-sm font-medium leading-6 text-blue-500 hover:text-blue-600 cursor-pointer hover:underline transition-all"
               >
                 View all

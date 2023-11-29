@@ -59,7 +59,7 @@ export const deleteUser = createAsyncThunk(
       console.log("Deleted User: ", response);
       return response.data.data;
     } catch (error) {
-      rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -127,6 +127,7 @@ const userSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.user = action.payload;
         const updatedUsers = state.users.map((user) => {
           if (user._id === action.payload._id) {
             return action.payload;
@@ -135,7 +136,6 @@ const userSlice = createSlice({
           }
         });
         state.users = updatedUsers;
-        console.log(state.users);
         state.error = null;
       })
       .addCase(deleteUser.pending, (state, action) => {
@@ -147,13 +147,10 @@ const userSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
-        console.log("action.meta.arg" + action.meta.arg);
-        const Users = state.users.filter(
+        const users = state.users.filter(
           (user) => user._id !== action.payload._id
         );
-        console.log("action.payload._id ", action.payload._id);
-        // console.log("state.users: ", Users);
-        state.users = Users;
+        state.users = users;
         state.isLoading = false;
         state.error = null;
       });

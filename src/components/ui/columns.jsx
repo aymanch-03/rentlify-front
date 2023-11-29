@@ -10,7 +10,6 @@ import DeleteUser from "../Users/deleteBtn";
 import { Badge } from "./badge";
 import { Checkbox } from "./checkbox";
 import DataTableColumnHeader from "./data-table-column-header";
-import DataTableRowActions from "./data-table-row-actions";
 
 function getColumns({
   keyOne,
@@ -62,7 +61,11 @@ function getColumns({
         <Badge
           className="font-medium"
           variant={"outline"}
-          onMouseOver={option === "users" ? () => onUserHover(row) : undefined}
+          onMouseOver={
+            option === "users" || option === "customers"
+              ? () => onUserHover(row)
+              : undefined
+          }
         >
           <Link to={path}>{row.getValue(keyOne)}</Link>
         </Badge>
@@ -70,33 +73,44 @@ function getColumns({
       enableSorting: false,
       enableHiding: false,
     },
-    {
-      // id: keyFive,
-      accessorKey: keyTwo,
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title={keyTwoTitle} />
-      ),
-      cell: ({ row }) => {
-        const cellValue = row.getValue(keyTwo);
-
-        if (option === "users" || option === "customers") {
-          return (
-            <Badge variant="outline" className="font-medium">
-              {cellValue}
-            </Badge>
-          );
-        } else if (option === "orders") {
-          return (
-            <Badge variant="outline" className="font-medium">
-              {cellValue.email}
-            </Badge>
-          );
+    option === "users" || option === "customers" || option === "categories"
+      ? {
+          // id: keyFive,
+          accessorKey: keyTwo,
+          header: ({ column }) => (
+            <DataTableColumnHeader column={column} title={keyTwoTitle} />
+          ),
+          cell: ({ row }) => {
+            const cellValue = row.getValue(keyTwo);
+            return (
+              <Badge variant="outline" className="font-medium">
+                {cellValue}
+              </Badge>
+            );
+          },
         }
-      },
+      : option === "orders"
+      ? {
+          accessorKey: keyTwo,
+          header: ({ column }) => (
+            <DataTableColumnHeader column={column} title={keyTwoTitle} />
+          ),
+          cell: ({ row }) => {
+            const cellValue = row.getValue(keyTwo);
 
-      enableSorting: false,
-      enableHiding: false,
-    },
+            return (
+              <Badge variant="outline" className="font-medium">
+                {cellValue.email}
+              </Badge>
+            );
+          },
+          filterFn: (row, id, value) => {
+            return value.includes(row.getValue(id));
+          },
+          enableSorting: false,
+          enableHiding: false,
+        }
+      : null,
     option === "orders"
       ? {
           accessorKey: keyThree,
@@ -185,6 +199,41 @@ function getColumns({
               </div>
             );
           },
+          filterFn: (row, id, value) => {
+            return value.includes(row.getValue(id));
+          },
+          enableSorting: true,
+          enableHiding: true,
+        }
+      : option === "categories"
+      ? {
+          accessorKey: keyThree,
+          header: ({ column }) => (
+            <DataTableColumnHeader column={column} title={keyThreeTitle} />
+          ),
+          cell: ({ row }) => {
+            const status = customerStatuses.find(
+              (status) => status.value === row.getValue(keyThree)
+            );
+
+            if (!status) {
+              return null;
+            }
+
+            return (
+              <div className="flex w-[100px] items-center">
+                {status.icon && (
+                  <status.icon className={`mr-2 h-4 w-4 ${status.color}`} />
+                )}
+                <Badge
+                  variant="outline"
+                  className={`font-medium ${status.badgeColor}`}
+                >
+                  {status.label}
+                </Badge>
+              </div>
+            );
+          },
         }
       : null,
     option === "orders"
@@ -268,9 +317,29 @@ function getColumns({
               </div>
             );
           },
+          enableSorting: true,
+          enableHiding: true,
           filterFn: (row, id, value) => {
             return value.includes(row.getValue(id));
           },
+        }
+      : option === "categories"
+      ? {
+          accessorKey: keyFour,
+          header: ({ column }) => (
+            <DataTableColumnHeader column={column} title={keyFourTitle} />
+          ),
+          cell: ({ row }) => {
+            const dateValue = row.getValue(keyFour);
+            const formattedValue = new Date(dateValue).toLocaleDateString();
+            return (
+              <Badge variant={"outline"} className={"font-medium"}>
+                {formattedValue}
+              </Badge>
+            );
+          },
+          enableSorting: true,
+          enableHiding: true,
         }
       : null,
     {

@@ -1,17 +1,19 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getUser } from "../../redux/reducers/userSlice";
-import UpdateUserForm from "./UpdateUserForm";
+import UpdateCustomerForm from "../components/Customers/UpdateCustomerForm";
+import { getCustomer } from "../redux/reducers/customerSlice";
 
-export default function UserProfile() {
+export default function CustomerDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     try {
-      dispatch(getUser(id));
+      dispatch(getCustomer(id));
       setTimeout(() => {
         setIsLoading(false);
       }, 1000);
@@ -21,21 +23,21 @@ export default function UserProfile() {
     }
   }, [dispatch, id]);
 
-  const user = useSelector((state) => state.user.user);
+  const customer = useSelector((state) => state.customers.customer);
 
-  const fullName = `${user.first_name} ${user.last_name}`;
+  const fullName = `${customer.first_name} ${customer.last_name}`;
   const [firstNameInitial, lastNameInitial] = fullName
     .split(" ")
     .map((name) => name.charAt(0).toUpperCase());
   const fallbackAvatar = `${firstNameInitial}${lastNameInitial}`;
 
   return (
-    <div>
-      <UpdateUserForm
-        user={user}
+    <>
+      <UpdateCustomerForm
+        customer={customer}
         fallbackAvatar={fallbackAvatar}
         isLoading={isLoading}
       />
-    </div>
+    </>
   );
 }

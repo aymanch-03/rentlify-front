@@ -2,28 +2,29 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
-import { listOrders } from "../redux/reducers/orderSlice";
+import { listCategories } from "../redux/reducers/categorySlice";
 
-const OrderPage = () => {
+const CategoriesPage = () => {
   const dispatch = useDispatch();
-  const orders = useSelector((state) => state.orders.data);
-  const isLoading = useSelector((state) => state.orders.isLoading);
+  const categories = useSelector((state) => state.categories.data);
+  const isLoading = useSelector((state) => state.categories.isLoading);
 
   const columns = getColumns({
     keyOne: "_id",
-    keyOneTitle: "Order ID",
-    keyTwo: "customer_id",
-    keyTwoTitle: "Customer email",
-    keyThree: "status",
-    keyThreeTitle: "Ordrer Status",
+    keyOneTitle: "Category ID",
+    keyTwo: "category_name",
+    keyTwoTitle: "Category",
+    keyThree: "active",
+    keyThreeTitle: "Category Status",
     keyFour: "createdAt",
     keyFourTitle: "Created At",
-    keyFive: "cart_total_price",
-    keyFiveTitle: "Total price",
-    option: "orders",
+    keyFive: " ",
+    keyFiveTitle: " ",
+    option: "categories",
+    path: "/",
   });
   useEffect(() => {
-    dispatch(listOrders());
+    dispatch(listCategories());
   }, [dispatch]);
 
   return (
@@ -32,23 +33,22 @@ const OrderPage = () => {
         <div className="flex items-center justify-between space-y-2">
           <div>
             <h2 className="text-2xl font-semibold tracking-tight">
-              Orders Management
+              Categories Management
             </h2>
             <p className="text-muted-foreground">
-              {"Here's"} a list of your orders!
+              {"Here's"} a list of your categories!
             </p>
           </div>
         </div>
-
         <DataTable
-          data={orders}
+          data={categories}
           columns={columns}
           isLoading={isLoading}
-          option="orders"
+          option={"categories"}
         />
       </div>
     </>
   );
 };
 
-export default OrderPage;
+export default CategoriesPage;

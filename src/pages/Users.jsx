@@ -35,12 +35,12 @@ const UserPage = () => {
     keyFiveTitle: "Created at",
     option: "users",
     onUserHover: getUserId,
-    path: `/users/${userId}`,
+    path: `${userId}`,
   });
 
   return (
     <div className="container h-full flex-1 flex-col space-y-8 p-8 flex">
-      <div className="flex items-center justify-between space-y-2">
+      <div className="flex items-start justify-between space-y-2">
         <div>
           <h2 className="text-2xl font-bold tracking-tight">
             Users Management
@@ -59,9 +59,7 @@ const UserPage = () => {
             data={data}
             columns={columns}
             isLoading={isLoading}
-            option={"customers"}
-            // onUserClick={getUserId}
-            path={`/users/${userId}`}
+            option={"users"}
           />
         )}
       </div>

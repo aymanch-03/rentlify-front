@@ -1,7 +1,12 @@
 import React from "react";
+import HeroSection from "../components/LandingPage/HeroSection";
 
 const LandingPage = () => {
-  return <div>LandingPage</div>;
+  return (
+    <>
+      <HeroSection />
+    </>
+  );
 };
 
 export default LandingPage;
