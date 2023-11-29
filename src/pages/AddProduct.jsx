@@ -2,31 +2,33 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ListProducts, AddProduct } from "../redux/reducers/productSlice";
-import {ListSubcategories} from "../redux/reducers/subcategorieSlice";
-import { useNavigate } from 'react-router-dom';
+import { ListSubcategories } from "../redux/reducers/subcategorieSlice";
+import { useNavigate } from "react-router-dom";
 // import { CloudinaryContext, Image } from "cloudinary-react";
-import axios from 'axios'; 
+import axios from "axios";
 
 export default function Example() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const subcategories = useSelector(state => state.subcategories.subcategories);
+  const subcategories = useSelector(
+    (state) => state.subcategories.subcategories
+  );
   useEffect(() => {
     dispatch(ListSubcategories());
   }, [dispatch]);
   // console.log(subcategories);
   const [imageSelected, setImageSelected] = useState([]);
-  console.log('rr',imageSelected)
+  console.log("rr", imageSelected);
   const [formData, setFormData] = useState({
-    sku:"",
+    sku: "",
     product_image: [],
-    address:"",
+    address: "",
     short_description: "",
-    subcategory_id:"",
+    subcategory_id: "",
     long_description: "",
     active: "",
     price: "",
-    product_name: ""
+    product_name: "",
   });
 
   const handleInputChange = (e) => {
@@ -40,41 +42,63 @@ export default function Example() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { sku, address, product_image, short_description, subcategory_id, long_description, active, price, product_name } = formData;
-      if (!sku || !address || !product_image || !short_description || !subcategory_id || !long_description || !active || !price || !product_name) {
-        console.error('Please fill out all required fields');
+      const {
+        sku,
+        address,
+        product_image,
+        short_description,
+        subcategory_id,
+        long_description,
+        active,
+        price,
+        product_name,
+      } = formData;
+      if (
+        !sku ||
+        !address ||
+        !product_image ||
+        !short_description ||
+        !subcategory_id ||
+        !long_description ||
+        !active ||
+        !price ||
+        !product_name
+      ) {
+        console.error("Please fill out all required fields");
         return;
       }
       const imageUrls = await Promise.all(
         imageSelected.map(async (file) => {
-          console.log("tt",imageSelected);
+          console.log("tt", imageSelected);
           const formDataToSend = new FormData();
           formDataToSend.append("file", file);
           formDataToSend.append("upload_preset", "products_preset");
 
-          const response = await axios.post("https://api.cloudinary.com/v1_1/rentlify/image/upload", formDataToSend);
+          const response = await axios.post(
+            "https://api.cloudinary.com/v1_1/rentlify/image/upload",
+            formDataToSend
+          );
           console.log(response);
           return response.data.secure_url;
-      }))
-    
-      
+        })
+      );
+
       const updatedFormData = {
         ...formData,
         product_image: imageUrls,
       };
-      
+
       dispatch(AddProduct(updatedFormData));
       dispatch(ListProducts());
-      
+
       navigate("/products");
     } catch (error) {
       console.error("Error updating data:", error);
     }
   };
 
-
   return (
-    <form  className="space-y-6">
+    <form className="space-y-6">
       <div className="space-y-12 m-14">
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -93,13 +117,13 @@ export default function Example() {
                 <input
                   type="file"
                   name="product_image"
-                  onChange={(event) => 
+                  onChange={(event) =>
                     setImageSelected((prevImages) => [
                       ...prevImages,
                       ...event.target.files,
                     ])
                   }
-                  multiple ={true}
+                  multiple={true}
                   className="p-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
                 {/* <CloudinaryContext cloudName="rentlify">
@@ -160,29 +184,29 @@ export default function Example() {
                 />
               </div>
             </div>
-      <div className="sm:col-span-3">
-        <label
-          htmlFor="subcategory_id"
-          className="block text-sm font-medium leading-6 text-gray-900"
-        >
-          Subcategory Id
-        </label>
-        <div className="mt-2">
-          <select
-            name="subcategory_id"
-            onChange={(e) => handleInputChange(e)}
-            value={formData.subcategory_id}
-            className="p-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-          >
-            {/* Option for default value */}
-            <option value="">Select Subcategory</option>
-            {subcategories.map((subcategory) => (
-              <option key={subcategory._id} value={subcategory._id}>
-                {subcategory.subcategory_name}
-              </option>
-            ))}
-          </select>
-      </div>
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="subcategory_id"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Subcategory Id
+              </label>
+              <div className="mt-2">
+                <select
+                  name="subcategory_id"
+                  onChange={(e) => handleInputChange(e)}
+                  value={formData.subcategory_id}
+                  className="p-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                >
+                  {/* Option for default value */}
+                  <option value="">Select Subcategory</option>
+                  {subcategories.map((subcategory) => (
+                    <option key={subcategory._id} value={subcategory._id}>
+                      {subcategory.subcategory_name}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div className="sm:col-span-full">
               <label
