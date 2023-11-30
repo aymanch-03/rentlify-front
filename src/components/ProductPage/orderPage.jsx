@@ -35,7 +35,7 @@ export default function OrderPage() {
     }, [dispatch, id]);
 
     return (
-        <div >
+        <div className="py-20" >
             <div className="grid grid-cols-12 w-full">
                 <div className="col-span-6 flex items-center justify-end p-0">
                     <Link to="/product">
@@ -43,14 +43,12 @@ export default function OrderPage() {
                             <Icon icon="solar:alt-arrow-left-outline" className="w-6 h-6" />
                         </Button>
                     </Link>
-                    <h1 className="max-w-[550px] w-full text-4xl font-medium p-1">Request to book</h1>
+                    <h1 className="max-w-[550px] w-full text-4xl font-medium p-1 py-5">Request to book</h1>
                 </div>
                 <div>
-
                 </div>
             </div>
-
-            <div className="grid grid-cols-12 w-full ">
+            <div className="grid grid-cols-12 w-full">
                 <div className="max-w-full col-span-6 pt-10 flex flex-col items-end">
                     <div className="p-0 max-w-[550px] w-full">
                         <div className="flex flex-col gap-4 p-1">
@@ -123,12 +121,14 @@ export default function OrderPage() {
                         <Button className="p-8 text-xl m-2">Request to book</Button>
                     </div>
                 </div>
-                <div className=" col-span-6 p-10 h-[100vh]">
-                    <TotalPrice />
+                <div className="col-span-6 p-10">
+                    <div className="sticky top-0">
+                        <TotalPrice />
+                    </div>
                 </div>
-
-
             </div>
+
+
         </div >
     )
 }

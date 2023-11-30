@@ -42,7 +42,7 @@ export default function ProductDetails() {
         },
     ]
     return (
-        <div className='p-10 col-span-7'>
+        <div className='p-10 col-span-7 h-[100vh]'>
             <h1 className='font-bold text-4xl'>
                 {/* Beach Farm Holiday Cottages */}
                 {product.product_name}
@@ -52,7 +52,7 @@ export default function ProductDetails() {
                 {/* Location: Wakefield, England */}
                 {product.address}
             </h5>
-            <div className="lg:grid-cols-4 p-1 grid sm:grid-cols-2 gap-5 md:grid-cols-3">
+            <div className="lg:grid-cols-4 p-1 grid lg:flex sm:grid-cols-2 gap-5 md:grid-cols-3">
                 {categories.map((category) => {
                     return (
                         <div className="flex items-center w-fit m-1 py-2 px-4 rounded-xl shadow-md text-sm">

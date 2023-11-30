@@ -25,8 +25,8 @@ export default function PayWith() {
                 <SelectTrigger className="h-16 ">
                     <SelectValue placeholder="Select an option" />
                 </SelectTrigger>
-                <SelectContent>
-                    <SelectGroup>
+                <SelectContent >
+                    <SelectGroup defaultValue="card">
                         <SelectItem value="card">Credit or debit card</SelectItem>
                         <SelectItem value="paypal">PayPal</SelectItem>
                         <SelectItem value="googlePay">Google Pay</SelectItem>

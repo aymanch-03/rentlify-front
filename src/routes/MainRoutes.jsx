@@ -11,14 +11,14 @@ const DashboardRoutes = () => {
     <MainLayout>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-<<<<<<< HEAD
+
         <Route path="/product" element={<ProductPage />} />
         <Route path="/order/:id" element={<OrderPage />} />
-=======
-        <Route element={<RequireCustomerAuth />}>
+
+        {/* <Route element={<RequireCustomerAuth />}>
           <Route path="/discover" element={<BookingPage />} />
-        </Route>
->>>>>>> 44f71d319ba5b71b675eee146a4c6fc4af1f1d9e
+        </Route> */}
+
       </Routes>
     </MainLayout>
   );

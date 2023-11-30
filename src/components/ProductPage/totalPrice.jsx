@@ -3,7 +3,7 @@ import image1 from "../../assets/Image2.webp";
 
 export default function TotalPrice() {
     return (
-        <div className="max-w-[500px] flex flex-col gap-4 border border-inherit rounded-2xl p-6 fixed m-4">
+        <div className="sticky top-0 max-w-[500px] flex flex-col gap-4 border border-inherit rounded-2xl p-6 m-4 ">
             <div className="flex gap-4">
                 <div className="">
                     <img className="h-[100px] w-[200px] rounded-2xl" src={image1} />
