@@ -32,12 +32,6 @@ const authCustomerSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loginCustomer.pending, (state, action) => {
-        state.isLoading = true;
-        state.customer = [];
-        state.status = "pending";
-        state.error = null;
-      })
       .addCase(loginCustomer.fulfilled, (state, action) => {
         state.isLoading = false;
         state.status = "fulfilled";
@@ -45,6 +39,13 @@ const authCustomerSlice = createSlice({
         state.isAuth = true;
         state.error = null;
       })
+      .addCase(loginCustomer.pending, (state, action) => {
+        state.isLoading = true;
+        state.customer = null;
+        state.status = "pending";
+        state.error = null;
+      })
+
       .addCase(loginCustomer.rejected, (state, action) => {
         state.isLoading = false;
         state.status = "rejected";

@@ -1,6 +1,8 @@
 import { Icon } from "@iconify/react";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import CityPicker from "../ui/CityPicker";
 import { Button } from "../ui/button";
 import { DatePicker } from "../ui/date-picker";
@@ -11,6 +13,7 @@ export default function SearchBooking() {
   const [guests, setGuests] = useState(1);
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
+  const isAuth = useSelector((state) => state.authCustomer.isAuth);
   function totalGuests() {
     setGuests(adults + children);
   }
@@ -171,7 +174,7 @@ export default function SearchBooking() {
             type="submit"
             className="w-fit self-center justify-self-center mx-auto"
           >
-            Search Listings
+            <Link to={isAuth ? "discover" : "login"}>Search Listings</Link>
           </Button>
         </div>{" "}
       </form>

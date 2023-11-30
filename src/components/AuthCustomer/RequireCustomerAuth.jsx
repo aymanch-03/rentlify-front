@@ -10,7 +10,7 @@ const RequireCustomerAuth = () => {
   const [cookies] = useCookies(["token"]);
   const { toast } = useToast();
   const token = cookies.token;
-  const { customer, error } = useSelector((state) => state.authCustomer);
+  const { error, customer } = useSelector((state) => state.authCustomer);
 
   if (error) {
     toast({
