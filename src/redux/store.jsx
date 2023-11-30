@@ -7,6 +7,7 @@ import orderReducer from "./reducers/orderSlice";
 import userReducer from "./reducers/userSlice";
 import productReducer from "./reducers/productSlice";
 import subcategorieReducer from "./reducers/subcategorieSlice";
+import categorieReducer from "./reducers/categorySlice";
 
 const persistConfig = {
   key: "root",
@@ -23,7 +24,8 @@ const store = configureStore({
     customers: customerReducer,
     orders: orderReducer,
     products: productReducer,
-    subcategories: subcategorieReducer
+    subcategories: subcategorieReducer,
+    categories: categorieReducer
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware({

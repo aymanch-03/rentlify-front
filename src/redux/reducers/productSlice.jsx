@@ -6,23 +6,23 @@ import axios from "../axios";
 export const ListProducts = createAsyncThunk(
   "Product/ListProducts",
   async (products) => {
-    const request = await axios.get("/products", products, {
+    const request = await axios.get("/listings", products, {
       withCredentials: true,
     });
     const response = await request.data;
 
     localStorage.setItem("Products", JSON.stringify(response));
-    console.log(response);
-    return response;
+    // console.log(response);
+    return response.data;
   }
   );
 export const GetProducts = createAsyncThunk(
     "Product/GetProducts",
     async (id, { rejectWithValue }) => {
       try {
-        const response = await axios.get(`/products/${id}`);
-        console.log(response);
-        return response.data.product;
+        const response = await axios.get(`/listings/${id}`);
+        // console.log("aaaa",response);
+        return response.data;
       } catch (error) {
         rejectWithValue(error.response.data);
       }
@@ -33,8 +33,8 @@ export const GetProducts = createAsyncThunk(
     "product/updateProduct",
     async ({ id, product }, { rejectWithValue }) => {
       try {
-        const response = await axios.patch(`/products/${id}`, product);
-        console.log('response',response.data.product);
+        const response = await axios.patch(`/listings/${id}`, product);
+        // console.log('response',response.data.product);
         return response.data.product;
       } catch (error) {
         rejectWithValue(error.response.data);
@@ -45,9 +45,9 @@ export const AddProduct = createAsyncThunk(
     "Product/AddProduct",
     async (data, { rejectWithValue }) => {
       try {
-        const response = await axios.post("/products/create", data);
-        console.log(response.data.product);
-        return response.data.product;
+        const response = await axios.post("/listings", data);
+        // console.log('rrrr',response.data);
+        return response.data.data;
       } catch (error) {
         rejectWithValue(error.response.data);
       }

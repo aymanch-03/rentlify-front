@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ListProducts, AddProduct } from "../redux/reducers/productSlice";
-import { ListSubcategories } from "../redux/reducers/subcategorieSlice";
+import { getAllCategories } from "../redux/reducers/categorySlice";
 import { useNavigate } from "react-router-dom";
 // import { CloudinaryContext, Image } from "cloudinary-react";
 import axios from "axios";
@@ -10,25 +10,24 @@ import axios from "axios";
 export default function Example() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const subcategories = useSelector(
-    (state) => state.subcategories.subcategories
-  );
+  const categories = useSelector((state) => state.categories.data);
   useEffect(() => {
-    dispatch(ListSubcategories());
+    dispatch(getAllCategories());
   }, [dispatch]);
   // console.log(subcategories);
   const [imageSelected, setImageSelected] = useState([]);
   console.log("rr", imageSelected);
   const [formData, setFormData] = useState({
     sku: "",
-    product_image: [],
-    address: "",
+    listing_image: [],
+    province: "",
     short_description: "",
-    subcategory_id: "",
+    category_id: "",
     long_description: "",
     active: "",
+    city: "",
     price: "",
-    product_name: "",
+    listing_name: "",
   });
 
   const handleInputChange = (e) => {
@@ -44,25 +43,27 @@ export default function Example() {
     try {
       const {
         sku,
-        address,
-        product_image,
+        province,
+        city,
+        listing_image,
         short_description,
-        subcategory_id,
+        category_id,
         long_description,
         active,
         price,
-        product_name,
+        listing_name,
       } = formData;
       if (
         !sku ||
-        !address ||
-        !product_image ||
+        !province ||
+        !city ||
+        !listing_image ||
         !short_description ||
-        !subcategory_id ||
+        !category_id ||
         !long_description ||
         !active ||
-        !price ||
-        !product_name
+        !listing_name ||
+        !price
       ) {
         console.error("Please fill out all required fields");
         return;
@@ -78,15 +79,16 @@ export default function Example() {
             "https://api.cloudinary.com/v1_1/rentlify/image/upload",
             formDataToSend
           );
-          console.log(response);
+          // console.log(response);
           return response.data.secure_url;
         })
       );
 
       const updatedFormData = {
         ...formData,
-        product_image: imageUrls,
+        listing_image: imageUrls,
       };
+      console.log(formData);
 
       dispatch(AddProduct(updatedFormData));
       dispatch(ListProducts());
@@ -108,15 +110,15 @@ export default function Example() {
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-3">
               <label
-                htmlFor="product_image"
+                htmlFor="listing_image"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                product_image
+                listing_image
               </label>
               <div className="mt-2">
                 <input
                   type="file"
-                  name="product_image"
+                  name="listing_image"
                   onChange={(event) =>
                     setImageSelected((prevImages) => [
                       ...prevImages,
@@ -126,25 +128,20 @@ export default function Example() {
                   multiple={true}
                   className="p-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
-                {/* <CloudinaryContext cloudName="rentlify">
-                {formData.product_image.map((url, index) => (
-                  <Image key={index} publicId={typeof url === 'string' ? url : ''} width="50" height="50" />
-                ))}
-              </CloudinaryContext> */}
               </div>
             </div>
             <div className="sm:col-span-3">
               <label
-                htmlFor="product_name"
+                htmlFor="listing_name"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                product_name
+                listing_name
               </label>
               <div className="mt-2">
                 <input
                   type="text"
-                  name="product_name"
-                  placeholder="Product Name"
+                  name="listing_name"
+                  placeholder="listing_name"
                   onChange={(e) => handleInputChange(e)}
                   className="p-4 block w-full rounded-md  border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -152,16 +149,33 @@ export default function Example() {
             </div>
             <div className="sm:col-span-3">
               <label
-                htmlFor="address"
+                htmlFor="province"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Address
+                province
               </label>
               <div className="mt-2">
                 <input
                   type="text"
-                  name="address"
-                  placeholder="Address"
+                  name="province"
+                  placeholder="province"
+                  onChange={(e) => handleInputChange(e)}
+                  className="p-4 block w-full rounded-md  border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="city"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                city
+              </label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="city"
+                  placeholder="city"
                   onChange={(e) => handleInputChange(e)}
                   className="p-4 block w-full rounded-md  border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -186,23 +200,23 @@ export default function Example() {
             </div>
             <div className="sm:col-span-3">
               <label
-                htmlFor="subcategory_id"
+                htmlFor="category_id"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Subcategory Id
+                category_id
               </label>
               <div className="mt-2">
                 <select
-                  name="subcategory_id"
+                  name="category_id"
                   onChange={(e) => handleInputChange(e)}
-                  value={formData.subcategory_id}
+                  value={formData.category_id}
                   className="p-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
                   {/* Option for default value */}
                   <option value="">Select Subcategory</option>
-                  {subcategories.map((subcategory) => (
-                    <option key={subcategory._id} value={subcategory._id}>
-                      {subcategory.subcategory_name}
+                  {categories.map((category) => (
+                    <option key={category._id} value={category._id}>
+                      {category.category_name}
                     </option>
                   ))}
                 </select>

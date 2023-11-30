@@ -45,7 +45,7 @@ export default function Products() {
               <div key={product._id} className="group relative">
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                   <img
-                    src={product.product_image[1]}
+                    src="https://a0.muscache.com/im/pictures/miso/Hosting-741349420004012294/original/6ca1eca6-3526-4a98-bc82-3129dfec9c76.jpeg?im_w=720"
                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                   />
                 </div>
