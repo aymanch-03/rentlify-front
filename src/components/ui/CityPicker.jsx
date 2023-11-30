@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import { Icon } from "@iconify/react";
 import {
   Select,
   SelectContent,
@@ -11,38 +10,38 @@ import {
 const CityPicker = ({ onValueChange }) => {
   return (
     <Select onValueChange={onValueChange}>
-      <SelectTrigger className="w-full border-none shadow-none outline-none text-black/40 hover:text-black/80 transition-all focus:ring-0 px-2 text-lg font-light ">
+      <SelectTrigger className="w-full border-none px-0 pt-3 pb-2 shadow-none outline-none text-black/80 transition-all focus:ring-0 text-base font-medium">
         <SelectValue placeholder="Select a City" />
       </SelectTrigger>
       <SelectContent className="w-auto">
         <SelectGroup>
           <SelectItem value="casablanca">
             <div className="flex items-center gap-3">
-              <Icon icon="solar:map-point-wave-line-duotone" />
+              {" "}
               <p>Casablanca</p>
             </div>
           </SelectItem>
           <SelectItem value="marrakech">
             <div className="flex items-center gap-3">
-              <Icon icon="solar:map-point-wave-line-duotone" />
+              {" "}
               <p>Marrakech</p>
             </div>
           </SelectItem>
           <SelectItem value="rabat">
             <div className="flex items-center gap-3">
-              <Icon icon="solar:map-point-wave-line-duotone" />
+              {" "}
               <p>Rabat</p>
             </div>
           </SelectItem>
           <SelectItem value="agadir">
             <div className="flex items-center gap-3">
-              <Icon icon="solar:map-point-wave-line-duotone" />
+              {" "}
               <p>Agadir</p>
             </div>
           </SelectItem>
           <SelectItem value="fes">
             <div className="flex items-center gap-3">
-              <Icon icon="solar:map-point-wave-line-duotone" />
+              {" "}
               <p>Fes</p>
             </div>
           </SelectItem>

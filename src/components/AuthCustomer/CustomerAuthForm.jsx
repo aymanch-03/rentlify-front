@@ -1,17 +1,14 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useToast } from "@/components/ui/use-toast";
-import { Icon } from "@iconify/react";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { loginCustomer } from "../../redux/reducers/authCustomerSLice";
-import { LoginUser } from "../../redux/reducers/authSlice";
+import { loginCustomer } from "../../redux/reducers/authCustomerSlice";
 import { Button } from "../ui/button";
 import { Icons } from "../ui/icons";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { Separator } from "../ui/separator";
 
 function CustomerAuthForm({ className, ...props }) {
   const [customer, setCustomer] = useState({
@@ -20,7 +17,8 @@ function CustomerAuthForm({ className, ...props }) {
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isLoading = useSelector((state) => state.authCustomer.isLoading);
+  const { isLoading } = useSelector((state) => state.authCustomer);
+
   const { toast } = useToast();
 
   const handleChange = (e) => {
