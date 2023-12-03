@@ -29,10 +29,13 @@ const DashboardRoutes = () => {
           <Route path="categories" element={<CategoriesPage />} />
           <Route path="profile" element={<Profile />} />
           <Route path="/subcategories" element={<Subcategories />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/productDetails/:id" element={<ProductDetails />} />
-          <Route path="/UpdateProduct/:id" element={<UpdateProducts />} />
-          <Route path="/addproduct" element={<AddProduct />} />
+          <Route path="/listings" element={<Products />} />
+          <Route path="/listings/:id" element={<ProductDetails />} />
+          <Route
+            path="/listings/update-listing/:id"
+            element={<UpdateProducts />}
+          />
+          <Route path="/listings/add-listing" element={<AddProduct />} />
         </Route>
       </Routes>
     </OfficeLayout>

@@ -1,8 +1,8 @@
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listCategories } from "../../redux/reducers/categorySlice";
-import { listListings } from "../../redux/reducers/listingSlice";
+import { getAllCategories } from "../../redux/reducers/categorySlice";
+import { ListListings } from "../../redux/reducers/listingSlice";
 import ListingSkeleton from "../ui/listingSkeleton";
 import { Skeleton } from "../ui/skeleton";
 
@@ -82,8 +82,8 @@ const FilterContent = () => {
     // setTimeout(() => {
     //   setIsLoading(false);
     // }, 1250);
-    dispatch(listCategories());
-    dispatch(listListings());
+    dispatch(getAllCategories());
+    dispatch(ListListings());
   }, [dispatch]);
   useEffect(() => {
     const activeListings = listings.filter(
