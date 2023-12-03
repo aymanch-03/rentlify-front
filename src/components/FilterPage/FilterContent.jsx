@@ -191,7 +191,7 @@ const FilterContent = () => {
           </button>
         </form>
       </section>
-      <section className="overflow-y-scroll flex-1">
+      <section className="overflow-y-scroll custom-scrollbar flex-1 px-1">
         <div className="w-full sticky top-0 bg-white pb-5 z-10">
           <h1 className="text-2xl font-semibold">
             {isLoading ? (
