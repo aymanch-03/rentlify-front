@@ -10,9 +10,10 @@ const FilterContent = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories.data);
   const listings = useSelector((state) => state.listings.data);
+  const isLoading = useSelector((state) => state.listings.isLoading);
   const [priceFrom, setPriceFrom] = useState("");
   const [priceTo, setPriceTo] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const [numOfGuests, setNumOfGuests] = useState(1);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [filteredListings, setFilteredListings] = useState([]);
@@ -78,9 +79,9 @@ const FilterContent = () => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1250);
+    // setTimeout(() => {
+    //   setIsLoading(false);
+    // }, 1250);
     dispatch(listCategories());
     dispatch(listListings());
   }, [dispatch]);

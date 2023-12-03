@@ -86,7 +86,7 @@ const CostChart = ({ dbData, dates }) => {
       <div className="col-span-1 flex flex-col justify-between whitespace-nowrap">
         <div>
           <p className="text-sm font-medium leading-6 text-gray-500">
-            Total Registered Customers
+            Total Profits
           </p>
           <p className="text-xs font-normal leading-6 text-gray-400">
             Last 7 days

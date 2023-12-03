@@ -4,8 +4,8 @@ import axios from "../axios";
 
 export const listCategories = createAsyncThunk(
   "categories/listCategories",
-  async (categories) => {
-    const request = await axios.get("/categories", categories, {
+  async () => {
+    const request = await axios.get("/categories", {
       withCredentials: true,
     });
     const response = await request.data.data;

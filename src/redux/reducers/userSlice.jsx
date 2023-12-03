@@ -1,13 +1,20 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 import axios from "../axios";
+const userToken = Cookies.get("userToken");
 
 export const ListUsers = createAsyncThunk(
   "user/getUsers",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("/users");
+      const response = await axios.get("/users", {
+        headers: {
+          "x-user-token": userToken,
+        },
+      });
+
       return response.data.data;
     } catch (error) {
       rejectWithValue(error.response.data);
@@ -19,7 +26,11 @@ export const getUser = createAsyncThunk(
   "user/getUser",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`http://localhost:5000/v1/users/${id}`);
+      const response = await axios.get(`http://localhost:5000/v1/users/${id}`, {
+        headers: {
+          "x-user-token": userToken,
+        },
+      });
       return response.data.data;
     } catch (error) {
       rejectWithValue(error.response.data);
@@ -31,7 +42,15 @@ export const addUser = createAsyncThunk(
   "user/addUser",
   async (user, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://localhost:5000/v1/users", user);
+      const response = await axios.post(
+        "http://localhost:5000/v1/users",
+        user,
+        {
+          headers: {
+            "x-user-token": userToken,
+          },
+        }
+      );
       return response.data.data;
     } catch (error) {
       rejectWithValue(error.response.data);
@@ -43,7 +62,11 @@ export const updateUser = createAsyncThunk(
   "user/updateUser",
   async ({ id, newUserData }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`/users/${id}`, newUserData);
+      const response = await axios.put(`/users/${id}`, newUserData, {
+        headers: {
+          "x-user-token": userToken,
+        },
+      });
       return response.data.data;
     } catch (error) {
       rejectWithValue(error.response.data);
@@ -55,8 +78,12 @@ export const deleteUser = createAsyncThunk(
   "user/deleteUser",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`/users/${id}`);
-      console.log("Deleted User: ", response);
+      const response = await axios.delete(`/users/${id}`, {
+        headers: {
+          "x-user-token": userToken,
+        },
+      });
+
       return response.data.data;
     } catch (error) {
       return rejectWithValue(error.response.data.message);

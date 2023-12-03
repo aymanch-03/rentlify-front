@@ -4,12 +4,16 @@ import axios from "../axios";
 
 export const listListings = createAsyncThunk(
   "products/listListings",
-  async (products) => {
-    const request = await axios.get("/listings", products, {
-      withCredentials: true,
-    });
-    const response = await request.data.data;
-    return response;
+  async () => {
+    try {
+      const request = await axios.get("/listings", {
+        withCredentials: true,
+      });
+      const response = await request.data.data;
+      return response;
+    } catch (err) {
+      console.log(err.message);
+    }
   }
 );
 
@@ -34,7 +38,7 @@ const productSlice = createSlice({
       .addCase(listListings.rejected, (state, action) => {
         state.status = "failed";
         state.isLoading = false;
-        console.log(action.error.message);
+        state.error = action.error.message;
       });
   },
 });

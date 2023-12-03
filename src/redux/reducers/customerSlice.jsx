@@ -1,11 +1,16 @@
 /* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 import axios from "../axios";
+const userToken = Cookies.get("userToken");
 
 export const listCustomers = createAsyncThunk(
   "customers/listCustomers",
-  async (customers) => {
-    const request = await axios.get("/customers", customers, {
+  async () => {
+    const request = await axios.get("/customers", {
+      headers: {
+        "x-user-token": userToken,
+      },
       withCredentials: true,
     });
     const response = await request.data.data;
@@ -30,7 +35,11 @@ export const getCustomer = createAsyncThunk(
   "customers/getCustomer",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/customers/${id}`);
+      const response = await axios.get(`/customers/${id}`, {
+        headers: {
+          "x-user-token": userToken,
+        },
+      });
       return response.data.data;
     } catch (error) {
       rejectWithValue(error.response.data);
@@ -42,7 +51,11 @@ export const updateCustomer = createAsyncThunk(
   "customers/updateCustomer",
   async ({ id, newCustomerData }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`/customers/${id}`, newCustomerData);
+      const response = await axios.put(`/customers/${id}`, newCustomerData, {
+        headers: {
+          "x-user-token": userToken,
+        },
+      });
       return response.data.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -122,7 +135,7 @@ const customerSlice = createSlice({
           }
         });
         state.data = updatedCustomers;
-        console.log(state.data);
+
         state.error = null;
       });
   },
