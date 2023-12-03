@@ -22,12 +22,12 @@ const product = {
 }
 
 export default function OrderPage() {
-
+    const { id } = useParams();
     return (
         <div className=" py-20 w-full">
             <div className="grid grid-cols-12 w-full">
                 <div className="col-span-6 flex items-center justify-end p-0">
-                    <Link to="/product">
+                    <Link to={`/product/${id}`}>
                         <Button className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400" variant="ghost" >
                             <Icon icon="solar:alt-arrow-left-outline" className="w-6 h-6" />
                         </Button>
