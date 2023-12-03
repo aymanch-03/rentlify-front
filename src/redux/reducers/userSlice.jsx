@@ -3,29 +3,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import axios from "../axios";
-const userToken = Cookies.get("userToken");
-
-export const ListUsers = createAsyncThunk(
-  "user/getUsers",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await axios.get("/users", {
-        headers: {
-          "x-user-token": userToken,
-        },
-      });
-
-      return response.data.data;
-    } catch (error) {
-      rejectWithValue(error.response.data);
-    }
+let userToken;
+export const ListUsers = createAsyncThunk("user/getUsers", async () => {
+  try {
+    userToken = Cookies.get("userToken");
+    const response = await axios.get("/users", {
+      headers: { "x-user-token": userToken },
+    });
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
   }
-);
+});
 
 export const getUser = createAsyncThunk(
   "user/getUser",
   async (id, { rejectWithValue }) => {
     try {
+      userToken = Cookies.get("userToken");
       const response = await axios.get(`http://localhost:5000/v1/users/${id}`, {
         headers: {
           "x-user-token": userToken,
@@ -42,6 +37,7 @@ export const addUser = createAsyncThunk(
   "user/addUser",
   async (user, { rejectWithValue }) => {
     try {
+      userToken = Cookies.get("userToken");
       const response = await axios.post(
         "http://localhost:5000/v1/users",
         user,
@@ -62,6 +58,7 @@ export const updateUser = createAsyncThunk(
   "user/updateUser",
   async ({ id, newUserData }, { rejectWithValue }) => {
     try {
+      userToken = Cookies.get("userToken");
       const response = await axios.put(`/users/${id}`, newUserData, {
         headers: {
           "x-user-token": userToken,
@@ -78,6 +75,7 @@ export const deleteUser = createAsyncThunk(
   "user/deleteUser",
   async (id, { rejectWithValue }) => {
     try {
+      userToken = Cookies.get("userToken");
       const response = await axios.delete(`/users/${id}`, {
         headers: {
           "x-user-token": userToken,

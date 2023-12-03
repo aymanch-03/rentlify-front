@@ -2,11 +2,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import axios from "../axios";
-const userToken = Cookies.get("userToken");
+let userToken;
 
 export const listCustomers = createAsyncThunk(
   "customers/listCustomers",
   async () => {
+    userToken = Cookies.get("userToken");
     const request = await axios.get("/customers", {
       headers: {
         "x-user-token": userToken,
@@ -35,6 +36,7 @@ export const getCustomer = createAsyncThunk(
   "customers/getCustomer",
   async (id, { rejectWithValue }) => {
     try {
+      userToken = Cookies.get("userToken");
       const response = await axios.get(`/customers/${id}`, {
         headers: {
           "x-user-token": userToken,
@@ -51,6 +53,7 @@ export const updateCustomer = createAsyncThunk(
   "customers/updateCustomer",
   async ({ id, newCustomerData }, { rejectWithValue }) => {
     try {
+      userToken = Cookies.get("userToken");
       const response = await axios.put(`/customers/${id}`, newCustomerData, {
         headers: {
           "x-user-token": userToken,

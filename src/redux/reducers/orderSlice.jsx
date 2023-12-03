@@ -2,9 +2,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import axios from "../axios";
-const userToken = Cookies.get("userToken");
 
+let userToken;
 export const listOrders = createAsyncThunk("orders/listOrders", async () => {
+  userToken = Cookies.get("userToken");
   const request = await axios.get("/orders", {
     headers: {
       "x-user-token": userToken,
