@@ -2,41 +2,41 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../axios";
 
-export const listCategories = createAsyncThunk(
-  "categories/listCategories",
-  async () => {
-    const request = await axios.get("/categories", {
+export const getAllCategories = createAsyncThunk(
+  "Categories/getAllCategories",
+  async (Categories) => {
+    const request = await axios.get("/categories", Categories, {
       withCredentials: true,
     });
     const response = await request.data.data;
+    // console.log(response);
     return response;
   }
 );
 
 const categorySlice = createSlice({
-  name: "categories",
+  name: "Categories",
   initialState: {
     data: [],
     isLoading: false,
   },
-  //   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(listCategories.pending, (state, action) => {
+      .addCase(getAllCategories.pending, (state, action) => {
         state.status = "pending";
         state.isLoading = true;
       })
-      .addCase(listCategories.fulfilled, (state, action) => {
+      .addCase(getAllCategories.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.isLoading = false;
         state.data = action.payload;
+        state.isLoading = false;
+        // console.log(action.payload);
       })
-      .addCase(listCategories.rejected, (state, action) => {
+      .addCase(getAllCategories.rejected, (state, action) => {
         state.status = "failed";
         state.isLoading = false;
         console.log(action.error.message);
       });
-    // eslint-disable-next-line no-unused-vars
   },
 });
 
