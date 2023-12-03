@@ -7,6 +7,8 @@ import categoryReducer from "./reducers/categorySlice";
 import customerReducer from "./reducers/customerSlice";
 import listingReducer from "./reducers/listingSlice";
 import orderReducer from "./reducers/orderSlice";
+import productReducer from "./reducers/productSlice";
+import subcategorieReducer from "./reducers/subcategorieSlice";
 import userReducer from "./reducers/userSlice";
 
 const persistConfig = {
@@ -28,8 +30,10 @@ const store = configureStore({
     customers: customerReducer,
     orders: orderReducer,
     categories: categoryReducer,
-    listings: listingReducer,
+    // listings: listingReducer,
     authCustomer: customerPersistedReducer,
+    products: productReducer,
+    subcategories: subcategorieReducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware({
