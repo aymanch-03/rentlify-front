@@ -22,7 +22,7 @@ const generalLinks = [
     path: "/office/orders",
   },
   {
-    link: "Transactions",
+    link: "Listings",
     icon: "solar:layers-line-duotone",
     path: "/office/listings",
   },
@@ -95,6 +95,10 @@ const Sidebar = () => {
         </p>
         <ul className="flex flex-col gap-2.5">
           {generalLinks.map((item, index) => {
+            const isActive =
+              currentPath === item.path ||
+              (currentPath.startsWith(item.path + "/") &&
+                item.link !== "Dashboard");
             return (
               <Link
                 to={item.path}
@@ -102,9 +106,7 @@ const Sidebar = () => {
                 className={`flex justify-between  items-center gap-3 py-2 group cursor-pointer transition-all px-5 ${
                   !sidebar && "w-fit hover:bg-primary/10 py-1"
                 } ${
-                  item.path === currentPath
-                    ? "bg-primary/10 border-r-2 border-primary"
-                    : null
+                  isActive ? "bg-primary/10 border-r-2 border-primary" : null
                 }`}
                 onClick={() => handleLinkClick(item.path)}
               >
@@ -112,7 +114,9 @@ const Sidebar = () => {
                   <Icon
                     icon={item.icon}
                     width={23}
-                    className={!sidebar && "group-hover:text-primary"}
+                    className={`${!sidebar && "group-hover:text-primary"} ${
+                      isActive && "text-primary"
+                    }`}
                   />
                   <p
                     className={`text-sm transition-all ${
@@ -135,24 +139,23 @@ const Sidebar = () => {
         </p>
         <ul className="flex flex-col gap-2.5">
           {adminLinks.map((item, index) => {
+            const isActive = currentPath.includes(item.path);
             return (
               <Link
                 to={item.path}
                 key={index}
                 className={`flex justify-between items-center gap-3 py-2 px-5 group cursor-pointer transition-all ${
                   !sidebar && "w-fit hover:bg-primary/10 py-1"
-                } ${
-                  item.path === currentPath
-                    ? "bg-primary/10 border-r-2 border-primary"
-                    : ""
-                }`}
+                } ${isActive ? "bg-primary/10 border-r-2 border-primary" : ""}`}
                 onClick={() => handleLinkClick(item.path)}
               >
                 <div className="flex items-center gap-3 group">
                   <Icon
                     icon={item.icon}
                     width={23}
-                    className={`${!sidebar && "group-hover:text-primary"}`}
+                    className={`${!sidebar && "group-hover:text-primary"} ${
+                      isActive && "text-primary"
+                    }`}
                   />
                   <p
                     className={`text-sm transition-all ${

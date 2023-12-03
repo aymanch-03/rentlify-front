@@ -96,7 +96,7 @@ export default function Example() {
       dispatch(AddListing(updatedFormData));
       dispatch(ListListings());
 
-      navigate("listings");
+      navigate("/office/listings");
     } catch (error) {
       console.error("Error updating data:", error);
     }
