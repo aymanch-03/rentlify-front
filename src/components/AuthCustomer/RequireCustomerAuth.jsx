@@ -7,10 +7,10 @@ import { Icons } from "../ui/icons";
 import { useToast } from "../ui/use-toast";
 
 const RequireCustomerAuth = () => {
-  const [cookies] = useCookies(["token"]);
+  const [cookies] = useCookies(["clientToken"]);
   const { toast } = useToast();
-  const token = cookies.token;
-  const { customer, error } = useSelector((state) => state.authCustomer);
+  const token = cookies.clientToken;
+  const { error, customer } = useSelector((state) => state.authCustomer);
 
   if (error) {
     toast({
@@ -20,6 +20,7 @@ const RequireCustomerAuth = () => {
     return <Icons.spinner className="animate-spin w-6 h-6" />;
   }
   if (!token) {
+    console.log("No token");
     return <Navigate to="/login" />;
   }
 

@@ -1,17 +1,20 @@
 /* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 import axios from "../axios";
 
-export const listOrders = createAsyncThunk(
-  "orders/listOrders",
-  async (orders) => {
-    const request = await axios.get("/orders", orders, {
-      withCredentials: true,
-    });
-    const response = await request.data.data;
-    return response;
-  }
-);
+let userToken;
+export const listOrders = createAsyncThunk("orders/listOrders", async () => {
+  userToken = Cookies.get("userToken");
+  const request = await axios.get("/orders", {
+    headers: {
+      "x-user-token": userToken,
+    },
+    withCredentials: true,
+  });
+  const response = await request.data.data;
+  return response;
+});
 
 const orderSlice = createSlice({
   name: "orders",

@@ -51,9 +51,10 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const isAuth = useSelector((state) => state.authCustomer.isAuth);
   // eslint-disable-next-line no-unused-vars
-  const [cookie, setCookie, removeCookie] = useCookies(["token"]);
+  const [cookie, setCookie, removeCookie] = useCookies(["clientToken"]);
   const handleLogout = () => {
-    removeCookie("token", { path: "/" });
+    removeCookie("clientToken", { path: "/" });
+    window.localStorage.clear("persist:root");
     dispatch(logoutCustomer());
   };
   const customer = useSelector((state) => state.authCustomer.customer);

@@ -7,9 +7,10 @@ import { Icons } from "./ui/icons";
 import { useToast } from "./ui/use-toast";
 
 const RequireAuth = ({ allowedRoles }) => {
-  const [cookies] = useCookies(["token"]);
+  const [cookies] = useCookies(["userToken"]);
   const { toast } = useToast();
-  const token = cookies.token;
+  const token = cookies.userToken;
+
   const { user, isLoading, error } = useSelector((state) => state.auth);
   if (isLoading) {
     return <DashboardSkeleton />;
@@ -22,7 +23,7 @@ const RequireAuth = ({ allowedRoles }) => {
     });
     return <Icons.spinner className="animate-spin w-6 h-6" />;
   }
-  if (!token) {
+  if (!token || !user) {
     return <Navigate to="/auth/login" />;
   }
 

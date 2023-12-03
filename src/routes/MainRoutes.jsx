@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import RequireCustomerAuth from "../components/AuthCustomer/RequireCustomerAuth";
 import MainLayout from "../layouts/MainLayout";
-import BookingPage from "../pages/BookingPage";
+import FilterPage from "../pages/FilterPage";
 import LandingPage from "../pages/LandingPage";
 import ProductPage from "../pages/ProductsFront";
 import OrderPage from "../components/ProductPage/orderPage";
@@ -16,7 +16,7 @@ const DashboardRoutes = () => {
         <Route path="/order/:id" element={<OrderPage />} />
 
         {/* <Route element={<RequireCustomerAuth />}>
-          <Route path="/discover" element={<BookingPage />} />
+          <Route path="/discover" element={<FilterPage />} />
         </Route> */}
 
       </Routes>

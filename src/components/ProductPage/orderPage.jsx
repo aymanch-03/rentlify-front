@@ -35,7 +35,7 @@ export default function OrderPage() {
     }, [dispatch, id]);
 
     return (
-        <div className="py-20" >
+        <div className=" py-20 w-full">
             <div className="grid grid-cols-12 w-full">
                 <div className="col-span-6 flex items-center justify-end p-0">
                     <Link to="/product">
@@ -121,14 +121,12 @@ export default function OrderPage() {
                         <Button className="p-8 text-xl m-2">Request to book</Button>
                     </div>
                 </div>
-                <div className="col-span-6 p-10">
-                    <div className="sticky top-0">
+                <div className="col-span-6 w-full">
+                    <div className="sticky top-0 p-10">
                         <TotalPrice />
                     </div>
                 </div>
             </div>
-
-
         </div >
     )
 }

@@ -21,11 +21,11 @@ const generalLinks = [
     icon: "solar:bill-list-line-duotone",
     path: "/office/orders",
   },
-  {
-    link: "Transactions",
-    icon: "solar:transfer-horizontal-bold-duotone",
-    path: "/office/payements",
-  },
+  // {
+  //   link: "Transactions",
+  //   icon: "solar:transfer-horizontal-bold-duotone",
+  //   path: "/office/payements",
+  // },
   {
     link: "Categories",
     icon: "solar:widget-add-line-duotone",

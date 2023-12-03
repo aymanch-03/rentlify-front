@@ -25,7 +25,7 @@ function DataTableToolbar({ table, option }) {
             onChange={(event) =>
               table.getColumn("email")?.setFilterValue(event.target.value)
             }
-            className="h-8 sm:w-[150px] w-full md:w-[250px]"
+            className="h-8 w-full"
           />
         )}
         {option === "users" && (
@@ -35,7 +35,7 @@ function DataTableToolbar({ table, option }) {
             onChange={(event) =>
               table.getColumn("email")?.setFilterValue(event.target.value)
             }
-            className="h-8 sm:w-[150px] w-full md:w-[250px]"
+            className="h-8 w-full"
           />
         )}
         {/* {option === "orders" && (
@@ -45,7 +45,7 @@ function DataTableToolbar({ table, option }) {
             onChange={(event) =>
               table.getColumn("customer_id")?.setFilterValue(event.target.value)
             }
-            className="h-8 sm:w-[150px] w-full md:w-[250px]"
+            className="h-8 w-full"
           />
         )} */}
         {option === "categories" && (
@@ -57,7 +57,7 @@ function DataTableToolbar({ table, option }) {
                 .getColumn("category_name")
                 ?.setFilterValue(event.target.value)
             }
-            className="h-8 sm:w-[150px] w-full md:w-[250px]"
+            className="h-8 w-full"
           />
         )}
         {isFiltered && (
