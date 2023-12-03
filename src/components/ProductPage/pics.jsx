@@ -11,9 +11,11 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { ScrollArea } from "@/components/ui/scroll-area"
-
-const images = [image1, image2, image3, image4]
-export default function Pictures() {
+const images = [image1,image2,image3,image4]
+export default function Pictures({listing}) {
+    console.log("listing: ", listing)
+    // const images = listing.listing_image
+    
     const [currentSlide, setCurrentSlide] = useState(0);
     const nextSlide = () => {
         setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);

@@ -4,7 +4,7 @@
 // import { RadioGroup } from '@headlessui/react';
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { GetProducts } from "../redux/reducers/productSlice";
+import { getProducts } from "../redux/reducers/productSlice";
 import { useParams } from "react-router-dom";
 // import UpdateProductDialog from "../components/products/UpdatEProductDialog";
 import { Button } from "@/components/ui/button";
@@ -27,7 +27,7 @@ export default function Example() {
   // console.log(id);
 
   useEffect(() => {
-    dispatch(GetProducts(id));
+    dispatch(getProducts(id));
   }, [dispatch, id]);
 
   return (

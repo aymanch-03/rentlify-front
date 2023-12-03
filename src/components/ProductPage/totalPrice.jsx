@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react";
 import image1 from "../../assets/Image2.webp";
+import { useState } from "react";
 const product = {
     _id: "655b1612007341e440355459",
     sku: "148803",
@@ -17,7 +18,10 @@ const product = {
 export default function TotalPrice() {
     const totalPrice = (product.price * 5).toFixed(2);
     const serviceFees = (totalPrice * 0.2).toFixed(2);
-    const totalWithFees = (totalPrice-(-serviceFees)).toFixed(2);
+    const totalWithFees = (totalPrice - (-serviceFees)).toFixed(2);
+    
+    
+
     return (
         <div className="max-w-[500px] flex flex-col gap-4 border border-inherit rounded-2xl p-6 m-10 ">
             <div className="flex gap-4">

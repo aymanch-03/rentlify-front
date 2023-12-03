@@ -3,7 +3,7 @@
 // import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GetProducts } from "../redux/reducers/productSlice";
+import { getProducts } from "../redux/reducers/productSlice";
 import { ListProducts } from "../redux/reducers/productSlice";
 import { useParams } from "react-router-dom";
 import { UpdateProduct } from "../redux/reducers/productSlice";
@@ -27,7 +27,7 @@ export default function Example() {
   });
 
   useEffect(() => {
-    dispatch(GetProducts(id));
+    dispatch(getProducts(id));
     dispatch(getAllCategories());
     setFormData(Product);
   }, [dispatch]);

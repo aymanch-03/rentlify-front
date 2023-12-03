@@ -15,22 +15,22 @@ import { PopoverClose } from "@radix-ui/react-popover";
 import { Link, useParams } from "react-router-dom"
 import { useDispatch } from "react-redux";
 
-const product = {
-    _id: "655b1612007341e440355459",
-    sku: "148803",
-    product_image: "https://res.cloudinary.com/rentlify/image/upload/v1700468241/products/ww9lewgvrmba0kyuehhs.webp",
-    product_name: "dragon t- shirt",
-    subcategory_id: "6531359e36f67c30f3ff60fc",
-    short_description: "dragon t - shirt  zakaria description",
-    long_description: "tghchthgbchtgbghtgdbdhtdgbc",
-    price: 24.99,
-    discount_price: 0,
-    active: false,
-    __v: 0,
-}
+// const product = {
+//     _id: "655b1612007341e440355459",
+//     sku: "148803",
+//     product_image: "https://res.cloudinary.com/rentlify/image/upload/v1700468241/products/ww9lewgvrmba0kyuehhs.webp",
+//     product_name: "dragon t- shirt",
+//     subcategory_id: "6531359e36f67c30f3ff60fc",
+//     short_description: "dragon t - shirt  zakaria description",
+//     long_description: "tghchthgbchtgbghtgdbdhtdgbc",
+//     price: 24.99,
+//     discount_price: 0,
+//     active: false,
+//     __v: 0,
+// }
 
-export default function BookingBox() {
-    const { id } = useParams();
+export default function BookingBox({id,listing}) {
+    const product = listing
     const dispatch = useDispatch();
     const [date, setDate] = useState({
         from: new Date(),

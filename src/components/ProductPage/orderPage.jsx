@@ -22,17 +22,6 @@ const product = {
 }
 
 export default function OrderPage() {
-    const { id } = useParams();
-    const dispatch = useDispatch();
-    useEffect(() => {
-        try {
-            dispatch(getProductById(id));
-            setTimeout(() => {
-            }, 1000);
-        } catch (error) {
-            console.error("Error fetching user data:", error);
-        }
-    }, [dispatch, id]);
 
     return (
         <div className=" py-20 w-full">
