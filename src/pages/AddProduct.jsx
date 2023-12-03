@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { ListProducts, AddProduct } from "../redux/reducers/productSlice";
 import { getAllCategories } from "../redux/reducers/categorySlice";
 import { useNavigate } from "react-router-dom";
-// import { CloudinaryContext, Image } from "cloudinary-react";
 import axios from "axios";
 
 export default function Example() {
@@ -14,9 +13,9 @@ export default function Example() {
   useEffect(() => {
     dispatch(getAllCategories());
   }, [dispatch]);
-  // console.log(subcategories);
+
   const [imageSelected, setImageSelected] = useState([]);
-  console.log("rr", imageSelected);
+  // console.log("rr", imageSelected);
   const [formData, setFormData] = useState({
     sku: "",
     listing_image: [],
@@ -28,6 +27,8 @@ export default function Example() {
     city: "",
     price: "",
     listing_name: "",
+    bed: "",
+    room: "",
   });
 
   const handleInputChange = (e) => {
@@ -52,6 +53,8 @@ export default function Example() {
         active,
         price,
         listing_name,
+        bed,
+        room,
       } = formData;
       if (
         !sku ||
@@ -70,7 +73,7 @@ export default function Example() {
       }
       const imageUrls = await Promise.all(
         imageSelected.map(async (file) => {
-          console.log("tt", imageSelected);
+          // console.log("tt", imageSelected);
           const formDataToSend = new FormData();
           formDataToSend.append("file", file);
           formDataToSend.append("upload_preset", "products_preset");
@@ -149,6 +152,47 @@ export default function Example() {
             </div>
             <div className="sm:col-span-3">
               <label
+                htmlFor="sku"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                SKU
+              </label>
+              <div className="mt-2">
+                <input
+                  type="number"
+                  name="sku"
+                  placeholder="sku"
+                  onChange={(e) => handleInputChange(e)}
+                  className="p-4 block w-full rounded-md  border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="category_id"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Category
+              </label>
+              <div className="mt-2">
+                <select
+                  name="category_id"
+                  onChange={(e) => handleInputChange(e)}
+                  value={formData.category_id}
+                  className="p-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                >
+                  {/* Option for default value */}
+                  <option value="">Select Subcategory</option>
+                  {categories.map((category) => (
+                    <option key={category._id} value={category._id}>
+                      {category.category_name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="sm:col-span-3">
+              <label
                 htmlFor="province"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
@@ -181,47 +225,8 @@ export default function Example() {
                 />
               </div>
             </div>
-            <div className="sm:col-span-3">
-              <label
-                htmlFor="sku"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                SKU
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="sku"
-                  placeholder="sku"
-                  onChange={(e) => handleInputChange(e)}
-                  className="p-4 block w-full rounded-md  border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-            <div className="sm:col-span-3">
-              <label
-                htmlFor="category_id"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                category_id
-              </label>
-              <div className="mt-2">
-                <select
-                  name="category_id"
-                  onChange={(e) => handleInputChange(e)}
-                  value={formData.category_id}
-                  className="p-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                >
-                  {/* Option for default value */}
-                  <option value="">Select Subcategory</option>
-                  {categories.map((category) => (
-                    <option key={category._id} value={category._id}>
-                      {category.category_name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
+            
+            
             <div className="sm:col-span-full">
               <label
                 htmlFor="Long_description"
@@ -240,7 +245,7 @@ export default function Example() {
                 />
               </div>
             </div>
-
+            
             <div className="col-span-full">
               <label
                 htmlFor="short_description"
@@ -258,7 +263,7 @@ export default function Example() {
                 />
               </div>
             </div>
-
+            
             <div className="sm:col-span-3">
               <label
                 htmlFor="active"
@@ -271,14 +276,15 @@ export default function Example() {
                   name="active"
                   onChange={(e) => handleInputChange(e)}
                   placeholder="status"
-                  className="p-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  className="p-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600  sm:text-sm sm:leading-6"
                 >
+                  <option value="">Select status</option>
                   <option>TRUE</option>
                   <option>FALSE</option>
                 </select>
               </div>
             </div>
-            <div className="sm:col-span-2 sm:col-start-1">
+            <div className="sm:col-span-3">
               <label
                 htmlFor="price"
                 className="block text-sm font-medium leading-6 text-gray-900"
@@ -287,11 +293,45 @@ export default function Example() {
               </label>
               <div className="mt-2">
                 <input
-                  type="text"
+                  type="number"
                   name="price"
                   placeholder="Price"
                   onChange={(e) => handleInputChange(e)}
                   className="p-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="bed"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Beds
+              </label>
+              <div className="mt-2">
+                <input
+                  type="number"
+                  name="bed"
+                  placeholder="Number of beds"
+                  onChange={(e) => handleInputChange(e)}
+                  className="p-4 block w-full rounded-md  border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="room"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Bedrooms
+              </label>
+              <div className="mt-2">
+                <input
+                  type="number"
+                  name="room"
+                  placeholder="Number of rooms"
+                  onChange={(e) => handleInputChange(e)}
+                  className="p-4 block w-full rounded-md  border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
