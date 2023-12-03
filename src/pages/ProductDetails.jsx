@@ -21,7 +21,7 @@ import { Link } from "react-router-dom";
 
 export default function Example() {
   const dispatch = useDispatch();
-  const Product = useSelector((state) => state.products.product.listing);
+  const Product = useSelector((state) => state.products.product);
   console.log(Product);
   const { id } = useParams();
   // console.log(id);
