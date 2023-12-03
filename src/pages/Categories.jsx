@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
-import { listCategories } from "../redux/reducers/categorySlice";
+import { getAllCategories } from "../redux/reducers/categorySlice";
 
 const CategoriesPage = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const CategoriesPage = () => {
     path: "/",
   });
   useEffect(() => {
-    dispatch(listCategories());
+    dispatch(getAllCategories());
   }, [dispatch]);
 
   return (
