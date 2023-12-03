@@ -263,7 +263,6 @@ export default function Example() {
                 />
               </div>
             </div>
-            
             <div className="sm:col-span-3">
               <label
                 htmlFor="active"
