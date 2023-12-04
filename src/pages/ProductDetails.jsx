@@ -3,40 +3,36 @@
 // import { StarIcon } from '@heroicons/react/20/solid';
 // import { RadioGroup } from '@headlessui/react';
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getProducts } from "../redux/reducers/productSlice";
+
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { GetListing } from "../redux/reducers/listingSlice";
 // import UpdateProductDialog from "../components/products/UpdatEProductDialog";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog } from "@/components/ui/dialog";
 import { PackagePlus } from "lucide-react";
-// import InputForm from "./addProduct";
 import { Link } from "react-router-dom";
 
-export default function Example() {
+export default function ListingPage() {
   const dispatch = useDispatch();
-  const Product = useSelector((state) => state.products.product);
-  console.log(Product);
   const { id } = useParams();
-  // console.log(id);
-
   useEffect(() => {
-    dispatch(getProducts(id));
-  }, [dispatch, id]);
 
+    dispatch(GetListing(id));
+  }, [dispatch, id]);
+  const listing = useSelector((state) => state.listings.listing);
   return (
     <div className="bg-white">
       <div className="pt-6">
         <nav aria-label="Breadcrumb">
-          <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <ol
+            role="list"
+            className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
+          >
             <li className="text-sm">
-              <a aria-current="page" className="font-medium text-gray-800 hover:text-gray-600">
+              <a
+                aria-current="page"
+                className="font-medium text-gray-800 hover:text-gray-600"
+              >
                 Product Overview
               </a>
             </li>
@@ -47,57 +43,40 @@ export default function Example() {
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
             <img
-              src={Product.listing_image}
-              className="h-full w-full object-cover object-center"
-            />
-          </div>
-          <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-              <img
-                src={Product.listing_image}
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-              <img
-                src={Product.listing_image}
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-          </div>
-          <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-            <img
-              src={Product.listing_image}
+              src={listing.listing_image}
+              alt={listing.listing_name}
               className="h-full w-full object-cover object-center"
             />
           </div>
         </div>
 
-        {/* Product info */}
+        {/* listing info */}
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{Product.listing_name}</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+              {listing.listing_name}
+            </h1>
           </div>
 
           {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
-            <h2 className="">Product information</h2>
+            <h2 className="">listing information</h2>
             <p className="text-3xl tracking-tight text-gray-900">
-              {Product.long_description}
+              {listing.long_description}
             </p>
 
             <form className="mt-10">
-              <Link to={`/UpdateProduct/${id}`}>
-              <button
-                type="submit"
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-              <Dialog>
+              <Link to={`update-listing/${id}`}>
+                <button
+                  type="submit"
+                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  <Dialog>
                     <PackagePlus className="w-4 mr-2" />
                     Update Product
-              </Dialog>
-              </button>
-            </Link>
+                  </Dialog>
+                </button>
+              </Link>
             </form>
           </div>
 
@@ -108,7 +87,8 @@ export default function Example() {
 
               <div className="space-y-6">
                 <p className="text-base text-gray-900">
-                  {Product.short_description}</p>
+                  {listing.short_description}
+                </p>
               </div>
             </div>
 
@@ -121,5 +101,5 @@ export default function Example() {
         </div>
       </div>
     </div>
-  )
+  );
 }

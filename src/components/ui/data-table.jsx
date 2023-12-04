@@ -79,19 +79,19 @@ function DataTable({ columns, data, option, isLoading }) {
                   {/* <Icons.spinner className="mr-2 h-7 w-7 animate-spin text-center" /> */}
                   <div className="">
                     <div className="p-3 border-b flex gap-3">
-                      <Skeleton className="h-7 w-full" />
+                      <Skeleton className="h-6 w-full" />
                     </div>
                     <div className="p-3 border-b flex gap-3">
-                      <Skeleton className="h-7 w-full" />
+                      <Skeleton className="h-6 w-full" />
                     </div>
                     <div className="p-3 flex gap-3">
-                      <Skeleton className="h-7 w-full" />
+                      <Skeleton className="h-6 w-full" />
                     </div>
                     <div className="p-3 flex gap-3">
-                      <Skeleton className="h-7 w-full" />
+                      <Skeleton className="h-6 w-full" />
                     </div>
                     <div className="p-3 flex gap-3">
-                      <Skeleton className="h-7 w-full" />
+                      <Skeleton className="h-6 w-full" />
                     </div>
                   </div>
                 </TableCell>

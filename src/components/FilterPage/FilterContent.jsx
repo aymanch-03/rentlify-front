@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../redux/reducers/categorySlice";
-import { listListings } from "../../redux/reducers/listingSlice";
+import { ListListings } from "../../redux/reducers/listingSlice";
 import ListingSkeleton from "../ui/listingSkeleton";
 import { Skeleton } from "../ui/skeleton";
 
@@ -83,7 +83,7 @@ const FilterContent = () => {
     //   setIsLoading(false);
     // }, 1250);
     dispatch(getAllCategories());
-    dispatch(listListings());
+    dispatch(ListListings());
   }, [dispatch]);
   useEffect(() => {
     const activeListings = listings.filter(

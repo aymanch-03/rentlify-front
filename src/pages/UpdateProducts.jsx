@@ -3,12 +3,14 @@
 // import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../redux/reducers/productSlice";
-import { ListProducts } from "../redux/reducers/productSlice";
-import { useParams } from "react-router-dom";
-import { UpdateProduct } from "../redux/reducers/productSlice";
+
+import { useNavigate, useParams } from "react-router-dom";
 import { getAllCategories } from "../redux/reducers/categorySlice";
-import { useNavigate } from "react-router-dom";
+import {
+  GetListing,
+  ListListings,
+  UpdateListing,
+} from "../redux/reducers/listingSlice";
 
 export default function Example() {
   const dispatch = useDispatch();
@@ -27,7 +29,8 @@ export default function Example() {
   });
 
   useEffect(() => {
-    dispatch(getProducts(id));
+
+    dispatch(GetListing(id));
     dispatch(getAllCategories());
     setFormData(Product);
   }, [dispatch]);
@@ -44,8 +47,8 @@ export default function Example() {
     e.preventDefault();
     try {
       // console.log(id);
-      dispatch(UpdateProduct({ id, product: formData }));
-      dispatch(ListProducts());
+      dispatch(UpdateListing({ id, product: formData }));
+      dispatch(ListListings());
 
       // Redirect or perform any other actions after a successful update
       navigate(`/productDetails/${id}`);
@@ -92,7 +95,6 @@ export default function Example() {
               <div className="mt-2">
                 <select
                   name="category_id"
-                  
                   onChange={(e) => handleInputChange(e)}
                   value={formData.category_id}
                   className="p-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -159,7 +161,7 @@ export default function Example() {
                   onChange={(e) => handleInputChange(e)}
                   className="p-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 >
-                   <option value="">Select status</option>
+                  <option value="">Select status</option>
                   <option>TRUE</option>
                   <option>FALSE</option>
                 </select>

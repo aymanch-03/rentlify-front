@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ListProducts, AddProduct } from "../redux/reducers/productSlice";
-import { getAllCategories } from "../redux/reducers/categorySlice";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { getAllCategories } from "../redux/reducers/categorySlice";
+import { AddListing, ListListings } from "../redux/reducers/listingSlice";
 
 export default function Example() {
   const dispatch = useDispatch();
@@ -93,10 +93,10 @@ export default function Example() {
       };
       console.log(formData);
 
-      dispatch(AddProduct(updatedFormData));
-      dispatch(ListProducts());
+      dispatch(AddListing(updatedFormData));
+      dispatch(ListListings());
 
-      navigate("/products");
+      navigate("/office/listings");
     } catch (error) {
       console.error("Error updating data:", error);
     }
@@ -225,8 +225,7 @@ export default function Example() {
                 />
               </div>
             </div>
-            
-            
+
             <div className="sm:col-span-full">
               <label
                 htmlFor="Long_description"
@@ -245,7 +244,7 @@ export default function Example() {
                 />
               </div>
             </div>
-            
+
             <div className="col-span-full">
               <label
                 htmlFor="short_description"
@@ -263,7 +262,7 @@ export default function Example() {
                 />
               </div>
             </div>
-            
+
             <div className="sm:col-span-3">
               <label
                 htmlFor="active"

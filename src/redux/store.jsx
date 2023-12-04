@@ -7,7 +7,6 @@ import categoryReducer from "./reducers/categorySlice";
 import customerReducer from "./reducers/customerSlice";
 import listingReducer from "./reducers/listingSlice";
 import orderReducer from "./reducers/orderSlice";
-import productReducer from "./reducers/productSlice";
 import subcategorieReducer from "./reducers/subcategorieSlice";
 import userReducer from "./reducers/userSlice";
 
@@ -32,7 +31,7 @@ const store = configureStore({
     categories: categoryReducer,
     // listings: listingReducer,
     authCustomer: customerPersistedReducer,
-    products: productReducer,
+    listings: listingReducer,
     subcategories: subcategorieReducer,
   },
   middleware: (getDefaultMiddleware) => {
