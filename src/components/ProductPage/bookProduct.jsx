@@ -14,22 +14,9 @@ import { Label } from "@/components/ui/label";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { Link, useParams } from "react-router-dom"
 import { useDispatch } from "react-redux";
+import { Skeleton } from "@/components/ui/skeleton"
 
-// const product = {
-//     _id: "655b1612007341e440355459",
-//     sku: "148803",
-//     product_image: "https://res.cloudinary.com/rentlify/image/upload/v1700468241/products/ww9lewgvrmba0kyuehhs.webp",
-//     product_name: "dragon t- shirt",
-//     subcategory_id: "6531359e36f67c30f3ff60fc",
-//     short_description: "dragon t - shirt  zakaria description",
-//     long_description: "tghchthgbchtgbghtgdbdhtdgbc",
-//     price: 24.99,
-//     discount_price: 0,
-//     active: false,
-//     __v: 0,
-// }
-
-export default function BookingBox({id,listing}) {
+export default function BookingBox({ id, listing, isLoading }) {
     const product = listing
     const dispatch = useDispatch();
     const [date, setDate] = useState({
@@ -68,9 +55,9 @@ export default function BookingBox({id,listing}) {
         }
     };
 
-    return (
+    return !isLoading ? (
         <div className="rounded-2xl col-span-5 p-10 m-10 shadow-xl h-fit">
-            <div className="flex justify-between items-center p-2">
+            <div className="flex justify-between items-center p-2 h-14">
                 <h3><span className="font-semibold text-4xl">{totalPrice}</span>/  {`${days === 1 ? `${days} night` : `${days} nights`}`}</h3>
                 <div className="w-[55px] flex justify-between items-center">
                     <Icon className="w-5 h-5" icon="ph:star" />
@@ -219,9 +206,22 @@ export default function BookingBox({id,listing}) {
                 </div>
             </div>
             <Link to={`/order/${id}`}>
-                <Button className="w-full mt-5">BOOK NOW</Button>
+                <Button className="w-full mt-5 h-12">BOOK NOW</Button>
             </Link>
         </div>
-    )
+    ) : (
+        <div className="rounded-2xl col-span-5 p-10 m-10 h-fit">
+            <div className="h-14 flex justify-between items-center p-2">
+                <Skeleton className="w-[200px] h-full m-0" />
+                <Skeleton className="w-[55px] h-full m-0" />
+            </div>
+            <div className=" w-full mt-5">
+                    <Skeleton className="w-full h-[160px]" />
+            </div>
+            <div className=" w-full mt-5">
+                    <Skeleton className="w-full h-12" />
+            </div>
+        </div>
+    );
 
 }

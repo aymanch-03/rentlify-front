@@ -1,61 +1,33 @@
 import { Icon } from '@iconify/react';
 import { Button } from "@/components/ui/button"
 import { useDispatch } from 'react-redux';
+import { Skeleton } from "@/components/ui/skeleton"
 
-export default function ProductDetails({listing}) {
-    const categories = [
-        {
-            link: "Woodburner",
-            icon: "ph:campfire",
-        },
-        {
-            link: "Dog Friendly",
-            icon: "cil:animal",
-        },
-        {
-            link: "In the Woods",
-            icon: "ph:tree",
-        },
-        {
-            link: "Hot Tubs",
-            icon: "tabler:soup",
-        },
-    ]
-    return (
+export default function ProductDetails({ listing, isLoading }) {
+    const category = listing.category_id
+    return !isLoading ? (
         <div className='p-10 col-span-7 h-[100vh]'>
             <h1 className='font-bold text-4xl'>
-                {/* Beach Farm Holiday Cottages */}
                 {listing.listing_name}
             </h1>
             <h5 className='text-lg flex items-center capitalize p-1'>
                 <Icon icon="ep:location" />
-                {/* Location: Wakefield, England */}
                 <span className='p-2'>
 
-                {listing.city}
+                    {listing.city}{", "}{listing.province}
                 </span>
             </h5>
             <div className="lg:grid-cols-4 p-1 grid lg:flex sm:grid-cols-2 gap-5 md:grid-cols-3">
-                {categories.map((category) => {
-                    return (
-                        <div className="flex items-center w-fit m-1 py-2 px-4 rounded-xl shadow-md text-sm">
-                            <Icon className='w-9' icon={category.icon} color="#9fa2a4" />
-                            {category.link}
-                        </div>
-                    )
-                })}
+                <div className="flex items-center w-fit m-1 py-2 px-4 rounded-xl shadow-md text-sm">
+                    <Icon className='w-9' icon={category.category_icon} color="#9fa2a4" />
+                    {category.category_name}
+                </div>
             </div>
             <p className='lg:w-full my-4'>
-                {/* Situated in a picturesque aea called Breckland in South Norfolk,
-                Settle is located in one of the sunniest terrains in the UK.
-                Our skies are often blue and untroubled by rain. */}
                 {listing.short_description}
             </p>
             <p className='w-full my-4'>
-                {/* Nearby Thetford and Kings Forests offer the largest,
-                lowland woodlands in the country,
-                with miles of tranquil trackways and paths to explore on foot,
-                cycle and horseback */}
+
                 {listing.long_description}
 
             </p>
@@ -64,5 +36,19 @@ export default function ProductDetails({listing}) {
                 <Icon icon="solar:arrow-right-line-duotone" className=' group-hover:ml-2 transition-all' />
             </Button>
         </div>
-    )
+    ) : (
+        <div className='p-10 col-span-7 h-[100vh] gap-2'>
+
+            <Skeleton className="w-[80%] h-10 my-4" />
+
+            <Skeleton className="w-[30%] h-6 my-2" />
+
+            <Skeleton className="w-[50%] h-6 my-2" />
+
+            <Skeleton className="w-[50%] h-6 my-2" />
+
+
+
+        </div>
+    );
 }

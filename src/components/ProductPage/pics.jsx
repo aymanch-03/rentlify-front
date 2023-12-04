@@ -1,8 +1,4 @@
 import { useEffect, useState } from "react";
-import image2 from "../../assets/Image1.webp";
-import image1 from "../../assets/Image2.webp";
-import image4 from "../../assets/Image3.webp";
-import image3 from "../../assets/Image4.webp";
 import { Button } from "@/components/ui/button";
 import { Icon } from '@iconify/react';
 import {
@@ -10,12 +6,14 @@ import {
     DialogContent,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { Skeleton } from "@/components/ui/skeleton"
+
 import { ScrollArea } from "@/components/ui/scroll-area"
-const images = [image1,image2,image3,image4]
-export default function Pictures({listing}) {
+// const images = [image1, image2, image3, image4]
+export default function Pictures({ listing, isLoading }) {
     console.log("listing: ", listing)
-    // const images = listing.listing_image
-    
+    const images = listing.listing_image
+
     const [currentSlide, setCurrentSlide] = useState(0);
     const nextSlide = () => {
         setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
@@ -26,9 +24,8 @@ export default function Pictures({listing}) {
         );
     };
 
-    return (
+    return !isLoading ? ( 
         <div className="w-full lg:gap-3 lg:h-[30rem] lg:p-10 lg:grid lg:grid-cols-12 md:grid-rows-2">
-            {images.length==1}
             <div className="col-span-8 row-span-2 rounded-3xl">
                 <Dialog>
                     <DialogTrigger asChild>
@@ -101,11 +98,12 @@ export default function Pictures({listing}) {
             <div className="col-span-2 hidden lg:block ">
                 <Dialog>
                     <DialogTrigger asChild>
-                        <div className={`cursor-pointer flex items-center justify-center w-full h-full rounded-3xl row-span-1 relative bg-[url(src/assets/Image3.webp)] bg-cover bg-center bg-no-repeat`}>
+                        <div className={`cursor-pointer flex items-center justify-center w-full h-full rounded-3xl row-span-1 relative bg-[url(${images[1]})] bg-cover bg-center bg-no-repeat`}>
                             <div className="w-full absolute inset-0 z-20 h-full rounded-3xl bg-black/70">
                             </div>
-                            <p className="z-40 relative text-5xl text-white ">
-                                +{images.length - 3}
+                            <p className="z-40 relative text-xl text-white ">
+                                {/* +{images.length - 3} */}
+                                Show all
                             </p>
                         </div>
                     </DialogTrigger>
@@ -192,7 +190,9 @@ export default function Pictures({listing}) {
                                                                             <Icon icon="solar:alt-arrow-right-line-duotone" className="w-6 h-6" />
                                                                         </Button>
                                                                     </div>
-                                                                    <span className="m-auto">{currentSlide + 1}/{images.length}</span>
+                                                                    <span className="m-auto">
+                                                                    {currentSlide + 1}/{images.length}
+                                                                    </span>
                                                                 </DialogContent>
                                                             </Dialog>
                                                         </div>
@@ -208,5 +208,28 @@ export default function Pictures({listing}) {
                 </Dialog>
             </div>
         </div>
-    )
+    ) : (
+        <div className="w-full lg:gap-3 lg:h-[30rem] lg:p-10 lg:grid lg:grid-cols-12 md:grid-rows-2">
+            <div className="col-span-8 row-span-2 rounded-3xl">
+                <div className="h-full col-span-8 row-span-2 rounded-3xl flex justify-center items-center">
+                    <Skeleton className="h-full w-full rounded-3xl" />
+                </div>
+            </div>
+            <div className="col-span-4 rounded-3xl row-span-1 lg:block hidden">
+                <div className="h-full col-span-8 row-span-2 rounded-3xl">
+                    <Skeleton className="h-full w-full rounded-3xl" />
+                </div>
+            </div>
+            <div className="col-span-2 rounded-3xl row-span-1 lg:block hidden">
+                <div className="h-full col-span-8 row-span-2 rounded-3xl flex justify-center items-center">
+                    <Skeleton className="h-full w-full rounded-3xl" />
+                </div>
+            </div>
+            <div className="col-span-2 hidden lg:block ">
+                <div className="h-full col-span-8 row-span-2 rounded-3xl flex justify-center items-center">
+                    <Skeleton className="h-full w-full rounded-3xl" />
+                </div>
+            </div>
+        </div>
+    );
 }

@@ -1,8 +1,8 @@
 import { Icon } from "@iconify/react";
 import { Button } from "@/components/ui/button";
-import PayWith from "./payment";
-import TotalPrice from "./totalPrice";
-import Contact from "./contact";
+import PayWith from "../components/ProductPage/payment";
+import TotalPrice from "../components/ProductPage/totalPrice";
+import Contact from "../components/ProductPage/contact";
 import { Link, useParams } from "react-router-dom"
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -24,7 +24,7 @@ const product = {
 export default function OrderPage() {
     const { id } = useParams();
     return (
-        <div className=" py-20 w-full">
+        <div className=" py-20 w-full max-w-7xl mx-auto">
             <div className="grid grid-cols-12 w-full">
                 <div className="col-span-6 flex items-center justify-end p-0">
                     <Link to={`/product/${id}`}>
@@ -111,7 +111,7 @@ export default function OrderPage() {
                     </div>
                 </div>
                 <div className="col-span-6 w-full">
-                    <div className="sticky top-0 p-10">
+                    <div className="sticky top-10 pt-10">
                         <TotalPrice />
                     </div>
                 </div>
