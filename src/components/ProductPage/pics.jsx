@@ -9,10 +9,9 @@ import {
 import { Skeleton } from "@/components/ui/skeleton"
 
 import { ScrollArea } from "@/components/ui/scroll-area"
-// const images = [image1, image2, image3, image4]
 export default function Pictures({ listing, isLoading }) {
-    console.log("listing: ", listing)
     const images = listing.listing_image
+    console.log("listing: ", images)
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const nextSlide = () => {

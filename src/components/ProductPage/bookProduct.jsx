@@ -8,7 +8,7 @@ import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-} from "../ui/popover";
+} from "@/components/ui/popover"
 import { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { PopoverClose } from "@radix-ui/react-popover";
@@ -17,20 +17,23 @@ import { useDispatch } from "react-redux";
 import { Skeleton } from "@/components/ui/skeleton"
 
 export default function BookingBox({ id, listing, isLoading }) {
-    const product = listing
-    const dispatch = useDispatch();
+    const product = listing;
     const [date, setDate] = useState({
         from: new Date(),
         to: addDays(new Date(), 1)
     })
+    const dateIn = date.from;
+    const dateOut = date.to
     const [days, setDays] = useState(0)
     const [guests, setGuests] = useState(1)
     const [adults, setAdults] = useState(1)
     const [children, setChildren] = useState(0)
     const totalPrice = (product.price * days).toFixed(2);
+
     useEffect(() => {
         setDays(Math.floor((date.to - date.from) / (1000 * 60 * 60 * 24)))
-    }, [date])
+    }, [date]);
+
     function totalGuests() {
         setGuests(adults + children)
     }
@@ -79,13 +82,9 @@ export default function BookingBox({ id, listing, isLoading }) {
                                     <h2 className="font-semibold text-lg ">CHECK-IN</h2>
                                     <span>
                                         {date?.from ? (
-                                            date.to ? (
-                                                <>
-                                                    {format(date.from, "LLL dd, y")}
-                                                </>
-                                            ) : (
-                                                format(date.from, "LLL dd, y")
-                                            )
+
+                                            format(date.from, "LLL dd, y")
+
                                         ) : (
                                             <span>Pick a date</span>
                                         )}
@@ -119,14 +118,8 @@ export default function BookingBox({ id, listing, isLoading }) {
 
                                     <h2 className="font-semibold text-lg">CHECKOUT</h2>
                                     <span>
-                                        {date?.from ? (
-                                            date.to ? (
-                                                <>
-                                                    {format(date.to, "LLL dd, y")}
-                                                </>
-                                            ) : (
-                                                format(date.from, "LLL dd, y")
-                                            )
+                                        {date?.to ? (
+                                            format(date.to, "LLL dd, y")
                                         ) : (
                                             <span>Pick a date</span>
                                         )}
@@ -205,7 +198,7 @@ export default function BookingBox({ id, listing, isLoading }) {
                     </Popover>
                 </div>
             </div>
-            <Link to={`/order/${id}`}>
+            <Link to={`/order/${id}/?dateFrom=${dateIn}&dateTo=${dateOut}&numOfAdults=${adults}&numOfChildren=${children}`}>
                 <Button className="w-full mt-5 h-12">BOOK NOW</Button>
             </Link>
         </div>
@@ -216,10 +209,10 @@ export default function BookingBox({ id, listing, isLoading }) {
                 <Skeleton className="w-[55px] h-full m-0" />
             </div>
             <div className=" w-full mt-5">
-                    <Skeleton className="w-full h-[160px]" />
+                <Skeleton className="w-full h-[160px]" />
             </div>
             <div className=" w-full mt-5">
-                    <Skeleton className="w-full h-12" />
+                <Skeleton className="w-full h-12" />
             </div>
         </div>
     );

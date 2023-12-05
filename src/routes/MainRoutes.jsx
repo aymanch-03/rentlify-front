@@ -3,7 +3,7 @@ import RequireCustomerAuth from "../components/AuthCustomer/RequireCustomerAuth"
 import MainLayout from "../layouts/MainLayout";
 import FilterPage from "../pages/FilterPage";
 import LandingPage from "../pages/LandingPage";
-import ProductPage from "../pages/ProductsFront";
+import ProductPage from "../pages/ProductFront";
 import OrderPage from "../pages/orderFront";
 
 const DashboardRoutes = () => {

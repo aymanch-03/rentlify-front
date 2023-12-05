@@ -3,27 +3,84 @@ import { Button } from "@/components/ui/button";
 import PayWith from "../components/ProductPage/payment";
 import TotalPrice from "../components/ProductPage/totalPrice";
 import Contact from "../components/ProductPage/contact";
-import { Link, useParams } from "react-router-dom"
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-
-const product = {
-    _id: "655b1612007341e440355459",
-    sku: "148803",
-    product_image: "https://res.cloudinary.com/rentlify/image/upload/v1700468241/products/ww9lewgvrmba0kyuehhs.webp",
-    product_name: "dragon t- shirt",
-    subcategory_id: "6531359e36f67c30f3ff60fc",
-    short_description: "dragon t - shirt  zakaria description",
-    long_description: "tghchthgbchtgbghtgdbdhtdgbc",
-    price: 24.99,
-    discount_price: 0,
-    active: false,
-    __v: 0,
-}
+import { Link, useParams, useLocation } from "react-router-dom"
+import { format } from "date-fns";
+import { useEffect, useState } from "react";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from ".././components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { Label } from "@/components/ui/label";
+import { PopoverClose } from "@radix-ui/react-popover";
+import { useDispatch, useSelector } from "react-redux";
+import { GetListing } from "../redux/reducers/listingSlice";
 
 export default function OrderPage() {
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const dateFrom = queryParams.get('dateFrom');
+    const dateTo = queryParams.get('dateTo');
+    const numOfAdults = queryParams.get('numOfAdults');
+    const numOfChildren = queryParams.get('numOfChildren');
+
+    console.log("date From: ", dateFrom)
+    console.log("date to: ", dateTo)
     const { id } = useParams();
-    return (
+    const [date, setDate] = useState({
+        from: new Date(dateFrom),
+        to: new Date(dateTo),
+    })
+
+    const [isLoading, setIsLoading] = useState(true);
+    const [days, setDays] = useState(0)
+    const [guests, setGuests] = useState(1)
+    const [adults, setAdults] = useState(Number(numOfAdults))
+    const [children, setChildren] = useState(Number(numOfChildren))
+    const dispatch = useDispatch();
+    const listing = useSelector((state) => state.listings.listing);
+    const totalPrice = (listing.price * days).toFixed(2);
+
+    useEffect(() => {
+        setDays(Math.floor((date.to - date.from) / (1000 * 60 * 60 * 24)))
+    }, [date])
+
+    function totalGuests() {
+        setGuests(adults + children)
+    }
+    function increaseAdults() {
+        if (adults < 100) {
+            setAdults(adults + 1);
+        }
+    }
+    function decreaseAdults() {
+        if (adults > 1) {
+            setAdults(adults - 1);
+        }
+    }
+    function increaseChildren() {
+        if (children < 100) {
+            setChildren(children + 1);
+        }
+    }
+    function decreaseChildren() {
+        if (children > 0) {
+            setChildren(children - 1);
+        }
+    };
+    useEffect(() => {
+        try {
+            dispatch(GetListing(id));
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 1000);
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+            setIsLoading(false);
+        }
+    }, [dispatch, id]);
+    return !isLoading ?(
         <div className=" py-20 w-full max-w-7xl mx-auto">
             <div className="grid grid-cols-12 w-full">
                 <div className="col-span-6 flex items-center justify-end p-0">
@@ -45,20 +102,86 @@ export default function OrderPage() {
                             <div className="flex justify-between items-center">
                                 <div className="flex flex-col gap-4 ">
                                     <h5 className="font-medium text-xl ">Dates</h5>
-                                    <p>Sep 23 - 28, 2024</p>
+                                    <p>{date?.from ? (
+                                        `${format(date.from, "LLL dd, y")} - ${format(date.to, "LLL dd, y")}`
+                                    ) : (
+                                        <span>Pick a date</span>
+                                    )}</p>
                                 </div>
                                 <div>
-                                    <Button variant="link" className="text-lg">Edit</Button>
+                                    <Popover>
+                                        <PopoverTrigger asChild>
+                                            <Button variant="link" className="text-lg">Edit</Button>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="w-auto p-0">
+                                            <Calendar
+                                                initialFocus
+                                                mode="range"
+                                                defaultMonth={date?.from}
+                                                selected={date}
+                                                onSelect={setDate}
+                                                numberOfMonths={2}
+                                            />
+                                        </PopoverContent>
+                                    </Popover>
                                 </div>
                             </div>
                             <div>
                                 <div className="flex justify-between items-center">
                                     <div className="flex flex-col gap-4 ">
                                         <h5 className="font-medium text-xl">Guests</h5>
-                                        <p>2 guests, 5 children</p>
+                                        <p>{adults} adults, {children} children</p>
                                     </div>
                                     <div>
-                                        <Button variant="link" className="text-lg">Edit</Button>
+                                        <Popover>
+                                            <PopoverTrigger asChild>
+                                                <Button variant="link" className="text-lg">Edit</Button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="w-80">
+                                                <div className="grid gap-4">
+                                                    <div className="space-y-2">
+                                                        <h4 className="font-medium leading-none">Dimensions</h4>
+                                                        <p className="text-sm text-muted-foreground">
+                                                            Set the dimensions for the layer.
+                                                        </p>
+                                                    </div>
+                                                    <div className="flex flex-col gap-4">
+                                                        <div className="flex justify-between items-center">
+                                                            <Label className="">Adults</Label>
+                                                            <div className="flex justify-between items-center w-1/3">
+                                                                <Button className='w-6 h-6 rounded-full p-0' variant="ghost" onClick={decreaseAdults}  >
+                                                                    <Icon icon="bi:dash-circle" className="w-6 h-6 hover:cursor-pointer" />
+                                                                </Button>
+                                                                <span className=" text-lg">{adults}</span>
+                                                                <Button className='w-6 h-6 rounded-full p-0' variant="ghost" onClick={increaseAdults}>
+                                                                    <Icon icon="bi:plus-circle" className="w-6 h-6 hover:cursor-pointer" />
+                                                                </Button>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex justify-between items-center">
+                                                            <div className="flex flex-col">
+                                                                <Label className="">Children</Label>
+                                                                <Label className="text-xs text-slate-900">Ages 0 to 17</Label>
+                                                            </div>
+                                                            <div className="flex justify-between items-center w-1/3">
+                                                                <Button className='w-6 h-6 rounded-full p-0' variant="ghost" onClick={decreaseChildren}>
+                                                                    <Icon icon="bi:dash-circle" className="w-6 h-6 hover:cursor-pointer" />
+                                                                </Button>
+                                                                <span className=" text-lg">{children}</span>
+                                                                <Button className='w-6 h-6 rounded-full p-0' variant="ghost" onClick={increaseChildren} >
+                                                                    <Icon icon="bi:plus-circle" className="w-6 h-6 hover:cursor-pointer" />
+                                                                </Button>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex justify-end">
+                                                            <PopoverClose>
+                                                                <Button className="rounded-full w-[80px]" onClick={totalGuests}>Done</Button>
+                                                            </PopoverClose>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </PopoverContent>
+                                        </Popover>
                                     </div>
                                 </div>
                             </div>
@@ -112,10 +235,19 @@ export default function OrderPage() {
                 </div>
                 <div className="col-span-6 w-full">
                     <div className="sticky top-10 pt-10">
-                        <TotalPrice />
+                        <TotalPrice 
+                        listing={listing} 
+                        days={days} 
+                        totalPrice={totalPrice}
+                        isLoading={isLoading}
+                        />
                     </div>
                 </div>
             </div>
         </div >
+    ) :(
+        <div>
+            
+        </div>
     )
 }

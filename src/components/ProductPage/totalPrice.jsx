@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import image1 from "../../assets/Image2.webp";
 import { useState } from "react";
-const product = {
+const listing = {
     _id: "655b1612007341e440355459",
     sku: "148803",
     product_image: "https://res.cloudinary.com/rentlify/image/upload/v1700468241/products/ww9lewgvrmba0kyuehhs.webp",
@@ -15,22 +15,20 @@ const product = {
     __v: 0,
 }
 
-export default function TotalPrice() {
-    const totalPrice = (product.price * 5).toFixed(2);
-    const serviceFees = (totalPrice * 0.2).toFixed(2);
+export default function TotalPrice({ listing, days, totalPrice, isLoading }) {
+    const serviceFees = (totalPrice * 0.1).toFixed(2);
     const totalWithFees = (totalPrice - (-serviceFees)).toFixed(2);
-    
-    
+    console.log('image: ', listing.listing_image[0])
 
-    return (
+    return !isLoading ? (
         <div className="max-w-[500px] flex flex-col gap-4 border border-inherit rounded-2xl p-6 m-10 ">
             <div className="flex gap-4">
                 <div className="">
-                    <img className="h-[100px] w-[150px] rounded-2xl" src={image1} />
+                    <img className="h-[100px] w-[150px] rounded-2xl" src={listing.listing_image[0]} />
                 </div>
                 <div className="w-10/12">
-                    <h1 className="font-bold">{product.product_name}</h1>
-                    <p className="text-xs">{product.short_description}</p>
+                    <h1 className="font-bold">{listing.product_name}</h1>
+                    <p className="text-xs">{listing.short_description}</p>
                     <div className="w-[55px] flex justify-between items-center">
                         <Icon className="w-3 h-3" icon="ph:star" />
                         <p className="text-xs pt-1">4.95</p>
@@ -41,7 +39,7 @@ export default function TotalPrice() {
             <div className="flex flex-col gap-4">
                 <h1 className="font-bold">Price details</h1>
                 <div className="flex justify-between">
-                    <p>MAD{" "}{product.price} x {5} nights</p>
+                    <p>MAD{" "}{listing.price} x {days} nights</p>
                     <p>MAD{" "}{totalPrice}</p>
                 </div>
                 <div className="flex justify-between">
@@ -54,6 +52,10 @@ export default function TotalPrice() {
                     <p className="font-medium">MAD{" "} {totalWithFees}</p>
                 </div>
             </div>
+        </div>
+    ) : (
+        <div>
+
         </div>
     )
 }

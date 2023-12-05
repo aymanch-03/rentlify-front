@@ -22,7 +22,7 @@ export const GetListing = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await axios.get(`/listings/${id}`);
-      // console.log("aaaa",response);
+      console.log("aaaa",response);
       return response.data;
     } catch (error) {
       rejectWithValue(error.response.data);
