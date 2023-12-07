@@ -47,13 +47,13 @@ export default function PayWith() {
                 <div className="flex flex-col gap-4">
                     <div className="grid grid-cols-2">
                         <div className="col-span-2 border border-inherit rounded-t-xl mb-[-1px]">
-                            <Input className="h-16 rounded-t-xl border-none" placeholder="Card number" />
+                            <Input className="h-16 rounded-t-xl border-none" type="number" placeholder="Card number" />
                         </div>
                         <div className="border border-inherit rounded-bl-xl">
-                            <Input className="h-16 rounded-bl-xl border-none" placeholder="Expiration" />
+                            <Input className="h-16 rounded-bl-xl border-none" type="number" placeholder="Expiration" />
                         </div>
                         <div className="border border-inherit rounded-br-xl ml-[-1px]">
-                            <Input className="h-16 rounded-br-xl border-none" placeholder="CVV" />
+                            <Input className="h-16 rounded-br-xl border-none" type="number" placeholder="CVV" />
                         </div>
                     </div>
                     <Dialog>

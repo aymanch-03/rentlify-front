@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { useDispatch, useSelector } from "react-redux";
 import { GetListing } from "../redux/reducers/listingSlice";
+import { addDays } from "date-fns"
 
 export default function OrderPage() {
     const location = useLocation();
@@ -30,9 +31,18 @@ export default function OrderPage() {
     const { id } = useParams();
     const [date, setDate] = useState({
         from: new Date(dateFrom),
-        to: new Date(dateTo),
-    })
-
+        to: new Date(dateTo)
+    });
+    const setDATE = (selectedDate) => {
+        if (selectedDate.from >= selectedDate.to) {
+            return (
+                setDate({
+                    from: selectedDate.from,
+                    to: addDays(selectedDate.from, 1)
+                }))
+        }
+        setDate(selectedDate);
+    };
     const [isLoading, setIsLoading] = useState(true);
     const [days, setDays] = useState(0)
     const [guests, setGuests] = useState(1)
@@ -43,9 +53,9 @@ export default function OrderPage() {
     const totalPrice = (listing.price * days).toFixed(2);
 
     useEffect(() => {
-        setDays(Math.floor((date.to - date.from) / (1000 * 60 * 60 * 24)))
+        setDays(date?.from ? (date.to ? (Math.floor((date.to - date.from) / (1000 * 60 * 60 * 24))) : 0) : (0))
     }, [date])
-
+    
     function totalGuests() {
         setGuests(adults + children)
     }
@@ -80,33 +90,42 @@ export default function OrderPage() {
             setIsLoading(false);
         }
     }, [dispatch, id]);
-    return !isLoading ?(
+    return !isLoading ? (
         <div className=" py-20 w-full max-w-7xl mx-auto">
-            <div className="grid grid-cols-12 w-full">
-                <div className="col-span-6 flex items-center justify-end p-0">
+            <div className="w-1/2">
+                <div className="flex items-center justify-start p-0">
                     <Link to={`/product/${id}`}>
                         <Button className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400" variant="ghost" >
                             <Icon icon="solar:alt-arrow-left-outline" className="w-6 h-6" />
                         </Button>
                     </Link>
-                    <h1 className="max-w-[550px] w-full text-4xl font-medium p-1 py-5">Request to book</h1>
+                    <h1 className="max-w-[550px] w-full text-4xl font-medium p-1 py-6">Request to book</h1>
                 </div>
                 <div>
                 </div>
             </div>
-            <div className="grid grid-cols-12 w-full">
-                <div className="max-w-full col-span-6 pt-10 flex flex-col items-end">
+            <div className="flex w-full">
+                <div className="max-w-full w-1/2 pt-10 flex flex-col items-center">
                     <div className="p-0 max-w-[550px] w-full">
                         <div className="flex flex-col gap-4 p-1">
                             <h4 className="font-medium text-2xl">Your trip</h4>
                             <div className="flex justify-between items-center">
                                 <div className="flex flex-col gap-4 ">
                                     <h5 className="font-medium text-xl ">Dates</h5>
-                                    <p>{date?.from ? (
-                                        `${format(date.from, "LLL dd, y")} - ${format(date.to, "LLL dd, y")}`
-                                    ) : (
-                                        <span>Pick a date</span>
-                                    )}</p>
+                                    <p>
+                                        {date?.from ? (
+                                            date.to ? (
+                                                <>
+                                                    {format(date.from, "LLL dd, y")} -{" "}
+                                                    {format(date.to, "LLL dd, y")}
+                                                </>
+                                            ) : (
+                                                format(date.from, "LLL dd, y")
+                                            )
+                                        ) : (
+                                            <span>Pick a date</span>
+                                        )}
+                                    </p>
                                 </div>
                                 <div>
                                     <Popover>
@@ -130,7 +149,8 @@ export default function OrderPage() {
                                 <div className="flex justify-between items-center">
                                     <div className="flex flex-col gap-4 ">
                                         <h5 className="font-medium text-xl">Guests</h5>
-                                        <p>{adults} adults, {children} children</p>
+                                        <p>{`${adults === 1 ? `${adults} adult` : `${adults} adults`}`},{" "}
+                                            {`${children <= 1 ? `${children} child` : `${children} children`}`}</p>
                                     </div>
                                     <div>
                                         <Popover>
@@ -233,21 +253,21 @@ export default function OrderPage() {
                         <Button className="p-8 text-xl m-2">Request to book</Button>
                     </div>
                 </div>
-                <div className="col-span-6 w-full">
+                <div className="w-1/2 justify-center">
                     <div className="sticky top-10 pt-10">
-                        <TotalPrice 
-                        listing={listing} 
-                        days={days} 
-                        totalPrice={totalPrice}
-                        isLoading={isLoading}
+                        <TotalPrice
+                            listing={listing}
+                            days={days}
+                            totalPrice={totalPrice}
+                            isLoading={isLoading}
                         />
                     </div>
                 </div>
             </div>
         </div >
-    ) :(
+    ) : (
         <div>
-            
+
         </div>
     )
 }

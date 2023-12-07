@@ -22,8 +22,7 @@ export default function BookingBox({ id, listing, isLoading }) {
         from: new Date(),
         to: addDays(new Date(), 1)
     })
-    const dateIn = date.from;
-    const dateOut = date.to
+
     const [days, setDays] = useState(0)
     const [guests, setGuests] = useState(1)
     const [adults, setAdults] = useState(1)
@@ -31,8 +30,8 @@ export default function BookingBox({ id, listing, isLoading }) {
     const totalPrice = (product.price * days).toFixed(2);
 
     useEffect(() => {
-        setDays(Math.floor((date.to - date.from) / (1000 * 60 * 60 * 24)))
-    }, [date]);
+        setDays(date?.from ? (date.to ? (Math.floor((date.to - date.from) / (1000 * 60 * 60 * 24))) : 0) : (0))
+    }, [date])
 
     function totalGuests() {
         setGuests(adults + children)
@@ -96,10 +95,8 @@ export default function BookingBox({ id, listing, isLoading }) {
                             <Calendar
                                 initialFocus
                                 mode="range"
-                                defaultMonth={date?.from}
-                                selected={date}
-                                onSelect={setDate}
-                                numberOfMonths={2}
+                                selected={date ? date : null}
+                                onSelect={(e) => (setDate(e))}
                             />
                         </PopoverContent>
                     </Popover>
@@ -131,8 +128,7 @@ export default function BookingBox({ id, listing, isLoading }) {
                             <Calendar
                                 initialFocus
                                 mode="range"
-                                defaultMonth={date?.from}
-                                selected={date}
+                                selected={date ? date : null}
                                 onSelect={setDate}
                                 numberOfMonths={2}
                             />
@@ -198,9 +194,17 @@ export default function BookingBox({ id, listing, isLoading }) {
                     </Popover>
                 </div>
             </div>
-            <Link to={`/order/${id}/?dateFrom=${dateIn}&dateTo=${dateOut}&numOfAdults=${adults}&numOfChildren=${children}`}>
+            {date?.from ? (
+                date.to ? (
+                    <Link to={`/order/${id}/?dateFrom=${date.from}&dateTo=${date.to}&numOfAdults=${adults}&numOfChildren=${children}`}>
+                        <Button className="w-full mt-5 h-12">BOOK NOW</Button>
+                    </Link>
+                ) : (
+                    <Button className="w-full mt-5 h-12">BOOK NOW</Button>
+                )
+            ) : (
                 <Button className="w-full mt-5 h-12">BOOK NOW</Button>
-            </Link>
+            )}
         </div>
     ) : (
         <div className="rounded-2xl col-span-5 p-10 m-10 h-fit">
