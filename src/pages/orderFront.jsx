@@ -17,6 +17,7 @@ import { PopoverClose } from "@radix-ui/react-popover";
 import { useDispatch, useSelector } from "react-redux";
 import { GetListing } from "../redux/reducers/listingSlice";
 import { addDays } from "date-fns"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function OrderPage() {
     const location = useLocation();
@@ -33,16 +34,7 @@ export default function OrderPage() {
         from: new Date(dateFrom),
         to: new Date(dateTo)
     });
-    const setDATE = (selectedDate) => {
-        if (selectedDate.from >= selectedDate.to) {
-            return (
-                setDate({
-                    from: selectedDate.from,
-                    to: addDays(selectedDate.from, 1)
-                }))
-        }
-        setDate(selectedDate);
-    };
+
     const [isLoading, setIsLoading] = useState(true);
     const [days, setDays] = useState(0)
     const [guests, setGuests] = useState(1)
@@ -55,7 +47,7 @@ export default function OrderPage() {
     useEffect(() => {
         setDays(date?.from ? (date.to ? (Math.floor((date.to - date.from) / (1000 * 60 * 60 * 24))) : 0) : (0))
     }, [date])
-    
+
     function totalGuests() {
         setGuests(adults + children)
     }
@@ -91,22 +83,30 @@ export default function OrderPage() {
         }
     }, [dispatch, id]);
     return !isLoading ? (
-        <div className=" py-20 w-full max-w-7xl mx-auto">
+        <div className="py-20 w-full max-w-7xl mx-auto">
             <div className="w-1/2">
-                <div className="flex items-center justify-start p-0">
+                <div className="flex items-center justify-start px-1">
                     <Link to={`/product/${id}`}>
-                        <Button className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400" variant="ghost" >
+                        <Button className="hidden lg:block w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400 " variant="ghost" >
                             <Icon icon="solar:alt-arrow-left-outline" className="w-6 h-6" />
                         </Button>
                     </Link>
-                    <h1 className="max-w-[550px] w-full text-4xl font-medium p-1 py-6">Request to book</h1>
-                </div>
-                <div>
+                    <h1 className="max-w-[550px] w-full text-4xl font-medium p-1 lg:pl-12 pl-26">Request to book</h1>
                 </div>
             </div>
-            <div className="flex w-full">
-                <div className="max-w-full w-1/2 pt-10 flex flex-col items-center">
-                    <div className="p-0 max-w-[550px] w-full">
+            <div className="lg:flex w-full px-10">
+                <div className="w-full items-center justify-center">
+                    <div className="w-full flex items-center justify-center sticky top-10 pt-10 ">
+                        <TotalPrice
+                            listing={listing}
+                            days={days}
+                            totalPrice={totalPrice}
+                            isLoading={isLoading}
+                        />
+                    </div>
+                </div>
+                <div className="max-w-full w-full pt-10 flex flex-col items-center">
+                    <div className="max-w-full w-[90%] p-0 lg:max-w-[550px] w-full">
                         <div className="flex flex-col gap-4 p-1">
                             <h4 className="font-medium text-2xl">Your trip</h4>
                             <div className="flex justify-between items-center">
@@ -207,16 +207,16 @@ export default function OrderPage() {
                             </div>
                         </div>
                     </div>
-                    <hr className="max-w-[550px] w-full my-6 p-1" />
-                    <div className=" max-w-[550px] w-full">
+                    <hr className="max-w-full w-[90%] lg:max-w-[550px] w-full my-6 p-1" />
+                    <div className="max-w-full w-[90%] lg:max-w-[550px] w-full">
                         <PayWith />
                     </div>
-                    <hr className="max-w-[550px] w-full my-6 p-1" />
-                    <div className=" max-w-[550px] w-full">
+                    <hr className="max-w-full w-[90%] lg:max-w-[550px] w-full my-6 p-1" />
+                    <div className=" max-w-full w-[90%] lg:max-w-[550px] w-full">
                         <Contact />
                     </div>
-                    <hr className="max-w-[550px] w-full my-6 p-1" />
-                    <div className="max-w-[550px] w-full">
+                    <hr className="max-w-full w-[90%] lg:max-w-[550px] w-full my-6 p-1" />
+                    <div className="max-w-full w-[90%] lg:max-w-[550px] w-full">
                         <div className="flex flex-col gap-4 p-1">
                             <h4 className="font-medium text-2xl">Cancellation policy</h4>
                             <p><span className="font-semibold">Free cancellation before Sep 22.</span>
@@ -225,8 +225,8 @@ export default function OrderPage() {
                             </p>
                         </div>
                     </div>
-                    <hr className="max-w-[550px] w-full my-6 p-1" />
-                    <div className="max-w-[550px] w-full">
+                    <hr className="max-w-full w-[90%] lg:max-w-[550px] w-full my-6 p-1" />
+                    <div className="max-w-full w-[90%] lg:max-w-full w-[90%] lg:max-w-[550px] w-full">
                         <div className="flex gap-4 p-2">
                             <Icon className="w-16 h-16" icon="mdi:home-time-outline" />
                             <p>
@@ -234,8 +234,8 @@ export default function OrderPage() {
                             </p>
                         </div>
                     </div>
-                    <hr className="max-w-[550px] w-full my-6 p-1" />
-                    <div className="max-w-[550px] w-full">
+                    <hr className="max-w-full w-[90%] lg:max-w-[550px] w-full my-6 p-1" />
+                    <div className="max-w-full w-[90%] lg:max-w-[550px] w-full">
                         <div className="flex gap-4 p-2">
                             <p className="text-xs">
                                 By selecting the button below,
@@ -253,21 +253,97 @@ export default function OrderPage() {
                         <Button className="p-8 text-xl m-2">Request to book</Button>
                     </div>
                 </div>
-                <div className="w-1/2 justify-center">
-                    <div className="sticky top-10 pt-10">
-                        <TotalPrice
-                            listing={listing}
-                            days={days}
-                            totalPrice={totalPrice}
-                            isLoading={isLoading}
-                        />
-                    </div>
-                </div>
+
             </div>
         </div >
     ) : (
-        <div>
+        <div className=" py-20 w-full max-w-7xl mx-auto">
+            <div className="w-1/2">
+                <div className="flex items-center justify-start pl-12">
+                    <Skeleton className="w-1/2 mx-12 h-10" />
+                </div>
+            </div>
+            <div className="flex w-full">
+                <div className="w-1/2 justify-center">
+                    <div className="sticky top-10 pt-10">
+                        <div className=" max-w-full w-[100%] flex items-center justify-center rounded-2xl my-12 ml-6">
+                            <Skeleton className="max-w-[500px] w-full h-[340px]" />
+                        </div>
+                    </div>
+                </div>
+                <div className="max-w-full w-1/2 pt-10 flex flex-col justify-center items-center">
+                    <div className="p-0 max-w-[550px] w-full">
+                        <div className="flex flex-col gap-4 p-1">
+                            <Skeleton className="w-1/3 h-8" />
+                            <div className="flex justify-between items-center">
+                                <div className="w-12">
+                                </div>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                                <div className="flex justify-between items-center">
+                                    <div className="flex flex-col gap-4 ">
+                                        <Skeleton className="w-[100px] h-8" />
+                                        <Skeleton className="w-[200px] h-6" />
+                                    </div>
+                                    <div>
+                                        <Skeleton className="w-2/3 mx-12 h-8" />
+                                    </div>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <div className="flex flex-col gap-4 ">
+                                        <Skeleton className="w-[100px] h-8" />
+                                        <Skeleton className="w-[150px] h-6" />
+                                    </div>
+                                    <div>
+                                        <Skeleton className="w-2/3 mx-12 h-8" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr className=" w-full my-6 p-1" />
+                    <div className=" flex flex-col gap-4 w-full px-6 pl-3">
+                        <Skeleton className="w-1/3 h-9" />
+                        <Skeleton className="w-[95%] h-16" />
+                        <Skeleton className="w-[95%] h-[130px] rounded-xl" />
+                        <Skeleton className="w-[95%] h-16" />
 
-        </div>
+                    </div>
+                    <hr className="max-w-[550px] w-full my-6 p-1" />
+                    <div className=" w-full flex flex-col gap-4">
+                        <Skeleton className="w-1/2 h-8" />
+                        <div className="flex justify-between items-center">
+                            <div className="flex flex-col gap-4 ">
+                                <Skeleton className="w-[200px] h-8" />
+                                <Skeleton className="w-[400px] h-6" />
+                            </div>
+                            <div>
+                                <Skeleton className="w-2/3 mx-12 h-8" />
+                            </div>
+                        </div>
+                        <div className="flex justify-between items-center">
+                            <div className="flex flex-col gap-4 ">
+                                <Skeleton className="w-[200px] h-8" />
+                                <Skeleton className="w-[400px] h-6" />
+                            </div>
+                            <div>
+                                <Skeleton className="w-2/3 mx-12 h-8" />
+                            </div>
+                        </div>
+                    </div>
+                    <hr className="w-full my-6 p-1" />
+                    <div className="w-full flex flex-col gap-4">
+                        <Skeleton className="w-1/2 h-8" />
+                        <Skeleton className="w-full h-16" />
+                    </div>
+                    <hr className=" w-full my-6 p-1" />
+                    <div className="w-full flex gap-4 p-4">
+                        <Skeleton className="w-16 h-16" />
+                        <Skeleton className="w-full h-16" />
+                    </div>
+                </div>
+
+            </div>
+        </div >
     )
 }

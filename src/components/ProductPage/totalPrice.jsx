@@ -21,7 +21,7 @@ export default function TotalPrice({ listing, days, totalPrice, isLoading }) {
     console.log('image: ', listing.listing_image[0])
 
     return !isLoading ? (
-        <div className="max-w-[500px] flex flex-col gap-4 border border-inherit rounded-2xl p-6 m-10 ">
+        <div className="lg:max-w-[500px] max-w-full w-[100%] flex flex-col gap-4 lg:border border-inherit rounded-2xl lg:p-6 lg:m-10 ">
             <div className="flex gap-4">
                 <div className="">
                     <img className="h-[100px] w-[150px] rounded-2xl" src={listing.listing_image[0]} />

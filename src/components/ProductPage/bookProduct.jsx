@@ -12,8 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { PopoverClose } from "@radix-ui/react-popover";
-import { Link, useParams } from "react-router-dom"
-import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom"
 import { Skeleton } from "@/components/ui/skeleton"
 
 export default function BookingBox({ id, listing, isLoading }) {
@@ -58,7 +57,7 @@ export default function BookingBox({ id, listing, isLoading }) {
     };
 
     return !isLoading ? (
-        <div className="rounded-2xl col-span-5 p-10 m-10 shadow-xl h-fit">
+        <div className="rounded-2xl col-span-5 p-10 m-10 lg:shadow-xl h-fit">
             <div className="flex justify-between items-center p-2 h-14">
                 <h3><span className="font-semibold text-4xl">{totalPrice}</span>/  {`${days === 1 ? `${days} night` : `${days} nights`}`}</h3>
                 <div className="w-[55px] flex justify-between items-center">
@@ -92,11 +91,12 @@ export default function BookingBox({ id, listing, isLoading }) {
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0">
-                            <Calendar
+                        <Calendar
                                 initialFocus
                                 mode="range"
                                 selected={date ? date : null}
-                                onSelect={(e) => (setDate(e))}
+                                onSelect={setDate}
+                                numberOfMonths={2}
                             />
                         </PopoverContent>
                     </Popover>

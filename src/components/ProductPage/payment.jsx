@@ -45,7 +45,7 @@ export default function PayWith() {
             </Select>
             {selectedOption === 'creditCard' && (
                 <div className="flex flex-col gap-4">
-                    <div className="grid grid-cols-2">
+                    <div className="w-full grid grid-cols-2">
                         <div className="col-span-2 border border-inherit rounded-t-xl mb-[-1px]">
                             <Input className="h-16 rounded-t-xl border-none" type="number" placeholder="Card number" />
                         </div>

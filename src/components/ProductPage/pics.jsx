@@ -23,7 +23,7 @@ export default function Pictures({ listing, isLoading }) {
         );
     };
 
-    return !isLoading ? ( 
+    return !isLoading ? (
         <div className="w-full lg:gap-3 lg:h-[30rem] lg:p-10 lg:grid lg:grid-cols-12 md:grid-rows-2">
             <div className="col-span-8 row-span-2 rounded-3xl">
                 <Dialog>
@@ -97,12 +97,11 @@ export default function Pictures({ listing, isLoading }) {
             <div className="col-span-2 hidden lg:block ">
                 <Dialog>
                     <DialogTrigger asChild>
-                        <div className={`cursor-pointer flex items-center justify-center w-full h-full rounded-3xl row-span-1 relative bg-[url(${images[1]})] bg-cover bg-center bg-no-repeat`}>
+                        <div className={`cursor-pointer flex items-center justify-center w-full h-full rounded-3xl row-span-1 relative bg-cover bg-center bg-no-repeat`} style={{backgroundImage : `url(${images[3]})`}}>
                             <div className="w-full absolute inset-0 z-20 h-full rounded-3xl bg-black/70">
                             </div>
                             <p className="z-40 relative text-xl text-white ">
-                                {/* +{images.length - 3} */}
-                                Show all
+                                {images.length >= 4 ? `+ ${images.length - 3}` : "Show all"}
                             </p>
                         </div>
                     </DialogTrigger>
@@ -190,7 +189,7 @@ export default function Pictures({ listing, isLoading }) {
                                                                         </Button>
                                                                     </div>
                                                                     <span className="m-auto">
-                                                                    {currentSlide + 1}/{images.length}
+                                                                        {currentSlide + 1}/{images.length}
                                                                     </span>
                                                                 </DialogContent>
                                                             </Dialog>

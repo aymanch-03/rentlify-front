@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 export default function ProductDetails({ listing, isLoading }) {
     const category = listing.category_id
     return !isLoading ? (
-        <div className='p-10 col-span-7 h-[100vh]'>
+        <div className='p-10 col-span-7'>
             <h1 className='font-bold text-4xl'>
                 {listing.listing_name}
             </h1>

@@ -29,7 +29,7 @@ export default function ProductPage() {
 
 
   return  (
-    <div className="p-4 max-w-7xl mx-auto">
+    <div className="p-4 max-w-7xl mx-auto py-10">
       <Pictures listing={listing} isLoading={isLoading} />
       <div className="lg:grid grid-cols-12">
         <ProductDetails listing={listing} isLoading={isLoading} />
