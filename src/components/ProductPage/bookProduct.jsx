@@ -97,7 +97,8 @@ export default function BookingBox({ id, listing, isLoading }) {
                                 selected={date ? date : null}
                                 onSelect={setDate}
                                 numberOfMonths={2}
-                            />
+                                disabled={(date) =>date < new Date()}
+                                />
                         </PopoverContent>
                     </Popover>
                 </div>
@@ -131,6 +132,7 @@ export default function BookingBox({ id, listing, isLoading }) {
                                 selected={date ? date : null}
                                 onSelect={setDate}
                                 numberOfMonths={2}
+                                disabled={(date) =>date < new Date()}
                             />
                         </PopoverContent>
                     </Popover>

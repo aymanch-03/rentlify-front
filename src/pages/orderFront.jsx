@@ -140,6 +140,7 @@ export default function OrderPage() {
                                                 selected={date}
                                                 onSelect={setDate}
                                                 numberOfMonths={2}
+                                                disabled={(date) =>date < new Date()}
                                             />
                                         </PopoverContent>
                                     </Popover>
