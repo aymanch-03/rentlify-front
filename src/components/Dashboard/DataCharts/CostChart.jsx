@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import LineChart from "../LineChart";
 
-const CostChart = ({ dbData, dates }) => {
+const CostChart = ({ dbData, dates, totalProfit }) => {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -94,7 +94,7 @@ const CostChart = ({ dbData, dates }) => {
         </div>
         <div>
           <p className="text-3xl font-medium leading-10 tracking-tight text-gray-900">
-            $513.00
+            {totalProfit} MAD
           </p>
           <span className="text-xs font-medium text-green-500">+2%</span>
           <span className="text-xs font-normal leading-6 text-gray-400 pl-1">

@@ -65,7 +65,7 @@ function RegisterForm({ className, ...props }) {
 
       <form onSubmit={onSubmit}>
         <div className="grid gap-2">
-          <section className="flex gap-2">
+          <section className="flex sm:flex-row flex-col gap-2">
             <div className="flex-1">
               <Label className="text-sm font-light " htmlFor="first_name">
                 First name

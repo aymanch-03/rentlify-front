@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .custom-scrollbar {
-  --sb-track-color: #e0e0e0;
+  --sb-track-color: transparent;
   --sb-thumb-color: #5f19eb;
   --sb-size: 3px;
 
@@ -94,5 +94,28 @@ input::-webkit-inner-spin-button {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+.images-to-animate-to-up {
+  animation: sliding-img-up 30s linear infinite;
+}
+@keyframes sliding-img-up {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-936px);
+  }
+}
+.images-to-animate-to-down {
+  animation: sliding-img-down 30s linear infinite;
+}
+@keyframes sliding-img-down {
+  0% {
+    transform: translateY(-1511px);
+  }
+  100% {
+    transform: translateY(0);
   }
 }

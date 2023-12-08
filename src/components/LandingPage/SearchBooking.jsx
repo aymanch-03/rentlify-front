@@ -13,6 +13,8 @@ export default function SearchBooking() {
   const [guests, setGuests] = useState(1);
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
+  const [checkInDate, setCheckInDate] = useState();
+  const [checkOutDate, setCheckOutDate] = useState();
   const isAuth = useSelector((state) => state.authCustomer.isAuth);
   function totalGuests() {
     setGuests(adults + children);
@@ -37,6 +39,7 @@ export default function SearchBooking() {
       setChildren(children - 1);
     }
   }
+
   return (
     <section className="border-y">
       <form className="mx-auto max-w-7xl grid bg-white grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 lg:px-6 ">
@@ -61,7 +64,11 @@ export default function SearchBooking() {
               height={24}
               className="flex-shrink-0 text-primary "
             />
-            <DatePicker />
+            <DatePicker
+              date={checkInDate}
+              setDate={setCheckInDate}
+              disabled={(date) => date < new Date()}
+            />
           </div>
         </div>
         <div className="flex flex-col border-t border-r-0 sm:border-r border-gray-900/5 px-4 py-4 sm:px-6 lg:border-t-0 xl:px-8">
@@ -73,7 +80,13 @@ export default function SearchBooking() {
               height={24}
               className="flex-shrink-0 text-primary"
             />
-            <DatePicker />
+            <DatePicker
+              date={checkOutDate}
+              setDate={setCheckOutDate}
+              disabled={(date) => {
+                date < new Date(checkInDate);
+              }}
+            />
           </div>
         </div>
         <div className="flex flex-col border-t border-r-0 lg:border-r border-gray-900/5 px-4 py-4 sm:px-6 lg:border-t-0 xl:px-8">

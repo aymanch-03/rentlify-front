@@ -33,8 +33,13 @@ export const GetListing = createAsyncThunk(
 export const UpdateListing = createAsyncThunk(
   "listing/updateListing",
   async ({ id, listing }, { rejectWithValue }) => {
+    const userToken = Cookies.get("userToken");
     try {
-      const response = await axios.patch(`/listings/${id}`, listing);
+      const response = await axios.patch(`/listings/${id}`, listing, {
+        headers: {
+          "x-user-token": userToken,
+        },
+      });
       // console.log('response',response.data.listing);
       return response.data.listing;
     } catch (error) {

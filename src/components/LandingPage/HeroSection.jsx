@@ -1,3 +1,5 @@
+import CallToAction from "./CallToAction";
+import Companies from "./Companies";
 import SearchBooking from "./SearchBooking";
 
 const HeroSection = () => {
@@ -22,9 +24,12 @@ const HeroSection = () => {
   //   });
   // };
   // console.log(formData);
+
   return (
-    <div className="h-screen">
+    <div className="">
+      <CallToAction />
       <SearchBooking />
+      <Companies />
     </div>
   );
 };

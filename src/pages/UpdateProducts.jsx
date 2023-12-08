@@ -14,7 +14,7 @@ import {
 export default function Example() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const Product = useSelector((state) => state.products.product);
+  const listing = useSelector((state) => state.listings.listing);
   const categories = useSelector((state) => state.categories.data);
 
   const { id } = useParams();
@@ -30,7 +30,7 @@ export default function Example() {
   useEffect(() => {
     dispatch(GetListing(id));
     dispatch(getAllCategories());
-    setFormData(Product);
+    setFormData(listing);
   }, [dispatch]);
 
   const handleInputChange = (e) => {
@@ -49,7 +49,7 @@ export default function Example() {
       dispatch(ListListings());
 
       // Redirect or perform any other actions after a successful update
-      navigate(`/productDetails/${id}`);
+      navigate(`/office/listings/${id}`);
     } catch (error) {
       console.error("Error updating data:", error);
       // Handle error and possibly show an error message to the user
@@ -75,9 +75,9 @@ export default function Example() {
               <div className="mt-2">
                 <input
                   type="text"
-                  placeholder={Product.listing_name}
+                  placeholder={listing.listing_name}
                   name="product_name"
-                  defaultValue={Product.product_name}
+                  defaultValue={listing.product_name}
                   onChange={(e) => handleInputChange(e)}
                   className="p-4 block w-full rounded-md  border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -117,7 +117,7 @@ export default function Example() {
               </label>
               <div className="mt-2">
                 <textarea
-                  defaultValue={Product.long_description}
+                  defaultValue={listing.long_description}
                   name="long_description"
                   rows={3}
                   type="text"
@@ -138,7 +138,7 @@ export default function Example() {
                 <input
                   type="text"
                   name="short_description"
-                  defaultValue={Product.short_description}
+                  defaultValue={listing.short_description}
                   onChange={(e) => handleInputChange(e)}
                   className="p-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -155,7 +155,7 @@ export default function Example() {
               <div className="mt-2">
                 <select
                   name="active"
-                  defaultValue={Product.active}
+                  defaultValue={listing.active}
                   onChange={(e) => handleInputChange(e)}
                   className="p-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 >
@@ -176,7 +176,7 @@ export default function Example() {
                 <input
                   type="text"
                   name="price"
-                  defaultValue={Product.price}
+                  defaultValue={listing.price}
                   onChange={(e) => handleInputChange(e)}
                   className="p-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />

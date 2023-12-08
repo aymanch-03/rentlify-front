@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { getAllCategories } from "../../redux/reducers/categorySlice";
 import { ListListings } from "../../redux/reducers/listingSlice";
 import ListingSkeleton from "../ui/listingSkeleton";
@@ -11,12 +12,14 @@ const FilterContent = () => {
   const categories = useSelector((state) => state.categories.data);
   const listings = useSelector((state) => state.listings.data);
   const isLoading = useSelector((state) => state.listings.isLoading);
+  const activeListings = listings.filter((product) => product.active === true);
+
   const [priceFrom, setPriceFrom] = useState("");
   const [priceTo, setPriceTo] = useState("");
-  // const [isLoading, setIsLoading] = useState(true);
   const [numOfGuests, setNumOfGuests] = useState(1);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [filteredListings, setFilteredListings] = useState([]);
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
@@ -43,7 +46,7 @@ const FilterContent = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    const filtered = filteredListings?.filter((listing) => {
+    const filtered = activeListings.filter((listing) => {
       const matchesCategory =
         selectedCategories.length === 0 ||
         selectedCategories.includes(listing.category_id.category_name);
@@ -53,21 +56,9 @@ const FilterContent = () => {
           parseFloat(listing.price) >= parseFloat(priceFrom)) &&
         (priceTo === "" || parseFloat(listing.price) <= parseFloat(priceTo));
 
-      console.log(
-        "Listing:",
-        listing.listing_name,
-        ", Category:",
-        listing.category_id.category_name,
-        matchesCategory,
-        selectedCategories,
-        ", Matches Price:",
-        matchesPrice
-      );
-
       return matchesCategory && matchesPrice;
     });
 
-    console.log(filtered);
     setFilteredListings(filtered);
   };
 
@@ -85,18 +76,16 @@ const FilterContent = () => {
     dispatch(getAllCategories());
     dispatch(ListListings());
   }, [dispatch]);
+
   useEffect(() => {
-    const activeListings = listings.filter(
-      (product) => product.active === true
-    );
     setFilteredListings(activeListings);
-  }, [listings]);
+  }, []);
 
   // const filterValues = { priceFrom, priceTo, selectedCategories, numOfGuests };
   // console.log(filterValues);
 
   return (
-    <div className="lg:flex gap-10 overflow-hidden lg:h-[calc(100vh-100px)]">
+    <div className="lg:flex gap-10 lg:h-[calc(100vh-100px)]">
       <section className="lg:h-[calc(100vh-100px)] sticky h-auto flex flex-col lg:w-[18rem] w-full">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-semibold">Filters</h1>
@@ -191,18 +180,24 @@ const FilterContent = () => {
           </button>
         </form>
       </section>
-      <section className="overflow-y-scroll custom-scrollbar flex-1 px-1">
+      <section className="overflow-y-scroll relative custom-scrollbar flex-1 pr-1">
         <div className="w-full sticky top-0 bg-white pb-5 z-10">
           <h1 className="text-2xl font-semibold">
             {isLoading ? (
               <Skeleton className="w-32 h-8" />
+            ) : filteredListings.length === 0 ? (
+              "No results found"
             ) : (
-              `${filteredListings.length} Results`
+              `${
+                selectedCategories.length === 0
+                  ? "All"
+                  : filteredListings.length
+              } Results`
             )}{" "}
           </h1>
         </div>
 
-        <main className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 lg:my-4 lg:py-4 py-2 overflow-auto">
+        <main className="grid relative md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 lg:my-4 lg:py-4 py-2 overflow-auto">
           {isLoading ? (
             <>
               <ListingSkeleton />
@@ -213,19 +208,25 @@ const FilterContent = () => {
               <ListingSkeleton />
             </>
           ) : (
-            filteredListings.map((listing, index) => (
-              <div
+            (selectedCategories.length === 0
+              ? activeListings
+              : filteredListings
+            ).map((listing, index) => (
+              <Link
                 key={index}
+                to={`${listing._id}`}
                 className="flex flex-col rounded-lg overflow-hidden space-y-2"
               >
-                <div className="rounded-xl overflow-hidden">
+                <div className="rounded-xl overflow-hidden sm:h-[205px] h-[300px]">
                   <img
-                    src={listing.listing_image}
-                    className="object-fill"
+                    src={listing.listing_image[0]}
+                    className="object-cover w-full h-full"
                     alt={listing.listing_name}
                   />
                 </div>
-                <p className="font-semibold text-xl">{listing.listing_name}</p>
+                <p className="font-semibold text-xl capitalize">
+                  {listing.listing_name}
+                </p>
                 <h1 className="font-light text-sm flex items-center gap-2">
                   <Icon
                     icon="solar:map-point-line-duotone"
@@ -243,97 +244,9 @@ const FilterContent = () => {
                   {listing.price} MAD
                   <span className="font-light text-xs"> /night</span>
                 </h1>
-              </div>
+              </Link>
             ))
           )}
-          {/* <div className="h-[300px] flex flex-col rounded-lg overflow-hidden border space-y-2">
-            <div className="flex-1 border"></div>
-            <p className="font-semibold text-xl">Homestay</p>
-            <h1 className="font-light text-sm flex items-center gap-2">
-              <Icon icon="solar:map-point-line-duotone" className="w-4 h-4" />
-              <span>Oulfa, Casablanca</span>
-            </h1>
-            <h1 className="font-semibold text-xl">
-              320 MAD <span className="font-light text-xs">/night</span>
-            </h1>
-          </div>
-          <div className="h-[300px] flex flex-col rounded-lg overflow-hidden border space-y-2">
-            <div className="flex-1 border"></div>
-            <p className="font-semibold text-xl">Homestay</p>
-            <h1 className="font-light text-sm flex items-center gap-2">
-              <Icon icon="solar:map-point-line-duotone" className="w-4 h-4" />
-              <span>Oulfa, Casablanca</span>
-            </h1>
-            <h1 className="font-semibold text-xl">
-              320 MAD <span className="font-light text-xs">/night</span>
-            </h1>
-          </div>
-          <div className="h-[300px] flex flex-col rounded-lg overflow-hidden border space-y-2">
-            <div className="flex-1 border"></div>
-            <p className="font-semibold text-xl">Homestay</p>
-            <h1 className="font-light text-sm flex items-center gap-2">
-              <Icon icon="solar:map-point-line-duotone" className="w-4 h-4" />
-              <span>Oulfa, Casablanca</span>
-            </h1>
-            <h1 className="font-semibold text-xl">
-              320 MAD <span className="font-light text-xs">/night</span>
-            </h1>
-          </div>
-          <div className="h-[300px] flex flex-col rounded-lg overflow-hidden border space-y-2">
-            <div className="flex-1 border"></div>
-            <p className="font-semibold text-xl">Homestay</p>
-            <h1 className="font-light text-sm flex items-center gap-2">
-              <Icon icon="solar:map-point-line-duotone" className="w-4 h-4" />
-              <span>Oulfa, Casablanca</span>
-            </h1>
-            <h1 className="font-semibold text-xl">
-              320 MAD <span className="font-light text-xs">/night</span>
-            </h1>
-          </div>
-          <div className="h-[300px] flex flex-col rounded-lg overflow-hidden border space-y-2">
-            <div className="flex-1 border"></div>
-            <p className="font-semibold text-xl">Homestay</p>
-            <h1 className="font-light text-sm flex items-center gap-2">
-              <Icon icon="solar:map-point-line-duotone" className="w-4 h-4" />
-              <span>Oulfa, Casablanca</span>
-            </h1>
-            <h1 className="font-semibold text-xl">
-              320 MAD <span className="font-light text-xs">/night</span>
-            </h1>
-          </div>
-          <div className="h-[300px] flex flex-col rounded-lg overflow-hidden border space-y-2">
-            <div className="flex-1 border"></div>
-            <p className="font-semibold text-xl">Homestay</p>
-            <h1 className="font-light text-sm flex items-center gap-2">
-              <Icon icon="solar:map-point-line-duotone" className="w-4 h-4" />
-              <span>Oulfa, Casablanca</span>
-            </h1>
-            <h1 className="font-semibold text-xl">
-              320 MAD <span className="font-light text-xs">/night</span>
-            </h1>
-          </div>
-          <div className="h-[300px] flex flex-col rounded-lg overflow-hidden border space-y-2">
-            <div className="flex-1 border"></div>
-            <p className="font-semibold text-xl">Homestay</p>
-            <h1 className="font-light text-sm flex items-center gap-2">
-              <Icon icon="solar:map-point-line-duotone" className="w-4 h-4" />
-              <span>Oulfa, Casablanca</span>
-            </h1>
-            <h1 className="font-semibold text-xl">
-              320 MAD <span className="font-light text-xs">/night</span>
-            </h1>
-          </div>
-          <div className="h-[300px] flex flex-col rounded-lg overflow-hidden border space-y-2">
-            <div className="flex-1 border"></div>
-            <p className="font-semibold text-xl">Homestay</p>
-            <h1 className="font-light text-sm flex items-center gap-2">
-              <Icon icon="solar:map-point-line-duotone" className="w-4 h-4" />
-              <span>Oulfa, Casablanca</span>
-            </h1>
-            <h1 className="font-semibold text-xl">
-              320 MAD <span className="font-light text-xs">/night</span>
-            </h1>
-          </div> */}
         </main>
       </section>
     </div>

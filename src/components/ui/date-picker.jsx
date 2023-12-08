@@ -1,19 +1,17 @@
 "use client";
 
-import { addDays, format } from "date-fns";
-import { useState } from "react";
+import { format } from "date-fns";
 
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
 import { Calendar } from "./calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
-export function DatePicker() {
+export function DatePicker({ date, setDate, disabled }) {
   // const [date, setDate] = useState({
   //   from: new Date(),
   //   to: addDays(new Date(), 1),
   // });
-  const [date, setDate] = useState();
 
   return (
     <Popover>
@@ -40,6 +38,7 @@ export function DatePicker() {
           selected={date}
           onSelect={setDate}
           initialFocus
+          disabled={disabled}
         />
       </PopoverContent>
     </Popover>

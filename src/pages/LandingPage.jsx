@@ -1,11 +1,11 @@
 import HeroSection from "../components/LandingPage/HeroSection";
-import BookingBox from "../components/LandingPage/bookProduct";
+import PrimaryFeatures from "../components/LandingPage/PrimaryFeatures";
 
 const LandingPage = () => {
   return (
     <>
       <HeroSection />
-      <BookingBox />
+      <PrimaryFeatures />
     </>
   );
 };

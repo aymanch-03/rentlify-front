@@ -2,7 +2,7 @@ import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Icon } from "@iconify/react";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -66,10 +66,31 @@ export default function Navbar() {
       .map((name) => name.charAt(0).toUpperCase());
     fallbackAvatar = `${firstNameInitial}${lastNameInitial}`;
   }
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header
+      className={`${
+        isScrolled
+          ? "backdrop-saturate-[180%] backdrop-blur-[9px] bg-white/80"
+          : ""
+      } sticky top-0 z-50 bg-transparent`}
+    >
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+        className={
+          "mx-auto  flex max-w-7xl items-center justify-between p-4 lg:px-8"
+        }
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
@@ -210,11 +231,14 @@ export default function Navbar() {
             </>
           )}
           <div className="lg:hidden">
-            <Sheet>
+            <Sheet className="bg-transparent blur-0">
               <SheetTrigger className="flex">
-                <Bars3Icon className="h-6 w-6 self-center" aria-hidden="true" />
+                <Bars3Icon
+                  className="h-6 w-6 self-center bg-transparent"
+                  aria-hidden="true"
+                />
               </SheetTrigger>
-              <SheetContent className="w-full sm:w-[540px] lg:hidden fixed inset-y-0 right-0 z-50 transition-all flex flex-col justify-between overflow-y-auto bg-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+              <SheetContent className="w-full sm:w-[540px] bg-white/50 backdrop-blur-[4px] backdrop-saturate-[180%] lg:hidden fixed inset-y-0 right-0 z-50 transition-all flex flex-col justify-between overflow-y-auto sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                 <div className="p-2">
                   <div className="flex items-center justify-between">
                     <Link to="/" className="-m-1.5 p-1.5">
@@ -279,96 +303,6 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
-      {/* <Dialog
-        as="div"
-        className="lg:hidden transition-all"
-        open={mobileMenuOpen}
-        onClose={setMobileMenuOpen}
-      >
-        <div className="fixed inset-0 z-10 transition-all" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 transition-all flex w-full flex-col justify-between overflow-y-auto bg-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="p-6">
-            <div className="flex items-center justify-between">
-              <a href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">Your Company</span>
-                <img className="h-8 w-auto" src={navLogo} alt="RENTLIFY" />
-              </a>
-              <button
-                type="button"
-                className="-m-2.5 rounded-md p-2.5 text-gray-700"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <span className="sr-only">Close menu</span>
-                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-              </button>
-            </div>
-            <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="space-y-2 py-6">
-                  {products.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                    >
-                      <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                        <item.icon
-                          className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
-                <div className="space-y-2 py-6">
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Features
-                  </a>
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Marketplace
-                  </a>
-
-                  {company.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                    >
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
-                <div className="py-6">
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Log in
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="sticky bottom-0 grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50 text-center">
-            {callsToAction.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="p-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-100"
-              >
-                {item.name}
-              </a>
-            ))}
-          </div>
-        </Dialog.Panel>
-      </Dialog> */}
     </header>
   );
 }
