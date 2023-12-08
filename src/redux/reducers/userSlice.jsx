@@ -175,6 +175,7 @@ const userSlice = createSlice({
         const users = state.users.filter(
           (user) => user._id !== action.payload._id
         );
+        console.log(users);
         state.users = users;
         state.isLoading = false;
         state.error = null;
