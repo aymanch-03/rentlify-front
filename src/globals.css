@@ -30,7 +30,6 @@
 *::webkit-scrollbar {
   display: none;
 }
-<<<<<<< HEAD
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -42,12 +41,10 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-=======
 /* .image{
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5),url(src/assets/Image4.webp));
   opacity: 0.5;
 } */
->>>>>>> orderPage
 @layer base {
   :root {
     --background: 0 0% 100%;

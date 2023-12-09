@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import * as React from "react";
 import { DayPicker } from "react-day-picker";
@@ -9,23 +8,6 @@ import { cn } from "@/lib/utils";
 function Calendar({ className, classNames, showOutsideDays = true, ...props }) {
   return (
     <DayPicker
-=======
-import * as React from "react"
-import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons"
-import { DayPicker } from "react-day-picker"
-
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
-
-function Calendar({
-  className,
-  classNames,
-  showOutsideDays = true,
-  ...props
-}) {
-  return (
-    (<DayPicker
->>>>>>> orderPage
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
       classNames={{
@@ -72,7 +54,6 @@ function Calendar({
         IconLeft: ({ ...props }) => <ChevronLeftIcon className="h-4 w-4" />,
         IconRight: ({ ...props }) => <ChevronRightIcon className="h-4 w-4" />,
       }}
-<<<<<<< HEAD
       {...props}
     />
   );
@@ -80,11 +61,3 @@ function Calendar({
 Calendar.displayName = "Calendar";
 
 export { Calendar };
-=======
-      {...props} />)
-  );
-}
-Calendar.displayName = "Calendar"
-
-export { Calendar }
->>>>>>> orderPage
