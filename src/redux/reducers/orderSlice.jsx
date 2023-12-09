@@ -16,21 +16,30 @@ export const listOrders = createAsyncThunk("orders/listOrders", async () => {
   return response;
 });
 
-export const createNewOrder = createAsyncThunk("orders/createNewOrder", async (order, { rejectWithValue }) => {
-  try {
-    console.log("Order: ", order);
-    const response = await axios.post(`orders`, order);
-    console.log("response: ", response.data);
-    return response.data.data;
-  } catch (error) {
-    rejectWithValue(error.response.data);
+export const createNewOrder = createAsyncThunk(
+  "orders/createNewOrder",
+  async (order, { rejectWithValue }) => {
+    try {
+      console.log("Order: ", order);
+      let clientToken = Cookies.get("clientToken");
+      const response = await axios.post(`orders`, order, {
+        headers: {
+          "x-client-token": clientToken,
+        },
+      });
+      console.log("response: ", response.data);
+      return response.data.data;
+    } catch (error) {
+      rejectWithValue(error.response.data);
+    }
   }
-})
+);
 
 const orderSlice = createSlice({
   name: "orders",
   initialState: {
     data: [],
+    order: {},
     isLoading: false,
   },
   //   reducers: {},
@@ -57,13 +66,13 @@ const orderSlice = createSlice({
       .addCase(createNewOrder.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.isLoading = false;
-        state.data = action.payload;
+        state.order = action.payload;
       })
       .addCase(createNewOrder.rejected, (state, action) => {
         state.status = "failed";
         state.isLoading = false;
         console.log(action.error.message);
-      })
+      });
     // eslint-disable-next-line no-unused-vars
   },
 });

@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-=======
 
->>>>>>> orderPage
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { DayPicker } from "react-day-picker";
 
@@ -66,7 +63,3 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }) {
 Calendar.displayName = "Calendar";
 
 export { Calendar };
-<<<<<<< HEAD
-=======
-
->>>>>>> orderPage

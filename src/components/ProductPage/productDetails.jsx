@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Icon } from "@iconify/react";
 // eslint-disable-next-line no-unused-vars
-import { Skeleton } from "@/components/ui/skeleton";
 import { useDispatch } from "react-redux";
 
 export default function ProductDetails({ listing, isLoading }) {
@@ -13,9 +13,9 @@ export default function ProductDetails({ listing, isLoading }) {
       <h5 className="text-lg flex items-center capitalize p-1">
         <Icon icon="ep:location" />
         <span className="p-2">
-          {listing.city}
+          {listing.province.charAt(0).toUpperCase() + listing.province.slice(1)}
           {", "}
-          {listing.province}
+          {listing.city.charAt(0).toUpperCase() + listing.city.slice(1)}
         </span>
       </h5>
       <div className="lg:grid-cols-4 p-1 grid lg:flex sm:grid-cols-2 gap-5 md:grid-cols-3">
