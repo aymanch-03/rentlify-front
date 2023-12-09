@@ -3,6 +3,7 @@
 // import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { useNavigate, useParams } from "react-router-dom";
 import { getAllCategories } from "../redux/reducers/categorySlice";
 import {
@@ -28,6 +29,7 @@ export default function Example() {
   });
 
   useEffect(() => {
+
     dispatch(GetListing(id));
     dispatch(getAllCategories());
     setFormData(listing);

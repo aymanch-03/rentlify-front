@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Contact() {
     return (
-        <div className="p-0 max-w-[550px] w-full">
+        <div className="p-0 w-full">
             <div className="flex flex-col gap-4 p-1">
 
             <h1 className="text-2xl font-medium p-0">Required for your trip</h1>

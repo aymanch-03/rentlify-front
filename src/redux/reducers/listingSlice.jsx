@@ -11,7 +11,6 @@ export const ListListings = createAsyncThunk(
       withCredentials: true,
     });
     const response = await request.data;
-
     localStorage.setItem("Listings", JSON.stringify(response));
     // console.log(response);
     return response.data;
@@ -22,7 +21,7 @@ export const GetListing = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await axios.get(`/listings/${id}`);
-      // console.log("aaaa",response);
+      // console.log("aaaa", response);
       return response.data;
     } catch (error) {
       rejectWithValue(error.response.data);
@@ -109,7 +108,7 @@ const listingsSlice = createSlice({
       .addCase(AddListing.fulfilled, (state, action) => {
         state.data = [...state.data, action.payload];
         state.isLoading = false;
-        console.log("Success", action.payload);
+        // console.log("Success", action.payload);
       })
       .addCase(AddListing.rejected, (state, action) => {
         state.status = "rejected";
@@ -122,7 +121,7 @@ const listingsSlice = createSlice({
       .addCase(GetListing.fulfilled, (state, action) => {
         state.listing = action.payload;
         state.isLoading = false;
-        console.log("Success", action.payload);
+        // console.log("Success", action.payload);
       })
       .addCase(GetListing.rejected, (state, action) => {
         state.status = "rejected";

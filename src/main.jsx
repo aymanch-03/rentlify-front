@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <PersistGate loading={null} persistor={persistor}>
         <CookiesProvider>
           <Router>
-            <App />
+            <App/>
           </Router>
         </CookiesProvider>
       </PersistGate>

@@ -16,9 +16,7 @@ export const ListUsers = createAsyncThunk("user/getUsers", async () => {
   }
 });
 
-export const getUser = createAsyncThunk(
-  "user/getUser",
-  async (id, { rejectWithValue }) => {
+export const getUser = createAsyncThunk("user/getUser",async (id, { rejectWithValue }) => {
     try {
       userToken = Cookies.get("userToken");
       const response = await axios.get(`http://localhost:5000/v1/users/${id}`, {
@@ -33,15 +31,10 @@ export const getUser = createAsyncThunk(
   }
 );
 
-export const addUser = createAsyncThunk(
-  "user/addUser",
-  async (user, { rejectWithValue }) => {
+export const addUser = createAsyncThunk("user/addUser",async (user, { rejectWithValue }) => {
     try {
       userToken = Cookies.get("userToken");
-      const response = await axios.post(
-        "http://localhost:5000/v1/users",
-        user,
-        {
+      const response = await axios.post("http://localhost:5000/v1/users",user,{
           headers: {
             "x-user-token": userToken,
           },
@@ -54,9 +47,7 @@ export const addUser = createAsyncThunk(
   }
 );
 
-export const updateUser = createAsyncThunk(
-  "user/updateUser",
-  async ({ id, newUserData }, { rejectWithValue }) => {
+export const updateUser = createAsyncThunk("user/updateUser",async ({ id, newUserData }, { rejectWithValue }) => {
     try {
       userToken = Cookies.get("userToken");
       const response = await axios.put(`/users/${id}`, newUserData, {
@@ -71,9 +62,7 @@ export const updateUser = createAsyncThunk(
   }
 );
 
-export const deleteUser = createAsyncThunk(
-  "user/deleteUser",
-  async (id, { rejectWithValue }) => {
+export const deleteUser = createAsyncThunk("user/deleteUser",async (id, { rejectWithValue }) => {
     try {
       userToken = Cookies.get("userToken");
       const response = await axios.delete(`/users/${id}`, {

@@ -3,6 +3,7 @@
 // import { StarIcon } from '@heroicons/react/20/solid';
 // import { RadioGroup } from '@headlessui/react';
 import { useEffect } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { GetListing } from "../redux/reducers/listingSlice";
@@ -15,6 +16,7 @@ export default function ListingPage() {
   const dispatch = useDispatch();
   const { id } = useParams();
   useEffect(() => {
+
     dispatch(GetListing(id));
   }, [dispatch, id]);
   const listing = useSelector((state) => state.listings.listing);

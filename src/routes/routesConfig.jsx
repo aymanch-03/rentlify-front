@@ -7,7 +7,7 @@ import MainRoutes from "./MainRoutes";
 
 function Routers() {
   return (
-    <div className="App">
+    <div className="App w-full absolute">
       <Routes>
         <Route path="/auth/login" element={<AuthenticationPage />} />
         <Route path="/office/*" element={<DashboardRoutes />} />

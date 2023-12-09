@@ -8,42 +8,30 @@ import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-} from "../ui/popover";
+} from "@/components/ui/popover"
 import { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { PopoverClose } from "@radix-ui/react-popover";
-import { Link, useParams } from "react-router-dom"
-import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom"
+import { Skeleton } from "@/components/ui/skeleton"
 
-const product = {
-    _id: "655b1612007341e440355459",
-    sku: "148803",
-    product_image: "https://res.cloudinary.com/rentlify/image/upload/v1700468241/products/ww9lewgvrmba0kyuehhs.webp",
-    product_name: "dragon t- shirt",
-    subcategory_id: "6531359e36f67c30f3ff60fc",
-    short_description: "dragon t - shirt  zakaria description",
-    long_description: "tghchthgbchtgbghtgdbdhtdgbc",
-    price: 24.99,
-    discount_price: 0,
-    active: false,
-    __v: 0,
-}
-
-export default function BookingBox() {
-    const { id } = useParams();
-    const dispatch = useDispatch();
+export default function BookingBox({ id, listing, isLoading }) {
+    const product = listing;
     const [date, setDate] = useState({
         from: new Date(),
         to: addDays(new Date(), 1)
     })
+
     const [days, setDays] = useState(0)
     const [guests, setGuests] = useState(1)
     const [adults, setAdults] = useState(1)
     const [children, setChildren] = useState(0)
     const totalPrice = (product.price * days).toFixed(2);
+
     useEffect(() => {
-        setDays(Math.floor((date.to - date.from) / (1000 * 60 * 60 * 24)))
+        setDays(date?.from ? (date.to ? (Math.floor((date.to - date.from) / (1000 * 60 * 60 * 24))) : 0) : (0))
     }, [date])
+
     function totalGuests() {
         setGuests(adults + children)
     }
@@ -68,9 +56,9 @@ export default function BookingBox() {
         }
     };
 
-    return (
-        <div className="rounded-2xl col-span-5 p-10 m-10 shadow-xl">
-            <div className="flex justify-between items-center p-2">
+    return !isLoading ? (
+        <div className="rounded-2xl col-span-5 p-10 m-10 lg:shadow-xl h-fit">
+            <div className="flex justify-between items-center p-2 h-14">
                 <h3><span className="font-semibold text-4xl">{totalPrice}</span>/  {`${days === 1 ? `${days} night` : `${days} nights`}`}</h3>
                 <div className="w-[55px] flex justify-between items-center">
                     <Icon className="w-5 h-5" icon="ph:star" />
@@ -92,13 +80,9 @@ export default function BookingBox() {
                                     <h2 className="font-semibold text-lg ">CHECK-IN</h2>
                                     <span>
                                         {date?.from ? (
-                                            date.to ? (
-                                                <>
-                                                    {format(date.from, "LLL dd, y")}
-                                                </>
-                                            ) : (
-                                                format(date.from, "LLL dd, y")
-                                            )
+
+                                            format(date.from, "LLL dd, y")
+
                                         ) : (
                                             <span>Pick a date</span>
                                         )}
@@ -107,14 +91,14 @@ export default function BookingBox() {
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0">
-                            <Calendar
+                        <Calendar
                                 initialFocus
                                 mode="range"
-                                defaultMonth={date?.from}
-                                selected={date}
+                                selected={date ? date : null}
                                 onSelect={setDate}
                                 numberOfMonths={2}
-                            />
+                                disabled={(date) =>date < new Date()}
+                                />
                         </PopoverContent>
                     </Popover>
                 </div>
@@ -132,14 +116,8 @@ export default function BookingBox() {
 
                                     <h2 className="font-semibold text-lg">CHECKOUT</h2>
                                     <span>
-                                        {date?.from ? (
-                                            date.to ? (
-                                                <>
-                                                    {format(date.to, "LLL dd, y")}
-                                                </>
-                                            ) : (
-                                                format(date.from, "LLL dd, y")
-                                            )
+                                        {date?.to ? (
+                                            format(date.to, "LLL dd, y")
                                         ) : (
                                             <span>Pick a date</span>
                                         )}
@@ -151,10 +129,10 @@ export default function BookingBox() {
                             <Calendar
                                 initialFocus
                                 mode="range"
-                                defaultMonth={date?.from}
-                                selected={date}
+                                selected={date ? date : null}
                                 onSelect={setDate}
                                 numberOfMonths={2}
+                                disabled={(date) =>date < new Date()}
                             />
                         </PopoverContent>
                     </Popover>
@@ -218,10 +196,31 @@ export default function BookingBox() {
                     </Popover>
                 </div>
             </div>
-            <Link to={`/order/${id}`}>
-                <Button className="w-full mt-5">BOOK NOW</Button>
-            </Link>
+            {date?.from ? (
+                date.to ? (
+                    <Link to={`/order/${id}/?dateFrom=${date.from}&dateTo=${date.to}&numOfAdults=${adults}&numOfChildren=${children}`}>
+                        <Button className="w-full mt-5 h-12">BOOK NOW</Button>
+                    </Link>
+                ) : (
+                    <Button className="w-full mt-5 h-12">BOOK NOW</Button>
+                )
+            ) : (
+                <Button className="w-full mt-5 h-12">BOOK NOW</Button>
+            )}
         </div>
-    )
+    ) : (
+        <div className="rounded-2xl col-span-5 p-10 m-10 h-fit">
+            <div className="h-14 flex justify-between items-center p-2">
+                <Skeleton className="w-[200px] h-full m-0" />
+                <Skeleton className="w-[55px] h-full m-0" />
+            </div>
+            <div className=" w-full mt-5">
+                <Skeleton className="w-full h-[160px]" />
+            </div>
+            <div className=" w-full mt-5">
+                <Skeleton className="w-full h-12" />
+            </div>
+        </div>
+    );
 
 }

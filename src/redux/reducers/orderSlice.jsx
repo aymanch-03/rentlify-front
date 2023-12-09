@@ -16,6 +16,17 @@ export const listOrders = createAsyncThunk("orders/listOrders", async () => {
   return response;
 });
 
+export const createNewOrder = createAsyncThunk("orders/createNewOrder", async (order, { rejectWithValue }) => {
+  try {
+    console.log("Order: ", order);
+    const response = await axios.post(`orders`, order);
+    console.log("response: ", response.data);
+    return response.data.data;
+  } catch (error) {
+    rejectWithValue(error.response.data);
+  }
+})
+
 const orderSlice = createSlice({
   name: "orders",
   initialState: {
@@ -38,7 +49,21 @@ const orderSlice = createSlice({
         state.status = "failed";
         state.isLoading = false;
         console.log(action.error.message);
-      });
+      })
+      .addCase(createNewOrder.pending, (state, action) => {
+        state.status = "pending";
+        state.isLoading = true;
+      })
+      .addCase(createNewOrder.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.isLoading = false;
+        state.data = action.payload;
+      })
+      .addCase(createNewOrder.rejected, (state, action) => {
+        state.status = "failed";
+        state.isLoading = false;
+        console.log(action.error.message);
+      })
     // eslint-disable-next-line no-unused-vars
   },
 });
