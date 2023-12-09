@@ -101,19 +101,22 @@ export default function Navbar() {
         </div>
 
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
-          <Link to="" className="text-sm font-medium leading-6 text-gray-900">
+          <Link to="/" className="text-sm font-medium leading-6 text-gray-900">
             Home
           </Link>
-          <Link to="" className="text-sm font-medium leading-6 text-gray-900">
+          <Link
+            to="/discover"
+            className="text-sm font-medium leading-6 text-gray-900"
+          >
             Discover
           </Link>
 
-          <Link to="" className="text-sm font-medium leading-6 text-gray-900">
+          <a
+            href="#features"
+            className="text-sm font-medium leading-6 text-gray-900"
+          >
             Features
-          </Link>
-          <Link to="" className="text-sm font-medium leading-6 text-gray-900">
-            Marketplace
-          </Link>
+          </a>
 
           <Popover className="relative">
             <Popover.Button className="flex items-center gap-x-1 text-sm font-medium outline-none leading-6 text-gray-900">

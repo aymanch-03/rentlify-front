@@ -30,6 +30,9 @@
 *::webkit-scrollbar {
   display: none;
 }
+body {
+  scroll-behavior: smooth;
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -40,6 +43,9 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+#features {
+  scroll-padding-top: 30px;
 }
 /* .image{
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5),url(src/assets/Image4.webp));

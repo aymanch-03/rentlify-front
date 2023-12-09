@@ -255,7 +255,7 @@ function FeaturesDesktop() {
 const PrimaryFeatures = () => {
   return (
     <section
-      id="secondary-features"
+      id="features"
       aria-label="Features for simplifying everyday business tasks"
       className="relative h-screen md:py-16 md:px-8 px-4 py-8"
     >
