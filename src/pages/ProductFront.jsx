@@ -11,8 +11,6 @@ export default function ProductPage() {
   const listing = useSelector((state) => state.listings.listing);
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
-  console.log("listing a product: ", listing);
-  console.error("id: ", id);
 
   const dispatch = useDispatch();
   useEffect(() => {

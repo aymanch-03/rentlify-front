@@ -10,12 +10,12 @@ const DashboardRoutes = () => {
   return (
     <MainLayout>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/product/:id" element={<ProductPage />} />
-        <Route path="/order/:id" element={<OrderPage />} />
-        {/* <Route element={<RequireCustomerAuth />}>
+        <Route element={<RequireCustomerAuth />}>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/order/:id" element={<OrderPage />} />
           <Route path="/discover" element={<FilterPage />} />
-        </Route> */}
+        </Route>
 
       </Routes>
     </MainLayout>

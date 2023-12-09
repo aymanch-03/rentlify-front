@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetListing } from "../redux/reducers/listingSlice";
 import { addDays } from "date-fns"
 import { Skeleton } from "@/components/ui/skeleton"
+import RequestToBook from "../components/ProductPage/RequestToBook";
 
 export default function OrderPage() {
     const location = useLocation();
@@ -43,6 +44,8 @@ export default function OrderPage() {
     const dispatch = useDispatch();
     const listing = useSelector((state) => state.listings.listing);
     const totalPrice = (listing.price * days).toFixed(2);
+    const serviceFees = (totalPrice * 0.1).toFixed(2);
+    const totalWithFees = (totalPrice - (-serviceFees)).toFixed(2);
 
     useEffect(() => {
         setDays(date?.from ? (date.to ? (Math.floor((date.to - date.from) / (1000 * 60 * 60 * 24))) : 0) : (0))
@@ -83,20 +86,20 @@ export default function OrderPage() {
         }
     }, [dispatch, id]);
     return !isLoading ? (
-        <div className="py-20 w-full max-w-7xl mx-auto">
-            <div className="w-1/2">
-                <div className="flex items-center justify-start px-1">
+        <div className="py-10 w-full max-w-7xl mx-auto">
+            <div className="w-full">
+                <div className="w-full flex items-center justify-start pl-6">
                     <Link to={`/product/${id}`}>
                         <Button className="hidden lg:block w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400 " variant="ghost" >
                             <Icon icon="solar:alt-arrow-left-outline" className="w-6 h-6" />
                         </Button>
                     </Link>
-                    <h1 className="max-w-[550px] w-full text-4xl font-medium p-1 lg:pl-12 pl-26">Request to book</h1>
+                    <h1 className="w-full text-4xl font-medium p-1 pl-8">Request to book</h1>
                 </div>
             </div>
             <div className="lg:flex w-full px-10">
                 <div className="w-full items-center justify-center">
-                    <div className="w-full flex items-center justify-center sticky top-10 pt-10 ">
+                    <div className="w-full flex items-center justify-center sticky top-10 pt-10">
                         <TotalPrice
                             listing={listing}
                             days={days}
@@ -105,9 +108,9 @@ export default function OrderPage() {
                         />
                     </div>
                 </div>
-                <div className="max-w-full w-full pt-10 flex flex-col items-center">
-                    <div className="max-w-full w-[90%] p-0 lg:max-w-[550px] w-full">
-                        <div className="flex flex-col gap-4 p-1">
+                <div className="max-w-full w-full flex flex-col items-center">
+                    <div className="max-w-full w-[90%] p-0 lg:max-w-[550px] w-full pt-10">
+                        <div className="flex flex-col gap-4 p-1  mt-10">
                             <h4 className="font-medium text-2xl">Your trip</h4>
                             <div className="flex justify-between items-center">
                                 <div className="flex flex-col gap-4 ">
@@ -140,7 +143,7 @@ export default function OrderPage() {
                                                 selected={date}
                                                 onSelect={setDate}
                                                 numberOfMonths={2}
-                                                disabled={(date) =>date < new Date()}
+                                                disabled={(date) => date < new Date()}
                                             />
                                         </PopoverContent>
                                     </Popover>
@@ -148,7 +151,7 @@ export default function OrderPage() {
                             </div>
                             <div>
                                 <div className="flex justify-between items-center">
-                                    <div className="flex flex-col gap-4 ">
+                                    <div className="flex flex-col gap-4">
                                         <h5 className="font-medium text-xl">Guests</h5>
                                         <p>{`${adults === 1 ? `${adults} adult` : `${adults} adults`}`},{" "}
                                             {`${children <= 1 ? `${children} child` : `${children} children`}`}</p>
@@ -235,7 +238,7 @@ export default function OrderPage() {
                             </p>
                         </div>
                     </div>
-                    <hr className="max-w-full w-[90%] lg:max-w-[550px] w-full my-6 p-1" />
+                    <hr className="max-w-full w-[90%] lg:max-w-[550px] w-full my-6 p-1"/>
                     <div className="max-w-full w-[90%] lg:max-w-[550px] w-full">
                         <div className="flex gap-4 p-2">
                             <p className="text-xs">
@@ -251,7 +254,14 @@ export default function OrderPage() {
                                 You won’t be charged until then.
                             </p>
                         </div>
-                        <Button className="p-8 text-xl m-2">Request to book</Button>
+                        <RequestToBook
+                            listing={listing}
+                            totalPrice={totalPrice}
+                            totalWithFees={totalWithFees}
+                            dateFrom={date.from}
+                            dateTo = {date.to}
+                            days={days}
+                        />
                     </div>
                 </div>
 
@@ -266,7 +276,7 @@ export default function OrderPage() {
             </div>
             <div className="flex w-full">
                 <div className="w-1/2 justify-center">
-                    <div className="sticky top-10 pt-10">
+                    <div className="sticky top-10">
                         <div className=" max-w-full w-[100%] flex items-center justify-center rounded-2xl my-12 ml-6">
                             <Skeleton className="max-w-[500px] w-full h-[340px]" />
                         </div>

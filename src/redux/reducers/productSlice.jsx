@@ -2,10 +2,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../axios";
 // import { useParams } from "react-router-dom";
-export const ListProducts = createAsyncThunk(
-  "Product/ListProducts",
-  async (products) => {
-    const request = await axios.get("/listings", products, {
+export const ListProducts = createAsyncThunk("Product/ListProducts",async (products) => {
+  const request = await axios.get("/listings", products, {
       withCredentials: true,
     });
     const response = await request.data;
@@ -18,7 +16,7 @@ export const ListProducts = createAsyncThunk(
 export const getProducts = createAsyncThunk("Product/getProducts", async (id, { rejectWithValue }) => {
   try {
     const response = await axios.get(`/listings/${id}`);
-    console.log("response: ",response);
+    // console.log("response: ",response);
     return response.data;
   } catch (error) {
     rejectWithValue(error.response.data);
@@ -37,9 +35,7 @@ export const UpdateProduct = createAsyncThunk(
     }
   }
 );
-export const AddProduct = createAsyncThunk(
-  "Product/AddProduct",
-  async (data, { rejectWithValue }) => {
+export const AddProduct = createAsyncThunk("Product/AddProduct",async (data, { rejectWithValue }) => {
     try {
       const response = await axios.post("/listings", data);
       // console.log('rrrr',response.data);
@@ -49,9 +45,8 @@ export const AddProduct = createAsyncThunk(
     }
   }
 );
-// export const deleteProduct = createAsyncThunk(
-//   "product/deleteProduct",
-//   async (id, { rejectWithValue }) => {
+
+// export const deleteProduct = createAsyncThunk("product/deleteProduct",async (id, { rejectWithValue }) => {
 //     try {
 //       const response = await axios.delete(`/products/${id}`);
 //       console.log("Deleted product: ", response);
@@ -79,19 +74,19 @@ const productsSlice = createSlice({
       })
       .addCase(ListProducts.rejected, (state, action) => {
         state.status = "rejected";
-        console.log(action.payload);
+        // console.log(action.payload);
       })
       .addCase(AddProduct.fulfilled, (state, action) => {
         state.products = [...state.products, action.payload];
-        console.log("Success", action.payload);
+        // console.log("Success", action.payload);
       })
       .addCase(AddProduct.rejected, (state, action) => {
         state.status = "rejected";
-        console.log("error", action.payload);
+        // console.log("error", action.payload);
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.product = action.payload;
-        console.log("Success", action.payload);
+        // console.log("Success", action.payload);
       })
       .addCase(getProducts.rejected, (state, action) => {
         state.status = "rejected";
