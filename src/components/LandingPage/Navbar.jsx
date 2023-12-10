@@ -206,7 +206,7 @@ export default function Navbar() {
                   <DropdownMenuItem className="cursor-pointer ">
                     <Link
                       to="/hosting"
-                      className="flex items-center justify-between"
+                      className="flex items-center justify-between w-full"
                     >
                       <span className="font-semibold">Host Mode</span>
                       <Icon icon="tabler:switch-3" className="w-4 h-4" />

@@ -12,7 +12,7 @@ const ListingItem = ({ listing }) => {
 
   return (
     <Link
-      to={`/hosting/listing/${listing._id}`}
+      to={`/discover/listings/${listing._id}`}
       key={listing.sku}
       className="grid grid-cols-6 place-items-center overflow-hidden text-sm p-2 rounded-md cursor-pointer hover:bg-muted"
     >
@@ -23,8 +23,12 @@ const ListingItem = ({ listing }) => {
           className="rounded-md object-cover aspect-square w-[70px]"
         />
         <div className="flex flex-col h-full justify-between">
-          <p>{listing.listing_name}</p>
-          <p className="truncate max-w-[300px] ">{listing.short_description}</p>
+          <p className="font-medium text-lg first-letter:capitalize">
+            {listing.listing_name}
+          </p>
+          <p className="truncate max-w-[275px] font-light text-sm first-letter:capitalize">
+            {listing.short_description}
+          </p>
         </div>
       </div>
       <div>
@@ -75,9 +79,9 @@ const AuthListings = ({ customer, listings }) => {
   );
 
   return (
-    <div className="my-12">
+    <div className="my-12 overflow-hidden">
       <Tabs defaultValue="listings" className="w-full">
-        <TabsList className="gap-5 bg-transparent">
+        <TabsList className="gap-2 w-full md:gap-5 bg-transparent justify-start overflow-x-auto overflow-y-hidden listings-overflow">
           <TabsTrigger
             value="listings"
             className="font-normal hover:border-violet-300 text-black"
@@ -97,18 +101,27 @@ const AuthListings = ({ customer, listings }) => {
             Available Listings ({availableListings.length})
           </TabsTrigger>
         </TabsList>
-        <section className="w-full  border my-5 rounded-md p-2.5">
-          <TabsContent value="listings" className="m-0 flex flex-col gap-3">
+        <section className="w-full  border my-5 rounded-md p-2.5 overflow-x-auto listings-overflow">
+          <TabsContent
+            value="listings"
+            className="m-0 flex flex-col gap-3 min-w-[750px]"
+          >
             {customerListings.map((listing) => (
               <ListingItem key={listing.sku} listing={listing} />
             ))}
           </TabsContent>
-          <TabsContent value="active" className="m-0 flex flex-col gap-3">
+          <TabsContent
+            value="active"
+            className="m-0 flex flex-col gap-3 min-w-[750px]"
+          >
             {activeListings.map((listing) => (
               <ListingItem key={listing.sku} listing={listing} />
             ))}
           </TabsContent>
-          <TabsContent value="available" className="m-0 flex flex-col gap-3">
+          <TabsContent
+            value="available"
+            className="m-0 flex flex-col gap-3 min-w-[750px]"
+          >
             {availableListings.map((listing) => (
               <ListingItem key={listing.sku} listing={listing} />
             ))}
