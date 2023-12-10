@@ -29,7 +29,6 @@ export default function Example() {
   });
 
   useEffect(() => {
-
     dispatch(GetListing(id));
     dispatch(getAllCategories());
     setFormData(listing);

@@ -12,27 +12,30 @@ import {
 import { Button } from "@/components/ui/button";
 import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCategory } from "../../redux/reducers/categorySlice";
+import { DeleteListing } from "../../redux/reducers/listingSlice";
 import { useToast } from "../ui/use-toast";
 
-export default function DeleteCategory({ id }) {
+export default function RemoveListing({ id, listing }) {
   const dispatch = useDispatch();
-  const authUser = useSelector((state) => state.auth.user);
+  const authCustomer = useSelector((state) => state.authCustomer.customer);
   const { toast } = useToast();
   // eslint-disable-next-line no-unused-vars
   const [cookie, setCookie, removeCookie] = useCookies();
 
   const handleSubmit = async (id) => {
     try {
-      if (id === authUser._id) {
-        removeCookie("token");
+      if (authCustomer._id !== listing.listing_owner._id) {
+        return toast({
+          variant: "destructive",
+          description: "You are not allowed to delete this listing",
+        });
       }
-      const result = await dispatch(deleteCategory(id));
+      const result = await dispatch(DeleteListing(id));
       if (result.payload._id) {
         return setTimeout(() => {
           toast({
             variant: "success",
-            description: "category deleted successfully",
+            description: "Listing deleted successfully",
           });
         }, 800);
       } else {
@@ -74,10 +77,10 @@ export default function DeleteCategory({ id }) {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete User</AlertDialogTitle>
+          <AlertDialogTitle>Delete Listing</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete the
-            category with the ID:&quot;{id}&quot; and remove the data from our
+            listing with the ID:&quot;{id}&quot; and remove the data from our
             servers.
           </AlertDialogDescription>
         </AlertDialogHeader>

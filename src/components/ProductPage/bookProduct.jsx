@@ -62,16 +62,12 @@ export default function BookingBox({ id, listing, isLoading }) {
   }
 
   return !isLoading ? (
-    <div className="rounded-2xl col-span-5 p-4 m-10 lg:shadow-xl h-fit">
+    <div className="rounded-2xl col-span-5 p-4 border shadow-md h-fit my-5">
       <div className="flex justify-between items-center p-2 h-14">
         <h3>
-          <span className="font-semibold text-4xl">{totalPrice}</span>/{" "}
+          <span className="font-medium text-3xl">{totalPrice} MAD</span>/{" "}
           {`${days === 1 ? `${days} night` : `${days} nights`}`}
         </h3>
-        <div className="w-[55px] flex justify-between items-center">
-          <Icon className="w-5 h-5" icon="ph:star" />
-          <p className="font-medium pt-1">4.95</p>
-        </div>
       </div>
       <div className="grid grid-cols-2 mt-5">
         <div className="h-[80px] flex flex-col items-center ml-[-1px] border border-inherit rounded-tl-2xl">

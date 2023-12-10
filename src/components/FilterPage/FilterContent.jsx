@@ -224,9 +224,7 @@ const FilterContent = () => {
                     alt={listing.listing_name}
                   />
                 </div>
-                <p className="font-semibold text-xl capitalize">
-                  {listing.listing_name}
-                </p>
+
                 <h1 className="font-light text-sm flex items-center gap-2">
                   <Icon
                     icon="solar:map-point-line-duotone"

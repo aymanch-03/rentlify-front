@@ -50,10 +50,10 @@ export const AddListing = createAsyncThunk(
   "Listing/AddListing",
   async (data, { rejectWithValue }) => {
     try {
-      const userToken = Cookies.get("userToken");
+      const clientToken = Cookies.get("clientToken");
       const response = await axios.post("/listings", data, {
         headers: {
-          "x-user-token": userToken,
+          "x-client-token": clientToken,
         },
       });
       // console.log('rrrr',response.data);
@@ -64,18 +64,18 @@ export const AddListing = createAsyncThunk(
   }
 );
 
-// export const deleteListing = createAsyncThunk(
-//   "listing/deleteListing",
-//   async (id, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.delete(`/listings/${id}`);
-//       console.log("Deleted listing: ", response);
-//       return response.data.data;
-//     } catch (error) {
-//       rejectWithValue(error.response.data);
-//     }
-//   }
-// );
+export const DeleteListing = createAsyncThunk(
+  "listing/deleteListing",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`/listings/${id}`);
+      console.log("Deleted listing: ", response);
+      return response.data.data;
+    } catch (error) {
+      rejectWithValue(error.response.data);
+    }
+  }
+);
 
 const listingsSlice = createSlice({
   name: "listings",
@@ -150,6 +150,24 @@ const listingsSlice = createSlice({
         state.status = "rejected";
         state.isLoading = false;
         console.error("Error fetching listings:", action.error.message);
+      })
+      .addCase(DeleteListing.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(DeleteListing.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(DeleteListing.fulfilled, (state, action) => {
+        const data = state.data.filter(
+          (data) => data._id !== action.payload._id
+        );
+        console.log(data);
+        state.data = data;
+        console.log(state.data);
+        state.isLoading = false;
+        state.error = null;
       });
   },
 });

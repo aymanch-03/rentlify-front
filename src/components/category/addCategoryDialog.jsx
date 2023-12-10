@@ -6,7 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { UserPlus } from "lucide-react";
+import { Icon } from "@iconify/react";
 import CategoryForm from "../category/categoryForm";
 
 export default function CategoryDialog() {
@@ -14,7 +14,7 @@ export default function CategoryDialog() {
     <Dialog>
       <DialogTrigger asChild>
         <Button className="p-4" variant="outline">
-          <UserPlus className="w-4 mr-2" />
+          <Icon icon="solar:widget-add-line-duotone" className="w-4 h-4 mr-2" />
           Add Category
         </Button>
       </DialogTrigger>

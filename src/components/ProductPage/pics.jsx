@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -20,7 +21,7 @@ export default function Pictures({ listing, isLoading }) {
   };
 
   return !isLoading ? (
-    <div className="w-full lg:gap-3 lg:h-[30rem] lg:p-4 lg:grid lg:grid-cols-12 md:grid-rows-2">
+    <div className="w-full lg:gap-3 lg:h-[25rem] lg:grid lg:grid-cols-12 md:grid-rows-2">
       <div className="col-span-8 row-span-2 rounded-3xl">
         <Dialog>
           <DialogTrigger asChild>

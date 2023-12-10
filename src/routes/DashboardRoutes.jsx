@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import RequireAuth from "../components/RequireAuth";
 import UserProfile from "../components/Users/userProfile";
 import OfficeLayout from "../layouts/OfficeLayout";
-import AddProduct from "../pages/AddProduct";
+import AddListing from "../pages/AddListing";
 import CategoriesPage from "../pages/Categories";
 import CustomerDetails from "../pages/CustomerDetails";
 import Customers from "../pages/Customers";
@@ -35,7 +35,15 @@ const DashboardRoutes = () => {
             path="/listings/update-listing/:id"
             element={<UpdateProducts />}
           />
-          <Route path="/listings/add-listing" element={<AddProduct />} />
+          <Route
+            path="/listings/add-listing"
+            element={
+              <AddListing
+                containerStyles="container space-y-8 sm:p-8 p-4"
+                pathToNavigate={"/office/listings"}
+              />
+            }
+          />
         </Route>
       </Routes>
     </OfficeLayout>
