@@ -99,7 +99,7 @@ export default function OrderPage() {
             </div>
             <div className="lg:flex w-full px-10">
                 <div className="w-full items-center justify-center">
-                    <div className="w-full flex items-center justify-center sticky top-10 pt-10">
+                    <div className="w-full flex items-center justify-center sticky top-10 lg:p-10">
                         <TotalPrice
                             listing={listing}
                             days={days}

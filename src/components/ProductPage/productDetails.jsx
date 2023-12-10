@@ -5,6 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export default function ProductDetails({ listing, isLoading }) {
     const category = listing.category_id
+
     return !isLoading ? (
         <div className='p-10 col-span-7'>
             <h1 className='font-bold text-4xl'>
@@ -18,10 +19,15 @@ export default function ProductDetails({ listing, isLoading }) {
                 </span>
             </h5>
             <div className="lg:grid-cols-4 p-1 grid lg:flex sm:grid-cols-2 gap-5 md:grid-cols-3">
-                <div className="flex items-center w-fit m-1 py-2 px-4 rounded-xl shadow-md text-sm">
-                    <Icon className='w-9' icon={category.category_icon} color="#9fa2a4" />
-                    {category.category_name}
+                <div
+                    className={`rounded-lg text-sm p-2.5 shadow-sm transition-all flex items-center justify-center gap-2`}
+                >
+                    <Icon icon={category?.category_icon} className="w-5 h-5" />
+                    <span className="font-medium">
+                        {category.category_name}
+                    </span>
                 </div>
+               
             </div>
             <p className='lg:w-full my-4'>
                 {listing.short_description}

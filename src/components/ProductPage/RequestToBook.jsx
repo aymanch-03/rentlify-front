@@ -5,7 +5,7 @@ import { createNewOrder } from "../../redux/reducers/orderSlice";
 
 export default function RequestToBook({ listing, dateFrom, dateTo, totalPrice, totalWithFees, days }) {
     const dispatch = useDispatch();
-    const data = {
+    const order = {
         order_item: {
             listing_id: listing._id,
             days: days,
@@ -22,7 +22,7 @@ export default function RequestToBook({ listing, dateFrom, dateTo, totalPrice, t
 
     return (
         <div>
-            <Button className="p-8 text-xl m-2" onClick={() => { submitOrder(data) }}>Request to book</Button>
+            <Button className="p-8 text-xl m-2" onClick={() => { submitOrder(order)}}>Request to book</Button>
         </div>
     )
 }
