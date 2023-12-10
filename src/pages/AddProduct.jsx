@@ -120,7 +120,7 @@ export default function Example() {
         <div className="space-y-12 m-14">
           <div className="border-b border-gray-900/10 pb-12">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
-              Personal Information
+              Listing Images
             </h2>
 
             <div className="flex items-center justify-center w-full">
