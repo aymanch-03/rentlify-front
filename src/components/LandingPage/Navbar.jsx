@@ -203,12 +203,14 @@ export default function Navbar() {
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    className="cursor-pointer flex items-center justify-between"
-                    onClick={handleLogout}
-                  >
-                    <span className="font-semibold">Host Mode</span>
-                    <Icon icon="tabler:switch-3" className="w-4 h-4" />
+                  <DropdownMenuItem className="cursor-pointer ">
+                    <Link
+                      to="/hosting"
+                      className="flex items-center justify-between"
+                    >
+                      <span className="font-semibold">Host Mode</span>
+                      <Icon icon="tabler:switch-3" className="w-4 h-4" />
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className="cursor-pointer flex items-center justify-between"

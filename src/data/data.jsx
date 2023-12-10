@@ -80,5 +80,17 @@ const orderStatuses = [
     badgeStyles: "bg-red-200 border-red-200",
   },
 ];
+const listingLabels = [
+  {
+    value: true,
+    label: "Available",
+    badgeStyles: "bg-green-200 border-green-200",
+  },
+  {
+    value: false,
+    label: "Not Available",
+    badgeStyles: "bg-slate-200 border-slate-200",
+  },
+];
 
-export { customerStatuses, labels, orderStatuses, userLabels };
+export { customerStatuses, labels, listingLabels, orderStatuses, userLabels };

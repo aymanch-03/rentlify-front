@@ -6,7 +6,6 @@ import BookingBox from "../components/ProductPage/bookProduct";
 import Pictures from "../components/ProductPage/pics";
 import ProductDetails from "../components/ProductPage/productDetails";
 import { GetListing } from "../redux/reducers/listingSlice";
-import Orderpage from "./orderFront";
 
 export default function ProductPage() {
   const listing = useSelector((state) => state.listings.listing);
@@ -30,7 +29,7 @@ export default function ProductPage() {
     <div className="p-4 max-w-7xl mx-auto py-10">
       <Link
         to="/discover/listings"
-        className="group flex items-center gap-2 pl-9"
+        className="group flex items-center gap-2 mb-10"
       >
         <Icon
           icon="solar:arrow-left-line-duotone"

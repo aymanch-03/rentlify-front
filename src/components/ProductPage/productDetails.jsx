@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 export default function ProductDetails({ listing, isLoading }) {
   const category = listing.category_id;
   return !isLoading ? (
-    <div className="p-10 col-span-7">
+    <div className="p-4 col-span-7">
       <h1 className="font-bold text-4xl">{listing.listing_name}</h1>
       <h5 className="text-lg flex items-center capitalize p-1">
         <Icon icon="ep:location" />
@@ -38,7 +38,7 @@ export default function ProductDetails({ listing, isLoading }) {
       </Button>
     </div>
   ) : (
-    <div className="p-10 col-span-7 h-[100vh] gap-2">
+    <div className="p-4 col-span-7 h-[100vh] gap-2">
       <Skeleton className="w-[80%] h-10 my-4" />
 
       <Skeleton className="w-[30%] h-6 my-2" />
