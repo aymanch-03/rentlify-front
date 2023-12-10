@@ -218,7 +218,7 @@ export default function Example() {
                 htmlFor="listing_name"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                listing_name
+                Listing Name
               </label>
               <div className="mt-2">
                 <input
@@ -311,7 +311,7 @@ export default function Example() {
                 htmlFor="Long_description"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Long_description
+                Long Description
               </label>
               <div className="mt-2">
                 <textarea
@@ -330,7 +330,7 @@ export default function Example() {
                 htmlFor="short_description"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                short_description
+                Short Description
               </label>
               <div className="mt-2">
                 <input
@@ -348,7 +348,7 @@ export default function Example() {
                 htmlFor="active"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                active
+                Status
               </label>
               <div className="mt-2">
                 <select
@@ -368,7 +368,7 @@ export default function Example() {
                 htmlFor="price"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                price
+                Price
               </label>
               <div className="mt-2">
                 <input
