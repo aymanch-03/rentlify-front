@@ -10,9 +10,9 @@ import CustomersAndOrders from "./DataCharts/CustomersAndOrders";
 import OrderChart from "./DataCharts/OrderChart";
 import RecentOrders from "./RecentOrders";
 
-const ExpandedStats = () => {
+const ExpandedStats = ({ orders, totalProfit }) => {
   const dispatch = useDispatch();
-  const orders = useSelector((state) => state.orders.data);
+
   const isLoading = useSelector((state) => state.orders.loading);
 
   useEffect(() => {
@@ -63,7 +63,11 @@ const ExpandedStats = () => {
               className={"md:border-l border-t md:border-t-0 border-gray-900/5"}
             />
           ) : (
-            <CostChart dbData={ordersData} dates={chartLabels} />
+            <CostChart
+              dbData={ordersData}
+              dates={chartLabels}
+              totalProfit={totalProfit}
+            />
           )}
           {/* <CostChart dbData={orderData7Days} dates={labels.reverse()} /> */}
         </section>

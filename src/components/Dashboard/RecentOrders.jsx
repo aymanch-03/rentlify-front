@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -27,9 +28,13 @@ const RecentOrders = () => {
               </p>
               <Link
                 to="orders"
-                className="text-sm font-medium leading-6 text-blue-500 hover:text-blue-600 cursor-pointer hover:underline transition-all"
+                className="text-sm flex items-center flex-end gap-1 font-medium leading-6 text-blue-500 hover:text-blue-600 cursor-pointer group transition-all"
               >
-                View all
+                <span className="transition-all">View all</span>
+                <Icon
+                  icon="solar:arrow-right-line-duotone"
+                  className="opacity-0 transition-all -ml-4 group-hover:ml-0 group-hover:opacity-100"
+                />
               </Link>
             </div>
           </div>

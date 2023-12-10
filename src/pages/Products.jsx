@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Icon } from "@iconify/react";
 import { PackagePlus } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ListingSkeleton from "../components/ui/listingSkeleton";
 
 export default function Products() {
@@ -41,6 +41,8 @@ export default function Products() {
       <main className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 lg:my-4 lg:py-4 py-2 overflow-auto">
         {isLoading ? (
           <>
+            <ListingSkeleton />
+            <ListingSkeleton />
             <ListingSkeleton />
             <ListingSkeleton />
             <ListingSkeleton />

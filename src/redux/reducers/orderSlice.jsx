@@ -18,27 +18,30 @@ export const listOrders = createAsyncThunk("orders/listOrders", async () => {
   return response;
 });
 
-export const createNewOrder = createAsyncThunk("orders/createNewOrder", async (order, { rejectWithValue }) => {
-  try {
-    console.log("Order: ", order);
-    let clientToken = Cookies.get("clientToken");
-    const response = await axios.post(`/orders`, order, {
-      headers: {
-        "x-client-token": clientToken,
-      },
-    });
-    console.log("response: ", response.data);
-    return response.data.data;
-  } catch (error) {
-    rejectWithValue(error.response.data);
+export const createNewOrder = createAsyncThunk(
+  "orders/createNewOrder",
+  async (order, { rejectWithValue }) => {
+    try {
+      console.log("Order: ", order);
+      let clientToken = Cookies.get("clientToken");
+      const response = await axios.post(`orders`, order, {
+        headers: {
+          "x-client-token": clientToken,
+        },
+      });
+      console.log("response: ", response.data);
+      return response.data.data;
+    } catch (error) {
+      rejectWithValue(error.response.data);
+    }
   }
-})
+);
 
 const orderSlice = createSlice({
   name: "orders",
   initialState: {
     data: [],
-    order:{},
+    order: {},
     isLoading: false,
   },
   //   reducers: {},
@@ -72,8 +75,8 @@ const orderSlice = createSlice({
       .addCase(createNewOrder.rejected, (state, action) => {
         state.status = "failed";
         state.isLoading = false;
-        console.log(action);
-      })
+        console.log(action.error.message);
+      });
     // eslint-disable-next-line no-unused-vars
   },
 });

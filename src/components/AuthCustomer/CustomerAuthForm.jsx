@@ -31,7 +31,7 @@ function CustomerAuthForm({ className, ...props }) {
     dispatch(loginCustomer(customer)).then((result) => {
       if (result.payload) {
         setCustomer("");
-        navigate("/discover");
+        navigate("/discover/listings");
         toast({
           variant: "success",
           title: "Login successful!",
