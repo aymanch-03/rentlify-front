@@ -118,7 +118,7 @@ const AuthListings = ({ customer, listings }) => {
                 className="m-0 flex flex-col gap-3 min-w-[750px]"
               >
                 {customerListings.map((listing) => (
-                  <ListingItem key={listing.sku} listing={listing} />
+                  <ListingItem key={listing._id} listing={listing} />
                 ))}
               </TabsContent>
               <TabsContent
@@ -126,7 +126,7 @@ const AuthListings = ({ customer, listings }) => {
                 className="m-0 flex flex-col gap-3 min-w-[750px]"
               >
                 {activeListings.map((listing) => (
-                  <ListingItem key={listing.sku} listing={listing} />
+                  <ListingItem key={listing._id} listing={listing} />
                 ))}
               </TabsContent>
               <TabsContent
@@ -134,7 +134,7 @@ const AuthListings = ({ customer, listings }) => {
                 className="m-0 flex flex-col gap-3 min-w-[750px]"
               >
                 {availableListings.map((listing) => (
-                  <ListingItem key={listing.sku} listing={listing} />
+                  <ListingItem key={listing._id} listing={listing} />
                 ))}
               </TabsContent>
             </>

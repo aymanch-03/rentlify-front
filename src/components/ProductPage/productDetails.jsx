@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
-import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Icon } from "@iconify/react";
 // eslint-disable-next-line no-unused-vars
-import { useDispatch } from "react-redux";
+import { useState } from "react";
 import { Separator } from "../ui/separator";
 
 export default function ProductDetails({ listing, isLoading }) {
-  const category = listing.category_id;
+  const [open, setOpen] = useState(false);
+
   return !isLoading ? (
     <div className="col-span-7 py-5">
       <div className="">
@@ -23,10 +23,12 @@ export default function ProductDetails({ listing, isLoading }) {
           <h1>
             {" "}
             Hosted by{" "}
-            <span className="underline">
+            <span className="underline capitalize">
               {listing.listing_owner.first_name}{" "}
             </span>{" "}
-            <span className="underline">{listing.listing_owner.last_name}</span>{" "}
+            <span className="underline capitalize">
+              {listing.listing_owner.last_name}
+            </span>{" "}
             <span className="font-light">
               ({" "}
               {`${
@@ -56,17 +58,37 @@ export default function ProductDetails({ listing, isLoading }) {
         <div className="text-lg font-medium flex items-center gap-2 mb-4">
           <Icon icon="solar:bed-line-duotone" className="w-6 h-6" />
           <h1 className="flex items-center gap-2">
+            <span className="underline">{listing.max_guests} Guests</span> |
             <span className="underline">{listing.room} Rooms</span> |
-            <span className="underline">{listing.bed} Beds</span>{" "}
+            <span className="underline">{listing.bed} Beds</span>
           </h1>
         </div>
       </div>
       <Separator />
-      <div className="p-6 rounded-lg border mt-5">
+      <div
+        className={`relative p-6 rounded-lg border mt-5 transition-all overflow-hidden ${
+          !open ? "h-[200px]" : "h-auto"
+        }`}
+      >
         {" "}
         <h1 className="text-xl font-medium ">About the Listing</h1>
         <p className="lg:w-full my-4">{listing.short_description}</p>
         <p className="w-full my-4">{listing.long_description}</p>
+        <div className="absolute bottom-0 w-full p-4 bg-gradient-to-t from-white to-transparent h-16"></div>
+      </div>
+      <div className=" w-full p-4 bg-gradient-to-t from-white to-white/75">
+        <h1
+          className="font-medium text-primary flex items-center gap-2"
+          onClick={() => setOpen((prev) => !prev)}
+        >
+          <span>Show {open ? "Less" : "More"}</span>
+          <Icon
+            icon={
+              open ? "solar:alt-arrow-up-broken" : "solar:alt-arrow-down-broken"
+            }
+            className="h-5 w-5"
+          />
+        </h1>
       </div>
       {/* <Button
         variant="ghost"
@@ -80,14 +102,14 @@ export default function ProductDetails({ listing, isLoading }) {
       </Button> */}
     </div>
   ) : (
-    <div className="p-4 col-span-7 h-[100vh] gap-2">
-      <Skeleton className="w-[80%] h-10 my-4" />
-
-      <Skeleton className="w-[30%] h-6 my-2" />
-
-      <Skeleton className="w-[50%] h-6 my-2" />
-
-      <Skeleton className="w-[50%] h-6 my-2" />
+    <div className="col-span-7 gap-2">
+      <div className="py-5 ">
+        <Skeleton className="w-[50%] h-8 my-1" />
+        <Skeleton className="w-[50%] h-8 my-1" />
+        <Skeleton className="w-[50%] h-8 my-1" />
+      </div>
+      <Separator />
+      <Skeleton className="w-full h-[200px] mt-5 " />
     </div>
   );
 }

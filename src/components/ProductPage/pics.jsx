@@ -182,7 +182,7 @@ export default function Pictures({ listing, isLoading }) {
                       {images.map((image, index) => {
                         if (index % 3 === 0) {
                           return (
-                            <div className="col-span-2">
+                            <div className="col-span-2" key={index}>
                               <Dialog>
                                 <DialogTrigger asChild>
                                   <div className="h-[400px] col-span-8 row-span-2 rounded-3xl">
@@ -234,7 +234,7 @@ export default function Pictures({ listing, isLoading }) {
                         }
                         if (index % 3 === 1) {
                           return (
-                            <div className="">
+                            <div className="" key={index}>
                               <Dialog>
                                 <DialogTrigger asChild>
                                   <div className="h-[400px] col-span-8 row-span-2 rounded-3xl">
@@ -286,7 +286,7 @@ export default function Pictures({ listing, isLoading }) {
                         }
                         if (index % 3 === 2) {
                           return (
-                            <div className="">
+                            <div className="" key={index}>
                               <Dialog>
                                 <DialogTrigger asChild>
                                   <div className="h-[400px] col-span-8 row-span-2 rounded-3xl">
@@ -347,7 +347,7 @@ export default function Pictures({ listing, isLoading }) {
       </div>
     </div>
   ) : (
-    <div className="w-full lg:gap-3 lg:h-[30rem] lg:p-10 lg:grid lg:grid-cols-12 md:grid-rows-2">
+    <div className="w-full lg:gap-3 lg:h-[25rem] lg:grid lg:grid-cols-12 md:grid-rows-2">
       <div className="col-span-8 row-span-2 rounded-3xl">
         <div className="h-full col-span-8 row-span-2 rounded-3xl flex justify-center items-center">
           <Skeleton className="h-full w-full rounded-3xl" />

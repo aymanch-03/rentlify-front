@@ -250,10 +250,9 @@ export default function BookingBox({ id, listing, isLoading }) {
       )}
     </div>
   ) : (
-    <div className="rounded-2xl col-span-5 p-10 m-10 h-fit">
+    <div className="rounded-2xl col-span-5 p-4 border shadow-md h-fit my-5">
       <div className="h-14 flex justify-between items-center p-2">
         <Skeleton className="w-[200px] h-full m-0" />
-        <Skeleton className="w-[55px] h-full m-0" />
       </div>
       <div className=" w-full mt-5">
         <Skeleton className="w-full h-[160px]" />
