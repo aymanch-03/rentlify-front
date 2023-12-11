@@ -6,8 +6,6 @@ import {
     Dialog,
     DialogClose,
     DialogContent,
-    DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -17,7 +15,6 @@ import StripeContainer from "./StripeContainer";
 
 
 export default function RequestToBook({ listing, dateFrom, dateTo, totalPrice, totalWithFees, days }) {
-    const dispatch = useDispatch();
     const order = {
         order_item: {
             listing_id: listing._id,
@@ -28,9 +25,6 @@ export default function RequestToBook({ listing, dateFrom, dateTo, totalPrice, t
             total_price: Number(totalPrice),
             total_with_fees: Number(totalWithFees)
         }
-    }
-    const submitOrder = (data) => {
-        dispatch(createNewOrder(data));
     }
 
     return (

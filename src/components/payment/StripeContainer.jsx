@@ -40,7 +40,7 @@ export default function StripeContainer({order}) {
         <div className=" h-full">
             {clientSecret && (
                 <Elements options={options} stripe={stripePromise}>
-                    <CheckoutForm />
+                    <CheckoutForm order={order}/>
                 </Elements>
             )}
         </div>

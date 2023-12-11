@@ -6,11 +6,14 @@ import {
     useStripe,
     useElements
 } from "@stripe/react-stripe-js";
+import { createNewOrder } from "../../redux/reducers/orderSlice";
+import { useDispatch } from "react-redux";
 
-export default function CheckoutForm() {
+export default function CheckoutForm({order}) {
     const stripe = useStripe();
     const elements = useElements();
 
+    const dispatch = useDispatch();
     const [message, setMessage] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -71,9 +74,12 @@ export default function CheckoutForm() {
     const paymentElementOptions = {
         layout: "tabs"
     }
+    const submitOrder = (data) => {
+        dispatch(createNewOrder(data));
+    }
 
     return (
-        <form id="payment-form" onSubmit={handlePaymentSubmit} className="w-full h-full flex flex-col justify-between gap-4">
+        <form id="payment-form" onSubmit={(e)=>{handlePaymentSubmit(e);submitOrder(order)}} className="w-full h-full flex flex-col justify-between gap-4">
             <PaymentElement options={paymentElementOptions} className="w-full max-h-full"/>
             <Button id="submit" className="w-full">
                     Pay now
