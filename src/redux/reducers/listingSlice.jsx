@@ -32,15 +32,16 @@ export const GetListing = createAsyncThunk(
 export const UpdateListing = createAsyncThunk(
   "listing/updateListing",
   async ({ id, listing }, { rejectWithValue }) => {
-    const userToken = Cookies.get("userToken");
+    console.log({ id, listing });
+    const clientToken = Cookies.get("clientToken");
     try {
       const response = await axios.patch(`/listings/${id}`, listing, {
         headers: {
-          "x-user-token": userToken,
+          "x-client-token": clientToken,
         },
       });
-      // console.log('response',response.data.listing);
-      return response.data.listing;
+      console.log('response zaa',response.data.data);
+      return response.data.data;
     } catch (error) {
       rejectWithValue(error.response.data);
     }
@@ -136,7 +137,7 @@ const listingsSlice = createSlice({
       .addCase(UpdateListing.fulfilled, (state, action) => {
         const updatedListings = state.data.map((listing) => {
           if (listing._id === action.payload._id) {
-            // console.log(action.payload);
+            console.log(action.payload);
             return action.payload;
           } else {
             // console.log("listing:",listing);
