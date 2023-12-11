@@ -5,7 +5,7 @@ import axios from "axios"
 import CheckoutForm from "./PaymentForm";
 
 const stripePromise = loadStripe("pk_test_51OLrdrGOKSAHO9ZX4YOcS9JgJXpn7VsXVTl5dQqLHdKSPutVkK7sb3eDxZ1BZiIuMLdngPfUAts3Pir6MABPgJDA00vo4eNgwv");
-export default function StripeContainer() {
+export default function StripeContainer({order}) {
     const [clientSecret, setClientSecret] = useState("");
     useEffect(() => {
         const fetchClientSecret = async () => {
@@ -13,7 +13,7 @@ export default function StripeContainer() {
                 const response = await axios.post(
                     'http://localhost:5000/v1/create-payment-intent',
                     {
-                        items: [{ id: "xl-tshirt" }],
+                        items: order.order_item,
                     },
                     {
                         headers: {
@@ -29,11 +29,15 @@ export default function StripeContainer() {
 
         fetchClientSecret();
     }, []);
+    const appearance = {
+        theme: 'stripe',
+      };
     const options = {
-        clientSecret
+        clientSecret,
+        appearance
     };
     return (
-        <div className="App">
+        <div className=" h-full">
             {clientSecret && (
                 <Elements options={options} stripe={stripePromise}>
                     <CheckoutForm />

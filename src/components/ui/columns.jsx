@@ -357,7 +357,8 @@ function getColumns({
             </Badge>
           );
         } else if (option === "orders") {
-          return <>{`${row.getValue(keyFive)},00 MAD`}</>;
+          console.log(row.getValue(keyFive)?.total_with_fees)
+          return <>{`${row.getValue(keyFive)?.total_with_fees} MAD`}</>;
         }
 
         return null;

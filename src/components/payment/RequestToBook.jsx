@@ -41,11 +41,11 @@ export default function RequestToBook({ listing, dateFrom, dateTo, totalPrice, t
                 </DialogTrigger>
                 <DialogContent className="max-w-[70vw]">
                     <DialogHeader>
-                        <DialogTitle>Confirm your order</DialogTitle>
+                        <DialogTitle className="text-2xl">CONFIRM YOUR ORDER</DialogTitle>
                     </DialogHeader>
-                    <div className="flex items-center  space-x-2">
-                        <div className="w-1/2 flex flex-col gap-4">
-                            <TotalPrice className="border-none h-[300px]"
+                    <div className="flex flex-row h-full items-start gap-4">
+                        <div className="w-1/2 h-full flex flex-col justify-between gap-4 ">
+                            <TotalPrice className="border-none "
                                 listing={listing}
                                 days={days}
                                 totalPrice={totalPrice}
@@ -56,9 +56,9 @@ export default function RequestToBook({ listing, dateFrom, dateTo, totalPrice, t
                             </Button>
                         </DialogClose>
                         </div>
-                        <div className="w-[1px] h-[70%] bg-slate-200"></div>
-                        <div className="w-1/2 h-full">
-                            <StripeContainer />
+                        <div className="w-[1px] h-[90%] bg-slate-200"></div>
+                        <div className="w-1/2 h-full ">
+                            <StripeContainer order={order}/>
                         </div>
                     </div>
                 </DialogContent>

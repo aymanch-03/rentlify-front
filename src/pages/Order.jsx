@@ -18,7 +18,7 @@ const OrderPage = () => {
     keyThreeTitle: "Ordrer Status",
     keyFour: "createdAt",
     keyFourTitle: "Created At",
-    keyFive: "cart_total_price",
+    keyFive: "order_item",
     keyFiveTitle: "Total price",
     option: "orders",
   });

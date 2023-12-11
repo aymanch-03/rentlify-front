@@ -73,12 +73,10 @@ export default function CheckoutForm() {
     }
 
     return (
-        <form id="payment-form" onSubmit={handlePaymentSubmit} className="w-full h-full mt-10 p-6 flex flex-col gap-4">
-            <PaymentElement options={paymentElementOptions} className="w-full max-h-full h-[300px]"/>
+        <form id="payment-form" onSubmit={handlePaymentSubmit} className="w-full h-full flex flex-col justify-between gap-4">
+            <PaymentElement options={paymentElementOptions} className="w-full max-h-full"/>
             <Button id="submit" className="w-full">
-                <span id="button-text">
                     Pay now
-                </span>
             </Button>
             {/* Show any error or success messages */}
         </form>

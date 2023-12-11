@@ -66,7 +66,7 @@ const OrdersTable = ({ orders }) => {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <p className={"font-medium"}>
-                    {`${order.cart_total_price},00 MAD`}
+                    {`${order.order_item.total_with_fees},00 MAD`}
                   </p>
                 </td>
               </tr>
