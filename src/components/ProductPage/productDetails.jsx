@@ -11,10 +11,6 @@ export default function ProductDetails({ listing, isLoading }) {
   return !isLoading ? (
     <div className="col-span-7 py-5">
       <div className="">
-        {/* <div className="flex items-center w-fit m-1 py-2 px-4 rounded-xl shadow-md text-sm">
-          <Icon className="w-9" icon={category.category_icon} color="#9fa2a4" />
-          {category.category_name}
-        </div> */}
         <div className="text-lg font-medium flex items-center gap-2 mb-4">
           <Icon
             icon="solar:user-speak-rounded-line-duotone"

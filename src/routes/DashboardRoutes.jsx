@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import OfficeListingDetails from "../components/ProductPage/OfficeListingDetails";
 import RequireAuth from "../components/RequireAuth";
 import UserProfile from "../components/Users/userProfile";
 import OfficeLayout from "../layouts/OfficeLayout";
@@ -30,7 +31,7 @@ const DashboardRoutes = () => {
           <Route path="profile" element={<Profile />} />
           <Route path="/subcategories" element={<Subcategories />} />
           <Route path="/listings" element={<Products />} />
-          <Route path="/listings/:id" element={<ProductDetails />} />
+          <Route path="/listings/:id" element={<OfficeListingDetails />} />
           <Route
             path="/listings/update-listing/:id"
             element={<UpdateProducts />}

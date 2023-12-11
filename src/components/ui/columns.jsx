@@ -7,7 +7,7 @@ import {
   userLabels,
 } from "../../data/data";
 import DeleteUser from "../Users/deleteBtn";
-import DeleteCategory from "../category/deleteCategory"
+import DeleteCategory from "../category/deleteCategory";
 import { Badge } from "./badge";
 import { Checkbox } from "./checkbox";
 import DataTableColumnHeader from "./data-table-column-header";
@@ -68,9 +68,7 @@ function getColumns({
               : undefined
           }
         >
-          {/* <Link to={path}> */}
-            {row.getValue(keyOne)}
-            {/* </Link> */}
+          <Link to={path}>{row.getValue(keyOne)}</Link>
         </Badge>
       ),
       enableSorting: false,
@@ -375,7 +373,7 @@ function getColumns({
         if (option === "users") {
           return <DeleteUser id={row.getValue(keyOne)} row={row} />;
         } else if (option === "categories") {
-          return <DeleteCategory id={row.getValue(keyOne)} row={ row }/> ;
+          return <DeleteCategory id={row.getValue(keyOne)} row={row} />;
         }
       },
     },
