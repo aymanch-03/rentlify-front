@@ -203,7 +203,7 @@ export default function OrderPage() {
                                     className="w-6 h-6 hover:cursor-pointer"
                                   />
                                 </Button>
-                                <span className=" text-lg">{adults}</span>
+                                <span className="text-lg">{adults}</span>
                                 <Button
                                   className="w-6 h-6 rounded-full p-0"
                                   variant="ghost"
@@ -280,10 +280,11 @@ export default function OrderPage() {
               <h4 className="font-medium text-2xl">Cancellation policy</h4>
               <p>
                 <span className="font-semibold">
-                  Free cancellation before Sep 22.
+                  Free cancellation before{" "}
+                  <span className="underline">48 Hours</span>.
                 </span>{" "}
                 {""}
-                Cancel before check-in on Sep 23 for a partial refund.
+                Cancel before check-in for a partial refund.
                 <Button className="p-1" variant="link">
                   Learn more
                 </Button>
@@ -292,7 +293,7 @@ export default function OrderPage() {
           </div>
           <hr className="max-w-full w-[90%] lg:max-w-[550px] w-full my-6 p-1" />
           <div className="max-w-full w-[90%] lg:max-w-full w-[90%] lg:max-w-[550px] w-full">
-            <div className="flex gap-4 p-2">
+            <div className="flex items-center gap-4 p-2">
               <Icon className="w-16 h-16" icon="mdi:home-time-outline" />
               <p>
                 <span className="font-semibold">

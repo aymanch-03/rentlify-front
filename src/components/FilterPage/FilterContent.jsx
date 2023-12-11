@@ -50,13 +50,13 @@ const FilterContent = () => {
       const matchesCategory =
         selectedCategories.length === 0 ||
         selectedCategories.includes(listing.category_id.category_name);
-
+      const matchesNumOfGuests = listing.max_guests >= numOfGuests;
       const matchesPrice =
         (priceFrom === "" ||
           parseFloat(listing.price) >= parseFloat(priceFrom)) &&
         (priceTo === "" || parseFloat(listing.price) <= parseFloat(priceTo));
 
-      return matchesCategory && matchesPrice;
+      return matchesCategory && matchesPrice && matchesNumOfGuests;
     });
 
     setFilteredListings(filtered);
@@ -238,6 +238,18 @@ const FilterContent = () => {
                       listing?.city.slice(1)}
                   </span>
                 </h1>
+                <h1 className="font-light text-sm flex items-center gap-2">
+                  <Icon
+                    icon={
+                      listing.max_guests > 2
+                        ? "solar:users-group-two-rounded-line-duotone"
+                        : "solar:users-group-rounded-line-duotone"
+                    }
+                    className="w-4 h-4"
+                  />
+                  <span>{listing.max_guests} Guests</span>
+                </h1>
+
                 <h1 className="font-semibold text-xl">
                   {listing.price} MAD
                   <span className="font-light text-xs"> /night</span>

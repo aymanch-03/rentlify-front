@@ -28,22 +28,10 @@ const company = [
       "Learn more about our company values and mission to empower others",
   },
   {
-    name: "Careers",
-    href: "/",
-    description:
-      "Looking for you next career opportunity? See all of our open positions",
-  },
-  {
     name: "Support",
     href: "/",
     description:
       "Get in touch with our dedicated support team or reach out on our community forums",
-  },
-  {
-    name: "Blog",
-    href: "/",
-    description:
-      "Read our latest announcements and get perspectives from our team",
   },
 ];
 

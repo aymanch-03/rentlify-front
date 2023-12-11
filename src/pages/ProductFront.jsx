@@ -67,7 +67,7 @@ export default function ProductPage() {
       </div>
       {!isLoading ? (
         <div className="mb-5">
-          <div className="flex items-center justify-between">
+          <div className="flex md:flex-row flex-col-reverse items-center justify-between">
             <h1 className="font-medium md:text-3xl text-2xl">
               {listing.listing_name}
             </h1>
@@ -77,8 +77,13 @@ export default function ProductPage() {
               }`}
               onClick={handleCopyClick}
             >
-              <Icon icon="fluent:copy-20-regular" className="h-5 w-5" />
-              <span className="text-sm underline">Copy Link</span>
+              <Icon
+                icon={isCopied ? "lucide:check" : "fluent:copy-20-regular"}
+                className="h-5 w-5"
+              />
+              <span className="text-sm underline">
+                {isCopied ? "Copied" : "Copy Link"}
+              </span>
             </h1>
           </div>
           <h5 className="text-base flex items-center capitalize">
@@ -92,7 +97,7 @@ export default function ProductPage() {
         </div>
       ) : (
         <div className="mb-5 flex flex-col gap-3">
-          <Skeleton className={"w-[45rem] h-10"} />
+          <Skeleton className={"md:w-[45rem] w-full h-10"} />
           <div className="flex gap-2">
             <Skeleton className={"w-[150px] h-7"} />
             <Skeleton className={"w-[150px] h-7"} />

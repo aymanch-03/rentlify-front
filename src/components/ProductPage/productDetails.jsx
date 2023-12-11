@@ -104,9 +104,9 @@ export default function ProductDetails({ listing, isLoading }) {
   ) : (
     <div className="col-span-7 gap-2">
       <div className="py-5 ">
-        <Skeleton className="w-[50%] h-8 my-1" />
-        <Skeleton className="w-[50%] h-8 my-1" />
-        <Skeleton className="w-[50%] h-8 my-1" />
+        <Skeleton className="w-full md:w-[50%] h-8 my-1" />
+        <Skeleton className="w-full md:w-[50%] h-8 my-1" />
+        <Skeleton className="w-full md:w-[50%] h-8 my-1" />
       </div>
       <Separator />
       <Skeleton className="w-full h-[200px] mt-5 " />
