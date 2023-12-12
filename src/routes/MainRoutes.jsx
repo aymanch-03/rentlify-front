@@ -1,8 +1,7 @@
-import { Link, Route, Routes, useLocation, useParams } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import RequireCustomerAuth from "../components/AuthCustomer/RequireCustomerAuth";
 import MainLayout from "../layouts/MainLayout";
 // import BookingPage from "../pages/BookingPage";
-import { Icon } from "@iconify/react";
 import RequireOwnListing from "../components/RequireOwnListing";
 import AddListing from "../pages/AddListing";
 import CustomerProfile from "../pages/CustomerProfile";

@@ -27,10 +27,14 @@ export default function Dashboard() {
 
   const customers = useSelector((state) => state.customers?.data || []);
   const orders = useSelector((state) => state.orders?.data || []);
-  const shippedOrders = orders.filter((order) => order?.status === "Shipped");
+  const shippedOrders = orders.filter(
+    (order) => order?.status === "Paid" || order?.status === "Closed"
+  );
+
+  console.log(shippedOrders);
 
   const totalRevenue = shippedOrders.reduce(
-    (total, order) => total + (order?.cart_total_price || 0),
+    (total, order) => total + (order?.order_item.total_with_fees || 0),
     0
   );
   const totalProfit = totalRevenue / 10;

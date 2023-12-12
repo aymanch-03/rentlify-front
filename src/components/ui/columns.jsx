@@ -358,8 +358,12 @@ function getColumns({
             </Badge>
           );
         } else if (option === "orders") {
-          console.log(row.getValue(keyFive)?.total_with_fees)
-          return <>{`${row.getValue(keyFive)?.total_with_fees} MAD`}</>;
+          console.log(row.getValue(keyFive)?.total_with_fees);
+          return (
+            <p className="font-medium">{`${
+              row.getValue(keyFive)?.total_with_fees
+            } MAD`}</p>
+          );
         }
 
         return null;

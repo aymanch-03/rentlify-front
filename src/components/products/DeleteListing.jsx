@@ -11,25 +11,19 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { useCookies } from "react-cookie";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { DeleteListing } from "../../redux/reducers/listingSlice";
 import { useToast } from "../ui/use-toast";
 
-export default function RemoveListing({ id, listing }) {
+export default function RemoveListing({ id }) {
   const dispatch = useDispatch();
-  const authCustomer = useSelector((state) => state.authCustomer.customer);
   const { toast } = useToast();
   // eslint-disable-next-line no-unused-vars
   const [cookie, setCookie, removeCookie] = useCookies();
 
   const handleSubmit = async (id) => {
     try {
-      if (authCustomer._id !== listing.listing_owner._id) {
-        return toast({
-          variant: "destructive",
-          description: "You are not allowed to delete this listing",
-        });
-      }
       const result = await dispatch(DeleteListing(id));
       if (result.payload._id) {
         return setTimeout(() => {
@@ -37,6 +31,7 @@ export default function RemoveListing({ id, listing }) {
             variant: "success",
             description: "Listing deleted successfully",
           });
+          <Navigate to="/office/listings" />;
         }, 800);
       } else {
         toast({

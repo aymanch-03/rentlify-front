@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { GetListing } from "../../redux/reducers/listingSlice";
 import Pictures from "../ProductPage/pics";
 import ProductDetails from "../ProductPage/productDetails";
+import RemoveListing from "../products/DeleteListing";
 import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
 
@@ -49,7 +50,7 @@ export default function OfficeListingDetails() {
       {!isLoading ? (
         <div className="mb-5">
           <div className="flex md:flex-row flex-col-reverse items-center justify-between">
-            <h1 className="font-medium md:text-3xl text-2xl">
+            <h1 className="font-medium capitalize md:text-3xl text-2xl">
               {listing.listing_name}
             </h1>
             {/* <h1
@@ -88,6 +89,9 @@ export default function OfficeListingDetails() {
       <Pictures listing={listing} isLoading={isLoading} />
       <div className="">
         <ProductDetails listing={listing} isLoading={isLoading} />
+      </div>
+      <div className="flex items-center justify-end mt-3 mb-8">
+        <RemoveListing id={listing._id} listing={listing} />
       </div>
     </div>
   );
