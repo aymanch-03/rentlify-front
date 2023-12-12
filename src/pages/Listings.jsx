@@ -54,7 +54,7 @@ export default function Listings() {
             <Link
               key={index}
               to={`${listing._id}`}
-              className="flex flex-col rounded-lg overflow-hidden space-y-2"
+              className="flex flex-col rounded-md overflow-hidden space-y-2"
             >
               <div className="rounded-xl overflow-hidden sm:h-[205px] h-[300px]">
                 <img

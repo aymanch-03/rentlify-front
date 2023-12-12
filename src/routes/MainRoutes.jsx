@@ -8,7 +8,7 @@ import AddListing from "../pages/AddListing";
 import CustomerProfile from "../pages/CustomerProfile";
 import { default as FilterPage } from "../pages/FilterPage";
 import { default as LandingPage } from "../pages/LandingPage";
-import ProductPage from "../pages/ProductFront";
+import ListingPage from "../pages/ListingPage";
 import UpdateProducts from "../pages/UpdateProducts";
 import OrderPage from "../pages/orderFront";
 const DashboardRoutes = () => {
@@ -21,7 +21,7 @@ const DashboardRoutes = () => {
         <Route path="/" element={<LandingPage />} />
         <Route element={<RequireCustomerAuth />}>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/discover/listings/:id" element={<ProductPage />} />
+          <Route path="/discover/listings/:id" element={<ListingPage />} />
           <Route path="/discover/listings" element={<FilterPage />} />
           <Route path="/order/:id" element={<OrderPage />} />
           <Route path="/hosting" element={<CustomerProfile />} />

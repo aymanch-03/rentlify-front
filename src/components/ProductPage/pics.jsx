@@ -22,12 +22,12 @@ export default function Pictures({ listing, isLoading }) {
 
   return !isLoading ? (
     <div className="w-full lg:gap-3 lg:h-[25rem] lg:grid lg:grid-cols-12 md:grid-rows-2">
-      <div className="col-span-8 row-span-2 rounded-3xl">
+      <div className="col-span-8 row-span-2 rounded-lg">
         <Dialog>
           <DialogTrigger asChild>
-            <div className="h-full col-span-8 row-span-2 rounded-3xl flex justify-center items-center">
+            <div className="h-full col-span-8 row-span-2 rounded-lg flex justify-center items-center">
               <img
-                className="w-full h-full object-cover rounded-3xl"
+                className="w-full h-full object-cover rounded-lg"
                 src={listing.listing_image[0]}
                 onClick={() => {
                   setCurrentSlide(0);
@@ -38,7 +38,7 @@ export default function Pictures({ listing, isLoading }) {
           <DialogContent className="lg:max-w-[80vw] max-w-[100wh] w-[100%] lg:h-[95vh] h-auto p-4  bg-transparent border-none shadow-none">
             <div className="w-full h-full  flex items-center justify-center">
               <Button
-                className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400"
+                className="w-10 h-10 p-2 rounded-lg hover:bg-zinc-400"
                 variant="ghost"
                 onClick={prevSlide}
               >
@@ -51,7 +51,7 @@ export default function Pictures({ listing, isLoading }) {
                 />
               </div>
               <Button
-                className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400"
+                className="w-10 h-10 p-2 rounded-lg hover:bg-zinc-400"
                 variant="ghost"
                 onClick={nextSlide}
               >
@@ -67,12 +67,12 @@ export default function Pictures({ listing, isLoading }) {
           </DialogContent>
         </Dialog>
       </div>
-      <div className="col-span-4 rounded-3xl row-span-1 lg:block hidden">
+      <div className="col-span-4 rounded-lg row-span-1 lg:block hidden">
         <Dialog>
           <DialogTrigger asChild>
-            <div className="h-full col-span-8 row-span-2 rounded-3xl">
+            <div className="h-full col-span-8 row-span-2 rounded-lg">
               <img
-                className="w-full h-full object-cover rounded-3xl"
+                className="w-full h-full object-cover rounded-lg"
                 src={listing.listing_image[1]}
                 onClick={() => {
                   setCurrentSlide(1);
@@ -83,7 +83,7 @@ export default function Pictures({ listing, isLoading }) {
           <DialogContent className="max-w-[80vw] w-[80vw] h-[95vh] p-4  bg-transparent border-none shadow-none">
             <div className="w-full h-full  flex items-center justify-center">
               <Button
-                className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400"
+                className="w-10 h-10 p-2 rounded-lg hover:bg-zinc-400"
                 variant="ghost"
                 onClick={prevSlide}
               >
@@ -96,7 +96,7 @@ export default function Pictures({ listing, isLoading }) {
                 />
               </div>
               <Button
-                className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400"
+                className="w-10 h-10 p-2 rounded-lg hover:bg-zinc-400"
                 variant="ghost"
                 onClick={nextSlide}
               >
@@ -112,12 +112,12 @@ export default function Pictures({ listing, isLoading }) {
           </DialogContent>
         </Dialog>
       </div>
-      <div className="col-span-2 rounded-3xl row-span-1 lg:block hidden">
+      <div className="col-span-2 rounded-lg row-span-1 lg:block hidden">
         <Dialog>
           <DialogTrigger asChild>
-            <div className="h-full col-span-8 row-span-2 rounded-3xl flex justify-center items-center">
+            <div className="h-full col-span-8 row-span-2 rounded-lg flex justify-center items-center">
               <img
-                className="w-full h-full object-cover rounded-3xl"
+                className="w-full h-full object-cover rounded-lg"
                 src={listing.listing_image[2]}
                 onClick={() => {
                   setCurrentSlide(2);
@@ -128,7 +128,7 @@ export default function Pictures({ listing, isLoading }) {
           <DialogContent className="max-w-[80vw] w-[80vw] h-[95vh] p-4 bg-transparent border-none shadow-none">
             <div className="w-full h-full  flex items-center justify-center">
               <Button
-                className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400"
+                className="w-10 h-10 p-2 rounded-lg hover:bg-zinc-400"
                 variant="ghost"
                 onClick={prevSlide}
               >
@@ -141,7 +141,7 @@ export default function Pictures({ listing, isLoading }) {
                 />
               </div>
               <Button
-                className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400"
+                className="w-10 h-10 p-2 rounded-lg hover:bg-zinc-400"
                 variant="ghost"
                 onClick={nextSlide}
               >
@@ -161,10 +161,10 @@ export default function Pictures({ listing, isLoading }) {
         <Dialog>
           <DialogTrigger asChild>
             <div
-              className={`cursor-pointer flex items-center justify-center w-full h-full rounded-3xl row-span-1 relative bg-cover bg-center bg-no-repeat`}
+              className={`cursor-pointer flex items-center justify-center w-full h-full rounded-lg row-span-1 relative bg-cover bg-center bg-no-repeat`}
               style={{ backgroundImage: `url(${listing.listing_image[3]})` }}
             >
-              <div className="w-full absolute inset-0 z-20 h-full rounded-3xl bg-black/70"></div>
+              <div className="w-full absolute inset-0 z-20 h-full rounded-lg bg-black/70"></div>
               <p className="z-40 relative text-xl text-white ">
                 {listing.listing_image.length >= 4
                   ? `+ ${listing.listing_image.length - 3}`
@@ -187,9 +187,9 @@ export default function Pictures({ listing, isLoading }) {
                             <div className="col-span-2" key={index}>
                               <Dialog>
                                 <DialogTrigger asChild>
-                                  <div className="h-[400px] col-span-8 row-span-2 rounded-3xl">
+                                  <div className="h-[400px] col-span-8 row-span-2 rounded-lg">
                                     <img
-                                      className="w-full h-full object-cover rounded-3xl"
+                                      className="w-full h-full object-cover rounded-lg"
                                       src={listing.listing_image[index]}
                                       onClick={() => {
                                         setCurrentSlide(index);
@@ -200,7 +200,7 @@ export default function Pictures({ listing, isLoading }) {
                                 <DialogContent className=" max-w-[100vw] w-[100vw] h-[100vh] p-10 bg-transparent">
                                   <div className="w-full h-full  flex items-center justify-center">
                                     <Button
-                                      className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400"
+                                      className="w-10 h-10 p-2 rounded-lg hover:bg-zinc-400"
                                       variant="ghost"
                                       onClick={prevSlide}
                                     >
@@ -218,7 +218,7 @@ export default function Pictures({ listing, isLoading }) {
                                       />
                                     </div>
                                     <Button
-                                      className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400"
+                                      className="w-10 h-10 p-2 rounded-lg hover:bg-zinc-400"
                                       variant="ghost"
                                       onClick={nextSlide}
                                     >
@@ -242,9 +242,9 @@ export default function Pictures({ listing, isLoading }) {
                             <div className="" key={index}>
                               <Dialog>
                                 <DialogTrigger asChild>
-                                  <div className="h-[400px] col-span-8 row-span-2 rounded-3xl">
+                                  <div className="h-[400px] col-span-8 row-span-2 rounded-lg">
                                     <img
-                                      className="w-full h-full object-cover rounded-3xl"
+                                      className="w-full h-full object-cover rounded-lg"
                                       src={listing.listing_image[index]}
                                       onClick={() => {
                                         setCurrentSlide(index);
@@ -255,7 +255,7 @@ export default function Pictures({ listing, isLoading }) {
                                 <DialogContent className=" max-w-[100vw] w-[100vw] h-[100vh] p-10 bg-transparent">
                                   <div className="w-full h-full  flex items-center justify-center">
                                     <Button
-                                      className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400"
+                                      className="w-10 h-10 p-2 rounded-lg hover:bg-zinc-400"
                                       variant="ghost"
                                       onClick={prevSlide}
                                     >
@@ -273,7 +273,7 @@ export default function Pictures({ listing, isLoading }) {
                                       />
                                     </div>
                                     <Button
-                                      className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400"
+                                      className="w-10 h-10 p-2 rounded-lg hover:bg-zinc-400"
                                       variant="ghost"
                                       onClick={nextSlide}
                                     >
@@ -297,9 +297,9 @@ export default function Pictures({ listing, isLoading }) {
                             <div className="" key={index}>
                               <Dialog>
                                 <DialogTrigger asChild>
-                                  <div className="h-[400px] col-span-8 row-span-2 rounded-3xl">
+                                  <div className="h-[400px] col-span-8 row-span-2 rounded-lg">
                                     <img
-                                      className="w-full h-full object-cover rounded-3xl"
+                                      className="w-full h-full object-cover rounded-lg"
                                       src={listing.listing_image[index]}
                                       onClick={() => {
                                         setCurrentSlide(index);
@@ -310,7 +310,7 @@ export default function Pictures({ listing, isLoading }) {
                                 <DialogContent className=" max-w-[100vw] w-[100vw] h-[100vh] p-10 bg-transparent">
                                   <div className="w-full h-full  flex items-center justify-center">
                                     <Button
-                                      className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400"
+                                      className="w-10 h-10 p-2 rounded-lg hover:bg-zinc-400"
                                       variant="ghost"
                                       onClick={prevSlide}
                                     >
@@ -328,7 +328,7 @@ export default function Pictures({ listing, isLoading }) {
                                       />
                                     </div>
                                     <Button
-                                      className="w-10 h-10 p-2 rounded-3xl hover:bg-zinc-400"
+                                      className="w-10 h-10 p-2 rounded-lg hover:bg-zinc-400"
                                       variant="ghost"
                                       onClick={nextSlide}
                                     >
@@ -359,24 +359,24 @@ export default function Pictures({ listing, isLoading }) {
     </div>
   ) : (
     <div className="w-full lg:gap-3 h-[25rem] lg:grid lg:grid-cols-12 md:grid-rows-2">
-      <div className="col-span-8 row-span-2 rounded-3xl w-full h-full">
-        <div className="h-full col-span-8 row-span-2 rounded-3xl flex justify-center items-center">
-          <Skeleton className="h-full w-full rounded-3xl" />
+      <div className="col-span-8 row-span-2 rounded-lg w-full h-full">
+        <div className="h-full col-span-8 row-span-2 rounded-lg flex justify-center items-center">
+          <Skeleton className="h-full w-full rounded-lg" />
         </div>
       </div>
-      <div className="col-span-4 rounded-3xl row-span-1 lg:block hidden">
-        <div className="h-full col-span-8 row-span-2 rounded-3xl">
-          <Skeleton className="h-full w-full rounded-3xl" />
+      <div className="col-span-4 rounded-lg row-span-1 lg:block hidden">
+        <div className="h-full col-span-8 row-span-2 rounded-lg">
+          <Skeleton className="h-full w-full rounded-lg" />
         </div>
       </div>
-      <div className="col-span-2 rounded-3xl row-span-1 lg:block hidden">
-        <div className="h-full col-span-8 row-span-2 rounded-3xl flex justify-center items-center">
-          <Skeleton className="h-full w-full rounded-3xl" />
+      <div className="col-span-2 rounded-lg row-span-1 lg:block hidden">
+        <div className="h-full col-span-8 row-span-2 rounded-lg flex justify-center items-center">
+          <Skeleton className="h-full w-full rounded-lg" />
         </div>
       </div>
       <div className="col-span-2 hidden lg:block ">
-        <div className="h-full col-span-8 row-span-2 rounded-3xl flex justify-center items-center">
-          <Skeleton className="h-full w-full rounded-3xl" />
+        <div className="h-full col-span-8 row-span-2 rounded-lg flex justify-center items-center">
+          <Skeleton className="h-full w-full rounded-lg" />
         </div>
       </div>
     </div>
