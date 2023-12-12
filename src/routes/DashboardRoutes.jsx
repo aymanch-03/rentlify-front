@@ -9,7 +9,6 @@ import CustomerDetails from "../pages/CustomerDetails";
 import Customers from "../pages/Customers";
 import Dashboard from "../pages/Dashboard";
 import OrderPage from "../pages/Order";
-import ProductDetails from "../pages/ProductDetails";
 import Products from "../pages/Products";
 import Profile from "../pages/Profile";
 import UpdateProducts from "../pages/UpdateProducts";

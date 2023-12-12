@@ -108,7 +108,6 @@ const listingsSlice = createSlice({
       .addCase(AddListing.fulfilled, (state, action) => {
         state.data = [...state.data, action.payload];
         state.isLoading = false;
-        // console.log("Success", action.payload);
       })
       .addCase(AddListing.rejected, (state, action) => {
         state.status = "rejected";
@@ -163,9 +162,7 @@ const listingsSlice = createSlice({
         const data = state.data.filter(
           (data) => data._id !== action.payload._id
         );
-        console.log(data);
         state.data = data;
-        console.log(state.data);
         state.isLoading = false;
         state.error = null;
       });

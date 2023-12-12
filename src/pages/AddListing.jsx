@@ -123,7 +123,7 @@ export default function Example({ containerStyles, pathToNavigate }) {
     <form className="relative">
       {/* {bgSVG()} */}
       <div className={`${containerStyles}`}>
-        <Link to="/hosting" className="group flex items-center gap-2">
+        <Link to={pathToNavigate} className="group flex items-center gap-2">
           <Icon
             icon="solar:arrow-left-line-duotone"
             className="group-hover:mr-2 h-4 w-4 transition-all"

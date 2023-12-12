@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { customerStatuses, listingLabels } from "../../data/data";
 import RemoveListing from "../products/DeleteListing";
 import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
+import { Skeleton } from "../ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 const ListingItem = ({ listing }) => {
@@ -16,11 +16,11 @@ const ListingItem = ({ listing }) => {
   return (
     <div
       key={listing._id}
-      className="grid grid-cols-7 place-items-center overflow-hidden text-sm p-2 rounded-md cursor-pointer "
+      className="grid grid-cols-7 place-items-center overflow-hidden text-sm p-2 rounded-md"
     >
       <Link
         to={`/discover/listings/${listing._id}`}
-        className="col-span-3 flex justify-start w-full items-stretch gap-5 h-full"
+        className="col-span-3 group flex justify-start w-full items-stretch gap-5 h-full"
       >
         <img
           src={listing.listing_image[0]}
@@ -28,7 +28,7 @@ const ListingItem = ({ listing }) => {
           className="rounded-md object-cover aspect-square w-[70px]"
         />
         <div className="flex flex-col h-full justify-between">
-          <p className="font-medium text-lg first-letter:capitalize">
+          <p className="font-medium max-w-[350px] truncate group-hover:underline text-lg first-letter:capitalize">
             {listing.listing_name}
           </p>
           <p className="truncate max-w-[275px] font-light text-sm first-letter:capitalize">
@@ -66,15 +66,21 @@ const ListingItem = ({ listing }) => {
       </div>
       <div>
         <p className="font-medium">
-          {listing.price} MAD <span className="text-xs font-light">/night</span>
+          {new Intl.NumberFormat("de-DE").format(listing.price)} MAD{" "}
+          <span className="text-xs font-light">/night</span>
         </p>
       </div>
-      <RemoveListing id={listing._id} listing={listing} />
+      <div className="flex items-center justify-center gap-1.5">
+        <RemoveListing id={listing._id} listing={listing} />
+        <Link to={`/hosting/listing/update/${listing._id}`}>
+          <Icon icon="solar:pen-line-duotone" />
+        </Link>
+      </div>
     </div>
   );
 };
 
-const AuthListings = ({ customer, listings }) => {
+const AuthListings = ({ customer, listings, isLoading }) => {
   const customerListings = listings.filter(
     (listing) => listing.listing_owner?._id === customer._id
   );
@@ -112,32 +118,45 @@ const AuthListings = ({ customer, listings }) => {
         </TabsList>
         <section className="w-full  border my-5 rounded-md p-2.5 overflow-x-auto listings-overflow">
           {customerListings.length !== 0 ? (
-            <>
-              <TabsContent
-                value="listings"
-                className="m-0 flex flex-col gap-3 min-w-[750px]"
-              >
-                {customerListings.map((listing) => (
-                  <ListingItem key={listing._id} listing={listing} />
-                ))}
-              </TabsContent>
-              <TabsContent
-                value="active"
-                className="m-0 flex flex-col gap-3 min-w-[750px]"
-              >
-                {activeListings.map((listing) => (
-                  <ListingItem key={listing._id} listing={listing} />
-                ))}
-              </TabsContent>
-              <TabsContent
-                value="available"
-                className="m-0 flex flex-col gap-3 min-w-[750px]"
-              >
-                {availableListings.map((listing) => (
-                  <ListingItem key={listing._id} listing={listing} />
-                ))}
-              </TabsContent>
-            </>
+            !isLoading ? (
+              <>
+                <TabsContent
+                  value="listings"
+                  className="m-0 flex flex-col gap-3 min-w-[950px]"
+                >
+                  {customerListings.map((listing) => (
+                    <ListingItem key={listing._id} listing={listing} />
+                  ))}
+                </TabsContent>
+                <TabsContent
+                  value="active"
+                  className="m-0 flex flex-col gap-3 min-w-[750px]"
+                >
+                  {activeListings.map((listing) => (
+                    <ListingItem key={listing._id} listing={listing} />
+                  ))}
+                </TabsContent>
+                <TabsContent
+                  value="available"
+                  className="m-0 flex flex-col gap-3 min-w-[750px]"
+                >
+                  {availableListings.map((listing) => (
+                    <ListingItem key={listing._id} listing={listing} />
+                  ))}
+                </TabsContent>
+              </>
+            ) : (
+              <>
+                <div className="flex items-center gap-5 p-2">
+                  <Skeleton className={"aspect-square h-[70px]"} />
+                  <Skeleton className={"w-full h-[70px]"} />
+                </div>
+                <div className="flex items-center gap-5 p-2">
+                  <Skeleton className={"aspect-square h-[70px]"} />
+                  <Skeleton className={"w-full h-[70px]"} />
+                </div>
+              </>
+            )
           ) : (
             <section className="text-slate-500 p-4 flex-col flex items-center justify-center gap-4">
               <div className="flex-col flex items-center justify-center gap-1.5">

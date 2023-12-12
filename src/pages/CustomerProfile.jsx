@@ -3,16 +3,80 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import AuthListings from "../components/CustomerProfile/AuthListings";
+import BookingRequests from "../components/CustomerProfile/BookingRequests";
 import { Button } from "../components/ui/button";
+import { toast } from "../components/ui/use-toast";
 import { ListListings } from "../redux/reducers/listingSlice";
+import {
+  listHostOrders,
+  updateOrderStatus,
+} from "../redux/reducers/orderSlice";
 
 const CustomerProfile = () => {
   const dispatch = useDispatch();
   const customer = useSelector((state) => state.authCustomer.customer);
   useEffect(() => {
     dispatch(ListListings());
+    dispatch(listHostOrders());
   }, [dispatch]);
   const listings = useSelector((state) => state.listings.data);
+  const orders = useSelector((state) => state.orders.hostOrders);
+  const isLoading = useSelector((state) => state.orders.isLoading);
+
+  const acceptRequest = async (id) => {
+    try {
+      const result = await dispatch(
+        updateOrderStatus({ id, newOrderStatus: { status: "Paid" } })
+      );
+
+      if (result.payload._id) {
+        return setTimeout(() => {
+          toast({
+            variant: "success",
+            description: "Request accepted successfully",
+          });
+        }, 800);
+      } else {
+        toast({
+          variant: "destructive",
+          description: "ERROR",
+        });
+      }
+    } catch (error) {
+      console.error("Error ", error);
+      toast({
+        variant: "destructive",
+        description: "Something went wrong",
+      });
+    }
+  };
+  const declineRequest = async (id) => {
+    try {
+      const result = await dispatch(
+        updateOrderStatus({ id, newOrderStatus: { status: "Canceled" } })
+      );
+
+      if (result.payload._id) {
+        return setTimeout(() => {
+          toast({
+            variant: "success",
+            description: "Request declined successfully",
+          });
+        }, 800);
+      } else {
+        toast({
+          variant: "destructive",
+          description: "ERROR",
+        });
+      }
+    } catch (error) {
+      console.error("Error", error);
+      toast({
+        variant: "destructive",
+        description: "Something went wrong",
+      });
+    }
+  };
 
   return (
     <div className="max-w-7xl mx-auto lg:px-8 px-4 py-6">
@@ -41,8 +105,19 @@ const CustomerProfile = () => {
           </Button>
         </Link>
       </div>
+      <BookingRequests
+        orders={orders}
+        customer={customer}
+        listings={listings}
+        acceptRequest={acceptRequest}
+        declineRequest={declineRequest}
+      />
       {listings.length > 0 && (
-        <AuthListings listings={listings} customer={customer} />
+        <AuthListings
+          listings={listings}
+          customer={customer}
+          isLoading={isLoading}
+        />
       )}
     </div>
   );

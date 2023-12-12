@@ -45,15 +45,8 @@ const customerStatuses = [
 ];
 const orderStatuses = [
   {
-    value: "Shipped",
-    label: "Shipped",
-    icon: CheckIcon,
-    color: "text-blue-500",
-    badgeStyles: "bg-blue-200 border-blue-200",
-  },
-  {
-    value: "Open",
-    label: "Open",
+    value: "Pending",
+    label: "Pending",
     icon: CircleIcon,
     color: "text-yellow-500",
     badgeStyles: "bg-yellow-200 border-yellow-200",
