@@ -18,6 +18,18 @@ export const listCustomers = createAsyncThunk(
     return response;
   }
 );
+export const getProfile = createAsyncThunk("customers/getProfile", async () => {
+  let clientToken = Cookies.get("clientToken");
+  const request = await axios.get("/customers/profile", {
+    headers: {
+      "x-client-token": clientToken,
+    },
+    withCredentials: true,
+  });
+  const response = await request.data.data;
+
+  return response;
+});
 export const registerCustomer = createAsyncThunk(
   "customers/registerCustomer",
   async (customer, { rejectWithValue }) => {
@@ -59,6 +71,28 @@ export const updateCustomer = createAsyncThunk(
           "x-user-token": userToken,
         },
       });
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+export const updateProfile = createAsyncThunk(
+  "customers/updateProfile",
+  async (newCustomerData, { rejectWithValue }) => {
+    try {
+      let clientToken = Cookies.get("clientToken");
+
+      const response = await axios.patch(
+        `/customers/profile/update`,
+        newCustomerData,
+        {
+          headers: {
+            "x-client-token": clientToken,
+          },
+        }
+      );
+      console.log(response.data);
       return response.data.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -112,6 +146,7 @@ const customerSlice = createSlice({
       })
       .addCase(getCustomer.fulfilled, (state, action) => {
         state.isLoading = false;
+        console.log(action.payload);
         state.customer = action.payload;
         state.error = null;
       })
@@ -123,11 +158,43 @@ const customerSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
+      .addCase(getProfile.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.customer = action.payload;
+        state.error = null;
+      })
+      .addCase(getProfile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
       .addCase(updateCustomer.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })
       .addCase(updateCustomer.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.customer = action.payload;
+        const updatedCustomers = state.data.map((customer) => {
+          if (customer._id === action.payload._id) {
+            return action.payload;
+          } else {
+            return customer;
+          }
+        });
+        state.data = updatedCustomers;
+
+        state.error = null;
+      })
+      .addCase(updateProfile.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateProfile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateProfile.fulfilled, (state, action) => {
         state.isLoading = false;
         state.customer = action.payload;
         const updatedCustomers = state.data.map((customer) => {

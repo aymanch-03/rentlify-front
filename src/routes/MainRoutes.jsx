@@ -8,6 +8,7 @@ import CustomerProfile from "../pages/CustomerProfile";
 import { default as FilterPage } from "../pages/FilterPage";
 import { default as LandingPage } from "../pages/LandingPage";
 import ListingPage from "../pages/ListingPage";
+import ProfileDetails from "../pages/ProfileDetails";
 import UpdateProducts from "../pages/UpdateProducts";
 import OrderPage from "../pages/orderFront";
 const DashboardRoutes = () => {
@@ -24,6 +25,7 @@ const DashboardRoutes = () => {
           <Route path="/discover/listings" element={<FilterPage />} />
           <Route path="/order/:id" element={<OrderPage />} />
           <Route path="/hosting" element={<CustomerProfile />} />
+          <Route path="/profile" element={<ProfileDetails />} />
           <Route element={<RequireOwnListing listing_id={id} />}>
             <Route
               path="/hosting/listing/update/:id"
@@ -35,6 +37,7 @@ const DashboardRoutes = () => {
               }
             />
           </Route>
+
           <Route
             path="/hosting/listing/add-listing"
             element={

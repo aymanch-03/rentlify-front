@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import ExpandedStats from "../components/Dashboard/ExpandedStats";
 import Stats from "../components/Dashboard/Stats";
 import { useSidebar } from "../context/SidebarProvider";
-import Layout from "../layouts/OfficeLayout";
 import { listCustomers } from "../redux/reducers/customerSlice";
 import { listOrders } from "../redux/reducers/orderSlice";
 
@@ -30,8 +29,6 @@ export default function Dashboard() {
   const shippedOrders = orders.filter(
     (order) => order?.status === "Paid" || order?.status === "Closed"
   );
-
-  console.log(shippedOrders);
 
   const totalRevenue = shippedOrders.reduce(
     (total, order) => total + (order?.order_item.total_with_fees || 0),
