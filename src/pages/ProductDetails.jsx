@@ -16,7 +16,6 @@ export default function ListingPage() {
   const dispatch = useDispatch();
   const { id } = useParams();
   useEffect(() => {
-
     dispatch(GetListing(id));
   }, [dispatch, id]);
   const listing = useSelector((state) => state.listings.listing);

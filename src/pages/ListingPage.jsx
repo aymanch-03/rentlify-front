@@ -68,7 +68,7 @@ export default function ListingPage() {
       {!isLoading ? (
         <div className="mb-5">
           <div className="flex md:flex-row flex-col-reverse items-center justify-between">
-            <h1 className="font-medium md:text-3xl text-2xl">
+            <h1 className="font-medium text-left md:text-3xl text-2xl">
               {listing.listing_name}
             </h1>
             <h1

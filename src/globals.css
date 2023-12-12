@@ -31,6 +31,9 @@
 .listings-overflow::-webkit-scrollbar {
   display: none;
 }
+.listings {
+  overscroll-behavior-y: none;
+}
 body {
   scroll-behavior: smooth;
 }

@@ -21,13 +21,13 @@ export default function Pictures({ listing, isLoading }) {
   };
 
   return !isLoading ? (
-    <div className="w-full lg:gap-3 lg:h-[25rem] lg:grid lg:grid-cols-12 md:grid-rows-2">
+    <div className="w-full lg:gap-3 h-[20rem] lg:overflow-auto overflow-hidden lg:rounded-none rounded-md lg:h-[25rem] lg:grid lg:grid-cols-12 md:grid-rows-2">
       <div className="col-span-8 row-span-2 rounded-lg">
         <Dialog>
           <DialogTrigger asChild>
             <div className="h-full col-span-8 row-span-2 rounded-lg flex justify-center items-center">
               <img
-                className="w-full h-full object-cover rounded-lg"
+                className="w-full lg:h-full h-[20rem] object-center object-cover rounded-lg"
                 src={listing.listing_image[0]}
                 onClick={() => {
                   setCurrentSlide(0);

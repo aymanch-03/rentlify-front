@@ -215,9 +215,9 @@ const FilterContent = () => {
               <Link
                 key={index}
                 to={`${listing._id}`}
-                className="flex flex-col rounded-lg overflow-hidden space-y-2"
+                className="flex flex-col rounded-md overflow-hidden space-y-2"
               >
-                <div className="rounded-xl overflow-hidden sm:h-[205px] h-[300px]">
+                <div className="rounded-xl overflow-hidden sm:h-[280px] h-[300px]">
                   <img
                     src={listing.listing_image[0]}
                     className="object-cover w-full h-full"
@@ -239,6 +239,19 @@ const FilterContent = () => {
                   </span>
                 </h1>
                 <h1 className="font-light text-sm flex items-center gap-2">
+                  <Icon icon="solar:user-linear" className="w-4 h-4" />
+                  <p>
+                    Hosted by{" "}
+                    <span className="underline capitalize font-medium">
+                      {" "}
+                      {listing.listing_owner.first_name}
+                    </span>{" "}
+                    <span className="underline capitalize font-medium">
+                      {listing.listing_owner.last_name}
+                    </span>
+                  </p>
+                </h1>
+                <h1 className="font-light text-sm flex items-center gap-2">
                   <Icon
                     icon={
                       listing.max_guests > 2
@@ -247,10 +260,11 @@ const FilterContent = () => {
                     }
                     className="w-4 h-4"
                   />
+
                   <span>{listing.max_guests} Guests</span>
                 </h1>
 
-                <h1 className="font-semibold text-xl">
+                <h1 className="font-medium text-xl">
                   {listing.price} MAD
                   <span className="font-light text-xs"> /night</span>
                 </h1>

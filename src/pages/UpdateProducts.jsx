@@ -16,7 +16,7 @@ import {
   UpdateListing,
 } from "../redux/reducers/listingSlice";
 
-export default function Example({ pathToNavigate, containerStyles }) {
+export default function UpToDateListing({ pathToNavigate, containerStyles }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const listing = useSelector((state) => state.listings.listing);
