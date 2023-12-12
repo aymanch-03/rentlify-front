@@ -28,7 +28,12 @@ const DashboardRoutes = () => {
           <Route element={<RequireOwnListing listing_id={id} />}>
             <Route
               path="/hosting/listing/update/:id"
-              element={<UpdateProducts />}
+              element={
+                <UpdateProducts
+                  containerStyles={"max-w-7xl py-6 px-4 lg:px-8 mx-auto"}
+                  pathToNavigate={"/hosting"}
+                />
+              }
             />
           </Route>
           <Route

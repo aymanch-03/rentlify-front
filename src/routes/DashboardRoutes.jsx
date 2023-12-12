@@ -33,7 +33,12 @@ const DashboardRoutes = () => {
           <Route path="/listings/:id" element={<OfficeListingDetails />} />
           <Route
             path="/listings/update-listing/:id"
-            element={<UpdateProducts />}
+            element={
+              <UpdateProducts
+                containerStyles="container space-y-8 sm:p-8 p-4"
+                pathToNavigate={"/office/listings"}
+              />
+            }
           />
           <Route
             path="/listings/add-listing"

@@ -17,7 +17,7 @@ export default function Example({ containerStyles, pathToNavigate }) {
   const { toast } = useToast();
   const [error, setError] = useState(null);
   const categories = useSelector((state) => state.categories.data);
-  const isLoading = useSelector((state) => state.categories.isLoading);
+  const isLoading = useSelector((state) => state.listings.isLoading);
 
   useEffect(() => {
     dispatch(getAllCategories());
@@ -278,7 +278,8 @@ export default function Example({ containerStyles, pathToNavigate }) {
                   htmlFor="price"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Price <span className="text-xs font-light">/night</span>
+                  Listing Price{" "}
+                  <span className="text-xs font-light">/night</span>
                 </label>
                 <div className="mt-2">
                   <input
@@ -295,7 +296,7 @@ export default function Example({ containerStyles, pathToNavigate }) {
                   htmlFor="bed"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Beds
+                  N˚ Beds
                 </label>
                 <div className="mt-2">
                   <input
@@ -312,7 +313,7 @@ export default function Example({ containerStyles, pathToNavigate }) {
                   htmlFor="room"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Bedrooms
+                  N˚ Rooms
                 </label>
                 <div className="mt-2">
                   <input
