@@ -91,7 +91,7 @@ const AuthListings = ({ customer, listings, isLoading }) => {
   );
 
   return (
-    <div className="my-12 overflow-hidden">
+    <div className="mb-12 mt-2 overflow-hidden">
       <Tabs defaultValue="listings" className="w-full">
         <TabsList className="gap-2 w-full md:gap-5 bg-transparent justify-start overflow-x-auto overflow-y-hidden listings-overflow">
           <TabsTrigger

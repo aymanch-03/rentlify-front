@@ -105,6 +105,9 @@ const CustomerProfile = () => {
           </Button>
         </Link>
       </div>
+      <h1 className="mt-16 mb-5 font-medium capitalize text-xl">
+        All booking requests
+      </h1>
       <BookingRequests
         orders={orders}
         customer={customer}
@@ -112,6 +115,7 @@ const CustomerProfile = () => {
         acceptRequest={acceptRequest}
         declineRequest={declineRequest}
       />
+      <h1 className="mt-16 mb-5 font-medium capitalize text-xl">My Listings</h1>
       {listings.length > 0 && (
         <AuthListings
           listings={listings}
