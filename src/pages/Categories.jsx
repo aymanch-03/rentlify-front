@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import getColumns from "../components/ui/columns";
 import DataTable from "../components/ui/data-table";
 import { getAllCategories } from "../redux/reducers/categorySlice";
+import CategoryDialog from "../components/category/addCategoryDialog";
 
 const CategoriesPage = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,9 @@ const CategoriesPage = () => {
             <p className="text-muted-foreground">
               {"Here's"} a list of your categories!
             </p>
+          </div>
+          <div className="flex items-center space-x-2">
+            <CategoryDialog/>
           </div>
         </div>
         <DataTable

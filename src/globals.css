@@ -27,7 +27,8 @@
 * {
   font-family: "Poppins", sans-serif;
 }
-*::webkit-scrollbar {
+
+.listings-overflow::-webkit-scrollbar {
   display: none;
 }
 body {

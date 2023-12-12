@@ -8,7 +8,7 @@ import { ListListings } from "../redux/reducers/listingSlice";
 
 const CustomerProfile = () => {
   const dispatch = useDispatch();
-  const customer = useSelector((state) => state.auth.customer);
+  const customer = useSelector((state) => state.authCustomer.customer);
   useEffect(() => {
     dispatch(ListListings());
   }, [dispatch]);
@@ -34,7 +34,7 @@ const CustomerProfile = () => {
             </span>
           </span>{" "}
         </h1>
-        <Link to={"add-listing"}>
+        <Link to={"/hosting/listing/add-listing"}>
           <Button className="p-3" variant="outline">
             <Icon icon="solar:home-add-line-duotone" className="w-5 h-5 mr-2" />
             Add Listing

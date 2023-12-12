@@ -5,10 +5,9 @@ import { ListListings } from "../redux/reducers/listingSlice";
 import { ListSubcategories } from "../redux/reducers/subcategorieSlice";
 // import ProductDialog from '../components/products/addProductDialog';
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Icon } from "@iconify/react";
 import { PackagePlus } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ListingSkeleton from "../components/ui/listingSkeleton";
 
 export default function Products() {

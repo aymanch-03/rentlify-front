@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
+import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { customerStatuses, listingLabels } from "../../data/data";
+import RemoveListing from "../products/DeleteListing";
 import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 const ListingItem = ({ listing }) => {
@@ -11,22 +14,28 @@ const ListingItem = ({ listing }) => {
   );
 
   return (
-    <Link
-      to={`/hosting/listing/${listing._id}`}
-      key={listing.sku}
-      className="grid grid-cols-6 place-items-center overflow-hidden text-sm p-2 rounded-md cursor-pointer hover:bg-muted"
+    <div
+      key={listing._id}
+      className="grid grid-cols-7 place-items-center overflow-hidden text-sm p-2 rounded-md cursor-pointer "
     >
-      <div className="col-span-3 flex justify-start w-full items-stretch gap-5 h-full">
+      <Link
+        to={`/discover/listings/${listing._id}`}
+        className="col-span-3 flex justify-start w-full items-stretch gap-5 h-full"
+      >
         <img
           src={listing.listing_image[0]}
           alt=""
           className="rounded-md object-cover aspect-square w-[70px]"
         />
         <div className="flex flex-col h-full justify-between">
-          <p>{listing.listing_name}</p>
-          <p className="truncate max-w-[300px] ">{listing.short_description}</p>
+          <p className="font-medium text-lg first-letter:capitalize">
+            {listing.listing_name}
+          </p>
+          <p className="truncate max-w-[275px] font-light text-sm first-letter:capitalize">
+            {listing.short_description}
+          </p>
         </div>
-      </div>
+      </Link>
       <div>
         <div className="flex space-x-2">
           {label && (
@@ -60,7 +69,8 @@ const ListingItem = ({ listing }) => {
           {listing.price} MAD <span className="text-xs font-light">/night</span>
         </p>
       </div>
-    </Link>
+      <RemoveListing id={listing._id} listing={listing} />
+    </div>
   );
 };
 
@@ -75,44 +85,80 @@ const AuthListings = ({ customer, listings }) => {
   );
 
   return (
-    <div className="my-12">
+    <div className="my-12 overflow-hidden">
       <Tabs defaultValue="listings" className="w-full">
-        <TabsList className="gap-5 bg-transparent">
+        <TabsList className="gap-2 w-full md:gap-5 bg-transparent justify-start overflow-x-auto overflow-y-hidden listings-overflow">
           <TabsTrigger
             value="listings"
+            disabled={!customerListings.length}
             className="font-normal hover:border-violet-300 text-black"
           >
             All Listings ({customerListings.length})
           </TabsTrigger>
           <TabsTrigger
             value="active"
+            disabled={!customerListings.length}
             className="font-normal hover:border-violet-300 text-black"
           >
             Active Listings ({activeListings.length})
           </TabsTrigger>
           <TabsTrigger
             value="available"
+            disabled={!customerListings.length}
             className="font-normal hover:border-violet-300 text-black"
           >
             Available Listings ({availableListings.length})
           </TabsTrigger>
         </TabsList>
-        <section className="w-full  border my-5 rounded-md p-2.5">
-          <TabsContent value="listings" className="m-0 flex flex-col gap-3">
-            {customerListings.map((listing) => (
-              <ListingItem key={listing.sku} listing={listing} />
-            ))}
-          </TabsContent>
-          <TabsContent value="active" className="m-0 flex flex-col gap-3">
-            {activeListings.map((listing) => (
-              <ListingItem key={listing.sku} listing={listing} />
-            ))}
-          </TabsContent>
-          <TabsContent value="available" className="m-0 flex flex-col gap-3">
-            {availableListings.map((listing) => (
-              <ListingItem key={listing.sku} listing={listing} />
-            ))}
-          </TabsContent>
+        <section className="w-full  border my-5 rounded-md p-2.5 overflow-x-auto listings-overflow">
+          {customerListings.length !== 0 ? (
+            <>
+              <TabsContent
+                value="listings"
+                className="m-0 flex flex-col gap-3 min-w-[750px]"
+              >
+                {customerListings.map((listing) => (
+                  <ListingItem key={listing._id} listing={listing} />
+                ))}
+              </TabsContent>
+              <TabsContent
+                value="active"
+                className="m-0 flex flex-col gap-3 min-w-[750px]"
+              >
+                {activeListings.map((listing) => (
+                  <ListingItem key={listing._id} listing={listing} />
+                ))}
+              </TabsContent>
+              <TabsContent
+                value="available"
+                className="m-0 flex flex-col gap-3 min-w-[750px]"
+              >
+                {availableListings.map((listing) => (
+                  <ListingItem key={listing._id} listing={listing} />
+                ))}
+              </TabsContent>
+            </>
+          ) : (
+            <section className="text-slate-500 p-4 flex-col flex items-center justify-center gap-4">
+              <div className="flex-col flex items-center justify-center gap-1.5">
+                <Icon
+                  icon="solar:bill-cross-line-duotone"
+                  className="w-8 h-8"
+                />
+                <p className="text-xs font-light">No listings available yet.</p>
+              </div>
+              <Link
+                to="/hosting/listing/add-listing"
+                className="group hover:text-slate-900 flex items-center gap-2"
+              >
+                <span className="font-medium text-sm">Add a Listing</span>
+                <Icon
+                  icon="solar:arrow-right-line-duotone"
+                  className="group-hover:ml-2 h-4 w-4 transition-all"
+                />
+              </Link>
+            </section>
+          )}
         </section>
       </Tabs>
     </div>

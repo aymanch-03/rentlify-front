@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -20,14 +21,14 @@ export default function Pictures({ listing, isLoading }) {
   };
 
   return !isLoading ? (
-    <div className="w-full lg:gap-3 lg:h-[30rem] lg:p-4 lg:grid lg:grid-cols-12 md:grid-rows-2">
+    <div className="w-full lg:gap-3 lg:h-[25rem] lg:grid lg:grid-cols-12 md:grid-rows-2">
       <div className="col-span-8 row-span-2 rounded-3xl">
         <Dialog>
           <DialogTrigger asChild>
             <div className="h-full col-span-8 row-span-2 rounded-3xl flex justify-center items-center">
               <img
                 className="w-full h-full object-cover rounded-3xl"
-                src={images[0]}
+                src={listing.listing_image[0]}
                 onClick={() => {
                   setCurrentSlide(0);
                 }}
@@ -46,7 +47,7 @@ export default function Pictures({ listing, isLoading }) {
               <div className="w-[100%] m-4">
                 <img
                   className="m-auto w-auto object-cover lg:h-[80vh]"
-                  src={images[currentSlide]}
+                  src={listing.listing_image[currentSlide]}
                 />
               </div>
               <Button
@@ -61,7 +62,7 @@ export default function Pictures({ listing, isLoading }) {
               </Button>
             </div>
             <span className="m-auto">
-              {currentSlide + 1}/{images.length}
+              {currentSlide + 1}/{listing.listing_image.length}
             </span>
           </DialogContent>
         </Dialog>
@@ -72,7 +73,7 @@ export default function Pictures({ listing, isLoading }) {
             <div className="h-full col-span-8 row-span-2 rounded-3xl">
               <img
                 className="w-full h-full object-cover rounded-3xl"
-                src={images[1]}
+                src={listing.listing_image[1]}
                 onClick={() => {
                   setCurrentSlide(1);
                 }}
@@ -91,7 +92,7 @@ export default function Pictures({ listing, isLoading }) {
               <div className="w-[70vw]">
                 <img
                   className="m-auto w-auto object-cover h-[80vh]"
-                  src={images[currentSlide]}
+                  src={listing.listing_image[currentSlide]}
                 />
               </div>
               <Button
@@ -106,7 +107,7 @@ export default function Pictures({ listing, isLoading }) {
               </Button>
             </div>
             <span className="m-auto">
-              {currentSlide + 1}/{images.length}
+              {currentSlide + 1}/{listing.listing_image.length}
             </span>
           </DialogContent>
         </Dialog>
@@ -117,7 +118,7 @@ export default function Pictures({ listing, isLoading }) {
             <div className="h-full col-span-8 row-span-2 rounded-3xl flex justify-center items-center">
               <img
                 className="w-full h-full object-cover rounded-3xl"
-                src={images[2]}
+                src={listing.listing_image[2]}
                 onClick={() => {
                   setCurrentSlide(2);
                 }}
@@ -136,7 +137,7 @@ export default function Pictures({ listing, isLoading }) {
               <div className="w-[70vw]">
                 <img
                   className="m-auto w-auto object-cover h-[80vh]"
-                  src={images[currentSlide]}
+                  src={listing.listing_image[currentSlide]}
                 />
               </div>
               <Button
@@ -151,7 +152,7 @@ export default function Pictures({ listing, isLoading }) {
               </Button>
             </div>
             <span className="m-auto">
-              {currentSlide + 1}/{images.length}
+              {currentSlide + 1}/{listing.listing_image.length}
             </span>
           </DialogContent>
         </Dialog>
@@ -161,11 +162,13 @@ export default function Pictures({ listing, isLoading }) {
           <DialogTrigger asChild>
             <div
               className={`cursor-pointer flex items-center justify-center w-full h-full rounded-3xl row-span-1 relative bg-cover bg-center bg-no-repeat`}
-              style={{ backgroundImage: `url(${images[3]})` }}
+              style={{ backgroundImage: `url(${listing.listing_image[3]})` }}
             >
               <div className="w-full absolute inset-0 z-20 h-full rounded-3xl bg-black/70"></div>
               <p className="z-40 relative text-xl text-white ">
-                {images.length >= 4 ? `+ ${images.length - 3}` : "Show all"}
+                {listing.listing_image.length >= 4
+                  ? `+ ${listing.listing_image.length - 3}`
+                  : "Show all"}
               </p>
             </div>
           </DialogTrigger>
@@ -178,16 +181,16 @@ export default function Pictures({ listing, isLoading }) {
                       Photos
                     </h4>
                     <div className="w-full h-[80vh] grid gap-4 grid-cols-2 grid-rows-[400px] p-4">
-                      {images.map((image, index) => {
+                      {listing.listing_image.map((image, index) => {
                         if (index % 3 === 0) {
                           return (
-                            <div className="col-span-2">
+                            <div className="col-span-2" key={index}>
                               <Dialog>
                                 <DialogTrigger asChild>
                                   <div className="h-[400px] col-span-8 row-span-2 rounded-3xl">
                                     <img
                                       className="w-full h-full object-cover rounded-3xl"
-                                      src={images[index]}
+                                      src={listing.listing_image[index]}
                                       onClick={() => {
                                         setCurrentSlide(index);
                                       }}
@@ -209,7 +212,9 @@ export default function Pictures({ listing, isLoading }) {
                                     <div className="w-[70vw] ">
                                       <img
                                         className="m-auto w-auto object-cover h-[80vh]"
-                                        src={images[currentSlide]}
+                                        src={
+                                          listing.listing_image[currentSlide]
+                                        }
                                       />
                                     </div>
                                     <Button
@@ -224,7 +229,8 @@ export default function Pictures({ listing, isLoading }) {
                                     </Button>
                                   </div>
                                   <span className="m-auto">
-                                    {currentSlide + 1}/{images.length}
+                                    {currentSlide + 1}/
+                                    {listing.listing_image.length}
                                   </span>
                                 </DialogContent>
                               </Dialog>
@@ -233,13 +239,13 @@ export default function Pictures({ listing, isLoading }) {
                         }
                         if (index % 3 === 1) {
                           return (
-                            <div className="">
+                            <div className="" key={index}>
                               <Dialog>
                                 <DialogTrigger asChild>
                                   <div className="h-[400px] col-span-8 row-span-2 rounded-3xl">
                                     <img
                                       className="w-full h-full object-cover rounded-3xl"
-                                      src={images[index]}
+                                      src={listing.listing_image[index]}
                                       onClick={() => {
                                         setCurrentSlide(index);
                                       }}
@@ -261,7 +267,9 @@ export default function Pictures({ listing, isLoading }) {
                                     <div className="w-[70vw] ">
                                       <img
                                         className="m-auto w-auto object-cover h-[80vh]"
-                                        src={images[currentSlide]}
+                                        src={
+                                          listing.listing_image[currentSlide]
+                                        }
                                       />
                                     </div>
                                     <Button
@@ -276,7 +284,8 @@ export default function Pictures({ listing, isLoading }) {
                                     </Button>
                                   </div>
                                   <span className="m-auto">
-                                    {currentSlide + 1}/{images.length}
+                                    {currentSlide + 1}/
+                                    {listing.listing_image.length}
                                   </span>
                                 </DialogContent>
                               </Dialog>
@@ -285,13 +294,13 @@ export default function Pictures({ listing, isLoading }) {
                         }
                         if (index % 3 === 2) {
                           return (
-                            <div className="">
+                            <div className="" key={index}>
                               <Dialog>
                                 <DialogTrigger asChild>
                                   <div className="h-[400px] col-span-8 row-span-2 rounded-3xl">
                                     <img
                                       className="w-full h-full object-cover rounded-3xl"
-                                      src={images[index]}
+                                      src={listing.listing_image[index]}
                                       onClick={() => {
                                         setCurrentSlide(index);
                                       }}
@@ -313,7 +322,9 @@ export default function Pictures({ listing, isLoading }) {
                                     <div className="w-[70vw] ">
                                       <img
                                         className="m-auto w-auto object-cover h-[80vh]"
-                                        src={images[currentSlide]}
+                                        src={
+                                          listing.listing_image[currentSlide]
+                                        }
                                       />
                                     </div>
                                     <Button
@@ -328,7 +339,8 @@ export default function Pictures({ listing, isLoading }) {
                                     </Button>
                                   </div>
                                   <span className="m-auto">
-                                    {currentSlide + 1}/{images.length}
+                                    {currentSlide + 1}/
+                                    {listing.listing_image.length}
                                   </span>
                                 </DialogContent>
                               </Dialog>
@@ -346,8 +358,8 @@ export default function Pictures({ listing, isLoading }) {
       </div>
     </div>
   ) : (
-    <div className="w-full lg:gap-3 lg:h-[30rem] lg:p-10 lg:grid lg:grid-cols-12 md:grid-rows-2">
-      <div className="col-span-8 row-span-2 rounded-3xl">
+    <div className="w-full lg:gap-3 h-[25rem] lg:grid lg:grid-cols-12 md:grid-rows-2">
+      <div className="col-span-8 row-span-2 rounded-3xl w-full h-full">
         <div className="h-full col-span-8 row-span-2 rounded-3xl flex justify-center items-center">
           <Skeleton className="h-full w-full rounded-3xl" />
         </div>

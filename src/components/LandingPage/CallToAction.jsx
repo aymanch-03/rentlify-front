@@ -30,7 +30,7 @@ const CallToAction = () => {
         className="flex mx-auto mt-10 group items-center py-[20px] justify-center gap-2 rounded-lg "
       >
         <Link
-          to="/discover"
+          to="/discover/listings"
           className="flex transition-all group-hover:gap-4 items-center justify-center gap-2"
         >
           <span>Discover Now</span>

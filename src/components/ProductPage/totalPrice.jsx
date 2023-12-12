@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Icon } from "@iconify/react";
 
 export default function TotalPrice({ listing, days, totalPrice, isLoading,className }) {

@@ -1,7 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { createNewOrder } from "../../redux/reducers/orderSlice";
 import {
     Dialog,
     DialogClose,
@@ -44,15 +41,15 @@ export default function RequestToBook({ listing, dateFrom, dateTo, totalPrice, t
                                 days={days}
                                 totalPrice={totalPrice}
                             />
-                        <DialogClose asChild>
-                            <Button type="button" variant="secondary">
-                                Cancel
-                            </Button>
-                        </DialogClose>
+                            <DialogClose asChild>
+                                <Button type="button" variant="secondary">
+                                    Cancel
+                                </Button>
+                            </DialogClose>
                         </div>
                         <div className="w-[1px] h-[90%] bg-slate-200"></div>
                         <div className="w-1/2 h-full ">
-                            <StripeContainer order={order}/>
+                            <StripeContainer order={order} />
                         </div>
                     </div>
                 </DialogContent>

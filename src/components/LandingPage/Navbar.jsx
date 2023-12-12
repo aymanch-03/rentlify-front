@@ -28,22 +28,10 @@ const company = [
       "Learn more about our company values and mission to empower others",
   },
   {
-    name: "Careers",
-    href: "/",
-    description:
-      "Looking for you next career opportunity? See all of our open positions",
-  },
-  {
     name: "Support",
     href: "/",
     description:
       "Get in touch with our dedicated support team or reach out on our community forums",
-  },
-  {
-    name: "Blog",
-    href: "/",
-    description:
-      "Read our latest announcements and get perspectives from our team",
   },
 ];
 
@@ -206,7 +194,7 @@ export default function Navbar() {
                   <DropdownMenuItem className="cursor-pointer ">
                     <Link
                       to="/hosting"
-                      className="flex items-center justify-between"
+                      className="flex items-center justify-between w-full"
                     >
                       <span className="font-semibold">Host Mode</span>
                       <Icon icon="tabler:switch-3" className="w-4 h-4" />

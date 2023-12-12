@@ -29,7 +29,6 @@ const store = configureStore({
     customers: customerReducer,
     orders: orderReducer,
     categories: categoryReducer,
-    // listings: listingReducer,
     authCustomer: customerPersistedReducer,
     listings: listingReducer,
     subcategories: subcategorieReducer,

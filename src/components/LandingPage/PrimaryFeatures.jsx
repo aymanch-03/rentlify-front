@@ -257,7 +257,7 @@ const PrimaryFeatures = () => {
     <section
       id="features"
       aria-label="Features for simplifying everyday business tasks"
-      className="relative h-screen md:py-16 md:px-8 px-4 py-8"
+      className="relative md:py-16 md:px-8 px-4 py-8"
     >
       <div className="absolute left-0 top-0 w-full h-12 bg-gradient-to-b from-white to-transparent"></div>
       {bgSVG()}
