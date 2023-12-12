@@ -62,7 +62,7 @@ export default function BookingBox({ id, listing, isLoading }) {
   }
 
   return !isLoading ? (
-    <div className="rounded-2xl col-span-5 p-4 border shadow-md h-fit my-5">
+    <div className="rounded-2xl p-4 border shadow-md my-5 ">
       <div className="flex justify-between items-center p-2 h-14">
         <h3>
           <span className="font-medium text-3xl">{totalPrice} MAD</span>/{" "}

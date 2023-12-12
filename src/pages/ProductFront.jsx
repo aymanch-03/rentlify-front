@@ -72,9 +72,8 @@ export default function ProductPage() {
               {listing.listing_name}
             </h1>
             <h1
-              className={`flex items-center gap-1 cursor-pointer hover:text-black text-slate-600 ${
-                isCopied ? "text-green-500 transition-colors" : ""
-              }`}
+              className={`flex items-center gap-1 cursor-pointer hover:text-black text-slate-600 ${isCopied ? "text-green-500 transition-colors" : ""
+                }`}
               onClick={handleCopyClick}
             >
               <Icon
@@ -105,9 +104,13 @@ export default function ProductPage() {
         </div>
       )}
       <Pictures listing={listing} isLoading={isLoading} />
-      <div className="lg:grid gap-8 grid-cols-12">
+      <div className="h-full w-full lg:grid gap-8 grid-cols-12">
         <ProductDetails listing={listing} isLoading={isLoading} />
-        <BookingBox id={id} listing={listing} isLoading={isLoading} />
+        <div className="w-full col-span-5">
+          <div className="w-full pt-0 sticky top-20">
+          <BookingBox id={id} listing={listing} isLoading={isLoading} />
+          </div>
+        </div>
       </div>
     </div>
   );

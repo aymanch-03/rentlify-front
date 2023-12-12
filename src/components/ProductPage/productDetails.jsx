@@ -9,7 +9,7 @@ export default function ProductDetails({ listing, isLoading }) {
   const [open, setOpen] = useState(false);
 
   return !isLoading ? (
-    <div className="col-span-7 py-5">
+    <div className="col-span-7 pt-5">
       <div className="">
         <div className="text-lg font-medium flex items-center gap-2 mb-4">
           <Icon
@@ -27,16 +27,14 @@ export default function ProductDetails({ listing, isLoading }) {
             </span>{" "}
             <span className="font-light">
               ({" "}
-              {`${
-                new Date().getFullYear() -
+              {`${new Date().getFullYear() -
                   new Date(listing.listing_owner.createdAt).getFullYear() >
-                0
-                  ? `${
-                      new Date().getFullYear() -
-                      new Date(listing.listing_owner.createdAt).getFullYear()
-                    } Years of hosting`
+                  0
+                  ? `${new Date().getFullYear() -
+                  new Date(listing.listing_owner.createdAt).getFullYear()
+                  } Years of hosting`
                   : "Recent in hosting "
-              }`}
+                }`}
               )
             </span>
           </h1>
@@ -62,30 +60,32 @@ export default function ProductDetails({ listing, isLoading }) {
       </div>
       <Separator />
       <div
-        className={`relative p-6 rounded-lg border mt-5 transition-all overflow-hidden ${
-          !open ? "h-[200px]" : "h-auto"
-        }`}
+        className={`relative p-6 rounded-lg border mt-5 transition-all overflow-hidden  ${!open ? "h-[220px]" : "h-auto"
+          }`}
       >
         {" "}
-        <h1 className="text-xl font-medium ">About the Listing</h1>
+        <div className=" w-full flex justify-between items-center">
+          <h1 className="text-xl font-medium ">About the Listing</h1>
+          <div className=" w-fit p-4 bg-gradient-to-t from-white to-white/75">
+            <h1
+              className="font-medium text-primary flex items-center gap-2"
+              onClick={() => setOpen((prev) => !prev)}
+            >
+              <span>Show {open ? "Less" : "More"}</span>
+              <Icon
+                icon={
+                  open ? "solar:alt-arrow-up-broken" : "solar:alt-arrow-down-broken"
+                }
+                className="h-5 w-5"
+              />
+            </h1>
+          </div>
+        </div>
         <p className="lg:w-full my-4">{listing.short_description}</p>
         <p className="w-full my-4">{listing.long_description}</p>
         <div className="absolute bottom-0 w-full p-4 bg-gradient-to-t from-white to-transparent h-16"></div>
       </div>
-      <div className=" w-full p-4 bg-gradient-to-t from-white to-white/75">
-        <h1
-          className="font-medium text-primary flex items-center gap-2"
-          onClick={() => setOpen((prev) => !prev)}
-        >
-          <span>Show {open ? "Less" : "More"}</span>
-          <Icon
-            icon={
-              open ? "solar:alt-arrow-up-broken" : "solar:alt-arrow-down-broken"
-            }
-            className="h-5 w-5"
-          />
-        </h1>
-      </div>
+
       {/* <Button
         variant="ghost"
         className="flex gap-1 group hover:bg-transparent text-[#318ed3] hover:text-[#318ed3]"

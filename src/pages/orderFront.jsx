@@ -13,11 +13,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from ".././components/ui/popover";
-import RequestToBook from "../components/ProductPage/RequestToBook";
+import RequestToBook from "../components/payment/RequestToBook";
 import Contact from "../components/ProductPage/contact";
 import PayWith from "../components/ProductPage/payment";
 import TotalPrice from "../components/ProductPage/totalPrice";
 import { GetListing } from "../redux/reducers/listingSlice";
+import StripeContainer from "../components/payment/StripeContainer";
 
 export default function OrderPage() {
   const location = useLocation();
@@ -106,6 +107,7 @@ export default function OrderPage() {
         <div className="w-full items-center justify-center">
           <div className="w-full flex items-center justify-center sticky top-10">
             <TotalPrice
+            className={"lg:p-6 mt-10 lg:border border-inherit rounded-2xl"}
               listing={listing}
               days={days}
               totalPrice={totalPrice}
@@ -161,15 +163,13 @@ export default function OrderPage() {
                   <div className="flex flex-col gap-4">
                     <h5 className="font-medium text-xl">Guests</h5>
                     <p>
-                      {`${
-                        adults === 1 ? `${adults} adult` : `${adults} adults`
-                      }`}
+                      {`${adults === 1 ? `${adults} adult` : `${adults} adults`
+                        }`}
                       ,{" "}
-                      {`${
-                        children <= 1
-                          ? `${children} child`
-                          : `${children} children`
-                      }`}
+                      {`${children <= 1
+                        ? `${children} child`
+                        : `${children} children`
+                        }`}
                     </p>
                   </div>
                   <div>
@@ -267,10 +267,10 @@ export default function OrderPage() {
             </div>
           </div>
           <hr className="max-w-full w-[90%] lg:max-w-[550px] w-full my-6 p-1" />
-          <div className="max-w-full w-[90%] lg:max-w-[550px] w-full">
-            <PayWith />
+          {/* <div className="max-w-full w-[90%] lg:max-w-[550px] w-full">
+            <StripeContainer />
           </div>
-          <hr className="max-w-full w-[90%] lg:max-w-[550px] w-full my-6 p-1" />
+          <hr className="max-w-full w-[90%] lg:max-w-[550px] w-full my-6 p-1" /> */}
           <div className=" max-w-full w-[90%] lg:max-w-[550px] w-full">
             <Contact />
           </div>

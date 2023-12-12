@@ -4,6 +4,8 @@ import Cookies from "js-cookie";
 import axios from "../axios";
 
 let userToken;
+
+
 export const listOrders = createAsyncThunk("orders/listOrders", async () => {
   userToken = Cookies.get("userToken");
   const request = await axios.get("/orders", {
@@ -107,6 +109,8 @@ const orderSlice = createSlice({
       .addCase(createNewOrder.pending, (state, action) => {
         state.status = "pending";
         state.isLoading = true;
+        console.log("pending: ",action);
+
       })
       .addCase(createNewOrder.fulfilled, (state, action) => {
         state.status = "succeeded";
