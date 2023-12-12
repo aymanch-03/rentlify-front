@@ -8,8 +8,8 @@ import CategoriesPage from "../pages/Categories";
 import CustomerDetails from "../pages/CustomerDetails";
 import Customers from "../pages/Customers";
 import Dashboard from "../pages/Dashboard";
+import Listings from "../pages/Listings";
 import OrderPage from "../pages/Order";
-import Products from "../pages/Products";
 import Profile from "../pages/Profile";
 import UpdateProducts from "../pages/UpdateProducts";
 import Users from "../pages/Users";
@@ -29,7 +29,7 @@ const DashboardRoutes = () => {
           <Route path="categories" element={<CategoriesPage />} />
           <Route path="profile" element={<Profile />} />
           <Route path="/subcategories" element={<Subcategories />} />
-          <Route path="/listings" element={<Products />} />
+          <Route path="/listings" element={<Listings />} />
           <Route path="/listings/:id" element={<OfficeListingDetails />} />
           <Route
             path="/listings/update-listing/:id"

@@ -10,7 +10,7 @@ import { PackagePlus } from "lucide-react";
 import { Link } from "react-router-dom";
 import ListingSkeleton from "../components/ui/listingSkeleton";
 
-export default function Products() {
+export default function Listings() {
   const dispatch = useDispatch();
   const listings = useSelector((state) => state.listings.data);
   const isLoading = useSelector((state) => state.listings.isLoading);
@@ -27,7 +27,7 @@ export default function Products() {
             Listings Management
           </h2>
           <p className="text-muted-foreground">
-            {"Here's"} a list of your customers!
+            {"Here's"} a list of all listings!
           </p>
         </div>
         <Link to={"add-listing"}>
