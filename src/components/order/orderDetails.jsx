@@ -167,14 +167,14 @@ export default function OrderDetails() {
                   <p className="font-medium text-md ">
                     {format(
                       new Date(order?.order_item.date_from),
-                      "LLLL Do, y"
+                      "LLLL dd, y"
                     )}
                   </p>
                 </div>
                 <div className="flex gap-4 lg:justify-normal justify-between">
                   <p className="font-light text-base  ">Check-out:</p>
                   <p className="font-medium text-md">
-                    {format(new Date(order?.order_item.date_to), "LLLL Do, y")}
+                    {format(new Date(order?.order_item.date_to), "LLLL dd, y")}
                   </p>
                 </div>
                 <div className="flex gap-4 lg:justify-normal justify-between">

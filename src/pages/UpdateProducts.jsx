@@ -16,7 +16,11 @@ import {
   UpdateListing,
 } from "../redux/reducers/listingSlice";
 
-export default function UpToDateListing({ pathToNavigate, containerStyles }) {
+export default function UpToDateListing({
+  pathToNavigate,
+  containerStyles,
+  redirectPath,
+}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const listing = useSelector((state) => state.listings.listing);
@@ -86,7 +90,7 @@ export default function UpToDateListing({ pathToNavigate, containerStyles }) {
       dispatch(UpdateListing({ id, listing: updatedProductData }));
       // dispatch(ListListings());
 
-      navigate(`/office/listings/${id}`);
+      navigate(pathToNavigate);
     } catch (error) {
       console.error("Error updating data:", error);
       // Handle error and possibly show an error message to the user

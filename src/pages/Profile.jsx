@@ -22,12 +22,12 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import * as z from "zod";
-import { timeAgo } from "../lib/helpers";
-import { getUser, updateUser } from "../redux/reducers/userSlice";
 import { Avatar, AvatarFallback } from "../components/ui/avatar";
 import { Icons } from "../components/ui/icons";
 import { Skeleton } from "../components/ui/skeleton";
 import { useToast } from "../components/ui/use-toast";
+import { timeAgo } from "../lib/helpers";
+import { getUser, updateUser } from "../redux/reducers/userSlice";
 const FormSchema = z.object({
   first_name: z.string().min(2).max(18),
   last_name: z.string().min(2).max(18),
@@ -50,7 +50,7 @@ export default function Profile() {
     .split(" ")
     .map((name) => name.charAt(0).toUpperCase());
   const fallbackAvatar = `${firstNameInitial}${lastNameInitial}`;
-  const user_id = logedUser._id
+  const user_id = logedUser._id;
   useEffect(() => {
     try {
       dispatch(getUser(user_id));
@@ -62,7 +62,7 @@ export default function Profile() {
       setIsLoading(false);
     }
   }, [dispatch, user_id]);
-  console.log("user:", user)
+  console.log("user:", user);
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -133,10 +133,9 @@ export default function Profile() {
     }
   };
 
-
   return !isLoading ? (
     <div>
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 flex justify-between">
+      <div className="mx-auto container px-4 py-8 sm:px-6 lg:px-8 flex justify-between">
         <div>
           <div className="flex gap-x-4">
             <Avatar className="h-20 w-20 border-4 border-white shadow-md">
@@ -151,8 +150,9 @@ export default function Profile() {
                   <span className="capitalize">{user?.last_name}</span>
                 </h1>
                 <span
-                  className={`capitalize flex items-center gap-1 ${user.active ? "text-green-500" : "text-red-500"
-                    }`}
+                  className={`capitalize flex items-center gap-1 ${
+                    user.active ? "text-green-500" : "text-red-500"
+                  }`}
                 >
                   {user.active ? (
                     <Icon icon="solar:check-circle-linear" />
@@ -210,14 +210,16 @@ export default function Profile() {
         </div>
       </div>
       <hr className="w-full" />
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 gap-x-4">
+      <div className="mx-auto container px-4 py-8 sm:px-6 lg:px-8 gap-x-4">
         <div className="grid grid-cols-3 gap-x-10 gap-y-5">
           <div className="flex justify-between items-center md:col-span-1 col-span-3 self-start">
             <p className="font-medium">Personal Information</p>
           </div>
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit((data) => submitData({ id: user._id, data }))}
+              onSubmit={form.handleSubmit((data) =>
+                submitData({ id: user._id, data })
+              )}
               className="space-y-6 md:col-span-2 col-span-3"
             >
               <section className="flex items-center gap-2">
@@ -286,38 +288,6 @@ export default function Profile() {
               />
               <FormField
                 control={form.control}
-                name="role"
-                render={({ field }) => (
-                  <FormItem className="">
-                    <FormLabel className="text-slate-500">Role</FormLabel>
-                    <div className="inline-block w-full">
-                      <Select
-                        name="role"
-                        defaultValue={user.role}
-                        disabled={isDisabled}
-                        onValueChange={field.onChange}
-                      >
-                        <FormControl>
-                          <>
-                            <SelectTrigger className="">
-                              <SelectValue placeholder="Select a role to display" />
-                            </SelectTrigger>
-                            <SelectContent name="role">
-                              <SelectItem value="admin">Admin User</SelectItem>
-                              <SelectItem value="manager">
-                                Manager User
-                              </SelectItem>
-                            </SelectContent>
-                          </>
-                        </FormControl>
-                      </Select>
-                      <FormMessage />
-                    </div>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
                 name="user_name"
                 render={({ field }) => (
                   <FormItem className="">
@@ -327,7 +297,7 @@ export default function Profile() {
                         <Input
                           name="user_name"
                           placeholder={user.user_name}
-                          disabled={isDisabled}
+                          disabled
                           {...field}
                         />
                       </FormControl>
@@ -336,37 +306,7 @@ export default function Profile() {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="active"
-                // eslint-disable-next-line no-unused-vars
-                render={({ field }) => (
-                  <FormItem className="">
-                    <FormLabel className="text-slate-500">Status</FormLabel>
-                    <div className="inline-block w-full">
-                      <Select
-                        name="active"
-                        onValueChange={form.onChange}
-                        value={field.value}
-                        disabled={isDisabled}
-                      >
-                        <FormControl>
-                          <>
-                            <SelectTrigger className="">
-                              <SelectValue placeholder="Select a role to display" />
-                            </SelectTrigger>
-                            <SelectContent name="active">
-                              <SelectItem value={false}>Active</SelectItem>
-                              <SelectItem value={true}>Inactive</SelectItem>
-                            </SelectContent>
-                          </>
-                        </FormControl>
-                      </Select>
-                      <FormMessage />
-                    </div>
-                  </FormItem>
-                )}
-              />
+
               <div className={`flex justify-between ${isDisplayed}`}>
                 <Button
                   className="p-4 flex items-center gap-2"
@@ -414,10 +354,6 @@ export default function Profile() {
 </div> */}
     </div>
   ) : (
-    <div>
-
-    </div>
-  )
+    <div></div>
+  );
 }
-
-

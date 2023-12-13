@@ -3,6 +3,7 @@ import RequireCustomerAuth from "../components/AuthCustomer/RequireCustomerAuth"
 import MainLayout from "../layouts/MainLayout";
 // import BookingPage from "../pages/BookingPage";
 import RequireOwnListing from "../components/RequireOwnListing";
+import PaymentSuccess from "../components/payment/success";
 import AddListing from "../pages/AddListing";
 import CustomerProfile from "../pages/CustomerProfile";
 import { default as FilterPage } from "../pages/FilterPage";
@@ -11,7 +12,6 @@ import ListingPage from "../pages/ListingPage";
 import ProfileDetails from "../pages/ProfileDetails";
 import UpdateProducts from "../pages/UpdateProducts";
 import OrderPage from "../pages/orderFront";
-import PaymentSuccess from "../components/payment/success";
 const DashboardRoutes = () => {
   const location = useLocation();
   const id = location.pathname.split("/").pop();
@@ -29,7 +29,6 @@ const DashboardRoutes = () => {
           <Route path="/profile" element={<ProfileDetails />} />
           <Route path="/completion" element={<PaymentSuccess />} />
           <Route element={<RequireOwnListing listing_id={id} />}>
-
             <Route
               path="/hosting/listing/update/:id"
               element={
