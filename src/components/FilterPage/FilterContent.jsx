@@ -18,6 +18,7 @@ const FilterContent = () => {
   const [priceTo, setPriceTo] = useState("");
   const [numOfGuests, setNumOfGuests] = useState(1);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [tempSelectedCategories, setTempSelectedCategories] = useState([]);
   const [filteredListings, setFilteredListings] = useState([]);
 
   const handleInputChange = (event) => {
@@ -26,60 +27,68 @@ const FilterContent = () => {
     if (name === "priceFrom") {
       setPriceFrom(value);
     } else if (name === "priceTo") {
-      if (value === "" || parseFloat(value) > parseFloat(priceFrom)) {
-        setPriceTo(value);
-      } else {
-        setPriceTo(priceFrom);
-      }
+      setPriceTo(value);
     } else if (name === "numOfGuests") {
       setNumOfGuests(parseInt(value, 10));
     }
   };
+
   const handleCategoryClick = (categoryName) => {
-    setSelectedCategories((prev) => {
+    setTempSelectedCategories((prev) => {
       if (prev.includes(categoryName)) {
         return prev.filter((category) => category !== categoryName);
       } else {
         return [...prev, categoryName];
       }
     });
+    
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const filtered = activeListings.filter((listing) => {
-      const matchesCategory =
-        selectedCategories.length === 0 ||
-        selectedCategories.includes(listing.category_id.category_name);
-      const matchesNumOfGuests = listing.max_guests >= numOfGuests;
-      const matchesPrice =
-        (priceFrom === "" ||
-          parseFloat(listing.price) >= parseFloat(priceFrom)) &&
-        (priceTo === "" || parseFloat(listing.price) <= parseFloat(priceTo));
 
-      return matchesCategory && matchesPrice && matchesNumOfGuests;
-    });
+    setSelectedCategories(tempSelectedCategories);
 
-    setFilteredListings(filtered);
+    const filterListings = (listings) => {
+      return listings.filter((listing) => {
+        const matchesCategory =
+        tempSelectedCategories.length === 0 ||
+        tempSelectedCategories.includes(listing.category_id.category_name);
+    
+        const matchesNumOfGuests = listing.max_guests >= numOfGuests;
+    
+        const matchesPrice =
+          (priceFrom === "" || parseFloat(listing.price) >= parseFloat(priceFrom)) &&
+          (priceTo === "" || parseFloat(listing.price) <= parseFloat(priceTo));
+    
+        return matchesCategory && matchesPrice && matchesNumOfGuests;
+      });
+    };
+
+    setFilteredListings(filterListings(activeListings));
   };
-
+  
   const handleReset = () => {
     setPriceFrom("");
     setPriceTo("");
     setNumOfGuests(1);
     setSelectedCategories([]);
   };
-
+  
   useEffect(() => {
-    // setTimeout(() => {
-    //   setIsLoading(false);
-    // }, 1250);
-    dispatch(getAllCategories());
-    dispatch(ListListings());
-  }, [dispatch]);
+      dispatch(getAllCategories());
+      dispatch(ListListings());
+    }, [dispatch]);
+    
+    useEffect(() => {
+      setFilteredListings(activeListings);
+    }, []);
 
-  useEffect(() => {
-    setFilteredListings(activeListings);
-  }, []);
+    console.log('priceTo:', priceTo);
+    console.log('priceFrom:', priceFrom);
+    console.log('selectedCategories:', selectedCategories);
+    console.log('filteredListings:', filteredListings);
+    console.log('numOfGuests:', numOfGuests);
 
   // const filterValues = { priceFrom, priceTo, selectedCategories, numOfGuests };
   // console.log(filterValues);
@@ -128,7 +137,7 @@ const FilterContent = () => {
                   <button
                     type="button"
                     className={`rounded-lg text-sm p-2.5 shadow-sm cursor-pointer transition-all flex items-center justify-center gap-2 ${
-                      selectedCategories.includes(category.category_name)
+                      tempSelectedCategories.includes(category.category_name)
                         ? "border-2 border-primary/70 bg-primary/70 text-white"
                         : "border-2 border-white hover:border-primary/20 hover:bg-gray-500/5"
                     }`}
@@ -185,7 +194,7 @@ const FilterContent = () => {
           <h1 className="text-2xl font-semibold">
             {isLoading ? (
               <Skeleton className="w-32 h-8" />
-            ) : filteredListings.length === 0 ? (
+            ) : (filteredListings.length === 0 && selectedCategories.length > 0) ? (
               "No results found"
             ) : (
               `${
@@ -208,7 +217,9 @@ const FilterContent = () => {
               <ListingSkeleton />
             </>
           ) : (
-            (selectedCategories.length === 0
+            <>
+            {console.log('filtered result:' , filteredListings)}
+            {(selectedCategories.length === 0
               ? activeListings
               : filteredListings
             ).map((listing, index) => (
@@ -269,7 +280,8 @@ const FilterContent = () => {
                   <span className="font-light text-xs"> /night</span>
                 </h1>
               </Link>
-            ))
+            ))}
+            </>
           )}
         </main>
       </section>
