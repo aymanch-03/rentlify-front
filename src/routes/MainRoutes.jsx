@@ -11,6 +11,7 @@ import ListingPage from "../pages/ListingPage";
 import ProfileDetails from "../pages/ProfileDetails";
 import UpdateProducts from "../pages/UpdateProducts";
 import OrderPage from "../pages/orderFront";
+import PaymentSuccess from "../components/payment/success";
 const DashboardRoutes = () => {
   const location = useLocation();
   const id = location.pathname.split("/").pop();
@@ -26,7 +27,9 @@ const DashboardRoutes = () => {
           <Route path="/order/:id" element={<OrderPage />} />
           <Route path="/hosting" element={<CustomerProfile />} />
           <Route path="/profile" element={<ProfileDetails />} />
+          <Route path="/completion" element={<PaymentSuccess />} />
           <Route element={<RequireOwnListing listing_id={id} />}>
+
             <Route
               path="/hosting/listing/update/:id"
               element={
