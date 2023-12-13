@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { getAllCategories } from "../../redux/reducers/categorySlice";
 import { ListListings } from "../../redux/reducers/listingSlice";
 import ListingSkeleton from "../ui/listingSkeleton";
@@ -14,14 +14,25 @@ const FilterContent = () => {
   const isLoading = useSelector((state) => state.listings.isLoading);
   const activeListings = listings.filter((product) => product.active === true);
 
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const city = queryParams.get("city");
+  const checkInDate = queryParams.get("checkInDate");
+  const checkOutDate = queryParams.get("checkOutDate");
+  const guests = queryParams.get("guests");
+
+
+
   const [priceFrom, setPriceFrom] = useState("");
   const [priceTo, setPriceTo] = useState("");
-  const [numOfGuests, setNumOfGuests] = useState(1);
+  const [numOfGuests, setNumOfGuests] = useState(Number(guests));
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [filteredListings, setFilteredListings] = useState([]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+
+
 
     if (name === "priceFrom") {
       setPriceFrom(value);
@@ -44,6 +55,7 @@ const FilterContent = () => {
       }
     });
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const filtered = activeListings.filter((listing) => {
@@ -127,11 +139,10 @@ const FilterContent = () => {
                 {categories.map((category, index) => (
                   <button
                     type="button"
-                    className={`rounded-lg text-sm p-2.5 shadow-sm cursor-pointer transition-all flex items-center justify-center gap-2 ${
-                      selectedCategories.includes(category.category_name)
+                    className={`rounded-lg text-sm p-2.5 shadow-sm cursor-pointer transition-all flex items-center justify-center gap-2 ${selectedCategories.includes(category.category_name)
                         ? "border-2 border-primary/70 bg-primary/70 text-white"
                         : "border-2 border-white hover:border-primary/20 hover:bg-gray-500/5"
-                    }`}
+                      }`}
                     onClick={() => handleCategoryClick(category.category_name)}
                     key={index}
                   >
@@ -188,10 +199,9 @@ const FilterContent = () => {
             ) : filteredListings.length === 0 ? (
               "No results found"
             ) : (
-              `${
-                selectedCategories.length === 0
-                  ? "All"
-                  : filteredListings.length
+              `${selectedCategories.length === 0
+                ? "All"
+                : filteredListings.length
               } Results`
             )}{" "}
           </h1>

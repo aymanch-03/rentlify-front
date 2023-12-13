@@ -22,8 +22,8 @@ const DashboardRoutes = () => {
         <Route path="/" element={<LandingPage />} />
         <Route element={<RequireCustomerAuth />}>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/discover/listings/:id" element={<ListingPage />} />
           <Route path="/discover/listings" element={<FilterPage />} />
+          <Route path="/discover/listings/:id" element={<ListingPage />} />
           <Route path="/order/:id" element={<OrderPage />} />
           <Route path="/hosting" element={<CustomerProfile />} />
           <Route path="/profile" element={<ProfileDetails />} />

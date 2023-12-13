@@ -28,7 +28,7 @@ const HeroSection = () => {
   return (
     <div className="">
       <CallToAction />
-      {/* <SearchBooking /> */}
+      <SearchBooking />
       <Companies />
     </div>
   );
