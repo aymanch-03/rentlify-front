@@ -17,7 +17,7 @@ const generalLinks = [
     path: "/office/customers",
   },
   {
-    link: "Order Management",
+    link: "Reservations",
     icon: "solar:bill-list-line-duotone",
     path: "/office/orders",
   },

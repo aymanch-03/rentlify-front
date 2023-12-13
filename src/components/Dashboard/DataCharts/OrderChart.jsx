@@ -84,7 +84,7 @@ const OrderChart = ({ dbData, totalOrders, dates, percentage, isLoading }) => {
       <div className="col-span-1 flex flex-col justify-between whitespace-nowrap">
         <div>
           <p className="text-sm font-medium leading-6 text-gray-500">
-            Total Orders
+            Total Reservations
           </p>
           <p className="text-xs font-normal leading-6 text-gray-400">
             Last 7 days

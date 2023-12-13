@@ -39,13 +39,19 @@ export default function Dashboard() {
   const stats = [
     {
       name: "Total Revenue",
-      value: `${totalRevenue} MAD`,
+      value: `${new Intl.NumberFormat("de-DE", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(totalRevenue)} MAD`,
       change: "solar:arrow-up-linear",
       changeType: "positive",
     },
     {
       name: "Total Profit",
-      value: `${totalProfit.toFixed(0)} MAD`,
+      value: `${new Intl.NumberFormat("de-DE", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(totalProfit)} MAD`,
       change: "solar:arrow-up-linear",
       changeType: "positive",
     },

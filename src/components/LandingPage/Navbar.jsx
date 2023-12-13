@@ -183,7 +183,7 @@ export default function Navbar() {
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">
-                        {customer.first_name}
+                        {customer.first_name} {customer.last_name}
                       </p>
                       <p className="text-xs leading-none text-muted-foreground">
                         {customer.email}
@@ -206,7 +206,10 @@ export default function Navbar() {
                       className="flex items-center justify-between w-full"
                     >
                       <span className="font-semibold">Reservations</span>
-                      <Icon icon="tabler:switch-3" className="w-4 h-4" />
+                      <Icon
+                        icon="solar:checklist-bold-duotone"
+                        className="w-4 h-4"
+                      />
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem className="cursor-pointer flex items-center justify-between">

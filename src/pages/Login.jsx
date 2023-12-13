@@ -19,7 +19,7 @@ const AuthenticationPage = () => {
             <UserAuthForm />
           </div>
         </div>
-        <div className="relative hidden h-screen flex-col bg-white bg-[url('https://preline.co/assets/svg/component/hero-gradient.svg')]  text-white dark:border-r lg:flex">
+        <div className="relative hidden h-screen bg-white bg-[url('https://preline.co/assets/svg/component/hero-gradient.svg')]  text-white dark:border-r lg:flex">
           {/* <div className="absolute inset-0 bg-zinc-900" /> */}
           {/* <div className="relative z-20 flex items-center text-lg uppercase font-medium text-right">
             <img src={Logo} className="mr-4" />
@@ -28,13 +28,8 @@ const AuthenticationPage = () => {
           <div className="relative z-20 mt-auto text-sm text-white/40 text-right">
             Rentlify - 2023
           </div> */}
-          <div className="absolute left-0 bg-gradient-to-r from-white to-transparent w-40 z-20 h-full"></div>
-          <div
-            className="overflow-hidden h-full w-full"
-            style={{ perspective: "700px" }}
-          >
-            <LoginAnimation />
-          </div>
+
+          <LoginAnimation />
         </div>
       </div>
     </>
