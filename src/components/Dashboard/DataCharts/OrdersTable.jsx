@@ -30,7 +30,7 @@ const OrdersTable = ({ orders }) => {
         <thead className="text-xs text-gray-700 uppercase border-b border-gray-900/10">
           <tr className="">
             <th scope="col" className="font-semibold px-6 py-3">
-              Order ID
+              Reservation ID
             </th>
             <th scope="col" className="font-semibold px-6 py-3">
               Customer
@@ -65,9 +65,13 @@ const OrdersTable = ({ orders }) => {
                   {/* <Badge variant={"outline"}>{order.status}</Badge> */}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <p className={"font-medium"}>
-                    {`${order.order_item.total_with_fees},00 MAD`}
-                  </p>
+                  <p className="font-medium text-black/90">{`${new Intl.NumberFormat(
+                    "de-DE",
+                    {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    }
+                  ).format(order.order_item.total_with_fees)} MAD`}</p>
                 </td>
               </tr>
             );

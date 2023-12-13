@@ -56,7 +56,7 @@ export default function Dashboard() {
       changeType: "negative",
     },
     {
-      name: "Total Orders",
+      name: "Total Reservations",
       value: orders.length,
       change: "solar:arrow-up-linear",
       changeType: "positive",

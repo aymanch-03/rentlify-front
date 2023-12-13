@@ -24,7 +24,7 @@ const RecentOrders = () => {
           <div className="flex flex-col justify-between whitespace-nowrap">
             <div className="flex items-center justify-between">
               <p className="text-sm font-medium leading-6 text-gray-500">
-                Recent Orders
+                Recent Reservations
               </p>
               <Link
                 to="orders"

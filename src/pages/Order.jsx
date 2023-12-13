@@ -16,11 +16,11 @@ const OrderPage = () => {
   };
   const columns = getColumns({
     keyOne: "_id",
-    keyOneTitle: "Order ID",
+    keyOneTitle: "Reservation ID",
     keyTwo: "customer_id",
     keyTwoTitle: "Customer email",
     keyThree: "status",
-    keyThreeTitle: "Ordrer Status",
+    keyThreeTitle: "Reservation Status",
     keyFour: "createdAt",
     keyFourTitle: "Created At",
     keyFive: "order_item",
@@ -39,10 +39,10 @@ const OrderPage = () => {
         <div className="flex items-center justify-between space-y-2">
           <div>
             <h2 className="text-2xl font-semibold tracking-tight">
-              Orders Management
+              Reservations Management
             </h2>
             <p className="text-muted-foreground">
-              {"Here's"} a list of your orders!
+              {"Here's"} a list of all reservations!
             </p>
           </div>
         </div>
