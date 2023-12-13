@@ -21,33 +21,27 @@ const FilterContent = () => {
   const checkOutDate = queryParams.get("checkOutDate");
   const guests = queryParams.get("guests");
 
-
-
   const [priceFrom, setPriceFrom] = useState("");
   const [priceTo, setPriceTo] = useState("");
   const [numOfGuests, setNumOfGuests] = useState(Number(guests));
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [tempSelectedCategories, setTempSelectedCategories] = useState([]);
   const [filteredListings, setFilteredListings] = useState([]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
-
-
     if (name === "priceFrom") {
       setPriceFrom(value);
     } else if (name === "priceTo") {
-      if (value === "" || parseFloat(value) > parseFloat(priceFrom)) {
-        setPriceTo(value);
-      } else {
-        setPriceTo(priceFrom);
-      }
+      setPriceTo(value);
     } else if (name === "numOfGuests") {
       setNumOfGuests(parseInt(value, 10));
     }
   };
+
   const handleCategoryClick = (categoryName) => {
-    setSelectedCategories((prev) => {
+    setTempSelectedCategories((prev) => {
       if (prev.includes(categoryName)) {
         return prev.filter((category) => category !== categoryName);
       } else {
@@ -58,20 +52,27 @@ const FilterContent = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const filtered = activeListings.filter((listing) => {
-      const matchesCategory =
-        selectedCategories.length === 0 ||
-        selectedCategories.includes(listing.category_id.category_name);
-      const matchesNumOfGuests = listing.max_guests >= numOfGuests;
-      const matchesPrice =
-        (priceFrom === "" ||
-          parseFloat(listing.price) >= parseFloat(priceFrom)) &&
-        (priceTo === "" || parseFloat(listing.price) <= parseFloat(priceTo));
 
-      return matchesCategory && matchesPrice && matchesNumOfGuests;
-    });
+    setSelectedCategories(tempSelectedCategories);
 
-    setFilteredListings(filtered);
+    const filterListings = (listings) => {
+      return listings.filter((listing) => {
+        const matchesCategory =
+          tempSelectedCategories.length === 0 ||
+          tempSelectedCategories.includes(listing.category_id.category_name);
+
+        const matchesNumOfGuests = listing.max_guests >= numOfGuests;
+
+        const matchesPrice =
+          (priceFrom === "" ||
+            parseFloat(listing.price) >= parseFloat(priceFrom)) &&
+          (priceTo === "" || parseFloat(listing.price) <= parseFloat(priceTo));
+
+        return matchesCategory && matchesPrice && matchesNumOfGuests;
+      });
+    };
+
+    setFilteredListings(filterListings(activeListings));
   };
 
   const handleReset = () => {
@@ -82,9 +83,6 @@ const FilterContent = () => {
   };
 
   useEffect(() => {
-    // setTimeout(() => {
-    //   setIsLoading(false);
-    // }, 1250);
     dispatch(getAllCategories());
     dispatch(ListListings());
   }, [dispatch]);
@@ -92,6 +90,12 @@ const FilterContent = () => {
   useEffect(() => {
     setFilteredListings(activeListings);
   }, []);
+
+  console.log("priceTo:", priceTo);
+  console.log("priceFrom:", priceFrom);
+  console.log("selectedCategories:", selectedCategories);
+  console.log("filteredListings:", filteredListings);
+  console.log("numOfGuests:", numOfGuests);
 
   // const filterValues = { priceFrom, priceTo, selectedCategories, numOfGuests };
   // console.log(filterValues);
@@ -139,10 +143,11 @@ const FilterContent = () => {
                 {categories.map((category, index) => (
                   <button
                     type="button"
-                    className={`rounded-lg text-sm p-2.5 shadow-sm cursor-pointer transition-all flex items-center justify-center gap-2 ${selectedCategories.includes(category.category_name)
+                    className={`rounded-lg text-sm p-2.5 shadow-sm cursor-pointer transition-all flex items-center justify-center gap-2 ${
+                      tempSelectedCategories.includes(category.category_name)
                         ? "border-2 border-primary/70 bg-primary/70 text-white"
                         : "border-2 border-white hover:border-primary/20 hover:bg-gray-500/5"
-                      }`}
+                    }`}
                     onClick={() => handleCategoryClick(category.category_name)}
                     key={index}
                   >
@@ -196,12 +201,14 @@ const FilterContent = () => {
           <h1 className="text-2xl font-semibold">
             {isLoading ? (
               <Skeleton className="w-32 h-8" />
-            ) : filteredListings.length === 0 ? (
+            ) : filteredListings.length === 0 &&
+              selectedCategories.length > 0 ? (
               "No results found"
             ) : (
-              `${selectedCategories.length === 0
-                ? "All"
-                : filteredListings.length
+              `${
+                selectedCategories.length === 0
+                  ? "All"
+                  : filteredListings.length
               } Results`
             )}{" "}
           </h1>
@@ -218,68 +225,71 @@ const FilterContent = () => {
               <ListingSkeleton />
             </>
           ) : (
-            (selectedCategories.length === 0
-              ? activeListings
-              : filteredListings
-            ).map((listing, index) => (
-              <Link
-                key={index}
-                to={`${listing._id}`}
-                className="flex flex-col rounded-md overflow-hidden space-y-2"
-              >
-                <div className="rounded-xl overflow-hidden sm:h-[280px] h-[300px]">
-                  <img
-                    src={listing.listing_image[0]}
-                    className="object-cover w-full h-full"
-                    alt={listing.listing_name}
-                  />
-                </div>
+            <>
+              {console.log("filtered result:", filteredListings)}
+              {(selectedCategories.length === 0
+                ? activeListings
+                : filteredListings
+              ).map((listing, index) => (
+                <Link
+                  key={index}
+                  to={`${listing._id}`}
+                  className="flex flex-col rounded-md overflow-hidden space-y-2"
+                >
+                  <div className="rounded-xl overflow-hidden sm:h-[280px] h-[300px]">
+                    <img
+                      src={listing.listing_image[0]}
+                      className="object-cover w-full h-full"
+                      alt={listing.listing_name}
+                    />
+                  </div>
 
-                <h1 className="font-light text-sm flex items-center gap-2">
-                  <Icon
-                    icon="solar:map-point-line-duotone"
-                    className="w-4 h-4"
-                  />
-                  <span>
-                    {listing?.province.charAt(0).toUpperCase() +
-                      listing?.province.slice(1)}
-                    ,{" "}
-                    {listing?.city.charAt(0).toUpperCase() +
-                      listing?.city.slice(1)}
-                  </span>
-                </h1>
-                <h1 className="font-light text-sm flex items-center gap-2">
-                  <Icon icon="solar:user-linear" className="w-4 h-4" />
-                  <p>
-                    Hosted by{" "}
-                    <span className="underline capitalize font-medium">
-                      {" "}
-                      {listing.listing_owner.first_name}
-                    </span>{" "}
-                    <span className="underline capitalize font-medium">
-                      {listing.listing_owner.last_name}
+                  <h1 className="font-light text-sm flex items-center gap-2">
+                    <Icon
+                      icon="solar:map-point-line-duotone"
+                      className="w-4 h-4"
+                    />
+                    <span>
+                      {listing?.province.charAt(0).toUpperCase() +
+                        listing?.province.slice(1)}
+                      ,{" "}
+                      {listing?.city.charAt(0).toUpperCase() +
+                        listing?.city.slice(1)}
                     </span>
-                  </p>
-                </h1>
-                <h1 className="font-light text-sm flex items-center gap-2">
-                  <Icon
-                    icon={
-                      listing.max_guests > 2
-                        ? "solar:users-group-two-rounded-line-duotone"
-                        : "solar:users-group-rounded-line-duotone"
-                    }
-                    className="w-4 h-4"
-                  />
+                  </h1>
+                  <h1 className="font-light text-sm flex items-center gap-2">
+                    <Icon icon="solar:user-linear" className="w-4 h-4" />
+                    <p>
+                      Hosted by{" "}
+                      <span className="underline capitalize font-medium">
+                        {" "}
+                        {listing.listing_owner.first_name}
+                      </span>{" "}
+                      <span className="underline capitalize font-medium">
+                        {listing.listing_owner.last_name}
+                      </span>
+                    </p>
+                  </h1>
+                  <h1 className="font-light text-sm flex items-center gap-2">
+                    <Icon
+                      icon={
+                        listing.max_guests > 2
+                          ? "solar:users-group-two-rounded-line-duotone"
+                          : "solar:users-group-rounded-line-duotone"
+                      }
+                      className="w-4 h-4"
+                    />
 
-                  <span>{listing.max_guests} Guests</span>
-                </h1>
+                    <span>{listing.max_guests} Guests</span>
+                  </h1>
 
-                <h1 className="font-medium text-xl">
-                  {listing.price} MAD
-                  <span className="font-light text-xs"> /night</span>
-                </h1>
-              </Link>
-            ))
+                  <h1 className="font-medium text-xl">
+                    {listing.price} MAD
+                    <span className="font-light text-xs"> /night</span>
+                  </h1>
+                </Link>
+              ))}
+            </>
           )}
         </main>
       </section>
