@@ -19,6 +19,7 @@ export const ListUsers = createAsyncThunk("user/getUsers", async () => {
 export const getUser = createAsyncThunk("user/getUser",async (id, { rejectWithValue }) => {
     try {
       userToken = Cookies.get("userToken");
+      console.log(id);
       const response = await axios.get(`http://localhost:5000/v1/users/${id}`, {
         headers: {
           "x-user-token": userToken,
