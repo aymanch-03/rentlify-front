@@ -5,6 +5,18 @@ import axios from "../axios";
 
 let userToken;
 
+export const getOrderById = createAsyncThunk("orders/getOrderById", async (id ) => {
+  userToken = Cookies.get("userToken");
+  const request = await axios.get(`/orders/${id}`, {
+    headers: {
+      "x-user-token": userToken,
+    },
+    withCredentials: true,
+  });
+  const response = await request.data.data;
+  return response;
+});
+
 
 export const listOrders = createAsyncThunk("orders/listOrders", async () => {
   userToken = Cookies.get("userToken");
@@ -17,6 +29,7 @@ export const listOrders = createAsyncThunk("orders/listOrders", async () => {
   const response = await request.data.data;
   return response;
 });
+
 export const listHostOrders = createAsyncThunk(
   "orders/listHostOrders",
   async () => {
@@ -109,7 +122,7 @@ const orderSlice = createSlice({
       .addCase(createNewOrder.pending, (state, action) => {
         state.status = "pending";
         state.isLoading = true;
-        console.log("pending: ",action);
+        console.log("pending: ", action);
 
       })
       .addCase(createNewOrder.fulfilled, (state, action) => {
@@ -126,10 +139,6 @@ const orderSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(updateOrderStatus.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      })
       .addCase(updateOrderStatus.fulfilled, (state, action) => {
         state.isLoading = false;
         state.order = action.payload;
@@ -142,7 +151,25 @@ const orderSlice = createSlice({
         });
         state.hostOrders = updatedOrders;
         state.error = null;
-      });
+      })
+      .addCase(updateOrderStatus.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(getOrderById.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getOrderById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.order = action.payload;
+        state.error = null;
+      })
+      .addCase(getOrderById.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
     // eslint-disable-next-line no-unused-vars
   },
 });

@@ -63,7 +63,7 @@ function getColumns({
           className="font-medium"
           variant={"outline"}
           onMouseOver={
-            option === "users" || option === "customers"
+            option === "users" || option === "customers" || option === "orders"
               ? () => onUserHover(row)
               : undefined
           }
@@ -76,22 +76,22 @@ function getColumns({
     },
     option === "users" || option === "customers" || option === "categories"
       ? {
-          // id: keyFive,
-          accessorKey: keyTwo,
-          header: ({ column }) => (
-            <DataTableColumnHeader column={column} title={keyTwoTitle} />
-          ),
-          cell: ({ row }) => {
-            const cellValue = row.getValue(keyTwo);
-            return (
-              <Badge variant="outline" className="font-medium">
-                {cellValue}
-              </Badge>
-            );
-          },
-        }
+        // id: keyFive,
+        accessorKey: keyTwo,
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title={keyTwoTitle} />
+        ),
+        cell: ({ row }) => {
+          const cellValue = row.getValue(keyTwo);
+          return (
+            <Badge variant="outline" className="font-medium">
+              {cellValue}
+            </Badge>
+          );
+        },
+      }
       : option === "orders"
-      ? {
+        ? {
           accessorKey: keyTwo,
           header: ({ column }) => (
             <DataTableColumnHeader column={column} title={keyTwoTitle} />
@@ -111,44 +111,44 @@ function getColumns({
           enableSorting: false,
           enableHiding: false,
         }
-      : null,
+        : null,
     option === "orders"
       ? {
-          accessorKey: keyThree,
-          header: ({ column }) => (
-            <DataTableColumnHeader column={column} title={keyThreeTitle} />
-          ),
-          cell: ({ row }) => {
-            const status = orderStatuses.find(
-              (status) => status.value === row.getValue(keyThree)
-            );
+        accessorKey: keyThree,
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title={keyThreeTitle} />
+        ),
+        cell: ({ row }) => {
+          const status = orderStatuses.find(
+            (status) => status.value === row.getValue(keyThree)
+          );
 
-            if (!status) {
-              return null;
-            }
+          if (!status) {
+            return null;
+          }
 
-            return (
-              <div className="flex w-[100px] items-center">
-                {status.icon && (
-                  <status.icon className={`mr-2 h-4 w-4 ${status.color}`} />
-                )}
-                <Badge
-                  variant="outline"
-                  className={`font-medium ${status.badgeStyles}`}
-                >
-                  {status.label}
-                </Badge>
-              </div>
-            );
-          },
-          filterFn: (row, id, value) => {
-            return value.includes(row.getValue(id));
-          },
-          enableSorting: false,
-          enableHiding: false,
-        }
+          return (
+            <div className="flex w-[100px] items-center">
+              {status.icon && (
+                <status.icon className={`mr-2 h-4 w-4 ${status.color}`} />
+              )}
+              <Badge
+                variant="outline"
+                className={`font-medium ${status.badgeStyles}`}
+              >
+                {status.label}
+              </Badge>
+            </div>
+          );
+        },
+        filterFn: (row, id, value) => {
+          return value.includes(row.getValue(id));
+        },
+        enableSorting: false,
+        enableHiding: false,
+      }
       : option === "customers"
-      ? {
+        ? {
           accessorKey: keyThree,
           header: ({ column }) => (
             <DataTableColumnHeader column={column} title={keyThreeTitle} />
@@ -174,90 +174,90 @@ function getColumns({
             );
           },
         }
-      : option === "users"
-      ? {
-          accessorKey: keyThree,
-          header: ({ column }) => (
-            <DataTableColumnHeader column={column} title={keyThreeTitle} />
-          ),
-          cell: ({ row }) => {
-            const label = userLabels.find(
-              (label) => label.value === row.original.role
-            );
-            return (
-              <div className="flex space-x-2">
-                {label && (
-                  <Badge
-                    variant="outline"
-                    className={`font-medium ${label.badgeStyles}`}
-                  >
-                    {label.label}
-                  </Badge>
-                )}
-                {/* <span className="max-w-[500px] truncate font-medium">
+        : option === "users"
+          ? {
+            accessorKey: keyThree,
+            header: ({ column }) => (
+              <DataTableColumnHeader column={column} title={keyThreeTitle} />
+            ),
+            cell: ({ row }) => {
+              const label = userLabels.find(
+                (label) => label.value === row.original.role
+              );
+              return (
+                <div className="flex space-x-2">
+                  {label && (
+                    <Badge
+                      variant="outline"
+                      className={`font-medium ${label.badgeStyles}`}
+                    >
+                      {label.label}
+                    </Badge>
+                  )}
+                  {/* <span className="max-w-[500px] truncate font-medium">
                   {row.getValue(keyThree)}
                 </span> */}
-              </div>
-            );
-          },
-          filterFn: (row, id, value) => {
-            return value.includes(row.getValue(id));
-          },
-          enableSorting: true,
-          enableHiding: true,
-        }
-      : option === "categories"
-      ? {
-          accessorKey: keyThree,
-          header: ({ column }) => (
-            <DataTableColumnHeader column={column} title={keyThreeTitle} />
-          ),
-          cell: ({ row }) => {
-            const status = customerStatuses.find(
-              (status) => status.value === row.getValue(keyThree)
-            );
+                </div>
+              );
+            },
+            filterFn: (row, id, value) => {
+              return value.includes(row.getValue(id));
+            },
+            enableSorting: true,
+            enableHiding: true,
+          }
+          : option === "categories"
+            ? {
+              accessorKey: keyThree,
+              header: ({ column }) => (
+                <DataTableColumnHeader column={column} title={keyThreeTitle} />
+              ),
+              cell: ({ row }) => {
+                const status = customerStatuses.find(
+                  (status) => status.value === row.getValue(keyThree)
+                );
 
-            if (!status) {
-              return null;
+                if (!status) {
+                  return null;
+                }
+
+                return (
+                  <div className="flex w-[100px] items-center">
+                    {status.icon && (
+                      <status.icon className={`mr-2 h-4 w-4 ${status.color}`} />
+                    )}
+                    <Badge
+                      variant="outline"
+                      className={`font-medium ${status.badgeColor}`}
+                    >
+                      {status.label}
+                    </Badge>
+                  </div>
+                );
+              },
             }
-
-            return (
-              <div className="flex w-[100px] items-center">
-                {status.icon && (
-                  <status.icon className={`mr-2 h-4 w-4 ${status.color}`} />
-                )}
-                <Badge
-                  variant="outline"
-                  className={`font-medium ${status.badgeColor}`}
-                >
-                  {status.label}
-                </Badge>
-              </div>
-            );
-          },
-        }
-      : null,
+            : null,
     option === "orders"
       ? {
-          accessorKey: keyFour,
-          header: ({ column }) => (
-            <DataTableColumnHeader column={column} title={keyFourTitle} />
-          ),
-          cell: ({ row }) => {
-            const dateValue = row.getValue(keyFour);
-            const formattedValue = new Date(dateValue).toLocaleDateString();
-            return (
-              <Badge variant={"outline"} className={"font-medium"}>
-                {formattedValue}
-              </Badge>
-            );
-          },
-          filterFn: (row, id, value) => {
-            return value.includes(row.getValue(id));
-          },
-        }
+        accessorKey: keyFour,
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title={keyFourTitle} />
+        ),
+        cell: ({ row }) => {
+          const dateValue = row.getValue(keyFour);
+          const formattedValue = new Date(dateValue).toLocaleDateString();
+          return (
+            <Badge variant={"outline"} className={"font-medium"}>
+              {formattedValue}
+            </Badge>
+          );
+        },
+        filterFn: (row, id, value) => {
+          return value.includes(row.getValue(id));
+        },
+      }
       : option === "customers"
-      ? {
+        ? {
           accessorKey: keyFour,
           header: ({ column }) => (
             <DataTableColumnHeader column={column} title={keyFourTitle} />
@@ -289,60 +289,60 @@ function getColumns({
             return value.includes(row.getValue(id));
           },
         }
-      : option === "users"
-      ? {
-          accessorKey: keyFour,
-          header: ({ column }) => (
-            <DataTableColumnHeader column={column} title={keyFourTitle} />
-          ),
-          cell: ({ row }) => {
-            const status = customerStatuses.find(
-              (status) => status.value === row.getValue(keyFour)
-            );
+        : option === "users"
+          ? {
+            accessorKey: keyFour,
+            header: ({ column }) => (
+              <DataTableColumnHeader column={column} title={keyFourTitle} />
+            ),
+            cell: ({ row }) => {
+              const status = customerStatuses.find(
+                (status) => status.value === row.getValue(keyFour)
+              );
 
-            if (!status) {
-              return null;
+              if (!status) {
+                return null;
+              }
+
+              return (
+                <div className="flex w-[100px] items-center">
+                  {status.icon && (
+                    <status.icon className={`mr-2 h-4 w-4 ${status.color}`} />
+                  )}
+                  <Badge
+                    variant="outline"
+                    className={`font-medium ${status.badgeColor}`}
+                  >
+                    {status.label}
+                  </Badge>
+                </div>
+              );
+            },
+            enableSorting: true,
+            enableHiding: true,
+            filterFn: (row, id, value) => {
+              return value.includes(row.getValue(id));
+            },
+          }
+          : option === "categories"
+            ? {
+              accessorKey: keyFour,
+              header: ({ column }) => (
+                <DataTableColumnHeader column={column} title={keyFourTitle} />
+              ),
+              cell: ({ row }) => {
+                const dateValue = row.getValue(keyFour);
+                const formattedValue = new Date(dateValue).toLocaleDateString();
+                return (
+                  <Badge variant={"outline"} className={"font-medium"}>
+                    {formattedValue}
+                  </Badge>
+                );
+              },
+              enableSorting: true,
+              enableHiding: true,
             }
-
-            return (
-              <div className="flex w-[100px] items-center">
-                {status.icon && (
-                  <status.icon className={`mr-2 h-4 w-4 ${status.color}`} />
-                )}
-                <Badge
-                  variant="outline"
-                  className={`font-medium ${status.badgeColor}`}
-                >
-                  {status.label}
-                </Badge>
-              </div>
-            );
-          },
-          enableSorting: true,
-          enableHiding: true,
-          filterFn: (row, id, value) => {
-            return value.includes(row.getValue(id));
-          },
-        }
-      : option === "categories"
-      ? {
-          accessorKey: keyFour,
-          header: ({ column }) => (
-            <DataTableColumnHeader column={column} title={keyFourTitle} />
-          ),
-          cell: ({ row }) => {
-            const dateValue = row.getValue(keyFour);
-            const formattedValue = new Date(dateValue).toLocaleDateString();
-            return (
-              <Badge variant={"outline"} className={"font-medium"}>
-                {formattedValue}
-              </Badge>
-            );
-          },
-          enableSorting: true,
-          enableHiding: true,
-        }
-      : null,
+            : null,
     {
       accessorKey: keyFive,
       header: ({ column }) => (
