@@ -14,6 +14,7 @@ import Profile from "../pages/Profile";
 import UpdateProducts from "../pages/UpdateProducts";
 import Users from "../pages/Users";
 import Subcategories from "../pages/subcategories";
+import OrderDetails from "../components/order/orderDetails";
 
 const DashboardRoutes = () => {
   return (
@@ -26,6 +27,7 @@ const DashboardRoutes = () => {
           <Route path="users" element={<Users />} />
           <Route path="users/:id" element={<UserProfile />} />
           <Route path="orders" element={<OrderPage />} />
+          <Route path="orders/:id" element={<OrderDetails />} />
           <Route path="categories" element={<CategoriesPage />} />
           <Route path="profile" element={<Profile />} />
           <Route path="/subcategories" element={<Subcategories />} />

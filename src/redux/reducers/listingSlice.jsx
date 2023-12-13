@@ -16,19 +16,16 @@ export const ListListings = createAsyncThunk(
     return response.data;
   }
 );
-export const GetListing = createAsyncThunk(
-  "Listing/GetListing",
-  async (id, { rejectWithValue }) => {
+export const GetListing = createAsyncThunk("Listing/GetListing",async (id, { rejectWithValue }) => {
     try {
       const response = await axios.get(`/listings/${id}`);
-      // console.log("aaaa", response);
+      console.log("aaaa", response);
       return response.data;
     } catch (error) {
       rejectWithValue(error.response.data);
     }
   }
 );
-
 export const UpdateListing = createAsyncThunk(
   "listing/updateListing",
   async ({ id, listing }, { rejectWithValue }) => {
@@ -64,7 +61,6 @@ export const AddListing = createAsyncThunk(
     }
   }
 );
-
 export const DeleteListing = createAsyncThunk(
   "listing/deleteListing",
   async (id, { rejectWithValue }) => {
@@ -132,7 +128,6 @@ const listingsSlice = createSlice({
         state.status = "pending";
         state.isLoading = true;
       })
-
       .addCase(UpdateListing.fulfilled, (state, action) => {
         const updatedListings = state.data.map((listing) => {
           if (listing._id === action.payload._id) {
