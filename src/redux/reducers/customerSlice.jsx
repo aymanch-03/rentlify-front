@@ -54,6 +54,7 @@ export const getCustomer = createAsyncThunk(
           "x-user-token": userToken,
         },
       });
+      console.log();
       return response.data.data;
     } catch (error) {
       rejectWithValue(error.response.data);
@@ -146,7 +147,6 @@ const customerSlice = createSlice({
       })
       .addCase(getCustomer.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action.payload);
         state.customer = action.payload;
         state.error = null;
       })

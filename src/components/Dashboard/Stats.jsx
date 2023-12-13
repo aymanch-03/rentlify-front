@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 
+import { Icon } from "@iconify/react";
 import StatsSkeleton from "../ui/statsSkeleton";
 
 const Stats = ({ classNames, stats }) => {
@@ -32,10 +33,10 @@ const Stats = ({ classNames, stats }) => {
                       stat.changeType === "negative"
                         ? "text-rose-600"
                         : "text-green-500",
-                      "text-xs font-medium"
+                      "font-medium flex items-center justify-center"
                     )}
                   >
-                    {stat.change}
+                    <Icon icon={stat.change} />
                   </dd>
                   <dd className="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
                     {stat.value}

@@ -40,26 +40,26 @@ export default function Dashboard() {
     {
       name: "Total Revenue",
       value: `${totalRevenue} MAD`,
-      change: "+4.75%",
+      change: "solar:arrow-up-linear",
       changeType: "positive",
     },
     {
       name: "Total Profit",
       value: `${totalProfit.toFixed(0)} MAD`,
-      change: "+2.02%",
+      change: "solar:arrow-up-linear",
       changeType: "positive",
     },
     {
       name: "Total Customers",
       value: customers.length,
-      change: "+1.39%",
-      changeType: "positive",
+      change: "solar:arrow-down-linear",
+      changeType: "negative",
     },
     {
       name: "Total Orders",
       value: orders.length,
-      change: "-10.18%",
-      changeType: "negative",
+      change: "solar:arrow-up-linear",
+      changeType: "positive",
     },
   ];
   return (

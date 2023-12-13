@@ -17,7 +17,7 @@ import {
 
 const RequestItem = ({ order, listing, acceptRequest, declineRequest }) => {
   const status = orderStatuses.find((status) => status.label === order.status);
-  console.log(order.status);
+
   const formatDate = (dateString) => moment(dateString).format("MMM Do");
 
   const { date_from, date_to } = order.order_item;

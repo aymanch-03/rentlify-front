@@ -16,10 +16,12 @@ export const ListListings = createAsyncThunk(
     return response.data;
   }
 );
-export const GetListing = createAsyncThunk("Listing/GetListing",async (id, { rejectWithValue }) => {
+export const GetListing = createAsyncThunk(
+  "Listing/GetListing",
+  async (id, { rejectWithValue }) => {
     try {
       const response = await axios.get(`/listings/${id}`);
-      console.log("aaaa", response);
+
       return response.data;
     } catch (error) {
       rejectWithValue(error.response.data);
@@ -37,7 +39,7 @@ export const UpdateListing = createAsyncThunk(
           "x-client-token": clientToken,
         },
       });
-      console.log('response zaa',response.data.data);
+      console.log("response zaa", response.data.data);
       return response.data.data;
     } catch (error) {
       rejectWithValue(error.response.data);

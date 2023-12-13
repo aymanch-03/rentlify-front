@@ -200,6 +200,15 @@ export default function Navbar() {
                       <Icon icon="tabler:switch-3" className="w-4 h-4" />
                     </Link>
                   </DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer ">
+                    <Link
+                      to="/profile"
+                      className="flex items-center justify-between w-full"
+                    >
+                      <span className="font-semibold">Reservations</span>
+                      <Icon icon="tabler:switch-3" className="w-4 h-4" />
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem className="cursor-pointer flex items-center justify-between">
                     <Link
                       to="/profile"
