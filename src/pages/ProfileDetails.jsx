@@ -80,7 +80,7 @@ const ReservationItem = ({ order, listing }) => {
     }
   };
   return (
-    <div className="grid grid-cols-8 place-items-center overflow-hidden text-sm p-2 rounded-md">
+    <div className="grid grid-cols-7 place-items-center overflow-hidden text-sm p-2 rounded-md">
       <div className="col-span-3 flex justify-start w-full items-stretch gap-5 h-full group">
         <img
           src={listing?.listing_image[0]}
@@ -96,7 +96,7 @@ const ReservationItem = ({ order, listing }) => {
           </p>
         </div>
       </div>
-      <div>HI</div>
+
       <div>
         <div className="flex w-[100px] items-center">
           {status.icon && (
@@ -125,7 +125,7 @@ const ReservationItem = ({ order, listing }) => {
         <p className="font-medium">
           {" "}
           {new Intl.NumberFormat("de-DE").format(
-            order.order_item.total_price
+            order.order_item.total_with_fees
           )}{" "}
           MAD{" "}
         </p>

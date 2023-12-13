@@ -4,7 +4,7 @@ import navLogo from "../../assets/Logo/singLogoBlack.png";
 import { Separator } from "../ui/separator";
 const Footer = () => {
   return (
-    <footer className="border-t bg-gray-300/5 border-black/5 mt-12">
+    <footer className="border-t bg-gray-300/5 border-black/5">
       <main className="mx-auto place-items-start grid max-w-7xl gap-5 items-center grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 justify-between p-6 lg:px-8">
         <div className="flex flex-col gap-3.5 self-start col-span-2 sm:col-span-3 lg:col-span-2">
           <Link to="/" className="-m-1.5 p-1.5 flex items-center gap-2">
@@ -20,19 +20,28 @@ const Footer = () => {
         <div className="flex flex-col gap-3.5">
           <h1 className="text-sm font-semibold">Discover</h1>
           <ul className="flex flex-col gap-3">
-            <Link to="/" className="text-sm group text-black/80 font-light">
+            <Link
+              to="/discover/listings"
+              className="text-sm group text-black/80 font-light"
+            >
               Trends
               <span className="text-primary -ml-2 opacity-0 group-hover:ml-1 group-hover:opacity-100 transition-all">
                 &rarr;
               </span>
             </Link>
-            <Link to="/" className="text-sm group text-black/80 font-light">
+            <Link
+              to="/hosting"
+              className="text-sm group text-black/80 font-light"
+            >
               Host Mode
               <span className="text-primary -ml-2 opacity-0 group-hover:ml-1 group-hover:opacity-100 transition-all">
                 &rarr;
               </span>
             </Link>
-            <Link to="/" className="text-sm group text-black/80 font-light">
+            <Link
+              to="/discover/listings"
+              className="text-sm group text-black/80 font-light"
+            >
               Latest
               <span className="text-primary -ml-2 opacity-0 group-hover:ml-1 group-hover:opacity-100 transition-all">
                 &rarr;
