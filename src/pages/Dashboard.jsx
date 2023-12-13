@@ -65,7 +65,11 @@ export default function Dashboard() {
   return (
     <>
       <Stats stats={stats} classNames={classNames} />
-      <ExpandedStats orders={orders} totalProfit={totalProfit.toFixed(0)} />
+      <ExpandedStats
+        orders={orders}
+        customers={customers}
+        totalProfit={totalProfit.toFixed(0)}
+      />
     </>
   );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-prototype-builtins */
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +11,7 @@ import CustomersAndOrders from "./DataCharts/CustomersAndOrders";
 import OrderChart from "./DataCharts/OrderChart";
 import RecentOrders from "./RecentOrders";
 
-const ExpandedStats = ({ orders, totalProfit }) => {
+const ExpandedStats = ({ orders, customers, totalProfit }) => {
   const dispatch = useDispatch();
 
   const isLoading = useSelector((state) => state.orders.loading);
@@ -75,7 +76,11 @@ const ExpandedStats = ({ orders, totalProfit }) => {
       <div className="border-b border-gray-900/10 relative">
         <section className="mx-auto grid max-w-7xl grid-cols-1 md:grid-cols-3 lg:px-2 xl:px-0  isolate">
           <RecentOrders />
-          {isLoading ? <CustAndOrderSkeleton /> : <CustomersAndOrders />}
+          {isLoading ? (
+            <CustAndOrderSkeleton />
+          ) : (
+            <CustomersAndOrders orders={orders} customers={customers} />
+          )}
         </section>
       </div>
     </>
