@@ -1,16 +1,30 @@
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { getOrderById } from "../../redux/reducers/orderSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addDays, format } from "date-fns";
 
 export default function PaymentSuccess() {
-    const {id}= useParams();
-    useEffect(()=>{
-        dispatch(getOrder(data));
-    })
-    return (
+    const [isLoading, setIsLoading] = useState(true);
+    const [date, setDate] = useState("");
 
-        <div class="flex flex-col items-center bg-white p-8 text-center h-screen">
+    const order = useSelector((state) => state.orders.order);
+    console.log(order.order_item?.date_from);
+    const dispatch = useDispatch();
+    const { id } = useParams();
+    useEffect(() => {
+        dispatch(getOrderById(id));
+        setTimeout(() => {
+            setIsLoading(false);
+            setDate(format(addDays(new Date(order?.order_item?.date_from), -1), "LLL dd, y"))
+          }, 1000);
+    }, [dispatch])
+    const dateI = order
+    return !isLoading ?(
+
+        <div class="flex flex-col m-20 items-center bg-white p-8 text-center h-screen ">
             <div class="bg-white p-8 rounded-lg shadow-md text-center">
                 <svg class="text-green-300 w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
@@ -19,13 +33,7 @@ export default function PaymentSuccess() {
                 </svg>
                 <h1 class="text-2xl font-semibold text-green-300 mb-2">Booking Confirmed</h1>
                 <p class="text-gray-700 mb-4">Thank you for your booking. Your reservation is confirmed.</p>
-                <div class="mb-4">
-                    <p class="text-gray-600">Booking Details:</p>
-                    -- Add relevant booking details here, such as date, time, and location
-                    <p class="text-gray-800 font-semibold">Date: December 15, 2023</p>
-                    <p class="text-gray-800 font-semibold">Time: 2:00 PM</p>
-                    <p class="text-gray-800 font-semibold">Location: Example Hotel</p>
-                </div>
+                
                 <Button
                     variant="default"
                     className="flex mx-auto mt-10 group items-center py-[20px] justify-center gap-2 rounded-lg "
@@ -42,6 +50,10 @@ export default function PaymentSuccess() {
                     </Link>
                 </Button>
             </div>
+
+        </div>
+    ):(
+        <div className="h-screen w-full">
 
         </div>
     )

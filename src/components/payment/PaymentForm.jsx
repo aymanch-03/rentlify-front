@@ -17,10 +17,6 @@ export default function CheckoutForm({ order }) {
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const orderr = useSelector((state) => state.orders.order);
-
-
-
   useEffect(() => {
     if (!stripe) {
       return;
@@ -60,7 +56,7 @@ export default function CheckoutForm({ order }) {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/${orderr._id}/completion`,
+        return_url: `${window.location.origin}/completion`,
       },
     });
 
@@ -77,13 +73,14 @@ export default function CheckoutForm({ order }) {
     layout: "tabs",
   };
   const submitOrder = (data) => {
+    dispatch(createNewOrder(data));
   };
 
   return (
     <form
       id="payment-form"
       onSubmit={(e) => {
-        handlePaymentSubmit(e);
+        handlePaymentSubmit(e)
         submitOrder(order);
       }}
       className="w-full h-full flex flex-col justify-between gap-4"
