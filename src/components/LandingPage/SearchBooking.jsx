@@ -14,6 +14,7 @@ export default function SearchBooking() {
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
   const [checkInDate, setCheckInDate] = useState();
+  const [city, setCity] = useState('');
   const [checkOutDate, setCheckOutDate] = useState();
   const isAuth = useSelector((state) => state.authCustomer.isAuth);
   function totalGuests() {
@@ -52,7 +53,7 @@ export default function SearchBooking() {
               height={24}
               className="flex-shrink-0 text-primary"
             />
-            <CityPicker />
+            <CityPicker onValueChange={(e)=>setCity(e)}/>
           </div>
         </div>
         <div className="flex flex-col border-t border-r-0 lg:border-r border-gray-900/5 px-4 py-4 sm:px-6 lg:border-t-0 xl:px-8">
@@ -187,7 +188,7 @@ export default function SearchBooking() {
             type="submit"
             className="w-fit self-center justify-self-center mx-auto"
           >
-            <Link to={isAuth ? "discover" : "login"}>Search Listings</Link>
+            <Link to={isAuth ? `/discover/listings/?city=${city}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&guests=${guests}` : "login"}>Search Listings</Link>
           </Button>
         </div>{" "}
       </form>

@@ -6,7 +6,7 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createNewOrder } from "../../redux/reducers/orderSlice";
 
 export default function CheckoutForm({ order }) {
@@ -50,15 +50,13 @@ export default function CheckoutForm({ order }) {
   const handlePaymentSubmit = async (e) => {
     e.preventDefault();
     if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
     setIsLoading(true);
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "http://localhost:5173/profile",
+        return_url: `${window.location.origin}/completion`,
       },
     });
 
@@ -82,7 +80,7 @@ export default function CheckoutForm({ order }) {
     <form
       id="payment-form"
       onSubmit={(e) => {
-        handlePaymentSubmit(e);
+        handlePaymentSubmit(e)
         submitOrder(order);
       }}
       className="w-full h-full flex flex-col justify-between gap-4"
@@ -94,7 +92,6 @@ export default function CheckoutForm({ order }) {
       <Button id="submit" className="w-full">
         Pay now
       </Button>
-      {/* Show any error or success messages */}
     </form>
   );
 }
