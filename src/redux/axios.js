@@ -6,5 +6,5 @@ import axios from "axios";
 const axiosInstance = axios.create({
   baseURL: "https://rentlify.up.railway.app/v1",
 });
-
+axios.defaults.withCredentials = true;
 export default axiosInstance;
