@@ -48,7 +48,7 @@ export default function Navbar() {
   const customer = useSelector((state) => state.authCustomer.customer);
   let fallbackAvatar = "";
   if (customer && isAuth) {
-    const fullName = `${customer.first_name} ${customer.last_name}`;
+    const fullName = `${customer?.first_name} ${customer?.last_name}`;
     const [firstNameInitial, lastNameInitial] = fullName
       .split(" ")
       .map((name) => name.charAt(0).toUpperCase());
@@ -183,10 +183,10 @@ export default function Navbar() {
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">
-                        {customer.first_name} {customer.last_name}
+                        {customer?.first_name} {customer?.last_name}
                       </p>
                       <p className="text-xs leading-none text-muted-foreground">
-                        {customer.email}
+                        {customer?.email}
                       </p>
                     </div>
                   </DropdownMenuLabel>

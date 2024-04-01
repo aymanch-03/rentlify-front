@@ -9,7 +9,7 @@ import { useToast } from "../ui/use-toast";
 const RequireCustomerAuth = () => {
   const [cookies] = useCookies(["clientToken"]);
   const { toast } = useToast();
-  const token = cookies.clientToken;
+  const token = cookies;
   const { error, customer } = useSelector((state) => state.authCustomer);
 
   if (error) {
