@@ -9,7 +9,7 @@ import { useToast } from "./ui/use-toast";
 const RequireAuth = ({ allowedRoles }) => {
   const [cookies] = useCookies(["userToken"]);
   const { toast } = useToast();
-  const token = cookies.userToken;
+  const token = cookies;
 
   const { user, isLoading, error } = useSelector((state) => state.auth);
   if (isLoading) {
