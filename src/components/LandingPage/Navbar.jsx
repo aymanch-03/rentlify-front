@@ -45,7 +45,7 @@ export default function Navbar() {
     window.localStorage.clear("persist:root");
     dispatch(logoutCustomer());
     console.log("Logging out...");
-    redirect("/");
+    window.location.replace("/");
   };
   const customer = useSelector((state) => state.authCustomer.customer);
   let fallbackAvatar = "";
