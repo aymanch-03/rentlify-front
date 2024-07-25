@@ -47,19 +47,19 @@ export default function UpdateCustomerForm({
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      first_name: customer.first_name,
-      last_name: customer.last_name,
-      email: customer.email,
-      active: customer.active,
+      first_name: customer?.first_name,
+      last_name: customer?.last_name,
+      email: customer?.email,
+      active: customer?.active,
     },
   });
 
   useEffect(() => {
     form.reset({
-      first_name: customer.first_name,
-      last_name: customer.last_name,
-      email: customer.email,
-      active: customer.active,
+      first_name: customer?.first_name,
+      last_name: customer?.last_name,
+      email: customer?.email,
+      active: customer?.active,
     });
   }, [form, customer]);
 
@@ -67,20 +67,20 @@ export default function UpdateCustomerForm({
     setIsDisplayed("flex");
     setIsDisabled(false);
 
-    form.setValue("first_name", customer.first_name, { shouldDirty: true });
-    form.setValue("last_name", customer.last_name, { shouldDirty: true });
-    form.setValue("email", customer.email, { shouldDirty: true });
-    form.setValue("active", customer.active, { shouldDirty: true });
+    form.setValue("first_name", customer?.first_name, { shouldDirty: true });
+    form.setValue("last_name", customer?.last_name, { shouldDirty: true });
+    form.setValue("email", customer?.email, { shouldDirty: true });
+    form.setValue("active", customer?.active, { shouldDirty: true });
   };
 
   const cancelEdit = () => {
     setIsDisplayed("invisible");
     setIsDisabled(true);
 
-    form.setValue("first_name", customer.first_name, { shouldDirty: false });
-    form.setValue("last_name", customer.last_name, { shouldDirty: false });
-    form.setValue("email", customer.email, { shouldDirty: false });
-    form.setValue("active", customer.active, { shouldDirty: false });
+    form.setValue("first_name", customer?.first_name, { shouldDirty: false });
+    form.setValue("last_name", customer?.last_name, { shouldDirty: false });
+    form.setValue("email", customer?.email, { shouldDirty: false });
+    form.setValue("active", customer?.active, { shouldDirty: false });
   };
 
   // eslint-disable-next-line no-unused-vars
@@ -135,15 +135,15 @@ export default function UpdateCustomerForm({
                 </h1>
                 <span
                   className={`capitalize flex items-center gap-1 ${
-                    customer.active ? "text-green-500" : "text-red-500"
+                    customer?.active ? "text-green-500" : "text-red-500"
                   }`}
                 >
-                  {customer.active ? (
+                  {customer?.active ? (
                     <Icon icon="solar:check-circle-linear" />
                   ) : (
                     <Icon icon="solar:shield-cross-linear" />
                   )}
-                  {customer.active ? "active" : "inactive"}
+                  {customer?.active ? "active" : "inactive"}
                 </span>
               </div>
               <p className="text-slate-500">
@@ -161,7 +161,7 @@ export default function UpdateCustomerForm({
                 width="25"
                 height="25"
               />
-              {`Joined ${new Date(customer.createdAt).toLocaleDateString(
+              {`Joined ${new Date(customer?.createdAt).toLocaleDateString(
                 "en-US",
                 {
                   month: "short",
@@ -169,7 +169,7 @@ export default function UpdateCustomerForm({
                 }
               )}`}
             </div>
-            {customer.last_login && (
+            {customer?.last_login && (
               <div className="py-5 px-2 flex items-center gap-2">
                 <Icon
                   icon="solar:login-line-duotone"
@@ -177,7 +177,7 @@ export default function UpdateCustomerForm({
                   width="25"
                   height="25"
                 />
-                {`Last login ${timeAgo(customer.last_login)}`}
+                {`Last login ${timeAgo(customer?.last_login)}`}
               </div>
             )}
           </div>
@@ -219,7 +219,7 @@ export default function UpdateCustomerForm({
                       <div className="inline-block w-full">
                         <FormControl>
                           <Input
-                            placeholder={customer.first_name}
+                            placeholder={customer?.first_name}
                             disabled={isDisabled}
                             {...field}
                           />
@@ -241,7 +241,7 @@ export default function UpdateCustomerForm({
                         <FormControl>
                           <Input
                             className=" "
-                            placeholder={customer.last_name}
+                            placeholder={customer?.last_name}
                             disabled={isDisabled}
                             {...field}
                           />
@@ -260,7 +260,7 @@ export default function UpdateCustomerForm({
                     <div className="inline-block w-full">
                       <FormControl>
                         <Input
-                          value={customer.email}
+                          value={customer?.email}
                           className="w-full"
                           disabled
                           type="email"
@@ -282,7 +282,7 @@ export default function UpdateCustomerForm({
                     <div className="inline-block w-full">
                       <Select
                         name="active"
-                        value={customer.active}
+                        value={customer?.active}
                         disabled={isDisabled}
                       >
                         <FormControl>

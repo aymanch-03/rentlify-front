@@ -358,7 +358,6 @@ function getColumns({
             </Badge>
           );
         } else if (option === "orders") {
-          console.log(row.getValue(keyFive)?.total_with_fees);
           return (
             <p className="font-medium">{`${new Intl.NumberFormat("de-DE", {
               minimumFractionDigits: 2,

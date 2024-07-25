@@ -18,7 +18,9 @@ const Header = () => {
   const [cookie, setCookie, removeCookie] = useCookies(["userToken"]);
   const handleLogout = () => {
     removeCookie("userToken", { path: "/" });
+    window.location.reload();
     window.localStorage.clear("persist:root");
+    console.log("logging out");
   };
   const user = useSelector((state) => state.auth.user);
 

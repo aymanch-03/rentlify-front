@@ -4,7 +4,7 @@ import axios from "axios";
 // const clientToken = Cookies.get("clientToken");
 
 const axiosInstance = axios.create({
-  baseURL: "https://rentlify.up.railway.app/v1",
+  baseURL: "https://rentlify-backend.vercel.app/v1/",
   withCredentials: true,
 });
 

@@ -24,8 +24,8 @@ export default function CustomerDetails() {
   }, [dispatch, id]);
 
   const customer = useSelector((state) => state.customers.customer);
-
-  const fullName = `${customer.first_name} ${customer.last_name}`;
+  console.log(customer);
+  const fullName = `${customer?.first_name ?? ""} ${customer?.last_name ?? ""}`;
   const [firstNameInitial, lastNameInitial] = fullName
     .split(" ")
     .map((name) => name.charAt(0).toUpperCase());

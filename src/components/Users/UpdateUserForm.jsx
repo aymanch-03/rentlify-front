@@ -48,23 +48,23 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
-      role: user.role,
-      user_name: user.user_name,
-      active: user.active,
+      first_name: user?.first_name,
+      last_name: user?.last_name,
+      email: user?.email,
+      role: user?.role,
+      user_name: user?.user_name,
+      active: user?.active,
     },
   });
 
   useEffect(() => {
     form.reset({
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
-      role: user.role,
-      user_name: user.user_name,
-      active: user.active,
+      first_name: user?.first_name,
+      last_name: user?.last_name,
+      email: user?.email,
+      role: user?.role,
+      user_name: user?.user_name,
+      active: user?.active,
     });
   }, [form, user]);
 
@@ -72,24 +72,24 @@ export default function UpdateUserForm({ user, fallbackAvatar, isLoading }) {
     setIsDisplayed("flex");
     setIsDisabled(false);
 
-    form.setValue("first_name", user.first_name);
-    form.setValue("last_name", user.last_name);
-    form.setValue("email", user.email);
-    form.setValue("role", user.role);
-    form.setValue("user_name", user.user_name);
-    form.setValue("active", user.active);
+    form.setValue("first_name", user?.first_name);
+    form.setValue("last_name", user?.last_name);
+    form.setValue("email", user?.email);
+    form.setValue("role", user?.role);
+    form.setValue("user_name", user?.user_name);
+    form.setValue("active", user?.active);
   };
 
   const cancelEdit = () => {
     setIsDisplayed("invisible");
     setIsDisabled(true);
 
-    form.setValue("first_name", user.first_name);
-    form.setValue("last_name", user.last_name);
-    form.setValue("email", user.email);
-    form.setValue("role", user.role);
-    form.setValue("user_name", user.user_name);
-    form.setValue("active", user.active);
+    form.setValue("first_name", user?.first_name);
+    form.setValue("last_name", user?.last_name);
+    form.setValue("email", user?.email);
+    form.setValue("role", user?.role);
+    form.setValue("user_name", user?.user_name);
+    form.setValue("active", user?.active);
   };
 
   // eslint-disable-next-line no-unused-vars
