@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react";
 import { Fragment, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import navLogo from "../../assets/Logo/singLogoBlack.png";
 import { logoutCustomer } from "../../redux/reducers/authCustomerSlice";
 import { Avatar, AvatarFallback } from "../ui/avatar";
@@ -44,6 +44,8 @@ export default function Navbar() {
     removeCookie("clientToken", { path: "/" });
     window.localStorage.clear("persist:root");
     dispatch(logoutCustomer());
+    console.log("Logging out...");
+    redirect("/");
   };
   const customer = useSelector((state) => state.authCustomer.customer);
   let fallbackAvatar = "";

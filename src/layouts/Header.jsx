@@ -20,7 +20,7 @@ const Header = () => {
     removeCookie("userToken", { path: "/" });
     window.location.reload();
     window.localStorage.clear("persist:root");
-    console.log("logging out");
+    console.log("Logging out...");
   };
   const user = useSelector((state) => state.auth.user);
 
