@@ -6,10 +6,9 @@ import { useEffect, useState } from "react";
 import CheckoutForm from "./PaymentForm";
 
 const stripePromise = loadStripe(
-  "pk_test_51OLrdrGOKSAHO9ZX4YOcS9JgJXpn7VsXVTl5dQqLHdKSPutVkK7sb3eDxZ1BZiIuMLdngPfUAts3Pir6MABPgJDA00vo4eNgwv"
+  "pk_test_51PhFtiRuN9nUdwa8WCVNmcQuMJxVpwjiRzzKFDssA0syHGfeRrr8W08iflxmkvS6Tf4eHEW1xIdQsHP4QNU34EQU00TVRhKOre"
 );
 export default function StripeContainer({ order }) {
-  console.log(stripePromise);
   const [clientSecret, setClientSecret] = useState("");
   useEffect(() => {
     const fetchClientSecret = async () => {
